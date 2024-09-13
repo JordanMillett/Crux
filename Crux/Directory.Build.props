@@ -1,0 +1,18 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <EmbedCruxAssets>$(MSBuildThisFileDirectory)Assets\**</EmbedCruxAssets>
+    <EmbedGameAssets>$(MSBuildThisFileDirectory)..\Game\Assets\**</EmbedGameAssets>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="$(EmbedCruxAssets)">
+      <LogicalName>Crux\Assets\%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="$(EmbedGameAssets)">
+      <LogicalName>Game\Assets\%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,6 @@
+.cache
+_site
+api
+.obsidian
+devnotes/
+.tmp.driveupload/

@@ -1,0 +1,7 @@
+Texture Process
+- Take seamless texture
+- Cubic scale down to 512x512
+- None scale down to 256x256
+- HSV Noise: Dulling 8, Hue 0, Saturation 1, Value 0.3
+- Saturate: As needed
+- Indexed Color Conversion, Use web-optimized palette, coloring dithering none

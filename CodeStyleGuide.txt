@@ -1,0 +1,90 @@
+// ========== AI Instructions ==========
+// Use this Code Style Guide to rearrange/rename the referenced code.
+// When sorting using this Code Style Guide, include the headers 
+// above each category only if that category contains items.
+// If an item doesn't have a clear category then make sure to mention that.
+// Ensure the functions are sorted into the order shown below
+
+// ========== XML Guide ==========
+/// <summary>
+/// This is what the function does.
+/// </summary>
+/// <param name="parameterOne">The first parameter.</param>
+/// <param name="parameterOne">The second parameter.</param>
+/// <returns>The value that is returned and what data type it is.</returns>
+/// <remarks>Special notes about the function, and other misc or important information</remarks>
+
+/// <summary>
+/// This is what a field represents.
+/// </summary>
+
+/// <summary>
+/// This is what a class generally is.
+/// </summary>
+/// <remarks>What this class does.</remarks>
+
+/// <summary>
+/// This is what the property does.
+/// </summary>
+/// <value>This is what the value represents.</value>
+/// <remarks>Special notes about the property or value.</remarks>
+
+// ========== Variable Order Guide ==========
+// Dictionary, List, HashSet, Queue
+// GameObject, Components, Custom Classes
+// Matrices, Vectors, String
+// Double, Float
+// Long, Int, Bool, Char
+
+// ========== Naming Conventions ==========
+// constant fields          MAX_SCORE       - UppercaseSnakeCase
+// enum values              HIGH_SCORE      - UppercaseSnakeCase
+// events & delegates       ScoreChanged    - PascalCase
+// all methods              GetScore        - PascalCase
+// public fields            MaxScore        - PascalCase
+// all properties           MaxScore        - PascalCase
+// static fields            MaxScore        - PascalCase
+// private fields           maxScore        - camelCase
+// function parameters      maxScore        - camelCase
+// local variables          maxScore        - camelCase
+
+// ========== Nested Types (Classes, Structs, Enums) ==========
+
+// ========== Public Constant Fields ==========
+// ========== Private Constant Fields ========== 
+// ========== Public Readonly Fields ========== 
+// ========== Private Readonly Fields ========== 
+
+// ========== Public Static Fields ========== 
+// ========== Private Static Fields ========== 
+
+// ========== Public Static Properties ========== 
+// ========== Private Static Properties ========== 
+// ========== Public Static Events ========== 
+// ========== Private Static Events ========== 
+
+// ========== Static Constructors ========== 
+
+// ========== Private Fields ========== 
+// ========== Public Fields ========== 
+// ========== Private Properties ========== 
+// ========== Public Properties ========== 
+// ========== Public Events ========== 
+// ========== Private Events ========== 
+
+// ========== Public Constructors ========== 
+// ========== Protected Constructors ========== 
+// ========== Internal Constructors ========== 
+// ========== Private Constructors ========== 
+
+// ========== Public Static Methods ========== 
+// ========== Public Override Methods ========== 
+// ========== Public Instance Methods ========== 
+// ========== Public Virtual Methods ========== 
+// ========== Public Abstract Methods ========== 
+
+// ========== Private Static Methods ========== 
+// ========== Private Override Methods ========== 
+// ========== Private Instance Methods ========== 
+// ========== Private Virtual Methods ========== 
+// ========== Private Abstract Methods ========== 
