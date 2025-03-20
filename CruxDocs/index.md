@@ -4,6 +4,6 @@ _layout: landing
 
 # CruxDocs
 
-Visit [[introduction]] to learn more about Crux.
+Visit [introduction](docs/introduction.md) to learn more about Crux.
 
-Visit [[version-history]] to view already implemented features.
+Visit [version-history](docs/version-history.md) to view already implemented features.

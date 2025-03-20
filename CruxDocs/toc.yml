@@ -1,4 +1,4 @@
 - name: Docs
-  href: docs/
+  href: docs/introduction.md
 - name: API
   href: api/

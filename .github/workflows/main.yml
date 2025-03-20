@@ -26,7 +26,8 @@ jobs:
       - name: Build DocFX site
         run: |
           cd CruxDocs
-          docfx
+          docfx metadata
+          docfx build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
