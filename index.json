@@ -277,7 +277,7 @@
   "docs/introduction.html": {
     "href": "docs/introduction.html",
     "title": "Introduction | CruxDocs",
-    "summary": "Introduction Crux is a simple GameEngine."
+    "summary": "Introduction Crux is a simple GameEngine. It is difficult to import GLTF models unless very specific export settings are configured in Blender. That information will be included in the future."
   },
   "docs/version-history.html": {
     "href": "docs/version-history.html",
