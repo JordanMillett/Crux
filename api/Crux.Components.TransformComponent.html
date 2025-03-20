@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class TransformComponent | CruxDocs </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TransformComponent | CruxDocs ">
+      
+      <meta name="description" content="Handles position, rotation, and scale data.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/JordanMillett/OpenTK/new/main/apiSpec/new?filename=Crux_Components_TransformComponent.md&amp;value=---%0Auid%3A%20Crux.Components.TransformComponent%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="CruxDocs">
+            CruxDocs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Crux.Components.TransformComponent">
+
+
+
+  <h1 id="Crux_Components_TransformComponent" data-uid="Crux.Components.TransformComponent" class="text-break">
+Class TransformComponent  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L7"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Crux.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Handles position, rotation, and scale data.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TransformComponent : Component</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Crux.Core.Component.html">Component</a></div>
+      <div><span class="xref">TransformComponent</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_GameObject">Component.GameObject</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Transform">Component.Transform</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_GetComponent__1">Component.GetComponent&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_HasComponent__1">Component.HasComponent&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Update">Component.Update()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Delete_System_Boolean_">Component.Delete(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+  <h2 id="Crux_Components_TransformComponent_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Frequently relays updates when data changes.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Crux_Components_TransformComponent__ctor_" data-uid="Crux.Components.TransformComponent.#ctor*"></a>
+
+  <h3 id="Crux_Components_TransformComponent__ctor_Crux_Core_GameObject_" data-uid="Crux.Components.TransformComponent.#ctor(Crux.Core.GameObject)">
+  TransformComponent(GameObject)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L241"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransformComponent(GameObject gameObject)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gameObject</code> <a class="xref" href="Crux.Core.GameObject.html">GameObject</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Crux_Components_TransformComponent_Changed" data-uid="Crux.Components.TransformComponent.Changed">
+  Changed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Action? Changed</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Crux_Components_TransformComponent_Forward_" data-uid="Crux.Components.TransformComponent.Forward*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_Forward" data-uid="Crux.Components.TransformComponent.Forward">
+  Forward
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Forward { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_LocalEulerAngles_" data-uid="Crux.Components.TransformComponent.LocalEulerAngles*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_LocalEulerAngles" data-uid="Crux.Components.TransformComponent.LocalEulerAngles">
+  LocalEulerAngles
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L209"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LocalEulerAngles { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_LocalPosition_" data-uid="Crux.Components.TransformComponent.LocalPosition*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_LocalPosition" data-uid="Crux.Components.TransformComponent.LocalPosition">
+  LocalPosition
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LocalPosition { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_LocalRotation_" data-uid="Crux.Components.TransformComponent.LocalRotation*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_LocalRotation" data-uid="Crux.Components.TransformComponent.LocalRotation">
+  LocalRotation
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion LocalRotation { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Quaternion</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_ModelMatrix_" data-uid="Crux.Components.TransformComponent.ModelMatrix*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_ModelMatrix" data-uid="Crux.Components.TransformComponent.ModelMatrix">
+  ModelMatrix
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L146"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4 ModelMatrix { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Matrix4</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_Parent_" data-uid="Crux.Components.TransformComponent.Parent*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_Parent" data-uid="Crux.Components.TransformComponent.Parent">
+  Parent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransformComponent Parent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Crux.Components.TransformComponent.html">TransformComponent</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_Right_" data-uid="Crux.Components.TransformComponent.Right*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_Right" data-uid="Crux.Components.TransformComponent.Right">
+  Right
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L170"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Right { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_Scale_" data-uid="Crux.Components.TransformComponent.Scale*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_Scale" data-uid="Crux.Components.TransformComponent.Scale">
+  Scale
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Scale { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_Up_" data-uid="Crux.Components.TransformComponent.Up*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_Up" data-uid="Crux.Components.TransformComponent.Up">
+  Up
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L162"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Up { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_WorldEulerAngles_" data-uid="Crux.Components.TransformComponent.WorldEulerAngles*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_WorldEulerAngles" data-uid="Crux.Components.TransformComponent.WorldEulerAngles">
+  WorldEulerAngles
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 WorldEulerAngles { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_WorldPosition_" data-uid="Crux.Components.TransformComponent.WorldPosition*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_WorldPosition" data-uid="Crux.Components.TransformComponent.WorldPosition">
+  WorldPosition
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 WorldPosition { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_WorldRotation_" data-uid="Crux.Components.TransformComponent.WorldRotation*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_WorldRotation" data-uid="Crux.Components.TransformComponent.WorldRotation">
+  WorldRotation
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion WorldRotation { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Quaternion</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Crux_Components_TransformComponent_Clone_" data-uid="Crux.Components.TransformComponent.Clone*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_Clone_Crux_Core_GameObject_" data-uid="Crux.Components.TransformComponent.Clone(Crux.Core.GameObject)">
+  Clone(GameObject)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L259"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Component Clone(GameObject gameObject)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gameObject</code> <a class="xref" href="Crux.Core.GameObject.html">GameObject</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Crux.Core.Component.html">Component</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_TransformComponent_ToString_" data-uid="Crux.Components.TransformComponent.ToString*"></a>
+
+  <h3 id="Crux_Components_TransformComponent_ToString" data-uid="Crux.Components.TransformComponent.ToString">
+  ToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L247"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>A string that represents the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/TransformComponent.cs/#L7" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

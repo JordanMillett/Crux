@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Scene | CruxDocs </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Scene | CruxDocs ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/JordanMillett/OpenTK/new/main/apiSpec/new?filename=Crux_Core_Scene.md&amp;value=---%0Auid%3A%20Crux.Core.Scene%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="CruxDocs">
+            CruxDocs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Crux.Core.Scene">
+
+
+
+  <h1 id="Crux_Core_Scene" data-uid="Crux.Core.Scene" class="text-break">
+Class Scene  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L8"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.Core.html">Core</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Crux.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class Scene</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Scene</span></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="Crux.Assets.Scenes.DebugScene.html">DebugScene</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Crux_Core_Scene__ctor_" data-uid="Crux.Core.Scene.#ctor*"></a>
+
+  <h3 id="Crux_Core_Scene__ctor" data-uid="Crux.Core.Scene.#ctor">
+  Scene()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Scene()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Crux_Core_Scene_Skybox" data-uid="Crux.Core.Scene.Skybox">
+  Skybox
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Shader Skybox</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Crux.Graphics.Shader.html">Shader</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Crux_Core_Scene_Ambient_" data-uid="Crux.Core.Scene.Ambient*"></a>
+
+  <h3 id="Crux_Core_Scene_Ambient" data-uid="Crux.Core.Scene.Ambient">
+  Ambient
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color4 Ambient { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Color4</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_Dir_" data-uid="Crux.Core.Scene.Dir*"></a>
+
+  <h3 id="Crux_Core_Scene_Dir" data-uid="Crux.Core.Scene.Dir">
+  Dir
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L104"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Dir { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_Engine_" data-uid="Crux.Core.Scene.Engine*"></a>
+
+  <h3 id="Crux_Core_Scene_Engine" data-uid="Crux.Core.Scene.Engine">
+  Engine
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static GameEngine Engine { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Crux.Core.GameEngine.html">GameEngine</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_FadeEnd_" data-uid="Crux.Core.Scene.FadeEnd*"></a>
+
+  <h3 id="Crux_Core_Scene_FadeEnd" data-uid="Crux.Core.Scene.FadeEnd">
+  FadeEnd
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float FadeEnd { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_FadeStart_" data-uid="Crux.Core.Scene.FadeStart*"></a>
+
+  <h3 id="Crux_Core_Scene_FadeStart" data-uid="Crux.Core.Scene.FadeStart">
+  FadeStart
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float FadeStart { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_Fog_" data-uid="Crux.Core.Scene.Fog*"></a>
+
+  <h3 id="Crux_Core_Scene_Fog" data-uid="Crux.Core.Scene.Fog">
+  Fog
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color4 Fog { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Color4</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_FogEnd_" data-uid="Crux.Core.Scene.FogEnd*"></a>
+
+  <h3 id="Crux_Core_Scene_FogEnd" data-uid="Crux.Core.Scene.FogEnd">
+  FogEnd
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float FogEnd { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_FogStart_" data-uid="Crux.Core.Scene.FogStart*"></a>
+
+  <h3 id="Crux_Core_Scene_FogStart" data-uid="Crux.Core.Scene.FogStart">
+  FogStart
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L82"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float FogStart { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_Hue_" data-uid="Crux.Core.Scene.Hue*"></a>
+
+  <h3 id="Crux_Core_Scene_Hue" data-uid="Crux.Core.Scene.Hue">
+  Hue
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color4 Hue { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Color4</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_MainCamera_" data-uid="Crux.Core.Scene.MainCamera*"></a>
+
+  <h3 id="Crux_Core_Scene_MainCamera" data-uid="Crux.Core.Scene.MainCamera">
+  MainCamera
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static CameraComponent MainCamera { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Crux.Components.CameraComponent.html">CameraComponent</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Crux_Core_Scene_GetDataByteSize_" data-uid="Crux.Core.Scene.GetDataByteSize*"></a>
+
+  <h3 id="Crux_Core_Scene_GetDataByteSize" data-uid="Crux.Core.Scene.GetDataByteSize">
+  GetDataByteSize()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetDataByteSize()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_Recalculate_" data-uid="Crux.Core.Scene.Recalculate*"></a>
+
+  <h3 id="Crux_Core_Scene_Recalculate" data-uid="Crux.Core.Scene.Recalculate">
+  Recalculate()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Recalculate()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_RenderSkybox_" data-uid="Crux.Core.Scene.RenderSkybox*"></a>
+
+  <h3 id="Crux_Core_Scene_RenderSkybox" data-uid="Crux.Core.Scene.RenderSkybox">
+  RenderSkybox()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L142"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RenderSkybox()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_Start_" data-uid="Crux.Core.Scene.Start*"></a>
+
+  <h3 id="Crux_Core_Scene_Start" data-uid="Crux.Core.Scene.Start">
+  Start()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void Start()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Scene_Update_" data-uid="Crux.Core.Scene.Update*"></a>
+
+  <h3 id="Crux_Core_Scene_Update" data-uid="Crux.Core.Scene.Update">
+  Update()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L140"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void Update()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Core/Scene.cs/#L8" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ColliderComponent | CruxDocs </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ColliderComponent | CruxDocs ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/JordanMillett/OpenTK/new/main/apiSpec/new?filename=Crux_Components_ColliderComponent.md&amp;value=---%0Auid%3A%20Crux.Components.ColliderComponent%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="CruxDocs">
+            CruxDocs
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Crux.Components.ColliderComponent">
+
+
+
+  <h1 id="Crux_Components_ColliderComponent" data-uid="Crux.Components.ColliderComponent" class="text-break">
+Class ColliderComponent  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Crux.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ColliderComponent : RenderComponent</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Crux.Core.Component.html">Component</a></div>
+      <div><a class="xref" href="Crux.Core.RenderComponent.html">RenderComponent</a></div>
+      <div><span class="xref">ColliderComponent</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Hidden">RenderComponent.Hidden</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_StationaryVisibilityNode">RenderComponent.StationaryVisibilityNode</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_GameObject">Component.GameObject</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Transform">Component.Transform</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_GetComponent__1">Component.GetComponent&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_HasComponent__1">Component.HasComponent&lt;T&gt;()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Update">Component.Update()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Crux_Components_ColliderComponent__ctor_" data-uid="Crux.Components.ColliderComponent.#ctor*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent__ctor_Crux_Core_GameObject_" data-uid="Crux.Components.ColliderComponent.#ctor(Crux.Core.GameObject)">
+  ColliderComponent(GameObject)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ColliderComponent(GameObject gameObject)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gameObject</code> <a class="xref" href="Crux.Core.GameObject.html">GameObject</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_AABBColor" data-uid="Crux.Components.ColliderComponent.AABBColor">
+  AABBColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color4 AABBColor</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Color4</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_AABBMax" data-uid="Crux.Components.ColliderComponent.AABBMax">
+  AABBMax
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 AABBMax</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_AABBMin" data-uid="Crux.Components.ColliderComponent.AABBMin">
+  AABBMin
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 AABBMin</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_ColliderIndex" data-uid="Crux.Components.ColliderComponent.ColliderIndex">
+  ColliderIndex
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ColliderIndex</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_OBBAxes" data-uid="Crux.Components.ColliderComponent.OBBAxes">
+  OBBAxes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3[] OBBAxes</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_OBBCenter" data-uid="Crux.Components.ColliderComponent.OBBCenter">
+  OBBCenter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 OBBCenter</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_OBBColor" data-uid="Crux.Components.ColliderComponent.OBBColor">
+  OBBColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color4 OBBColor</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Color4</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_OBBHalfExtents" data-uid="Crux.Components.ColliderComponent.OBBHalfExtents">
+  OBBHalfExtents
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 OBBHalfExtents</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_OctreeKeys" data-uid="Crux.Components.ColliderComponent.OctreeKeys">
+  OctreeKeys
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (Vector3 MinKey, Vector3 MaxKey) OctreeKeys</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt>(<span class="xref">Vector3</span> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-opentk.mathematics.vector3,opentk.mathematics.vector3-.minkey">MinKey</a>, <span class="xref">Vector3</span> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-opentk.mathematics.vector3,opentk.mathematics.vector3-.maxkey">MaxKey</a>)</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_ShowColliders" data-uid="Crux.Components.ColliderComponent.ShowColliders">
+  ShowColliders
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ShowColliders</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_SphereCenter" data-uid="Crux.Components.ColliderComponent.SphereCenter">
+  SphereCenter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 SphereCenter</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_SphereRadius" data-uid="Crux.Components.ColliderComponent.SphereRadius">
+  SphereRadius
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SphereRadius</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Crux_Components_ColliderComponent_boundsMaterial" data-uid="Crux.Components.ColliderComponent.boundsMaterial">
+  boundsMaterial
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Shader boundsMaterial</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Crux.Graphics.Shader.html">Shader</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Crux_Components_ColliderComponent_Clone_" data-uid="Crux.Components.ColliderComponent.Clone*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_Clone_Crux_Core_GameObject_" data-uid="Crux.Components.ColliderComponent.Clone(Crux.Core.GameObject)">
+  Clone(GameObject)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Component Clone(GameObject gameObject)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gameObject</code> <a class="xref" href="Crux.Core.GameObject.html">GameObject</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Crux.Core.Component.html">Component</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_ComputeBounds_" data-uid="Crux.Components.ColliderComponent.ComputeBounds*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_ComputeBounds" data-uid="Crux.Components.ColliderComponent.ComputeBounds">
+  ComputeBounds()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ComputeBounds()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_Delete_" data-uid="Crux.Components.ColliderComponent.Delete*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_Delete_System_Boolean_" data-uid="Crux.Components.ColliderComponent.Delete(System.Boolean)">
+  Delete(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Delete(bool OnlyRemovingComponent)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>OnlyRemovingComponent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_DistanceFromOBB_" data-uid="Crux.Components.ColliderComponent.DistanceFromOBB*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_DistanceFromOBB_OpenTK_Mathematics_Vector3_" data-uid="Crux.Components.ColliderComponent.DistanceFromOBB(OpenTK.Mathematics.Vector3)">
+  DistanceFromOBB(Vector3)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L166"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float DistanceFromOBB(Vector3 point)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>point</code> <span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_GetClosestPointOnOBB_" data-uid="Crux.Components.ColliderComponent.GetClosestPointOnOBB*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_GetClosestPointOnOBB_OpenTK_Mathematics_Vector3_" data-uid="Crux.Components.ColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3)">
+  GetClosestPointOnOBB(Vector3)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 GetClosestPointOnOBB(Vector3 point)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>point</code> <span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_GetClosestPointOnOBB_" data-uid="Crux.Components.ColliderComponent.GetClosestPointOnOBB*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_GetClosestPointOnOBB_OpenTK_Mathematics_Vector3_System_Single_System_Single_" data-uid="Crux.Components.ColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3,System.Single,System.Single)">
+  GetClosestPointOnOBB(Vector3, float, float)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L137"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 GetClosestPointOnOBB(Vector3 bestAxis, float overlapStart, float overlapEnd)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bestAxis</code> <span class="xref">Vector3</span></dt>
+    <dd></dd>
+    <dt><code>overlapStart</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>overlapEnd</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_GetWorldEdges_" data-uid="Crux.Components.ColliderComponent.GetWorldEdges*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_GetWorldEdges" data-uid="Crux.Components.ColliderComponent.GetWorldEdges">
+  GetWorldEdges()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L235"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;Vector3&gt; GetWorldEdges()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Vector3</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_GetWorldNormals_" data-uid="Crux.Components.ColliderComponent.GetWorldNormals*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_GetWorldNormals" data-uid="Crux.Components.ColliderComponent.GetWorldNormals">
+  GetWorldNormals()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L209"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;Vector3&gt; GetWorldNormals()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Vector3</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_GetWorldPoints_" data-uid="Crux.Components.ColliderComponent.GetWorldPoints*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_GetWorldPoints" data-uid="Crux.Components.ColliderComponent.GetWorldPoints">
+  GetWorldPoints()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L183"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;Vector3&gt; GetWorldPoints()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Vector3</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_IsPointWithinOBB_" data-uid="Crux.Components.ColliderComponent.IsPointWithinOBB*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_IsPointWithinOBB_OpenTK_Mathematics_Vector3_" data-uid="Crux.Components.ColliderComponent.IsPointWithinOBB(OpenTK.Mathematics.Vector3)">
+  IsPointWithinOBB(Vector3)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L156"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsPointWithinOBB(Vector3 point)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>point</code> <span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_RegisterAsStationary_" data-uid="Crux.Components.ColliderComponent.RegisterAsStationary*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_RegisterAsStationary" data-uid="Crux.Components.ColliderComponent.RegisterAsStationary">
+  RegisterAsStationary()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L256"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void RegisterAsStationary()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_Render_" data-uid="Crux.Components.ColliderComponent.Render*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_Render" data-uid="Crux.Components.ColliderComponent.Render">
+  Render()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Render()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Components_ColliderComponent_ToString_" data-uid="Crux.Components.ColliderComponent.ToString*"></a>
+
+  <h3 id="Crux_Components_ColliderComponent_ToString" data-uid="Crux.Components.ColliderComponent.ToString">
+  ToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>A string that represents the current object.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/JordanMillett/OpenTK/blob/main/Crux/Components/ColliderComponent.cs/#L9" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

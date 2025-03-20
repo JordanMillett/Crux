@@ -1,0 +1,858 @@
+{
+  "source_base_path": "/home/runner/work/OpenTK/OpenTK/CruxDocs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Assets.Scenes.DebugScene.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Assets.Scenes.DebugScene.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Assets.Scenes.DebugScene",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Assets.Scenes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Assets.Scenes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Assets.Scenes",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.CameraComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.CameraComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.CameraComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.ColliderComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.ColliderComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.ColliderComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.FreeLookComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.FreeLookComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.FreeLookComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.InstancedMeshRenderComponent.PerInstanceData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.InstancedMeshRenderComponent.PerInstanceData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.InstancedMeshRenderComponent.PerInstanceData",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.InstancedMeshRenderComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.InstancedMeshRenderComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.InstancedMeshRenderComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.LightComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.LightComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.LightComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.LineRenderComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.LineRenderComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.LineRenderComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.MeshComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.MeshComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.MeshComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.MeshRenderComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.MeshRenderComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.MeshRenderComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.MovementComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.MovementComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.MovementComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.PhysicsComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.PhysicsComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.PhysicsComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.TextRenderComponent.PerInstanceData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.TextRenderComponent.PerInstanceData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.TextRenderComponent.PerInstanceData",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.TextRenderComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.TextRenderComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.TextRenderComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.TransformComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.TransformComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.TransformComponent",
+      "Summary": "<p sourcefile=\"api/Crux.Components.TransformComponent.yml\" sourcestartlinenumber=\"1\">Handles position, rotation, and scale data.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.Component.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.Component.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.Component",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.GameEngine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.GameEngine.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.GameEngine",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.GameObject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.GameObject.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.GameObject",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.LogSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.LogSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.LogSource",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.Logger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.Logger.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.Logger",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.Presets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.Presets.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.Presets",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.Primitives.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.Primitives.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.Primitives",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.RenderComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.RenderComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.RenderComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.Scene.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.Scene.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.Scene",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Graphics.GraphicsCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Graphics.GraphicsCache.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Graphics.GraphicsCache",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Graphics.Mesh.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Graphics.Mesh.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Graphics.Mesh",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Graphics.Plane.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Graphics.Plane.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Graphics.Plane",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Graphics.Shader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Graphics.Shader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Graphics.Shader",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Graphics.Shapes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Graphics.Shapes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Graphics.Shapes",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Graphics.Vertex.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Graphics.Vertex.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Graphics.Vertex",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Graphics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Graphics.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Graphics",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Physics.Octree.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Physics.Octree.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Physics.Octree",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Physics.OctreeNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Physics.OctreeNode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Physics.OctreeNode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Physics.PhysicsSystem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Physics.PhysicsSystem.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Physics.PhysicsSystem",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Physics.Ray.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Physics.Ray.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Physics.Ray",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Physics.RayHit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Physics.RayHit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Physics.RayHit",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Physics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Physics.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Physics",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.Color4JsonConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.Color4JsonConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.Color4JsonConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.Helpers.ColorHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.Helpers.ColorHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.Helpers.ColorHelper",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.Helpers.MatrixHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.Helpers.MatrixHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.Helpers.MatrixHelper",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.Helpers.VectorHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.Helpers.VectorHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.Helpers.VectorHelper",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.Helpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.Helpers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.Helpers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.IO.AssetHandler.ShaderPresets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.IO.AssetHandler.ShaderPresets",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.IO.AssetHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.IO.AssetHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.IO.AssetHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.IO.GltfHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.IO.GltfHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.IO.GltfHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.IO.ObjHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.IO.ObjHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.IO.ObjHandler",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.IO.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.IO.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.IO",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.QuaternionJsonConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.QuaternionJsonConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.QuaternionJsonConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.Vector2JsonConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.Vector2JsonConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.Vector2JsonConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.Vector3JsonConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.Vector3JsonConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.Vector3JsonConverter",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.VersionData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.VersionData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.VersionData",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "api/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/introduction.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "docs/toc.json"
+        },
+        ".html": {
+          "relative_path": "docs/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
