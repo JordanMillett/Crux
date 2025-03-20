@@ -274,19 +274,19 @@
     "title": "Namespace Crux.Utilities | CruxDocs",
     "summary": "Namespace Crux.Utilities Classes Color4JsonConverter QuaternionJsonConverter Vector2JsonConverter Vector3JsonConverter Structs VersionData"
   },
-  "docs/getting-started.html": {
-    "href": "docs/getting-started.html",
-    "title": "Getting Started | CruxDocs",
-    "summary": "Getting Started"
-  },
   "docs/introduction.html": {
     "href": "docs/introduction.html",
     "title": "Introduction | CruxDocs",
-    "summary": "Introduction"
+    "summary": "Introduction Crux is a simple GameEngine."
+  },
+  "docs/version-history.html": {
+    "href": "docs/version-history.html",
+    "title": "| CruxDocs",
+    "summary": "Required 0.0.1 0.0.1 Version Tracking Before 0.0.1 All features added before 0.0.1 are experimental and are subject to change or removal. Instance Rendering AABB & OBB Physics OBJ & GLTF Importing Octree Frustrum Culling Realtime Point Lighting Text Rendering From Texture Atlas"
   },
   "index.html": {
     "href": "index.html",
     "title": "CruxDocs | CruxDocs",
-    "summary": "CruxDocs"
+    "summary": "CruxDocs Visit [[introduction]] to learn more about Crux. Visit [[version-history]] to view already implemented features."
   }
 }
