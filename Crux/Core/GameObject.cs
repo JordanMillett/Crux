@@ -25,8 +25,6 @@ public class GameObject
     public void Freeze() => IsFrozen = true;
     public void Unfreeze() => IsFrozen = false;
 
-    private static readonly Dictionary<Type, Component> defaultComponents = [];
-
     // ========== Private Fields ==========
     private Dictionary<Type, Component> components = new Dictionary<Type, Component>();
     private readonly TransformComponent transform = null!;
@@ -78,24 +76,75 @@ public class GameObject
         }
     }
 
-    public void RemoveComponent<T>() where T : Component
+    /// <summary>
+    /// Returns a specified concrete type if it is attached to the GameObject. A concrete type or an abstract type can be passed.
+    /// </summary>
+    /// <remarks>
+    /// Null will be returned if the GameObject does not contain a concrete type that matches either
+    /// the specified concrete type or a child of the specified abstract type. 
+    /// </remarks>
+    public T? GetComponent<T>() where T : Component
     {
-        if(!HasComponent<T>())
+        if (!HasComponent<T>())
         {
-            Logger.LogWarning($"GameObject '{Name}' doesn't contain '{typeof(T).Name}'.");
-            return;
+            Logger.LogWarning($"Cannot get '{typeof(T).Name}' as GameObject '{Name}' does not contain '{typeof(T).Name}'.");
+            return null;
         }
 
-        components[typeof(T)].Delete();
-        components.Remove(typeof(T));
+        Type checkType = typeof(T);
+
+        if (checkType.IsAbstract)
+        {
+            if (checkType == typeof(Component))
+            {
+                return components.Values.FirstOrDefault() as T;
+            }
+            else
+            {
+                foreach (var pair in components)
+                {
+                    if (checkType.IsAssignableFrom(pair.Key))
+                    {
+                        return pair.Value as T;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (components.TryGetValue(checkType, out var component))
+            {
+                return component as T;
+            }
+        }
+
+        return null;
     }
 
-    public T AddComponent<T>() where T : Component
+    /// <summary>
+    /// Adds a specified concrete type as a new component that is attached to the GameObject.
+    /// </summary>
+    /// <returns>The newly created component, the existing component of the same concrete type, or null if adding the component failed.</returns>
+    /// <remarks>Null will be returned if the GameObject contains a conflicting component.</remarks>
+    public T? AddComponent<T>() where T : Component
     {
-        if(HasComponent<T>())
+        if(typeof(T).IsAbstract)
         {
-            Logger.LogWarning($"GameObject '{Name}' already contains '{typeof(T).Name}'.");
-            return GetComponent<T>();
+            Logger.LogWarning($"Cannot add '{typeof(T).Name}' to GameObject '{Name}' as the type is abstract.");
+            return null;
+        }
+
+        if(HasComponent<T>()) //Return existing component if possible
+        {
+            T found = GetComponent<T>()!;
+            Logger.LogWarning($"Cannot add '{typeof(T).Name}' as GameObject '{Name}' already contains '{found.GetType().Name}'.");
+            return found;
+        }
+
+        if(HasComponentOrSibling<T>()) //Return null if component conflicts
+        {
+            Logger.LogWarning($"Cannot add '{typeof(T).Name}' as GameObject '{Name}' already contains another '{typeof(T).BaseType!.Name}'.");
+            return null;
         }
 
         T component = (T)Activator.CreateInstance(typeof(T), this)!;
@@ -104,40 +153,66 @@ public class GameObject
         return component;
     }
 
-    public T? GetComponent<T>() where T : Component
+    /// <summary>
+    /// Removes a specified concrete type that is attached to the GameObject.
+    /// </summary>
+    /// <remarks>Nothing will be removed is the specified type is abstract or no concrete matches are found.</remarks>
+    public void RemoveComponent<T>() where T : Component
     {
-        foreach (var pair in components)
+        if(typeof(T).IsAbstract)
         {
-            if (typeof(T).IsAssignableFrom(pair.Key))
-            {
-                return pair.Value as T ?? 
-                throw new InvalidOperationException($"Unable to cast '{pair.Key.Name}' to '{typeof(T).Name}' on GameObject '{Name}'.");
-            }
+            Logger.LogWarning($"Cannot remove '{typeof(T).Name}' from GameObject '{Name}' as the type is abstract.");
+            return;
         }
 
-        throw new KeyNotFoundException($"'{typeof(T).Name}' not found on GameObject '{Name}'.");
-    }
-
-    /*
-    public List<T>? GetComponents<T>() where T : Component //used to get multiple render components
-    {
-        List<T> result = new List<T>();
-
-        foreach (var component in components.Values)
+        if(!HasComponent<T>())
         {
-            if (component is T typedComponent)
-            {
-                result.Add(typedComponent);
-            }
+            Logger.LogWarning($"Cannot remove '{typeof(T).Name}' as GameObject '{Name}' does not contain '{typeof(T).Name}'.");
+            return;
         }
 
-        return result;
+        components[typeof(T)].Delete();
+        components.Remove(typeof(T));
     }
-    */
-
+    
+    /// <summary>
+    /// Returns true if the GameObject contains a concrete component that
+    /// matches either the specified concrete type, or a child of the specified abstract type.
+    /// </summary>
+    /// <remarks>If the specified abstract type is 'Component' then true will be returned if any concrete component exist.</remarks>
     public bool HasComponent<T>() where T : Component
     {
-        return components.Keys.Any(type => typeof(T).IsAssignableFrom(type));
+        Type checkType = typeof(T);
+
+        if(checkType.IsAbstract)
+        {
+            if(checkType == typeof(Component)) //Return true if any components exist
+                return components.Count > 0;
+            else
+                return components.Keys.Any(checkType.IsAssignableFrom);  //Return true if any children of the abstract type exist
+        }else
+        {
+            return components.Keys.Any(stored => checkType == stored); //find exact type matches
+        }
+    }
+
+    /// <summary>
+    /// Returns true if the GameObject contains a concrete component that
+    /// matches either the specified concrete type, a sibling of the specified concrete type, or a child of the specified abstract type.
+    /// </summary>
+    /// <remarks>If the specified abstract type is 'Component' then true will be returned if any concrete component exist.</remarks>
+    public bool HasComponentOrSibling<T>() where T : Component
+    {
+        if(HasComponent<T>())
+            return true;
+        
+        Type checkType = typeof(T);
+        Type? parentType = checkType.BaseType;
+
+        if (parentType != null && parentType != typeof(Component) && parentType.IsAbstract)
+            return components.Keys.Any(parentType.IsAssignableFrom);
+        
+        return false;
     }
 
     public void Update()
