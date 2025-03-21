@@ -44,9 +44,9 @@ public class TransformComponent : Component
         get { return worldPosition; }
         set
         {
-            if(GameObject.Stationary)
+            if(GameObject.IsFrozen)
             {
-                Logger.LogWarning($"GameObject '{GameObject.Name}' WorldPosition cannot be set due to being stationary.");
+                Logger.LogWarning($"GameObject '{GameObject.Name}' WorldPosition cannot be set due to being frozen.");
                 return;
             }
 
@@ -67,9 +67,9 @@ public class TransformComponent : Component
         }
         set
         {
-            if(GameObject.Stationary)
+            if(GameObject.IsFrozen)
             {
-                Logger.LogWarning($"GameObject '{GameObject.Name}' LocalPosition cannot be set due to being stationary.");
+                Logger.LogWarning($"GameObject '{GameObject.Name}' LocalPosition cannot be set due to being frozen.");
                 return;
             }
 
@@ -88,9 +88,9 @@ public class TransformComponent : Component
         get { return worldRotation; }
         set
         {
-            if(GameObject.Stationary)
+            if(GameObject.IsFrozen)
             {
-                Logger.LogWarning($"GameObject '{GameObject.Name}' WorldRotation cannot be set due to being stationary.");
+                Logger.LogWarning($"GameObject '{GameObject.Name}' WorldRotation cannot be set due to being frozen.");
                 return;
             }
 
@@ -111,9 +111,9 @@ public class TransformComponent : Component
         }
         set
         {
-            if(GameObject.Stationary)
+            if(GameObject.IsFrozen)
             {
-                Logger.LogWarning($"GameObject '{GameObject.Name}' LocalRotation cannot be set due to being stationary.");
+                Logger.LogWarning($"GameObject '{GameObject.Name}' LocalRotation cannot be set due to being frozen.");
                 return;
             }
 
@@ -132,9 +132,9 @@ public class TransformComponent : Component
         get { return scale; }
         set
         {
-            if(GameObject.Stationary)
+            if(GameObject.IsFrozen)
             {
-                Logger.LogWarning($"GameObject '{GameObject.Name}' Scale cannot be set due to being stationary.");
+                Logger.LogWarning($"GameObject '{GameObject.Name}' Scale cannot be set due to being frozen.");
                 return;
             }
 
@@ -190,9 +190,9 @@ public class TransformComponent : Component
         }
         set
         {
-            if(GameObject.Stationary)
+            if(GameObject.IsFrozen)
             {
-                Logger.LogWarning($"GameObject '{GameObject.Name}' WorldEulerAngles cannot be set due to being stationary.");
+                Logger.LogWarning($"GameObject '{GameObject.Name}' WorldEulerAngles cannot be set due to being frozen.");
                 return;
             }
 
@@ -221,9 +221,9 @@ public class TransformComponent : Component
         }
         set
         {
-            if(GameObject.Stationary)
+            if(GameObject.IsFrozen)
             {
-                Logger.LogWarning($"GameObject '{GameObject.Name}' LocalEulerAngles cannot be set due to being stationary.");
+                Logger.LogWarning($"GameObject '{GameObject.Name}' LocalEulerAngles cannot be set due to being frozen.");
                 return;
             }
 

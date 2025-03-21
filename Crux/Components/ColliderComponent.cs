@@ -73,9 +73,6 @@ public class ColliderComponent : RenderComponent
     
     public void ComputeBounds()
     {
-        if(GameObject.Stationary)
-            return;
-
         if(ColliderIndex > -1 && ColliderIndex < mesh.data.Submeshes.Count)
         {
             (AABBMin, AABBMax) = mesh.data.Submeshes[ColliderIndex].GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
@@ -251,10 +248,5 @@ public class ColliderComponent : RenderComponent
         }
 
         return edges;
-    }
-
-    public override void RegisterAsStationary()
-    {
-        throw new NotImplementedException();
     }
 }

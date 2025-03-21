@@ -17,7 +17,7 @@ public class OctreeNode
 
         /*
         GameObject debug = GameEngine.Link.InstantiateGameObject();
-        debug.AddComponent<LineRenderComponent>();
+        debug.AddComponent<Components.LineRenderComponent>();
         debug.Transform.WorldPosition = (Min + Max) * 0.5f;
         debug.Transform.Scale = Max - Min;
         */
@@ -44,29 +44,32 @@ public class Octree
 {
     public OctreeNode Root;
     public readonly int MaxDepth;
+    public readonly string OctreeName;
 
-    public Octree(Vector3 min, Vector3 max, int maxDepth = 7)
+    public Octree(Vector3 min, Vector3 max, int maxDepth = 7, string octreeName = "Octree")
     {
         Root = new OctreeNode(min, max);
         MaxDepth = maxDepth;
+        OctreeName = octreeName;
     }
 
     public (Vector3 MinKey, Vector3 MaxKey) RegisterComponentGetAABB(Component component, Vector3 min, Vector3 max)
     {
+        //Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
         InsertComponent(Root, component, min, max, 0);
         return (min, max);
     }
 
     public OctreeNode RegisterComponentGetNode(Component component, Vector3 min, Vector3 max)
     {
+        //Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
         return InsertComponent(Root, component, min, max, 0);
     }
 
     public void UnregisterComponent(Component component, (Vector3 minKey, Vector3 maxKey) octreeKeys)
     {
         RemoveComponent(Root, component, octreeKeys.minKey, octreeKeys.maxKey);
-
-        //Logger.Log($"Removed GameObject '{component.GameObject.Name}' from Octree");
+        //Logger.Log($"Removed GameObject '{component.GameObject.Name}' from {OctreeName}");
     }
 
     public List<Component> FindNearbyNodes(Vector3 min, Vector3 max)

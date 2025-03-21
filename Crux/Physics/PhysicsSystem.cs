@@ -31,7 +31,7 @@ public static class PhysicsSystem
 
     static PhysicsSystem()
     {
-        Tree = new Octree(new Vector3(-1000, -1000, -1000), new Vector3(1000, 1000, 1000), 7);
+        Tree = new Octree(new Vector3(-500, -500, -500), new Vector3(500, 500, 500), 7, "Physics Octree");
     }
 
     public static string GetShortInfo()
@@ -147,7 +147,8 @@ public static class PhysicsSystem
 
         foreach (ColliderComponent Static in Colliders) //Contains all colliders, even the ones on dynamic objects
         {
-            Static.ComputeBounds();
+            if(!Static.GameObject.IsFrozen)
+                Static.ComputeBounds();
         }
         
         SphereChecks = 0;

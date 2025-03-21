@@ -24,7 +24,7 @@ public static class GraphicsCache
 
     static GraphicsCache()
     {
-        Tree = new Octree(new Vector3(-1000, -1000, -1000), new Vector3(1000, 1000, 1000), 5);
+        Tree = new Octree(new Vector3(-500, -500, -500), new Vector3(500, 500, 500), 5, "Visibility Octree");
     }
     
     public static string GetShortInfo()
@@ -35,7 +35,7 @@ public static class GraphicsCache
         sb.AppendLine($"Mesh Draw Calls - {MeshDrawCallsThisFrame}");
         sb.AppendLine($"Draw Calls - {DrawCallsThisFrame}");
 
-        sb.AppendLine($"Unique VAOs - {VAOs.Count}x");
+        sb.AppendLine($"Standard VAOs - {VAOs.Count}x");
         sb.AppendLine($"Instance VAOs - {InstanceVAOs.Count}x");
         sb.AppendLine($"Unique Textures - {Textures.Count}x");
         sb.AppendLine($"Unique Shader Programs - {Programs.Count}x");
@@ -51,7 +51,7 @@ public static class GraphicsCache
         sb.AppendLine($"Mesh Draw Calls - {MeshDrawCallsThisFrame}");
         sb.AppendLine($"Draw Calls - {DrawCallsThisFrame}");
 
-        sb.AppendLine($"Unique VAOs - {VAOs.Count}x");
+        sb.AppendLine($"Standard VAOs - {VAOs.Count}x");
         foreach (var entry in VAOs)
             sb.AppendLine($" {entry.Value.users}x {entry.Key}");
 

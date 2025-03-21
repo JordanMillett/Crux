@@ -102,10 +102,12 @@ public class InstancedMeshRenderComponent : RenderComponent
         return clone;
     }
 
-    public override void RegisterAsStationary()
+    public override void HandleFrozenStateChanged(bool frozen)
     {
-        StationaryVisibilityNode = GraphicsCache.Tree.RegisterComponentGetNode(this, BoundsMin, BoundsMax);
-        GameObject.Stationary = true;
+        if(frozen)
+        {
+            ContainerNode = GraphicsCache.Tree.RegisterComponentGetNode(this, BoundsMin, BoundsMax);
+        }
     }
     
     public void SetMaterial(Shader mat, int index)
@@ -174,13 +176,10 @@ public class InstancedMeshRenderComponent : RenderComponent
                         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
                     }
 
-                    if(this.GameObject.Stationary) //cull if invisible, make this per instance not object
+                    if(this.GameObject.IsFrozen && ContainerNode.Culled)
                     {
-                        if(StationaryVisibilityNode.Culled)
-                        {
-                            Rendered[MeshVAOs[i]] = true;
-                            return;
-                        }
+                        Rendered[MeshVAOs[i]] = true;
+                        return;
                     }
 
                     //Logger.Log("STILL VISIBLE");

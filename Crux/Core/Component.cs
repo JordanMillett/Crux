@@ -27,9 +27,13 @@ public abstract class Component
     public Component(GameObject gameObject)
     {
         GameObject = gameObject;
+        GameObject.OnFrozenStateChanged += HandleFrozenStateChanged;
     }
+    
     public abstract override string ToString();
     public abstract Component Clone(GameObject gameObject);
+
+    public virtual void HandleFrozenStateChanged(bool frozen) {}
 
     public virtual void Update() {}
 

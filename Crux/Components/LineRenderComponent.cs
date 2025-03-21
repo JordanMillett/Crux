@@ -36,11 +36,6 @@ public class LineRenderComponent : RenderComponent
 
         return clone;
     }
-    
-    public override void RegisterAsStationary()
-    {
-        throw new NotImplementedException();
-    }
 
     public override void Render()
     {

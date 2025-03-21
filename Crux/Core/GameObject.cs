@@ -6,8 +6,24 @@ namespace Crux.Core;
 public class GameObject
 {
     public string Name;
+    
+    public event Action<bool> OnFrozenStateChanged;
+    private bool isFrozen = false;
+    public bool IsFrozen 
+    { 
+        get => isFrozen;
+        private set 
+        { 
+            if (isFrozen != value)
+            {
+                isFrozen = value;
+                OnFrozenStateChanged?.Invoke(isFrozen);
+            }
+        }
+    }
 
-    public bool Stationary = false;
+    public void Freeze() => IsFrozen = true;
+    public void Unfreeze() => IsFrozen = false;
 
     private static readonly Dictionary<Type, Component> defaultComponents = [];
 
