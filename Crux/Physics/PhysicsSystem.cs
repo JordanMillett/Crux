@@ -10,18 +10,18 @@ public static class PhysicsSystem
 
     public static bool IntegratingAndComputing = false;
 
-    private static Octree Tree;
+    public static Octree Tree;
 
-    private static List<ColliderComponent> Colliders = [];
+    private static List<ColliderComponent> ColliderObjects = [];
     private static Dictionary<ColliderComponent, PhysicsComponent> PhysicsObjects = [];
 
     //NEED TO SUPPORT NON STATIC COLLIDERS THAT DONT HAVE PHYSICS COMPONENTS
     //SO DYNAMIC OBJECTS OUTSIDE OF OCTREE LIKE PHYSICS
 
-    private static List<ColliderComponent> PendingAddColliders = [];
+    private static List<ColliderComponent> PendingAddColliderObjects = [];
     private static Dictionary<ColliderComponent, PhysicsComponent> PendingAddPhysicsObjects = [];
 
-    private static List<ColliderComponent> PendingRemoveColliders = [];
+    private static List<ColliderComponent> PendingRemoveColliderObjects = [];
     private static Dictionary<ColliderComponent, PhysicsComponent> PendingRemovePhysicsObjects = [];
 
     public static Vector3 Gravity = new Vector3(0f, -9.8f, 0f);
@@ -42,7 +42,7 @@ public static class PhysicsSystem
         StringBuilder sb = new StringBuilder();
 
         sb.AppendLine($"Physics FPS - {FramesPerSecond:F2}");
-        sb.AppendLine($"Colliders - {Colliders.Count}");
+        sb.AppendLine($"Colliders - {ColliderObjects.Count}");
         sb.AppendLine($"Physics Objects - {PhysicsObjects.Count}");
         sb.AppendLine($"Sphere Checks - {SphereChecks}");
         sb.AppendLine($"AABB Checks - {AABBChecks}");
@@ -51,25 +51,25 @@ public static class PhysicsSystem
         return sb.ToString();
     }
 
-    public static void RegisterAsStatic(ColliderComponent col)
+    public static void RegisterColliderObject(ColliderComponent col)
     {
-        lock (PendingAddColliders)
+        lock (PendingAddColliderObjects)
         {
-            if(!PendingAddColliders.Contains(col))
-                PendingAddColliders.Add(col);
+            if(!PendingAddColliderObjects.Contains(col))
+                PendingAddColliderObjects.Add(col);
         }
     }
 
-    public static void UnregisterAsStatic(ColliderComponent col)
+    public static void UnregisterColliderObject(ColliderComponent col)
     {
-        lock (PendingRemoveColliders)
+        lock (PendingRemoveColliderObjects)
         {
-            if(!PendingRemoveColliders.Contains(col))
-                PendingRemoveColliders.Add(col);
+            if(!PendingRemoveColliderObjects.Contains(col))
+                PendingRemoveColliderObjects.Add(col);
         }
     }
 
-    public static void RegisterAsPhysics(ColliderComponent col, PhysicsComponent phy)
+    public static void RegisterPhysicsObject(ColliderComponent col, PhysicsComponent phy)
     {          
         lock (PendingAddPhysicsObjects)
         {
@@ -77,7 +77,7 @@ public static class PhysicsSystem
         }
     }
 
-    public static void UnregisterAsPhysics(ColliderComponent col, PhysicsComponent phy)
+    public static void UnregisterPhysicsObject(ColliderComponent col, PhysicsComponent phy)
     {          
         lock (PendingRemovePhysicsObjects)
         {
@@ -88,37 +88,26 @@ public static class PhysicsSystem
     public static void MergeDictionaries()
     {
         //Add static
-        lock (PendingAddColliders)
+        lock (PendingAddColliderObjects)
         {
-            foreach (ColliderComponent col in PendingAddColliders)
-            {
-                Colliders.Add(col);
-                col.OctreeKeys = Tree.RegisterComponentGetAABB(col, col.AABBMin, col.AABBMax);
-            }
-            TotalColliders = Colliders.Count;
-            PendingAddColliders.Clear();
+            ColliderObjects.AddRange(PendingAddColliderObjects);
+            TotalColliders = ColliderObjects.Count;
+            PendingAddColliderObjects.Clear();
         }
 
         //remove static
-        lock (PendingRemoveColliders)
+        lock (PendingRemoveColliderObjects)
         {
-            foreach (ColliderComponent col in PendingRemoveColliders)
-            {
-                Colliders.Remove(col);
-                Tree.UnregisterComponent(col, col.OctreeKeys);
-            }
-            TotalColliders = Colliders.Count;
-            PendingRemoveColliders.Clear();
+            ColliderObjects.RemoveAll(PendingRemoveColliderObjects.Contains);
+            TotalColliders = ColliderObjects.Count;
+            PendingRemoveColliderObjects.Clear();
         }
 
         //add Physics
         lock (PendingAddPhysicsObjects)
         {
             foreach (var pair in PendingAddPhysicsObjects)
-            {
                 PhysicsObjects.Add(pair.Key, pair.Value);
-                Tree.UnregisterComponent(pair.Key, pair.Key.OctreeKeys); //remove Physics objects from octree
-            }
             TotalPhysicsObjects = PhysicsObjects.Count;
             PendingAddPhysicsObjects.Clear();
         }
@@ -127,9 +116,7 @@ public static class PhysicsSystem
         lock (PendingRemovePhysicsObjects)
         {
             foreach (var pair in PendingRemovePhysicsObjects)
-            {
                 PhysicsObjects.Remove(pair.Key);
-            }
             TotalPhysicsObjects = PhysicsObjects.Count;
             PendingRemovePhysicsObjects.Clear();
         }
@@ -145,15 +132,17 @@ public static class PhysicsSystem
 
         GameEngine.Link.DebugDisplayPositions.Clear();
 
-        foreach (PhysicsComponent Physics in PhysicsObjects.Values) //maps colliders to physics components
-            Physics.Integrate();
+        foreach (PhysicsComponent phy in PhysicsObjects.Values) //maps colliders to physics components
+            phy.Integrate();
 
-        foreach (ColliderComponent Static in Colliders) //Contains all colliders, even the ones on Physics objects
+        List<ColliderComponent> Dynamic = [];
+
+        foreach (ColliderComponent col in ColliderObjects) //Contains all colliders, even the ones on Physics objects
         {
-            if(!Static.GameObject.IsFrozen)
+            if(!col.GameObject.IsFrozen)
             {
-                Logger.LogWarning(Static.GameObject.Name);
-                Static.ComputeBounds();
+                col.ComputeBounds();
+                Dynamic.Add(col);
             }
         }
         
@@ -165,6 +154,7 @@ public static class PhysicsSystem
                 continue;
 
             List<ColliderComponent> nearby = Tree.FindNearbyNodes(pair.Key.AABBMin, pair.Key.AABBMax).OfType<ColliderComponent>().ToList();
+            nearby.AddRange(Dynamic); //make sure to check against dynamic, non octree colliders
             nearby.AddRange(PhysicsObjects.Keys); //make sure to check against Physicss always
 
             foreach (ColliderComponent collider in nearby)
@@ -791,7 +781,7 @@ public static class PhysicsSystem
 
         try
         {
-            foreach (ColliderComponent col in Colliders)
+            foreach (ColliderComponent col in ColliderObjects)
             {
                 if (RayIntersectsAABB(ray, col.AABBMin, col.AABBMax, out float distance))
                 {

@@ -29,20 +29,14 @@ public class PhysicsComponent : Component
     public PhysicsComponent(GameObject gameObject): base(gameObject)
     {
         col = GetComponent<ColliderComponent>();
-        PhysicsSystem.RegisterAsPhysics(col, this);
+        PhysicsSystem.RegisterPhysicsObject(col, this);
+        
         LastInteracted = GameEngine.Link.totalTime;
     }
 
-    public override void Delete(bool OnlyRemovingComponent)
+    public override void Delete()
     {
-        if(OnlyRemovingComponent)
-        {
-            PhysicsSystem.UnregisterAsPhysics(col, this);
-            PhysicsSystem.RegisterAsStatic(col);
-        }else
-        {
-            PhysicsSystem.UnregisterAsPhysics(col, this);
-        }
+        PhysicsSystem.UnregisterPhysicsObject(col, this);
     }
     
     public override string ToString()

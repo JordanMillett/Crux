@@ -68,9 +68,6 @@ public class DebugScene : Scene
         selected.Transform.WorldPosition = new Vector3(3f, 2f, 2f);
         selected.AddComponent<MovementComponent>();
         selected.AddComponent<MeshBoundsColliderComponent>();
-
-        Logger.Log("FROZEN??");
-        Logger.LogWarning(selected.IsFrozen.ToString());
     
         GameEngine.Link.Camera.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
         GameEngine.Link.Camera.GetComponent<FreeLookComponent>().yaw = MathHelper.DegreesToRadians(180f);
@@ -78,6 +75,14 @@ public class DebugScene : Scene
 
     public override void Update()
     {
+        if(GameEngine.Link.IsKeyPressed(Keys.Q))
+        {
+            string debugTexture = "Crux/Assets/Textures/Debug.jpg";
+
+            GameObject selected = Presets.MakePhysicsPrimitive(Primitives.Cube, debugTexture);
+            selected.Transform.WorldPosition = GameEngine.Link.Camera.Transform.WorldPosition + (GameEngine.Link.Camera.Transform.Forward * 3f);
+        }
+
         if(GameEngine.Link.IsKeyPressed(Keys.E))
         {
             Ray ray = new Ray(GameEngine.Link.Camera.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);

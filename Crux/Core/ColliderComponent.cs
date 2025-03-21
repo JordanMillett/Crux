@@ -15,24 +15,26 @@ public abstract class ColliderComponent : Component
     public ColliderComponent(GameObject gameObject): base(gameObject)
     {
         GameObject = gameObject;
+        PhysicsSystem.RegisterColliderObject(this);
     }
 
-    public override void HandleFrozenStateChanged(bool frozen)
+    public override void HandleFrozenStateChanged(bool IsFrozen)
     {
-        if(frozen)
+        if(IsFrozen)
         {
             ComputeBounds();
-            PhysicsSystem.RegisterAsStatic(this);
+            OctreeKeys = PhysicsSystem.Tree.RegisterComponentGetAABB(this, AABBMin, AABBMax);
         }else
         {
-            PhysicsSystem.UnregisterAsStatic(this);
+            PhysicsSystem.Tree.UnregisterComponent(this, OctreeKeys);
         }
     }
 
-    public override void Delete(bool OnlyRemovingComponent)
+    public override void Delete()
     {
+        PhysicsSystem.UnregisterColliderObject(this);
         if(GameObject.IsFrozen)
-            PhysicsSystem.UnregisterAsStatic(this);
+            PhysicsSystem.Tree.UnregisterComponent(this, OctreeKeys);
     }
 
     public abstract void ComputeBounds();

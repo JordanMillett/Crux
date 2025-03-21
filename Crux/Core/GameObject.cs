@@ -72,7 +72,7 @@ public class GameObject
 
         foreach (var pair in components)
         {
-            components[pair.Key].Delete(false);
+            components[pair.Key].Delete();
         }
     }
 

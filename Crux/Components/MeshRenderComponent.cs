@@ -24,7 +24,7 @@ public class MeshRenderComponent : RenderComponent
         }
     }
 
-    public override void Delete(bool OnlyRemovingComponent = true)
+    public override void Delete()
     {
         for(int i = 0; i < mesh.data.Submeshes.Count; i++)
         {
@@ -71,9 +71,9 @@ public class MeshRenderComponent : RenderComponent
         }
     }
 
-    public override void HandleFrozenStateChanged(bool frozen)
+    public override void HandleFrozenStateChanged(bool IsFrozen)
     {
-        if(frozen)
+        if(IsFrozen)
         {
             (Vector3 AABBMin, Vector3 AABBMax) = mesh.data.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
             ContainerNode  = GraphicsCache.Tree.RegisterComponentGetNode(this, AABBMin, AABBMax);

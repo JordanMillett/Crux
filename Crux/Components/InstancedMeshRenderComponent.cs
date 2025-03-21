@@ -64,7 +64,7 @@ public class InstancedMeshRenderComponent : RenderComponent
         }
     }
     
-    public override void Delete(bool OnlyRemovingComponent = true)
+    public override void Delete()
     {
         for(int i = 0; i < mesh.data.Submeshes.Count; i++)
         {
@@ -102,9 +102,9 @@ public class InstancedMeshRenderComponent : RenderComponent
         return clone;
     }
 
-    public override void HandleFrozenStateChanged(bool frozen)
+    public override void HandleFrozenStateChanged(bool IsFrozen)
     {
-        if(frozen)
+        if(IsFrozen)
         {
             ContainerNode = GraphicsCache.Tree.RegisterComponentGetNode(this, BoundsMin, BoundsMax);
         }
