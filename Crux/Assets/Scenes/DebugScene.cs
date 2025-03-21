@@ -1,4 +1,6 @@
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using Crux.Components;
+using Crux.Physics;
 
 namespace Crux.Assets.Scenes;
 
@@ -48,18 +50,16 @@ public class DebugScene : Scene
         selected.Transform.Scale = new Vector3(5f, 1f, 5f);
         selected.Freeze();
   
-        /*
         selected = Presets.MakePrimitive(Primitives.Cylinder, debugTexture);
         selected.Transform.WorldPosition = new Vector3(-3f, 2f, 2f);
         selected.Transform.Scale = new Vector3(1f, 3f, 1f);
         selected.AddComponent<MovementComponent>();
-        selected.AddComponent<ColliderComponent>().ShowColliders = true;
+        selected.AddComponent<MeshBoundsColliderComponent>();
         
         selected = Presets.MakePrimitive(Primitives.Torus, debugTexture);
         selected.Transform.WorldPosition = new Vector3(3f, 2f, 2f);
         selected.AddComponent<MovementComponent>();
-        selected.AddComponent<ColliderComponent>().ShowColliders = true;
-        */
+        selected.AddComponent<MeshBoundsColliderComponent>();
     
         GameEngine.Link.Camera.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
         GameEngine.Link.Camera.GetComponent<FreeLookComponent>().yaw = MathHelper.DegreesToRadians(180f);
@@ -67,6 +67,20 @@ public class DebugScene : Scene
 
     public override void Update()
     {
-        
+        if(GameEngine.Link.IsKeyPressed(Keys.E))
+        {
+            Ray ray = new Ray(GameEngine.Link.Camera.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
+            if(PhysicsSystem.Raycast(ray, out RayHit hit))
+            {
+                Logger.Log(hit.Collider.GameObject.Name);
+
+                Logger.Log(hit.Collider.HasComponent<RenderComponent>());
+
+                if(hit.Collider.HasComponent<RenderComponent>())
+                    hit.Collider.GetComponent<RenderComponent>().Hide();
+
+                //hit.Collider.Transform.GameObject.Delete();
+            }
+        }
     }
 }

@@ -224,7 +224,9 @@ public class GameEngine : GameWindow
         {
             foreach(GameObject E in Instantiated)
             {
-                E.GetComponents<RenderComponent>().ForEach(renderComponent => renderComponent.Render());
+                if(E.HasComponent<RenderComponent>())
+                    E.GetComponent<RenderComponent>().Render();
+                //E.GetComponents<RenderComponent>().ForEach(renderComponent => renderComponent.Render());
             }
         }catch (InvalidOperationException ex)
         {

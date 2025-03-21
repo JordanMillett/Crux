@@ -106,14 +106,19 @@ public class GameObject
 
     public T? GetComponent<T>() where T : Component
     {
-        if (components.TryGetValue(typeof(T), out Component? component))
+        foreach (var pair in components)
         {
-            return component as T ?? throw new InvalidOperationException($"Unable to cast '{typeof(T).Name}' to '{component.GetType().Name}' on GameObject '{Name}'.");
+            if (typeof(T).IsAssignableFrom(pair.Key))
+            {
+                return pair.Value as T ?? 
+                throw new InvalidOperationException($"Unable to cast '{pair.Key.Name}' to '{typeof(T).Name}' on GameObject '{Name}'.");
+            }
         }
 
         throw new KeyNotFoundException($"'{typeof(T).Name}' not found on GameObject '{Name}'.");
     }
 
+    /*
     public List<T>? GetComponents<T>() where T : Component //used to get multiple render components
     {
         List<T> result = new List<T>();
@@ -128,10 +133,11 @@ public class GameObject
 
         return result;
     }
+    */
 
     public bool HasComponent<T>() where T : Component
     {
-        return components.ContainsKey(typeof(T));
+        return components.Keys.Any(type => typeof(T).IsAssignableFrom(type));
     }
 
     public void Update()
