@@ -17,6 +17,24 @@ public abstract class ColliderComponent : Component
         GameObject = gameObject;
     }
 
+    public override void HandleFrozenStateChanged(bool frozen)
+    {
+        if(frozen)
+        {
+            ComputeBounds();
+            PhysicsSystem.RegisterAsStatic(this);
+        }else
+        {
+            PhysicsSystem.UnregisterAsStatic(this);
+        }
+    }
+
+    public override void Delete(bool OnlyRemovingComponent)
+    {
+        if(GameObject.IsFrozen)
+            PhysicsSystem.UnregisterAsStatic(this);
+    }
+
     public abstract void ComputeBounds();
 
     public abstract List<Vector3> GetWorldPoints();

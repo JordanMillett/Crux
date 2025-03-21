@@ -21,12 +21,6 @@ public class MeshBoundsColliderComponent : ColliderComponent
     {
         mesh = GetComponent<MeshComponent>();
         ComputeBounds();
-        PhysicsSystem.RegisterAsStatic(this);
-    }
-
-    public override void Delete(bool OnlyRemovingComponent)
-    {
-        PhysicsSystem.UnregisterAsStatic(this);
     }
     
     public override string ToString()
@@ -47,6 +41,8 @@ public class MeshBoundsColliderComponent : ColliderComponent
     
     public override void ComputeBounds()
     {
+        Logger.Log(GameObject.Name);
+
         if(ColliderIndex > -1 && ColliderIndex < mesh.data.Submeshes.Count)
         {
             (AABBMin, AABBMax) = mesh.data.Submeshes[ColliderIndex].GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);

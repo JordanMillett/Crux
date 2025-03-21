@@ -18,34 +18,42 @@ public class DebugScene : Scene
 
         GameObject selected;
         selected = Presets.MakePrimitive(Primitives.Quad, debugTexture);
+        selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldRotation = Quaternion.FromEulerAngles(MathHelper.DegreesToRadians(90f), 0f, 0f);
         selected.Freeze();
 
         selected = Presets.MakePrimitive(Primitives.Cube, debugTexture);
+        selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldPosition = new Vector3(2f, 0f, 0f);
         selected.Freeze();
         
         selected = Presets.MakePrimitive(Primitives.Cylinder, debugTexture);
+        selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldPosition = new Vector3(4f, 0f, 0f);
         selected.Freeze();
 
         selected = Presets.MakePrimitive(Primitives.Cone, debugTexture);
+        selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldPosition = new Vector3(6f, 0f, 0f);
         selected.Freeze();
 
         selected = Presets.MakePrimitive(Primitives.Sphere, debugTexture);
+        selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldPosition = new Vector3(8f, 0f, 0f);
         selected.Freeze();
 
         selected = Presets.MakePrimitive(Primitives.Torus, debugTexture);
+        selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldPosition = new Vector3(10f, 0f, 0f);
         selected.Freeze();
 
         selected = Presets.MakeObject("Crux/Assets/Models/Required/Monkey.obj", debugTexture);
+        selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldPosition = new Vector3(5f, 3f, 0f);
         selected.Freeze();
         
         selected = Presets.MakePrimitive(Primitives.Cube, debugTexture);
+        selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldPosition = new Vector3(5f, -5f, 3f);
         selected.Transform.Scale = new Vector3(5f, 1f, 5f);
         selected.Freeze();
@@ -60,6 +68,9 @@ public class DebugScene : Scene
         selected.Transform.WorldPosition = new Vector3(3f, 2f, 2f);
         selected.AddComponent<MovementComponent>();
         selected.AddComponent<MeshBoundsColliderComponent>();
+
+        Logger.Log("FROZEN??");
+        Logger.LogWarning(selected.IsFrozen.ToString());
     
         GameEngine.Link.Camera.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
         GameEngine.Link.Camera.GetComponent<FreeLookComponent>().yaw = MathHelper.DegreesToRadians(180f);
@@ -74,10 +85,10 @@ public class DebugScene : Scene
             {
                 Logger.Log(hit.Collider.GameObject.Name);
 
-                Logger.Log(hit.Collider.HasComponent<RenderComponent>());
-
                 if(hit.Collider.HasComponent<RenderComponent>())
-                    hit.Collider.GetComponent<RenderComponent>().Hide();
+                    hit.Collider.GameObject.RemoveComponent<ColliderComponent>();
+                    //hit.Collider.GameObject.RemoveComponent<MeshRenderComponent>();
+                    //hit.Collider.GetComponent<RenderComponent>().Hide();
 
                 //hit.Collider.Transform.GameObject.Delete();
             }

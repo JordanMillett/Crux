@@ -48,13 +48,10 @@ public class ColliderComponent : RenderComponent
         }
 
         ComputeBounds();
-        PhysicsSystem.RegisterAsStatic(this);
+      
     }
 
-    public override void Delete(bool OnlyRemovingComponent)
-    {
-        PhysicsSystem.UnregisterAsStatic(this);
-    }
+
     
     public override string ToString()
     {

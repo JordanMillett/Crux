@@ -154,25 +154,20 @@ public class GameObject
     }
 
     /// <summary>
-    /// Removes a specified concrete type that is attached to the GameObject.
+    /// Removes a specified concrete component that is attached to the GameObject. Removes a child component if an abstract type is specified.
     /// </summary>
-    /// <remarks>Nothing will be removed is the specified type is abstract or no concrete matches are found.</remarks>
+    /// <remarks>Nothing will be removed if no concrete matches are found.</remarks>
     public void RemoveComponent<T>() where T : Component
     {
-        if(typeof(T).IsAbstract)
-        {
-            Logger.LogWarning($"Cannot remove '{typeof(T).Name}' from GameObject '{Name}' as the type is abstract.");
-            return;
-        }
-
         if(!HasComponent<T>())
         {
             Logger.LogWarning($"Cannot remove '{typeof(T).Name}' as GameObject '{Name}' does not contain '{typeof(T).Name}'.");
             return;
         }
 
-        components[typeof(T)].Delete();
-        components.Remove(typeof(T));
+        Type foundType = GetComponent<T>()!.GetType();
+        components[foundType].Delete();
+        components.Remove(foundType);
     }
     
     /// <summary>

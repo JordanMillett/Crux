@@ -6,20 +6,23 @@ namespace Crux.Physics;
 public static class PhysicsSystem
 {
     public static int TotalColliders = 0;
-    public static int TotalDynamicObjects = 0;
+    public static int TotalPhysicsObjects = 0;
 
     public static bool IntegratingAndComputing = false;
 
     private static Octree Tree;
 
     private static List<ColliderComponent> Colliders = [];
-    private static Dictionary<ColliderComponent, PhysicsComponent> DynamicObjects = [];
+    private static Dictionary<ColliderComponent, PhysicsComponent> PhysicsObjects = [];
+
+    //NEED TO SUPPORT NON STATIC COLLIDERS THAT DONT HAVE PHYSICS COMPONENTS
+    //SO DYNAMIC OBJECTS OUTSIDE OF OCTREE LIKE PHYSICS
 
     private static List<ColliderComponent> PendingAddColliders = [];
-    private static Dictionary<ColliderComponent, PhysicsComponent> PendingAddDynamicObjects = [];
+    private static Dictionary<ColliderComponent, PhysicsComponent> PendingAddPhysicsObjects = [];
 
     private static List<ColliderComponent> PendingRemoveColliders = [];
-    private static Dictionary<ColliderComponent, PhysicsComponent> PendingRemoveDynamicObjects = [];
+    private static Dictionary<ColliderComponent, PhysicsComponent> PendingRemovePhysicsObjects = [];
 
     public static Vector3 Gravity = new Vector3(0f, -9.8f, 0f);
 
@@ -40,7 +43,7 @@ public static class PhysicsSystem
 
         sb.AppendLine($"Physics FPS - {FramesPerSecond:F2}");
         sb.AppendLine($"Colliders - {Colliders.Count}");
-        sb.AppendLine($"Dynamic Objects - {DynamicObjects.Count}");
+        sb.AppendLine($"Physics Objects - {PhysicsObjects.Count}");
         sb.AppendLine($"Sphere Checks - {SphereChecks}");
         sb.AppendLine($"AABB Checks - {AABBChecks}");
         sb.AppendLine($"OBB Checks - {OBBChecks}");
@@ -66,19 +69,19 @@ public static class PhysicsSystem
         }
     }
 
-    public static void RegisterAsDynamic(ColliderComponent col, PhysicsComponent phy)
+    public static void RegisterAsPhysics(ColliderComponent col, PhysicsComponent phy)
     {          
-        lock (PendingAddDynamicObjects)
+        lock (PendingAddPhysicsObjects)
         {
-            PendingAddDynamicObjects.TryAdd(col, phy);
+            PendingAddPhysicsObjects.TryAdd(col, phy);
         }
     }
 
-    public static void UnregisterAsDynamic(ColliderComponent col, PhysicsComponent phy)
+    public static void UnregisterAsPhysics(ColliderComponent col, PhysicsComponent phy)
     {          
-        lock (PendingRemoveDynamicObjects)
+        lock (PendingRemovePhysicsObjects)
         {
-            PendingRemoveDynamicObjects.TryAdd(col, phy);
+            PendingRemovePhysicsObjects.TryAdd(col, phy);
         }
     }
 
@@ -108,27 +111,27 @@ public static class PhysicsSystem
             PendingRemoveColliders.Clear();
         }
 
-        //add dynamic
-        lock (PendingAddDynamicObjects)
+        //add Physics
+        lock (PendingAddPhysicsObjects)
         {
-            foreach (var pair in PendingAddDynamicObjects)
+            foreach (var pair in PendingAddPhysicsObjects)
             {
-                DynamicObjects.Add(pair.Key, pair.Value);
-                Tree.UnregisterComponent(pair.Key, pair.Key.OctreeKeys); //remove dynamic objects from octree
+                PhysicsObjects.Add(pair.Key, pair.Value);
+                Tree.UnregisterComponent(pair.Key, pair.Key.OctreeKeys); //remove Physics objects from octree
             }
-            TotalDynamicObjects = DynamicObjects.Count;
-            PendingAddDynamicObjects.Clear();
+            TotalPhysicsObjects = PhysicsObjects.Count;
+            PendingAddPhysicsObjects.Clear();
         }
 
-        //remove dynamic
-        lock (PendingRemoveDynamicObjects)
+        //remove Physics
+        lock (PendingRemovePhysicsObjects)
         {
-            foreach (var pair in PendingRemoveDynamicObjects)
+            foreach (var pair in PendingRemovePhysicsObjects)
             {
-                DynamicObjects.Remove(pair.Key);
+                PhysicsObjects.Remove(pair.Key);
             }
-            TotalDynamicObjects = DynamicObjects.Count;
-            PendingRemoveDynamicObjects.Clear();
+            TotalPhysicsObjects = PhysicsObjects.Count;
+            PendingRemovePhysicsObjects.Clear();
         }
     }
 
@@ -142,24 +145,27 @@ public static class PhysicsSystem
 
         GameEngine.Link.DebugDisplayPositions.Clear();
 
-        foreach (PhysicsComponent Dynamic in DynamicObjects.Values) //maps colliders to physics components
-            Dynamic.Integrate();
+        foreach (PhysicsComponent Physics in PhysicsObjects.Values) //maps colliders to physics components
+            Physics.Integrate();
 
-        foreach (ColliderComponent Static in Colliders) //Contains all colliders, even the ones on dynamic objects
+        foreach (ColliderComponent Static in Colliders) //Contains all colliders, even the ones on Physics objects
         {
             if(!Static.GameObject.IsFrozen)
+            {
+                Logger.LogWarning(Static.GameObject.Name);
                 Static.ComputeBounds();
+            }
         }
         
         SphereChecks = 0;
         List<(ColliderComponent, ColliderComponent)> SphereConflicts = new List<(ColliderComponent, ColliderComponent)>();       
-        foreach (var pair in DynamicObjects)
+        foreach (var pair in PhysicsObjects)
         {
             if(!pair.Value.Awake)
                 continue;
 
             List<ColliderComponent> nearby = Tree.FindNearbyNodes(pair.Key.AABBMin, pair.Key.AABBMax).OfType<ColliderComponent>().ToList();
-            nearby.AddRange(DynamicObjects.Keys); //make sure to check against dynamics always
+            nearby.AddRange(PhysicsObjects.Keys); //make sure to check against Physicss always
 
             foreach (ColliderComponent collider in nearby)
             {
@@ -757,11 +763,11 @@ public static class PhysicsSystem
 
     private static void ResolveCollision(ColliderComponent a, ColliderComponent b, Vector3 resolution, Vector3 contactPoint)
     {     
-        if (DynamicObjects.ContainsKey(a))
-            DynamicObjects[a].RespondToCollision(contactPoint, resolution, DynamicObjects.ContainsKey(b) ? DynamicObjects[b] : null);
+        if (PhysicsObjects.ContainsKey(a))
+            PhysicsObjects[a].RespondToCollision(contactPoint, resolution, PhysicsObjects.ContainsKey(b) ? PhysicsObjects[b] : null);
 
-        if (DynamicObjects.ContainsKey(b))
-            DynamicObjects[b].RespondToCollision(contactPoint, -resolution,  DynamicObjects.ContainsKey(a) ? DynamicObjects[a] : null);
+        if (PhysicsObjects.ContainsKey(b))
+            PhysicsObjects[b].RespondToCollision(contactPoint, -resolution,  PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null);
     }
 
     public static bool Raycast(Ray ray, out RayHit hit)

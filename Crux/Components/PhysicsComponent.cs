@@ -29,7 +29,7 @@ public class PhysicsComponent : Component
     public PhysicsComponent(GameObject gameObject): base(gameObject)
     {
         col = GetComponent<ColliderComponent>();
-        PhysicsSystem.RegisterAsDynamic(col, this);
+        PhysicsSystem.RegisterAsPhysics(col, this);
         LastInteracted = GameEngine.Link.totalTime;
     }
 
@@ -37,11 +37,11 @@ public class PhysicsComponent : Component
     {
         if(OnlyRemovingComponent)
         {
-            PhysicsSystem.UnregisterAsDynamic(col, this);
+            PhysicsSystem.UnregisterAsPhysics(col, this);
             PhysicsSystem.RegisterAsStatic(col);
         }else
         {
-            PhysicsSystem.UnregisterAsDynamic(col, this);
+            PhysicsSystem.UnregisterAsPhysics(col, this);
         }
     }
     
