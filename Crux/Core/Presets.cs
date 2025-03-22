@@ -24,7 +24,7 @@ public static class Presets
     public static GameObject MakePhysicsPrimitive(Primitives model, string texture)
     {
         GameObject target = MakePrimitive(model, texture);
-        target.AddComponent<ColliderComponent>();
+        target.AddComponent<MeshBoundsColliderComponent>();
         target.AddComponent<PhysicsComponent>();
         return target;
     }
@@ -32,7 +32,7 @@ public static class Presets
     public static GameObject MakeColliderObject(string model, string texture)
     {
         GameObject target = MakeObject(model, texture);
-        target.AddComponent<ColliderComponent>();
+        target.AddComponent<MeshBoundsColliderComponent>();
         return target;
     }
 
@@ -55,7 +55,7 @@ public static class Presets
     public static GameObject MakeColliderObject(string model, List<string> textures)
     {
         GameObject target = MakeObject(model, textures);
-        target.AddComponent<ColliderComponent>();
+        target.AddComponent<MeshBoundsColliderComponent>();
         return target;
     }
 
@@ -71,7 +71,7 @@ public static class Presets
             Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, textures[i]));
         }
         target.AddComponent<MeshRenderComponent>().SetShaders(Mats);
-        //target.AddComponent<ColliderComponent>();
+        //target.AddComponent<MeshBoundsColliderComponent>();
 
         return target;
     }

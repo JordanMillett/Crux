@@ -1,4 +1,5 @@
 using Game.Assets.Scenes;
+using Crux.Assets.Scenes;
 
 namespace Game;
 
@@ -26,9 +27,12 @@ public class GameInstance
         
         GameEngine.Link.OnUpdateCallback += Update;
 
+        GameEngine.Link.ActiveScene = new IslandScene();
         //GameEngine.Link.ActiveScene = new DebugScene();
-        GameEngine.Link.ActiveScene = new GameScene();
+        //GameEngine.Link.ActiveScene = new GameScene();
         GameEngine.Link.ActiveScene.Start();
+
+        Logger.Log($"Loaded Scene '{GameEngine.Link.ActiveScene.GetType().Name}'", LogSource.System);
 
         Logger.Log("Game Started!", LogSource.System);
     }

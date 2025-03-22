@@ -20,6 +20,8 @@ public static class AssetHandler
         }
     };
 
+    public static string GameAssetPath = "Game/Assets";
+
     public static string GetShortInfo()
     {
         StringBuilder sb = new StringBuilder();
@@ -143,36 +145,36 @@ public static class AssetHandler
             case ShaderPresets.Lit:
                 return new Shader
                 (
-                    "Crux/Assets/Shaders/vert_lit.glsl", 
-                    "Crux/Assets/Shaders/frag_lit.glsl",
-                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Textures/Missing.jpg"
+                    "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl", 
+                    "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
+                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Textures/Required/Missing.jpg"
                 );
             case ShaderPresets.Instance_Lit:
                 return new Shader
                 (
-                    "Crux/Assets/Shaders/instance_vert_lit.glsl", 
-                    "Crux/Assets/Shaders/frag_lit.glsl",
-                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Textures/Missing.jpg"
+                    "Crux/Assets/Shaders/Required/Vertex/instance_vert_lit.glsl", 
+                    "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
+                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Textures/Required/Missing.jpg"
                 );
             case ShaderPresets.Font:
                 return new Shader
                 (
-                    "Crux/Assets/Shaders/vert_font.glsl", 
-                    "Crux/Assets/Shaders/frag_font.glsl",
+                    "Crux/Assets/Shaders/Required/Vertex/vert_font.glsl", 
+                    "Crux/Assets/Shaders/Required/Fragment/frag_font.glsl",
                     AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg"
                 );
             case ShaderPresets.Outline:
                 return new Shader
                 (
-                    "Crux/Assets/Shaders/vert_lit.glsl", 
-                    "Crux/Assets/Shaders/frag_outline.glsl",
+                    "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl", 
+                    "Crux/Assets/Shaders/Required/Fragment/frag_outline.glsl",
                     ""
                 );
             case ShaderPresets.Skybox:
                 return new Shader
                 (
-                    "Crux/Assets/Shaders/vert_skybox.glsl", 
-                    "Crux/Assets/Shaders/frag_skybox.glsl",
+                    "Crux/Assets/Shaders/Required/Vertex/vert_skybox.glsl", 
+                    "Crux/Assets/Shaders/Required/Fragment/frag_skybox.glsl",
                     ""
                 );
         }

@@ -46,11 +46,6 @@ public class TextRenderComponent : RenderComponent
         }
     }
 
-    public override void RegisterAsStationary()
-    {
-        throw new NotImplementedException();
-    }
-    
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();

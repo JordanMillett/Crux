@@ -58,7 +58,7 @@ public static class GltfHandler
                 List<Shader> Mats = new List<Shader>();
                 for(int i = 0; i < textures.Count; i++)
                 {    
-                    textures[i] = "Game/Assets/Textures/" + textures[i];
+                    textures[i] = $"{AssetHandler.GameAssetPath}/Textures/" + textures[i];
                     if(AssetHandler.AssetExists(textures[i] + ".jpg"))
                         textures[i] = textures[i] + ".jpg";
                     else if(AssetHandler.AssetExists(textures[i] + ".png"))
@@ -90,7 +90,7 @@ public static class GltfHandler
             List<Shader> Mats = new List<Shader>();
             for(int i = 0; i < textures.Count; i++)
             {    
-                textures[i] = "Game/Assets/Textures/" + textures[i];
+                textures[i] = $"{AssetHandler.GameAssetPath}/Textures/" + textures[i];
                 if(AssetHandler.AssetExists(textures[i] + ".jpg"))
                     textures[i] = textures[i] + ".jpg";
                 else if(AssetHandler.AssetExists(textures[i] + ".png"))
@@ -190,7 +190,7 @@ public static class GltfHandler
             
             for(int i = 0; i < textures.Count; i++)
             {    
-                textures[i] = "Game/Assets/Textures/" + textures[i];
+                textures[i] = $"{AssetHandler.GameAssetPath}/Textures/" + textures[i];
                 if(AssetHandler.AssetExists(textures[i] + ".jpg"))
                     textures[i] = textures[i] + ".jpg";
                 else if(AssetHandler.AssetExists(textures[i] + ".png"))

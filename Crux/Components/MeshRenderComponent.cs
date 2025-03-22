@@ -24,7 +24,7 @@ public class MeshRenderComponent : RenderComponent
         }
     }
 
-    public override void Delete(bool OnlyRemovingComponent = true)
+    public override void Delete()
     {
         for(int i = 0; i < mesh.data.Submeshes.Count; i++)
         {
@@ -71,16 +71,18 @@ public class MeshRenderComponent : RenderComponent
         }
     }
 
-    public override void RegisterAsStationary()
+    public override void HandleFrozenStateChanged(bool IsFrozen)
     {
-        (Vector3 AABBMin, Vector3 AABBMax) = mesh.data.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
-        StationaryVisibilityNode = GraphicsCache.Tree.RegisterComponentGetNode(this, AABBMin, AABBMax);
-        GameObject.Stationary = true;
+        if(IsFrozen)
+        {
+            (Vector3 AABBMin, Vector3 AABBMax) = mesh.data.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
+            ContainerNode  = GraphicsCache.Tree.RegisterComponentGetNode(this, AABBMin, AABBMax);
+        }
     }
 
     public override void Render()
     {
-        if(Hidden || (this.GameObject.Stationary && StationaryVisibilityNode.Culled))
+        if(IsHidden || (this.GameObject.IsFrozen && ContainerNode.Culled))
             return;
 
         for(int i = 0; i < MeshVAOs.Count; i++)
