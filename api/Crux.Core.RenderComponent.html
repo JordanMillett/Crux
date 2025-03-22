@@ -120,7 +120,6 @@ Class RenderComponent  <a class="header-action link-secondary" title="View sourc
   <dl class="typelist derived">
     <dt>Derived</dt>
     <dd>
-      <div><a class="xref" href="Crux.Components.ColliderComponent.html">ColliderComponent</a></div>
       <div><a class="xref" href="Crux.Components.InstancedMeshRenderComponent.html">InstancedMeshRenderComponent</a></div>
       <div><a class="xref" href="Crux.Components.LineRenderComponent.html">LineRenderComponent</a></div>
       <div><a class="xref" href="Crux.Components.MeshRenderComponent.html">MeshRenderComponent</a></div>
@@ -150,10 +149,13 @@ Class RenderComponent  <a class="header-action link-secondary" title="View sourc
       <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Clone_Crux_Core_GameObject_">Component.Clone(GameObject)</a>
     </div>
     <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_HandleFrozenStateChanged_System_Boolean_">Component.HandleFrozenStateChanged(bool)</a>
+    </div>
+    <div>
       <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Update">Component.Update()</a>
     </div>
     <div>
-      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Delete_System_Boolean_">Component.Delete(bool)</a>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Delete">Component.Delete()</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -188,7 +190,7 @@ Class RenderComponent  <a class="header-action link-secondary" title="View sourc
 
   <h3 id="Crux_Core_RenderComponent__ctor_Crux_Core_GameObject_" data-uid="Crux.Core.RenderComponent.#ctor(Crux.Core.GameObject)">
   RenderComponent(GameObject)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -220,46 +222,16 @@ Class RenderComponent  <a class="header-action link-secondary" title="View sourc
 
 
 
-  <h3 id="Crux_Core_RenderComponent_Hidden" data-uid="Crux.Core.RenderComponent.Hidden">
-  Hidden
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L7"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Core_RenderComponent_ContainerNode" data-uid="Crux.Core.RenderComponent.ContainerNode">
+  ContainerNode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Hidden</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="Crux_Core_RenderComponent_StationaryVisibilityNode" data-uid="Crux.Core.RenderComponent.StationaryVisibilityNode">
-  StationaryVisibilityNode
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L9"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public OctreeNode StationaryVisibilityNode</code></pre>
+    <pre><code class="lang-csharp hljs">public OctreeNode ContainerNode</code></pre>
   </div>
 
 
@@ -279,22 +251,57 @@ Class RenderComponent  <a class="header-action link-secondary" title="View sourc
 
 
 
-  <h2 class="section" id="methods">Methods
+  <h2 class="section" id="properties">Properties
 </h2>
 
 
-  <a id="Crux_Core_RenderComponent_RegisterAsStationary_" data-uid="Crux.Core.RenderComponent.RegisterAsStationary*"></a>
+  <a id="Crux_Core_RenderComponent_IsHidden_" data-uid="Crux.Core.RenderComponent.IsHidden*"></a>
 
-  <h3 id="Crux_Core_RenderComponent_RegisterAsStationary" data-uid="Crux.Core.RenderComponent.RegisterAsStationary">
-  RegisterAsStationary()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Core_RenderComponent_IsHidden" data-uid="Crux.Core.RenderComponent.IsHidden">
+  IsHidden
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract void RegisterAsStationary()</code></pre>
+    <pre><code class="lang-csharp hljs">public bool IsHidden { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Crux_Core_RenderComponent_Hide_" data-uid="Crux.Core.RenderComponent.Hide*"></a>
+
+  <h3 id="Crux_Core_RenderComponent_Hide" data-uid="Crux.Core.RenderComponent.Hide">
+  Hide()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Hide()</code></pre>
   </div>
 
 
@@ -313,7 +320,7 @@ Class RenderComponent  <a class="header-action link-secondary" title="View sourc
 
   <h3 id="Crux_Core_RenderComponent_Render" data-uid="Crux.Core.RenderComponent.Render">
   Render()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -328,6 +335,66 @@ Class RenderComponent  <a class="header-action link-secondary" title="View sourc
 
 
 
+
+
+
+
+
+
+
+  <a id="Crux_Core_RenderComponent_Unhide_" data-uid="Crux.Core.RenderComponent.Unhide*"></a>
+
+  <h3 id="Crux_Core_RenderComponent_Unhide" data-uid="Crux.Core.RenderComponent.Unhide">
+  Unhide()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Unhide()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="Crux_Core_RenderComponent_OnHiddenStateChanged" data-uid="Crux.Core.RenderComponent.OnHiddenStateChanged">
+  OnHiddenStateChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/RenderComponent.cs/#L7"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;bool&gt; OnHiddenStateChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
 
 
 

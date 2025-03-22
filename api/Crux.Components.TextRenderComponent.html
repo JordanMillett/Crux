@@ -123,10 +123,19 @@ Class TextRenderComponent  <a class="header-action link-secondary" title="View s
     <dt>Inherited Members</dt>
     <dd>
     <div>
-      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Hidden">RenderComponent.Hidden</a>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_OnHiddenStateChanged">RenderComponent.OnHiddenStateChanged</a>
     </div>
     <div>
-      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_StationaryVisibilityNode">RenderComponent.StationaryVisibilityNode</a>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_IsHidden">RenderComponent.IsHidden</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Hide">RenderComponent.Hide()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Unhide">RenderComponent.Unhide()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_ContainerNode">RenderComponent.ContainerNode</a>
     </div>
     <div>
       <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_GameObject">Component.GameObject</a>
@@ -141,10 +150,13 @@ Class TextRenderComponent  <a class="header-action link-secondary" title="View s
       <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_HasComponent__1">Component.HasComponent&lt;T&gt;()</a>
     </div>
     <div>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_HandleFrozenStateChanged_System_Boolean_">Component.HandleFrozenStateChanged(bool)</a>
+    </div>
+    <div>
       <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Update">Component.Update()</a>
     </div>
     <div>
-      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Delete_System_Boolean_">Component.Delete(bool)</a>
+      <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_Delete">Component.Delete()</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -428,7 +440,7 @@ Class TextRenderComponent  <a class="header-action link-secondary" title="View s
 
   <h3 id="Crux_Components_TextRenderComponent_Clone_Crux_Core_GameObject_" data-uid="Crux.Components.TextRenderComponent.Clone(Crux.Core.GameObject)">
   Clone(GameObject)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/TextRenderComponent.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/TextRenderComponent.cs/#L58"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -460,37 +472,11 @@ Class TextRenderComponent  <a class="header-action link-secondary" title="View s
 
 
 
-  <a id="Crux_Components_TextRenderComponent_RegisterAsStationary_" data-uid="Crux.Components.TextRenderComponent.RegisterAsStationary*"></a>
-
-  <h3 id="Crux_Components_TextRenderComponent_RegisterAsStationary" data-uid="Crux.Components.TextRenderComponent.RegisterAsStationary">
-  RegisterAsStationary()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/TextRenderComponent.cs/#L49"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void RegisterAsStationary()</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
   <a id="Crux_Components_TextRenderComponent_Render_" data-uid="Crux.Components.TextRenderComponent.Render*"></a>
 
   <h3 id="Crux_Components_TextRenderComponent_Render" data-uid="Crux.Components.TextRenderComponent.Render">
   Render()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/TextRenderComponent.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/TextRenderComponent.cs/#L65"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -516,7 +502,7 @@ Class TextRenderComponent  <a class="header-action link-secondary" title="View s
 
   <h3 id="Crux_Components_TextRenderComponent_ToString" data-uid="Crux.Components.TextRenderComponent.ToString">
   ToString()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/TextRenderComponent.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/TextRenderComponent.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>

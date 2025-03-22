@@ -154,16 +154,16 @@ Class Octree  <a class="header-action link-secondary" title="View source" href="
 
   <a id="Crux_Physics_Octree__ctor_" data-uid="Crux.Physics.Octree.#ctor*"></a>
 
-  <h3 id="Crux_Physics_Octree__ctor_OpenTK_Mathematics_Vector3_OpenTK_Mathematics_Vector3_System_Int32_" data-uid="Crux.Physics.Octree.#ctor(OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Int32)">
-  Octree(Vector3, Vector3, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Physics_Octree__ctor_OpenTK_Mathematics_Vector3_OpenTK_Mathematics_Vector3_System_Int32_System_String_" data-uid="Crux.Physics.Octree.#ctor(OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Int32,System.String)">
+  Octree(Vector3, Vector3, int, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Octree(Vector3 min, Vector3 max, int maxDepth = 7)</code></pre>
+    <pre><code class="lang-csharp hljs">public Octree(Vector3 min, Vector3 max, int maxDepth = 7, string octreeName = &quot;Octree&quot;)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -173,6 +173,8 @@ Class Octree  <a class="header-action link-secondary" title="View source" href="
     <dt><code>max</code> <span class="xref">Vector3</span></dt>
     <dd></dd>
     <dt><code>maxDepth</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>octreeName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -222,6 +224,36 @@ Class Octree  <a class="header-action link-secondary" title="View source" href="
 
 
 
+  <h3 id="Crux_Physics_Octree_OctreeName" data-uid="Crux.Physics.Octree.OctreeName">
+  OctreeName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly string OctreeName</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Crux_Physics_Octree_Root" data-uid="Crux.Physics.Octree.Root">
   Root
   <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L45"><i class="bi bi-code-slash"></i></a>
@@ -259,7 +291,7 @@ Class Octree  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Physics_Octree_FindNearbyNodes_OpenTK_Mathematics_Vector3_OpenTK_Mathematics_Vector3_" data-uid="Crux.Physics.Octree.FindNearbyNodes(OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3)">
   FindNearbyNodes(Vector3, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L75"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -297,7 +329,7 @@ Class Octree  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Physics_Octree_RecalculateVisibility" data-uid="Crux.Physics.Octree.RecalculateVisibility">
   RecalculateVisibility()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L175"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L178"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -323,7 +355,7 @@ Class Octree  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Physics_Octree_RegisterComponentGetAABB_Crux_Core_Component_OpenTK_Mathematics_Vector3_OpenTK_Mathematics_Vector3_" data-uid="Crux.Physics.Octree.RegisterComponentGetAABB(Crux.Core.Component,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3)">
   RegisterComponentGetAABB(Component, Vector3, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L56"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -363,7 +395,7 @@ Class Octree  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Physics_Octree_RegisterComponentGetNode_Crux_Core_Component_OpenTK_Mathematics_Vector3_OpenTK_Mathematics_Vector3_" data-uid="Crux.Physics.Octree.RegisterComponentGetNode(Crux.Core.Component,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3)">
   RegisterComponentGetNode(Component, Vector3, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -403,7 +435,7 @@ Class Octree  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Physics_Octree_UnregisterComponent_Crux_Core_Component_System_ValueTuple_OpenTK_Mathematics_Vector3_OpenTK_Mathematics_Vector3__" data-uid="Crux.Physics.Octree.UnregisterComponent(Crux.Core.Component,System.ValueTuple{OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3})">
   UnregisterComponent(Component, (Vector3 minKey, Vector3 maxKey))
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Octree.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>

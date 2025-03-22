@@ -26,6 +26,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Assets.Scenes.IslandScene.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Assets.Scenes.IslandScene.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Assets.Scenes.IslandScene",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Crux.Assets.Scenes.yml",
       "output": {
         ".html": {
@@ -50,20 +64,6 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Crux.Components.CameraComponent",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Crux.Components.ColliderComponent.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Crux.Components.ColliderComponent.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Crux.Components.ColliderComponent",
       "Summary": null
     },
     {
@@ -134,6 +134,20 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Crux.Components.LineRenderComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.MeshBoundsColliderComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.MeshBoundsColliderComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.MeshBoundsColliderComponent",
       "Summary": null
     },
     {
@@ -246,6 +260,20 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Crux.Components",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.ColliderComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.ColliderComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.ColliderComponent",
       "Summary": null
     },
     {

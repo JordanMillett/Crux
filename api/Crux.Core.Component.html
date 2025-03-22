@@ -126,6 +126,7 @@ Class Component  <a class="header-action link-secondary" title="View source" hre
       <div><a class="xref" href="Crux.Components.MovementComponent.html">MovementComponent</a></div>
       <div><a class="xref" href="Crux.Components.PhysicsComponent.html">PhysicsComponent</a></div>
       <div><a class="xref" href="Crux.Components.TransformComponent.html">TransformComponent</a></div>
+      <div><a class="xref" href="Crux.Core.ColliderComponent.html">ColliderComponent</a></div>
       <div><a class="xref" href="Crux.Core.RenderComponent.html">RenderComponent</a></div>
     </dd>
   </dl>
@@ -267,7 +268,7 @@ Class Component  <a class="header-action link-secondary" title="View source" hre
 
   <h3 id="Crux_Core_Component_Clone_Crux_Core_GameObject_" data-uid="Crux.Core.Component.Clone(Crux.Core.GameObject)">
   Clone(GameObject)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Component.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Component.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -301,23 +302,18 @@ Class Component  <a class="header-action link-secondary" title="View source" hre
 
   <a id="Crux_Core_Component_Delete_" data-uid="Crux.Core.Component.Delete*"></a>
 
-  <h3 id="Crux_Core_Component_Delete_System_Boolean_" data-uid="Crux.Core.Component.Delete(System.Boolean)">
-  Delete(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Component.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Core_Component_Delete" data-uid="Crux.Core.Component.Delete">
+  Delete()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Component.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void Delete(bool OnlyRemovingComponent = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void Delete()</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>OnlyRemovingComponent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -356,6 +352,37 @@ Class Component  <a class="header-action link-secondary" title="View source" hre
     <dt><code>T</code></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Component_HandleFrozenStateChanged_" data-uid="Crux.Core.Component.HandleFrozenStateChanged*"></a>
+
+  <h3 id="Crux_Core_Component_HandleFrozenStateChanged_System_Boolean_" data-uid="Crux.Core.Component.HandleFrozenStateChanged(System.Boolean)">
+  HandleFrozenStateChanged(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Component.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void HandleFrozenStateChanged(bool IsFrozen)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>IsFrozen</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
 
 
 
@@ -406,7 +433,7 @@ Class Component  <a class="header-action link-secondary" title="View source" hre
 
   <h3 id="Crux_Core_Component_ToString" data-uid="Crux.Core.Component.ToString">
   ToString()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Component.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Component.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
@@ -439,7 +466,7 @@ Class Component  <a class="header-action link-secondary" title="View source" hre
 
   <h3 id="Crux_Core_Component_Update" data-uid="Crux.Core.Component.Update">
   Update()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Component.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Component.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>

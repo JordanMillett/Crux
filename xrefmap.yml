@@ -39,6 +39,38 @@ references:
   isSpec: "True"
   fullName: Crux.Assets.Scenes.DebugScene.Update
   nameWithType: DebugScene.Update
+- uid: Crux.Assets.Scenes.IslandScene
+  name: IslandScene
+  href: api/Crux.Assets.Scenes.IslandScene.html
+  commentId: T:Crux.Assets.Scenes.IslandScene
+  fullName: Crux.Assets.Scenes.IslandScene
+  nameWithType: IslandScene
+- uid: Crux.Assets.Scenes.IslandScene.Start
+  name: Start()
+  href: api/Crux.Assets.Scenes.IslandScene.html#Crux_Assets_Scenes_IslandScene_Start
+  commentId: M:Crux.Assets.Scenes.IslandScene.Start
+  fullName: Crux.Assets.Scenes.IslandScene.Start()
+  nameWithType: IslandScene.Start()
+- uid: Crux.Assets.Scenes.IslandScene.Start*
+  name: Start
+  href: api/Crux.Assets.Scenes.IslandScene.html#Crux_Assets_Scenes_IslandScene_Start_
+  commentId: Overload:Crux.Assets.Scenes.IslandScene.Start
+  isSpec: "True"
+  fullName: Crux.Assets.Scenes.IslandScene.Start
+  nameWithType: IslandScene.Start
+- uid: Crux.Assets.Scenes.IslandScene.Update
+  name: Update()
+  href: api/Crux.Assets.Scenes.IslandScene.html#Crux_Assets_Scenes_IslandScene_Update
+  commentId: M:Crux.Assets.Scenes.IslandScene.Update
+  fullName: Crux.Assets.Scenes.IslandScene.Update()
+  nameWithType: IslandScene.Update()
+- uid: Crux.Assets.Scenes.IslandScene.Update*
+  name: Update
+  href: api/Crux.Assets.Scenes.IslandScene.html#Crux_Assets_Scenes_IslandScene_Update_
+  commentId: Overload:Crux.Assets.Scenes.IslandScene.Update
+  isSpec: "True"
+  fullName: Crux.Assets.Scenes.IslandScene.Update
+  nameWithType: IslandScene.Update
 - uid: Crux.Components
   name: Crux.Components
   href: api/Crux.Components.html
@@ -177,277 +209,6 @@ references:
   isSpec: "True"
   fullName: Crux.Components.CameraComponent.Update
   nameWithType: CameraComponent.Update
-- uid: Crux.Components.ColliderComponent
-  name: ColliderComponent
-  href: api/Crux.Components.ColliderComponent.html
-  commentId: T:Crux.Components.ColliderComponent
-  fullName: Crux.Components.ColliderComponent
-  nameWithType: ColliderComponent
-- uid: Crux.Components.ColliderComponent.#ctor(Crux.Core.GameObject)
-  name: ColliderComponent(GameObject)
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent__ctor_Crux_Core_GameObject_
-  commentId: M:Crux.Components.ColliderComponent.#ctor(Crux.Core.GameObject)
-  name.vb: New(GameObject)
-  fullName: Crux.Components.ColliderComponent.ColliderComponent(Crux.Core.GameObject)
-  fullName.vb: Crux.Components.ColliderComponent.New(Crux.Core.GameObject)
-  nameWithType: ColliderComponent.ColliderComponent(GameObject)
-  nameWithType.vb: ColliderComponent.New(GameObject)
-- uid: Crux.Components.ColliderComponent.#ctor*
-  name: ColliderComponent
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent__ctor_
-  commentId: Overload:Crux.Components.ColliderComponent.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Crux.Components.ColliderComponent.ColliderComponent
-  fullName.vb: Crux.Components.ColliderComponent.New
-  nameWithType: ColliderComponent.ColliderComponent
-  nameWithType.vb: ColliderComponent.New
-- uid: Crux.Components.ColliderComponent.AABBColor
-  name: AABBColor
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_AABBColor
-  commentId: F:Crux.Components.ColliderComponent.AABBColor
-  fullName: Crux.Components.ColliderComponent.AABBColor
-  nameWithType: ColliderComponent.AABBColor
-- uid: Crux.Components.ColliderComponent.AABBMax
-  name: AABBMax
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_AABBMax
-  commentId: F:Crux.Components.ColliderComponent.AABBMax
-  fullName: Crux.Components.ColliderComponent.AABBMax
-  nameWithType: ColliderComponent.AABBMax
-- uid: Crux.Components.ColliderComponent.AABBMin
-  name: AABBMin
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_AABBMin
-  commentId: F:Crux.Components.ColliderComponent.AABBMin
-  fullName: Crux.Components.ColliderComponent.AABBMin
-  nameWithType: ColliderComponent.AABBMin
-- uid: Crux.Components.ColliderComponent.Clone(Crux.Core.GameObject)
-  name: Clone(GameObject)
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_Clone_Crux_Core_GameObject_
-  commentId: M:Crux.Components.ColliderComponent.Clone(Crux.Core.GameObject)
-  fullName: Crux.Components.ColliderComponent.Clone(Crux.Core.GameObject)
-  nameWithType: ColliderComponent.Clone(GameObject)
-- uid: Crux.Components.ColliderComponent.Clone*
-  name: Clone
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_Clone_
-  commentId: Overload:Crux.Components.ColliderComponent.Clone
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.Clone
-  nameWithType: ColliderComponent.Clone
-- uid: Crux.Components.ColliderComponent.ColliderIndex
-  name: ColliderIndex
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_ColliderIndex
-  commentId: F:Crux.Components.ColliderComponent.ColliderIndex
-  fullName: Crux.Components.ColliderComponent.ColliderIndex
-  nameWithType: ColliderComponent.ColliderIndex
-- uid: Crux.Components.ColliderComponent.ComputeBounds
-  name: ComputeBounds()
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_ComputeBounds
-  commentId: M:Crux.Components.ColliderComponent.ComputeBounds
-  fullName: Crux.Components.ColliderComponent.ComputeBounds()
-  nameWithType: ColliderComponent.ComputeBounds()
-- uid: Crux.Components.ColliderComponent.ComputeBounds*
-  name: ComputeBounds
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_ComputeBounds_
-  commentId: Overload:Crux.Components.ColliderComponent.ComputeBounds
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.ComputeBounds
-  nameWithType: ColliderComponent.ComputeBounds
-- uid: Crux.Components.ColliderComponent.Delete(System.Boolean)
-  name: Delete(bool)
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_Delete_System_Boolean_
-  commentId: M:Crux.Components.ColliderComponent.Delete(System.Boolean)
-  name.vb: Delete(Boolean)
-  fullName: Crux.Components.ColliderComponent.Delete(bool)
-  fullName.vb: Crux.Components.ColliderComponent.Delete(Boolean)
-  nameWithType: ColliderComponent.Delete(bool)
-  nameWithType.vb: ColliderComponent.Delete(Boolean)
-- uid: Crux.Components.ColliderComponent.Delete*
-  name: Delete
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_Delete_
-  commentId: Overload:Crux.Components.ColliderComponent.Delete
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.Delete
-  nameWithType: ColliderComponent.Delete
-- uid: Crux.Components.ColliderComponent.DistanceFromOBB(OpenTK.Mathematics.Vector3)
-  name: DistanceFromOBB(Vector3)
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_DistanceFromOBB_OpenTK_Mathematics_Vector3_
-  commentId: M:Crux.Components.ColliderComponent.DistanceFromOBB(OpenTK.Mathematics.Vector3)
-  fullName: Crux.Components.ColliderComponent.DistanceFromOBB(OpenTK.Mathematics.Vector3)
-  nameWithType: ColliderComponent.DistanceFromOBB(Vector3)
-- uid: Crux.Components.ColliderComponent.DistanceFromOBB*
-  name: DistanceFromOBB
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_DistanceFromOBB_
-  commentId: Overload:Crux.Components.ColliderComponent.DistanceFromOBB
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.DistanceFromOBB
-  nameWithType: ColliderComponent.DistanceFromOBB
-- uid: Crux.Components.ColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3)
-  name: GetClosestPointOnOBB(Vector3)
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_GetClosestPointOnOBB_OpenTK_Mathematics_Vector3_
-  commentId: M:Crux.Components.ColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3)
-  fullName: Crux.Components.ColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3)
-  nameWithType: ColliderComponent.GetClosestPointOnOBB(Vector3)
-- uid: Crux.Components.ColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3,System.Single,System.Single)
-  name: GetClosestPointOnOBB(Vector3, float, float)
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_GetClosestPointOnOBB_OpenTK_Mathematics_Vector3_System_Single_System_Single_
-  commentId: M:Crux.Components.ColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3,System.Single,System.Single)
-  name.vb: GetClosestPointOnOBB(Vector3, Single, Single)
-  fullName: Crux.Components.ColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3, float, float)
-  fullName.vb: Crux.Components.ColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3, Single, Single)
-  nameWithType: ColliderComponent.GetClosestPointOnOBB(Vector3, float, float)
-  nameWithType.vb: ColliderComponent.GetClosestPointOnOBB(Vector3, Single, Single)
-- uid: Crux.Components.ColliderComponent.GetClosestPointOnOBB*
-  name: GetClosestPointOnOBB
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_GetClosestPointOnOBB_
-  commentId: Overload:Crux.Components.ColliderComponent.GetClosestPointOnOBB
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.GetClosestPointOnOBB
-  nameWithType: ColliderComponent.GetClosestPointOnOBB
-- uid: Crux.Components.ColliderComponent.GetWorldEdges
-  name: GetWorldEdges()
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_GetWorldEdges
-  commentId: M:Crux.Components.ColliderComponent.GetWorldEdges
-  fullName: Crux.Components.ColliderComponent.GetWorldEdges()
-  nameWithType: ColliderComponent.GetWorldEdges()
-- uid: Crux.Components.ColliderComponent.GetWorldEdges*
-  name: GetWorldEdges
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_GetWorldEdges_
-  commentId: Overload:Crux.Components.ColliderComponent.GetWorldEdges
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.GetWorldEdges
-  nameWithType: ColliderComponent.GetWorldEdges
-- uid: Crux.Components.ColliderComponent.GetWorldNormals
-  name: GetWorldNormals()
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_GetWorldNormals
-  commentId: M:Crux.Components.ColliderComponent.GetWorldNormals
-  fullName: Crux.Components.ColliderComponent.GetWorldNormals()
-  nameWithType: ColliderComponent.GetWorldNormals()
-- uid: Crux.Components.ColliderComponent.GetWorldNormals*
-  name: GetWorldNormals
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_GetWorldNormals_
-  commentId: Overload:Crux.Components.ColliderComponent.GetWorldNormals
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.GetWorldNormals
-  nameWithType: ColliderComponent.GetWorldNormals
-- uid: Crux.Components.ColliderComponent.GetWorldPoints
-  name: GetWorldPoints()
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_GetWorldPoints
-  commentId: M:Crux.Components.ColliderComponent.GetWorldPoints
-  fullName: Crux.Components.ColliderComponent.GetWorldPoints()
-  nameWithType: ColliderComponent.GetWorldPoints()
-- uid: Crux.Components.ColliderComponent.GetWorldPoints*
-  name: GetWorldPoints
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_GetWorldPoints_
-  commentId: Overload:Crux.Components.ColliderComponent.GetWorldPoints
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.GetWorldPoints
-  nameWithType: ColliderComponent.GetWorldPoints
-- uid: Crux.Components.ColliderComponent.IsPointWithinOBB(OpenTK.Mathematics.Vector3)
-  name: IsPointWithinOBB(Vector3)
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_IsPointWithinOBB_OpenTK_Mathematics_Vector3_
-  commentId: M:Crux.Components.ColliderComponent.IsPointWithinOBB(OpenTK.Mathematics.Vector3)
-  fullName: Crux.Components.ColliderComponent.IsPointWithinOBB(OpenTK.Mathematics.Vector3)
-  nameWithType: ColliderComponent.IsPointWithinOBB(Vector3)
-- uid: Crux.Components.ColliderComponent.IsPointWithinOBB*
-  name: IsPointWithinOBB
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_IsPointWithinOBB_
-  commentId: Overload:Crux.Components.ColliderComponent.IsPointWithinOBB
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.IsPointWithinOBB
-  nameWithType: ColliderComponent.IsPointWithinOBB
-- uid: Crux.Components.ColliderComponent.OBBAxes
-  name: OBBAxes
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_OBBAxes
-  commentId: F:Crux.Components.ColliderComponent.OBBAxes
-  fullName: Crux.Components.ColliderComponent.OBBAxes
-  nameWithType: ColliderComponent.OBBAxes
-- uid: Crux.Components.ColliderComponent.OBBCenter
-  name: OBBCenter
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_OBBCenter
-  commentId: F:Crux.Components.ColliderComponent.OBBCenter
-  fullName: Crux.Components.ColliderComponent.OBBCenter
-  nameWithType: ColliderComponent.OBBCenter
-- uid: Crux.Components.ColliderComponent.OBBColor
-  name: OBBColor
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_OBBColor
-  commentId: F:Crux.Components.ColliderComponent.OBBColor
-  fullName: Crux.Components.ColliderComponent.OBBColor
-  nameWithType: ColliderComponent.OBBColor
-- uid: Crux.Components.ColliderComponent.OBBHalfExtents
-  name: OBBHalfExtents
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_OBBHalfExtents
-  commentId: F:Crux.Components.ColliderComponent.OBBHalfExtents
-  fullName: Crux.Components.ColliderComponent.OBBHalfExtents
-  nameWithType: ColliderComponent.OBBHalfExtents
-- uid: Crux.Components.ColliderComponent.OctreeKeys
-  name: OctreeKeys
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_OctreeKeys
-  commentId: F:Crux.Components.ColliderComponent.OctreeKeys
-  fullName: Crux.Components.ColliderComponent.OctreeKeys
-  nameWithType: ColliderComponent.OctreeKeys
-- uid: Crux.Components.ColliderComponent.RegisterAsStationary
-  name: RegisterAsStationary()
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_RegisterAsStationary
-  commentId: M:Crux.Components.ColliderComponent.RegisterAsStationary
-  fullName: Crux.Components.ColliderComponent.RegisterAsStationary()
-  nameWithType: ColliderComponent.RegisterAsStationary()
-- uid: Crux.Components.ColliderComponent.RegisterAsStationary*
-  name: RegisterAsStationary
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_RegisterAsStationary_
-  commentId: Overload:Crux.Components.ColliderComponent.RegisterAsStationary
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.RegisterAsStationary
-  nameWithType: ColliderComponent.RegisterAsStationary
-- uid: Crux.Components.ColliderComponent.Render
-  name: Render()
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_Render
-  commentId: M:Crux.Components.ColliderComponent.Render
-  fullName: Crux.Components.ColliderComponent.Render()
-  nameWithType: ColliderComponent.Render()
-- uid: Crux.Components.ColliderComponent.Render*
-  name: Render
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_Render_
-  commentId: Overload:Crux.Components.ColliderComponent.Render
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.Render
-  nameWithType: ColliderComponent.Render
-- uid: Crux.Components.ColliderComponent.ShowColliders
-  name: ShowColliders
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_ShowColliders
-  commentId: F:Crux.Components.ColliderComponent.ShowColliders
-  fullName: Crux.Components.ColliderComponent.ShowColliders
-  nameWithType: ColliderComponent.ShowColliders
-- uid: Crux.Components.ColliderComponent.SphereCenter
-  name: SphereCenter
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_SphereCenter
-  commentId: F:Crux.Components.ColliderComponent.SphereCenter
-  fullName: Crux.Components.ColliderComponent.SphereCenter
-  nameWithType: ColliderComponent.SphereCenter
-- uid: Crux.Components.ColliderComponent.SphereRadius
-  name: SphereRadius
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_SphereRadius
-  commentId: F:Crux.Components.ColliderComponent.SphereRadius
-  fullName: Crux.Components.ColliderComponent.SphereRadius
-  nameWithType: ColliderComponent.SphereRadius
-- uid: Crux.Components.ColliderComponent.ToString
-  name: ToString()
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_ToString
-  commentId: M:Crux.Components.ColliderComponent.ToString
-  fullName: Crux.Components.ColliderComponent.ToString()
-  nameWithType: ColliderComponent.ToString()
-- uid: Crux.Components.ColliderComponent.ToString*
-  name: ToString
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_ToString_
-  commentId: Overload:Crux.Components.ColliderComponent.ToString
-  isSpec: "True"
-  fullName: Crux.Components.ColliderComponent.ToString
-  nameWithType: ColliderComponent.ToString
-- uid: Crux.Components.ColliderComponent.boundsMaterial
-  name: boundsMaterial
-  href: api/Crux.Components.ColliderComponent.html#Crux_Components_ColliderComponent_boundsMaterial
-  commentId: F:Crux.Components.ColliderComponent.boundsMaterial
-  fullName: Crux.Components.ColliderComponent.boundsMaterial
-  nameWithType: ColliderComponent.boundsMaterial
 - uid: Crux.Components.FreeLookComponent
   name: FreeLookComponent
   href: api/Crux.Components.FreeLookComponent.html
@@ -593,15 +354,12 @@ references:
   isSpec: "True"
   fullName: Crux.Components.InstancedMeshRenderComponent.Clone
   nameWithType: InstancedMeshRenderComponent.Clone
-- uid: Crux.Components.InstancedMeshRenderComponent.Delete(System.Boolean)
-  name: Delete(bool)
-  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_Delete_System_Boolean_
-  commentId: M:Crux.Components.InstancedMeshRenderComponent.Delete(System.Boolean)
-  name.vb: Delete(Boolean)
-  fullName: Crux.Components.InstancedMeshRenderComponent.Delete(bool)
-  fullName.vb: Crux.Components.InstancedMeshRenderComponent.Delete(Boolean)
-  nameWithType: InstancedMeshRenderComponent.Delete(bool)
-  nameWithType.vb: InstancedMeshRenderComponent.Delete(Boolean)
+- uid: Crux.Components.InstancedMeshRenderComponent.Delete
+  name: Delete()
+  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_Delete
+  commentId: M:Crux.Components.InstancedMeshRenderComponent.Delete
+  fullName: Crux.Components.InstancedMeshRenderComponent.Delete()
+  nameWithType: InstancedMeshRenderComponent.Delete()
 - uid: Crux.Components.InstancedMeshRenderComponent.Delete*
   name: Delete
   href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_Delete_
@@ -609,6 +367,22 @@ references:
   isSpec: "True"
   fullName: Crux.Components.InstancedMeshRenderComponent.Delete
   nameWithType: InstancedMeshRenderComponent.Delete
+- uid: Crux.Components.InstancedMeshRenderComponent.HandleFrozenStateChanged(System.Boolean)
+  name: HandleFrozenStateChanged(bool)
+  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_HandleFrozenStateChanged_System_Boolean_
+  commentId: M:Crux.Components.InstancedMeshRenderComponent.HandleFrozenStateChanged(System.Boolean)
+  name.vb: HandleFrozenStateChanged(Boolean)
+  fullName: Crux.Components.InstancedMeshRenderComponent.HandleFrozenStateChanged(bool)
+  fullName.vb: Crux.Components.InstancedMeshRenderComponent.HandleFrozenStateChanged(Boolean)
+  nameWithType: InstancedMeshRenderComponent.HandleFrozenStateChanged(bool)
+  nameWithType.vb: InstancedMeshRenderComponent.HandleFrozenStateChanged(Boolean)
+- uid: Crux.Components.InstancedMeshRenderComponent.HandleFrozenStateChanged*
+  name: HandleFrozenStateChanged
+  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_HandleFrozenStateChanged_
+  commentId: Overload:Crux.Components.InstancedMeshRenderComponent.HandleFrozenStateChanged
+  isSpec: "True"
+  fullName: Crux.Components.InstancedMeshRenderComponent.HandleFrozenStateChanged
+  nameWithType: InstancedMeshRenderComponent.HandleFrozenStateChanged
 - uid: Crux.Components.InstancedMeshRenderComponent.InstanceData
   name: InstanceData
   href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_InstanceData
@@ -652,19 +426,6 @@ references:
   commentId: F:Crux.Components.InstancedMeshRenderComponent.PerInstanceData.Transforms
   fullName: Crux.Components.InstancedMeshRenderComponent.PerInstanceData.Transforms
   nameWithType: InstancedMeshRenderComponent.PerInstanceData.Transforms
-- uid: Crux.Components.InstancedMeshRenderComponent.RegisterAsStationary
-  name: RegisterAsStationary()
-  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_RegisterAsStationary
-  commentId: M:Crux.Components.InstancedMeshRenderComponent.RegisterAsStationary
-  fullName: Crux.Components.InstancedMeshRenderComponent.RegisterAsStationary()
-  nameWithType: InstancedMeshRenderComponent.RegisterAsStationary()
-- uid: Crux.Components.InstancedMeshRenderComponent.RegisterAsStationary*
-  name: RegisterAsStationary
-  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_RegisterAsStationary_
-  commentId: Overload:Crux.Components.InstancedMeshRenderComponent.RegisterAsStationary
-  isSpec: "True"
-  fullName: Crux.Components.InstancedMeshRenderComponent.RegisterAsStationary
-  nameWithType: InstancedMeshRenderComponent.RegisterAsStationary
 - uid: Crux.Components.InstancedMeshRenderComponent.Render
   name: Render()
   href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_Render
@@ -882,19 +643,6 @@ references:
   commentId: F:Crux.Components.LineRenderComponent.Color
   fullName: Crux.Components.LineRenderComponent.Color
   nameWithType: LineRenderComponent.Color
-- uid: Crux.Components.LineRenderComponent.RegisterAsStationary
-  name: RegisterAsStationary()
-  href: api/Crux.Components.LineRenderComponent.html#Crux_Components_LineRenderComponent_RegisterAsStationary
-  commentId: M:Crux.Components.LineRenderComponent.RegisterAsStationary
-  fullName: Crux.Components.LineRenderComponent.RegisterAsStationary()
-  nameWithType: LineRenderComponent.RegisterAsStationary()
-- uid: Crux.Components.LineRenderComponent.RegisterAsStationary*
-  name: RegisterAsStationary
-  href: api/Crux.Components.LineRenderComponent.html#Crux_Components_LineRenderComponent_RegisterAsStationary_
-  commentId: Overload:Crux.Components.LineRenderComponent.RegisterAsStationary
-  isSpec: "True"
-  fullName: Crux.Components.LineRenderComponent.RegisterAsStationary
-  nameWithType: LineRenderComponent.RegisterAsStationary
 - uid: Crux.Components.LineRenderComponent.Render
   name: Render()
   href: api/Crux.Components.LineRenderComponent.html#Crux_Components_LineRenderComponent_Render
@@ -934,6 +682,181 @@ references:
   isSpec: "True"
   fullName: Crux.Components.LineRenderComponent.shader
   nameWithType: LineRenderComponent.shader
+- uid: Crux.Components.MeshBoundsColliderComponent
+  name: MeshBoundsColliderComponent
+  href: api/Crux.Components.MeshBoundsColliderComponent.html
+  commentId: T:Crux.Components.MeshBoundsColliderComponent
+  fullName: Crux.Components.MeshBoundsColliderComponent
+  nameWithType: MeshBoundsColliderComponent
+- uid: Crux.Components.MeshBoundsColliderComponent.#ctor(Crux.Core.GameObject)
+  name: MeshBoundsColliderComponent(GameObject)
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent__ctor_Crux_Core_GameObject_
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.#ctor(Crux.Core.GameObject)
+  name.vb: New(GameObject)
+  fullName: Crux.Components.MeshBoundsColliderComponent.MeshBoundsColliderComponent(Crux.Core.GameObject)
+  fullName.vb: Crux.Components.MeshBoundsColliderComponent.New(Crux.Core.GameObject)
+  nameWithType: MeshBoundsColliderComponent.MeshBoundsColliderComponent(GameObject)
+  nameWithType.vb: MeshBoundsColliderComponent.New(GameObject)
+- uid: Crux.Components.MeshBoundsColliderComponent.#ctor*
+  name: MeshBoundsColliderComponent
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent__ctor_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.Components.MeshBoundsColliderComponent.MeshBoundsColliderComponent
+  fullName.vb: Crux.Components.MeshBoundsColliderComponent.New
+  nameWithType: MeshBoundsColliderComponent.MeshBoundsColliderComponent
+  nameWithType.vb: MeshBoundsColliderComponent.New
+- uid: Crux.Components.MeshBoundsColliderComponent.Clone(Crux.Core.GameObject)
+  name: Clone(GameObject)
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_Clone_Crux_Core_GameObject_
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.Clone(Crux.Core.GameObject)
+  fullName: Crux.Components.MeshBoundsColliderComponent.Clone(Crux.Core.GameObject)
+  nameWithType: MeshBoundsColliderComponent.Clone(GameObject)
+- uid: Crux.Components.MeshBoundsColliderComponent.Clone*
+  name: Clone
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_Clone_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.Clone
+  isSpec: "True"
+  fullName: Crux.Components.MeshBoundsColliderComponent.Clone
+  nameWithType: MeshBoundsColliderComponent.Clone
+- uid: Crux.Components.MeshBoundsColliderComponent.ColliderIndex
+  name: ColliderIndex
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_ColliderIndex
+  commentId: F:Crux.Components.MeshBoundsColliderComponent.ColliderIndex
+  fullName: Crux.Components.MeshBoundsColliderComponent.ColliderIndex
+  nameWithType: MeshBoundsColliderComponent.ColliderIndex
+- uid: Crux.Components.MeshBoundsColliderComponent.ComputeBounds
+  name: ComputeBounds()
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_ComputeBounds
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.ComputeBounds
+  fullName: Crux.Components.MeshBoundsColliderComponent.ComputeBounds()
+  nameWithType: MeshBoundsColliderComponent.ComputeBounds()
+- uid: Crux.Components.MeshBoundsColliderComponent.ComputeBounds*
+  name: ComputeBounds
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_ComputeBounds_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.ComputeBounds
+  isSpec: "True"
+  fullName: Crux.Components.MeshBoundsColliderComponent.ComputeBounds
+  nameWithType: MeshBoundsColliderComponent.ComputeBounds
+- uid: Crux.Components.MeshBoundsColliderComponent.DistanceFromOBB(OpenTK.Mathematics.Vector3)
+  name: DistanceFromOBB(Vector3)
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_DistanceFromOBB_OpenTK_Mathematics_Vector3_
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.DistanceFromOBB(OpenTK.Mathematics.Vector3)
+  fullName: Crux.Components.MeshBoundsColliderComponent.DistanceFromOBB(OpenTK.Mathematics.Vector3)
+  nameWithType: MeshBoundsColliderComponent.DistanceFromOBB(Vector3)
+- uid: Crux.Components.MeshBoundsColliderComponent.DistanceFromOBB*
+  name: DistanceFromOBB
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_DistanceFromOBB_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.DistanceFromOBB
+  isSpec: "True"
+  fullName: Crux.Components.MeshBoundsColliderComponent.DistanceFromOBB
+  nameWithType: MeshBoundsColliderComponent.DistanceFromOBB
+- uid: Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3)
+  name: GetClosestPointOnOBB(Vector3)
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_GetClosestPointOnOBB_OpenTK_Mathematics_Vector3_
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3)
+  fullName: Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3)
+  nameWithType: MeshBoundsColliderComponent.GetClosestPointOnOBB(Vector3)
+- uid: Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3,System.Single,System.Single)
+  name: GetClosestPointOnOBB(Vector3, float, float)
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_GetClosestPointOnOBB_OpenTK_Mathematics_Vector3_System_Single_System_Single_
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3,System.Single,System.Single)
+  name.vb: GetClosestPointOnOBB(Vector3, Single, Single)
+  fullName: Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3, float, float)
+  fullName.vb: Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB(OpenTK.Mathematics.Vector3, Single, Single)
+  nameWithType: MeshBoundsColliderComponent.GetClosestPointOnOBB(Vector3, float, float)
+  nameWithType.vb: MeshBoundsColliderComponent.GetClosestPointOnOBB(Vector3, Single, Single)
+- uid: Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB*
+  name: GetClosestPointOnOBB
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_GetClosestPointOnOBB_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB
+  isSpec: "True"
+  fullName: Crux.Components.MeshBoundsColliderComponent.GetClosestPointOnOBB
+  nameWithType: MeshBoundsColliderComponent.GetClosestPointOnOBB
+- uid: Crux.Components.MeshBoundsColliderComponent.GetWorldEdges
+  name: GetWorldEdges()
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_GetWorldEdges
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.GetWorldEdges
+  fullName: Crux.Components.MeshBoundsColliderComponent.GetWorldEdges()
+  nameWithType: MeshBoundsColliderComponent.GetWorldEdges()
+- uid: Crux.Components.MeshBoundsColliderComponent.GetWorldEdges*
+  name: GetWorldEdges
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_GetWorldEdges_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.GetWorldEdges
+  isSpec: "True"
+  fullName: Crux.Components.MeshBoundsColliderComponent.GetWorldEdges
+  nameWithType: MeshBoundsColliderComponent.GetWorldEdges
+- uid: Crux.Components.MeshBoundsColliderComponent.GetWorldNormals
+  name: GetWorldNormals()
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_GetWorldNormals
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.GetWorldNormals
+  fullName: Crux.Components.MeshBoundsColliderComponent.GetWorldNormals()
+  nameWithType: MeshBoundsColliderComponent.GetWorldNormals()
+- uid: Crux.Components.MeshBoundsColliderComponent.GetWorldNormals*
+  name: GetWorldNormals
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_GetWorldNormals_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.GetWorldNormals
+  isSpec: "True"
+  fullName: Crux.Components.MeshBoundsColliderComponent.GetWorldNormals
+  nameWithType: MeshBoundsColliderComponent.GetWorldNormals
+- uid: Crux.Components.MeshBoundsColliderComponent.GetWorldPoints
+  name: GetWorldPoints()
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_GetWorldPoints
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.GetWorldPoints
+  fullName: Crux.Components.MeshBoundsColliderComponent.GetWorldPoints()
+  nameWithType: MeshBoundsColliderComponent.GetWorldPoints()
+- uid: Crux.Components.MeshBoundsColliderComponent.GetWorldPoints*
+  name: GetWorldPoints
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_GetWorldPoints_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.GetWorldPoints
+  isSpec: "True"
+  fullName: Crux.Components.MeshBoundsColliderComponent.GetWorldPoints
+  nameWithType: MeshBoundsColliderComponent.GetWorldPoints
+- uid: Crux.Components.MeshBoundsColliderComponent.IsPointWithinOBB(OpenTK.Mathematics.Vector3)
+  name: IsPointWithinOBB(Vector3)
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_IsPointWithinOBB_OpenTK_Mathematics_Vector3_
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.IsPointWithinOBB(OpenTK.Mathematics.Vector3)
+  fullName: Crux.Components.MeshBoundsColliderComponent.IsPointWithinOBB(OpenTK.Mathematics.Vector3)
+  nameWithType: MeshBoundsColliderComponent.IsPointWithinOBB(Vector3)
+- uid: Crux.Components.MeshBoundsColliderComponent.IsPointWithinOBB*
+  name: IsPointWithinOBB
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_IsPointWithinOBB_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.IsPointWithinOBB
+  isSpec: "True"
+  fullName: Crux.Components.MeshBoundsColliderComponent.IsPointWithinOBB
+  nameWithType: MeshBoundsColliderComponent.IsPointWithinOBB
+- uid: Crux.Components.MeshBoundsColliderComponent.OBBAxes
+  name: OBBAxes
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_OBBAxes
+  commentId: F:Crux.Components.MeshBoundsColliderComponent.OBBAxes
+  fullName: Crux.Components.MeshBoundsColliderComponent.OBBAxes
+  nameWithType: MeshBoundsColliderComponent.OBBAxes
+- uid: Crux.Components.MeshBoundsColliderComponent.OBBCenter
+  name: OBBCenter
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_OBBCenter
+  commentId: F:Crux.Components.MeshBoundsColliderComponent.OBBCenter
+  fullName: Crux.Components.MeshBoundsColliderComponent.OBBCenter
+  nameWithType: MeshBoundsColliderComponent.OBBCenter
+- uid: Crux.Components.MeshBoundsColliderComponent.OBBHalfExtents
+  name: OBBHalfExtents
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_OBBHalfExtents
+  commentId: F:Crux.Components.MeshBoundsColliderComponent.OBBHalfExtents
+  fullName: Crux.Components.MeshBoundsColliderComponent.OBBHalfExtents
+  nameWithType: MeshBoundsColliderComponent.OBBHalfExtents
+- uid: Crux.Components.MeshBoundsColliderComponent.ToString
+  name: ToString()
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_ToString
+  commentId: M:Crux.Components.MeshBoundsColliderComponent.ToString
+  fullName: Crux.Components.MeshBoundsColliderComponent.ToString()
+  nameWithType: MeshBoundsColliderComponent.ToString()
+- uid: Crux.Components.MeshBoundsColliderComponent.ToString*
+  name: ToString
+  href: api/Crux.Components.MeshBoundsColliderComponent.html#Crux_Components_MeshBoundsColliderComponent_ToString_
+  commentId: Overload:Crux.Components.MeshBoundsColliderComponent.ToString
+  isSpec: "True"
+  fullName: Crux.Components.MeshBoundsColliderComponent.ToString
+  nameWithType: MeshBoundsColliderComponent.ToString
 - uid: Crux.Components.MeshComponent
   name: MeshComponent
   href: api/Crux.Components.MeshComponent.html
@@ -1065,15 +988,12 @@ references:
   isSpec: "True"
   fullName: Crux.Components.MeshRenderComponent.Clone
   nameWithType: MeshRenderComponent.Clone
-- uid: Crux.Components.MeshRenderComponent.Delete(System.Boolean)
-  name: Delete(bool)
-  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_Delete_System_Boolean_
-  commentId: M:Crux.Components.MeshRenderComponent.Delete(System.Boolean)
-  name.vb: Delete(Boolean)
-  fullName: Crux.Components.MeshRenderComponent.Delete(bool)
-  fullName.vb: Crux.Components.MeshRenderComponent.Delete(Boolean)
-  nameWithType: MeshRenderComponent.Delete(bool)
-  nameWithType.vb: MeshRenderComponent.Delete(Boolean)
+- uid: Crux.Components.MeshRenderComponent.Delete
+  name: Delete()
+  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_Delete
+  commentId: M:Crux.Components.MeshRenderComponent.Delete
+  fullName: Crux.Components.MeshRenderComponent.Delete()
+  nameWithType: MeshRenderComponent.Delete()
 - uid: Crux.Components.MeshRenderComponent.Delete*
   name: Delete
   href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_Delete_
@@ -1081,6 +1001,22 @@ references:
   isSpec: "True"
   fullName: Crux.Components.MeshRenderComponent.Delete
   nameWithType: MeshRenderComponent.Delete
+- uid: Crux.Components.MeshRenderComponent.HandleFrozenStateChanged(System.Boolean)
+  name: HandleFrozenStateChanged(bool)
+  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_HandleFrozenStateChanged_System_Boolean_
+  commentId: M:Crux.Components.MeshRenderComponent.HandleFrozenStateChanged(System.Boolean)
+  name.vb: HandleFrozenStateChanged(Boolean)
+  fullName: Crux.Components.MeshRenderComponent.HandleFrozenStateChanged(bool)
+  fullName.vb: Crux.Components.MeshRenderComponent.HandleFrozenStateChanged(Boolean)
+  nameWithType: MeshRenderComponent.HandleFrozenStateChanged(bool)
+  nameWithType.vb: MeshRenderComponent.HandleFrozenStateChanged(Boolean)
+- uid: Crux.Components.MeshRenderComponent.HandleFrozenStateChanged*
+  name: HandleFrozenStateChanged
+  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_HandleFrozenStateChanged_
+  commentId: Overload:Crux.Components.MeshRenderComponent.HandleFrozenStateChanged
+  isSpec: "True"
+  fullName: Crux.Components.MeshRenderComponent.HandleFrozenStateChanged
+  nameWithType: MeshRenderComponent.HandleFrozenStateChanged
 - uid: Crux.Components.MeshRenderComponent.MeshVAOs
   name: MeshVAOs
   href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_MeshVAOs
@@ -1094,19 +1030,6 @@ references:
   isSpec: "True"
   fullName: Crux.Components.MeshRenderComponent.MeshVAOs
   nameWithType: MeshRenderComponent.MeshVAOs
-- uid: Crux.Components.MeshRenderComponent.RegisterAsStationary
-  name: RegisterAsStationary()
-  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_RegisterAsStationary
-  commentId: M:Crux.Components.MeshRenderComponent.RegisterAsStationary
-  fullName: Crux.Components.MeshRenderComponent.RegisterAsStationary()
-  nameWithType: MeshRenderComponent.RegisterAsStationary()
-- uid: Crux.Components.MeshRenderComponent.RegisterAsStationary*
-  name: RegisterAsStationary
-  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_RegisterAsStationary_
-  commentId: Overload:Crux.Components.MeshRenderComponent.RegisterAsStationary
-  isSpec: "True"
-  fullName: Crux.Components.MeshRenderComponent.RegisterAsStationary
-  nameWithType: MeshRenderComponent.RegisterAsStationary
 - uid: Crux.Components.MeshRenderComponent.Render
   name: Render()
   href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_Render
@@ -1348,15 +1271,12 @@ references:
   isSpec: "True"
   fullName: Crux.Components.PhysicsComponent.Clone
   nameWithType: PhysicsComponent.Clone
-- uid: Crux.Components.PhysicsComponent.Delete(System.Boolean)
-  name: Delete(bool)
-  href: api/Crux.Components.PhysicsComponent.html#Crux_Components_PhysicsComponent_Delete_System_Boolean_
-  commentId: M:Crux.Components.PhysicsComponent.Delete(System.Boolean)
-  name.vb: Delete(Boolean)
-  fullName: Crux.Components.PhysicsComponent.Delete(bool)
-  fullName.vb: Crux.Components.PhysicsComponent.Delete(Boolean)
-  nameWithType: PhysicsComponent.Delete(bool)
-  nameWithType.vb: PhysicsComponent.Delete(Boolean)
+- uid: Crux.Components.PhysicsComponent.Delete
+  name: Delete()
+  href: api/Crux.Components.PhysicsComponent.html#Crux_Components_PhysicsComponent_Delete
+  commentId: M:Crux.Components.PhysicsComponent.Delete
+  fullName: Crux.Components.PhysicsComponent.Delete()
+  nameWithType: PhysicsComponent.Delete()
 - uid: Crux.Components.PhysicsComponent.Delete*
   name: Delete
   href: api/Crux.Components.PhysicsComponent.html#Crux_Components_PhysicsComponent_Delete_
@@ -1519,19 +1439,6 @@ references:
   commentId: F:Crux.Components.TextRenderComponent.PerInstanceData.GPUBufferLength
   fullName: Crux.Components.TextRenderComponent.PerInstanceData.GPUBufferLength
   nameWithType: TextRenderComponent.PerInstanceData.GPUBufferLength
-- uid: Crux.Components.TextRenderComponent.RegisterAsStationary
-  name: RegisterAsStationary()
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_RegisterAsStationary
-  commentId: M:Crux.Components.TextRenderComponent.RegisterAsStationary
-  fullName: Crux.Components.TextRenderComponent.RegisterAsStationary()
-  nameWithType: TextRenderComponent.RegisterAsStationary()
-- uid: Crux.Components.TextRenderComponent.RegisterAsStationary*
-  name: RegisterAsStationary
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_RegisterAsStationary_
-  commentId: Overload:Crux.Components.TextRenderComponent.RegisterAsStationary
-  isSpec: "True"
-  fullName: Crux.Components.TextRenderComponent.RegisterAsStationary
-  nameWithType: TextRenderComponent.RegisterAsStationary
 - uid: Crux.Components.TextRenderComponent.Render
   name: Render()
   href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_Render
@@ -1801,6 +1708,142 @@ references:
   commentId: N:Crux.Core
   fullName: Crux.Core
   nameWithType: Crux.Core
+- uid: Crux.Core.ColliderComponent
+  name: ColliderComponent
+  href: api/Crux.Core.ColliderComponent.html
+  commentId: T:Crux.Core.ColliderComponent
+  fullName: Crux.Core.ColliderComponent
+  nameWithType: ColliderComponent
+- uid: Crux.Core.ColliderComponent.#ctor(Crux.Core.GameObject)
+  name: ColliderComponent(GameObject)
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent__ctor_Crux_Core_GameObject_
+  commentId: M:Crux.Core.ColliderComponent.#ctor(Crux.Core.GameObject)
+  name.vb: New(GameObject)
+  fullName: Crux.Core.ColliderComponent.ColliderComponent(Crux.Core.GameObject)
+  fullName.vb: Crux.Core.ColliderComponent.New(Crux.Core.GameObject)
+  nameWithType: ColliderComponent.ColliderComponent(GameObject)
+  nameWithType.vb: ColliderComponent.New(GameObject)
+- uid: Crux.Core.ColliderComponent.#ctor*
+  name: ColliderComponent
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent__ctor_
+  commentId: Overload:Crux.Core.ColliderComponent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.Core.ColliderComponent.ColliderComponent
+  fullName.vb: Crux.Core.ColliderComponent.New
+  nameWithType: ColliderComponent.ColliderComponent
+  nameWithType.vb: ColliderComponent.New
+- uid: Crux.Core.ColliderComponent.AABBMax
+  name: AABBMax
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_AABBMax
+  commentId: F:Crux.Core.ColliderComponent.AABBMax
+  fullName: Crux.Core.ColliderComponent.AABBMax
+  nameWithType: ColliderComponent.AABBMax
+- uid: Crux.Core.ColliderComponent.AABBMin
+  name: AABBMin
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_AABBMin
+  commentId: F:Crux.Core.ColliderComponent.AABBMin
+  fullName: Crux.Core.ColliderComponent.AABBMin
+  nameWithType: ColliderComponent.AABBMin
+- uid: Crux.Core.ColliderComponent.ComputeBounds
+  name: ComputeBounds()
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_ComputeBounds
+  commentId: M:Crux.Core.ColliderComponent.ComputeBounds
+  fullName: Crux.Core.ColliderComponent.ComputeBounds()
+  nameWithType: ColliderComponent.ComputeBounds()
+- uid: Crux.Core.ColliderComponent.ComputeBounds*
+  name: ComputeBounds
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_ComputeBounds_
+  commentId: Overload:Crux.Core.ColliderComponent.ComputeBounds
+  isSpec: "True"
+  fullName: Crux.Core.ColliderComponent.ComputeBounds
+  nameWithType: ColliderComponent.ComputeBounds
+- uid: Crux.Core.ColliderComponent.Delete
+  name: Delete()
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_Delete
+  commentId: M:Crux.Core.ColliderComponent.Delete
+  fullName: Crux.Core.ColliderComponent.Delete()
+  nameWithType: ColliderComponent.Delete()
+- uid: Crux.Core.ColliderComponent.Delete*
+  name: Delete
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_Delete_
+  commentId: Overload:Crux.Core.ColliderComponent.Delete
+  isSpec: "True"
+  fullName: Crux.Core.ColliderComponent.Delete
+  nameWithType: ColliderComponent.Delete
+- uid: Crux.Core.ColliderComponent.GetWorldEdges
+  name: GetWorldEdges()
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_GetWorldEdges
+  commentId: M:Crux.Core.ColliderComponent.GetWorldEdges
+  fullName: Crux.Core.ColliderComponent.GetWorldEdges()
+  nameWithType: ColliderComponent.GetWorldEdges()
+- uid: Crux.Core.ColliderComponent.GetWorldEdges*
+  name: GetWorldEdges
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_GetWorldEdges_
+  commentId: Overload:Crux.Core.ColliderComponent.GetWorldEdges
+  isSpec: "True"
+  fullName: Crux.Core.ColliderComponent.GetWorldEdges
+  nameWithType: ColliderComponent.GetWorldEdges
+- uid: Crux.Core.ColliderComponent.GetWorldNormals
+  name: GetWorldNormals()
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_GetWorldNormals
+  commentId: M:Crux.Core.ColliderComponent.GetWorldNormals
+  fullName: Crux.Core.ColliderComponent.GetWorldNormals()
+  nameWithType: ColliderComponent.GetWorldNormals()
+- uid: Crux.Core.ColliderComponent.GetWorldNormals*
+  name: GetWorldNormals
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_GetWorldNormals_
+  commentId: Overload:Crux.Core.ColliderComponent.GetWorldNormals
+  isSpec: "True"
+  fullName: Crux.Core.ColliderComponent.GetWorldNormals
+  nameWithType: ColliderComponent.GetWorldNormals
+- uid: Crux.Core.ColliderComponent.GetWorldPoints
+  name: GetWorldPoints()
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_GetWorldPoints
+  commentId: M:Crux.Core.ColliderComponent.GetWorldPoints
+  fullName: Crux.Core.ColliderComponent.GetWorldPoints()
+  nameWithType: ColliderComponent.GetWorldPoints()
+- uid: Crux.Core.ColliderComponent.GetWorldPoints*
+  name: GetWorldPoints
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_GetWorldPoints_
+  commentId: Overload:Crux.Core.ColliderComponent.GetWorldPoints
+  isSpec: "True"
+  fullName: Crux.Core.ColliderComponent.GetWorldPoints
+  nameWithType: ColliderComponent.GetWorldPoints
+- uid: Crux.Core.ColliderComponent.HandleFrozenStateChanged(System.Boolean)
+  name: HandleFrozenStateChanged(bool)
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_HandleFrozenStateChanged_System_Boolean_
+  commentId: M:Crux.Core.ColliderComponent.HandleFrozenStateChanged(System.Boolean)
+  name.vb: HandleFrozenStateChanged(Boolean)
+  fullName: Crux.Core.ColliderComponent.HandleFrozenStateChanged(bool)
+  fullName.vb: Crux.Core.ColliderComponent.HandleFrozenStateChanged(Boolean)
+  nameWithType: ColliderComponent.HandleFrozenStateChanged(bool)
+  nameWithType.vb: ColliderComponent.HandleFrozenStateChanged(Boolean)
+- uid: Crux.Core.ColliderComponent.HandleFrozenStateChanged*
+  name: HandleFrozenStateChanged
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_HandleFrozenStateChanged_
+  commentId: Overload:Crux.Core.ColliderComponent.HandleFrozenStateChanged
+  isSpec: "True"
+  fullName: Crux.Core.ColliderComponent.HandleFrozenStateChanged
+  nameWithType: ColliderComponent.HandleFrozenStateChanged
+- uid: Crux.Core.ColliderComponent.OctreeKeys
+  name: OctreeKeys
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_OctreeKeys
+  commentId: F:Crux.Core.ColliderComponent.OctreeKeys
+  fullName: Crux.Core.ColliderComponent.OctreeKeys
+  nameWithType: ColliderComponent.OctreeKeys
+- uid: Crux.Core.ColliderComponent.SphereCenter
+  name: SphereCenter
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_SphereCenter
+  commentId: F:Crux.Core.ColliderComponent.SphereCenter
+  fullName: Crux.Core.ColliderComponent.SphereCenter
+  nameWithType: ColliderComponent.SphereCenter
+- uid: Crux.Core.ColliderComponent.SphereRadius
+  name: SphereRadius
+  href: api/Crux.Core.ColliderComponent.html#Crux_Core_ColliderComponent_SphereRadius
+  commentId: F:Crux.Core.ColliderComponent.SphereRadius
+  fullName: Crux.Core.ColliderComponent.SphereRadius
+  nameWithType: ColliderComponent.SphereRadius
 - uid: Crux.Core.Component
   name: Component
   href: api/Crux.Core.Component.html
@@ -1839,15 +1882,12 @@ references:
   isSpec: "True"
   fullName: Crux.Core.Component.Clone
   nameWithType: Component.Clone
-- uid: Crux.Core.Component.Delete(System.Boolean)
-  name: Delete(bool)
-  href: api/Crux.Core.Component.html#Crux_Core_Component_Delete_System_Boolean_
-  commentId: M:Crux.Core.Component.Delete(System.Boolean)
-  name.vb: Delete(Boolean)
-  fullName: Crux.Core.Component.Delete(bool)
-  fullName.vb: Crux.Core.Component.Delete(Boolean)
-  nameWithType: Component.Delete(bool)
-  nameWithType.vb: Component.Delete(Boolean)
+- uid: Crux.Core.Component.Delete
+  name: Delete()
+  href: api/Crux.Core.Component.html#Crux_Core_Component_Delete
+  commentId: M:Crux.Core.Component.Delete
+  fullName: Crux.Core.Component.Delete()
+  nameWithType: Component.Delete()
 - uid: Crux.Core.Component.Delete*
   name: Delete
   href: api/Crux.Core.Component.html#Crux_Core_Component_Delete_
@@ -1884,6 +1924,22 @@ references:
   fullName.vb: Crux.Core.Component.GetComponent(Of T)()
   nameWithType: Component.GetComponent<T>()
   nameWithType.vb: Component.GetComponent(Of T)()
+- uid: Crux.Core.Component.HandleFrozenStateChanged(System.Boolean)
+  name: HandleFrozenStateChanged(bool)
+  href: api/Crux.Core.Component.html#Crux_Core_Component_HandleFrozenStateChanged_System_Boolean_
+  commentId: M:Crux.Core.Component.HandleFrozenStateChanged(System.Boolean)
+  name.vb: HandleFrozenStateChanged(Boolean)
+  fullName: Crux.Core.Component.HandleFrozenStateChanged(bool)
+  fullName.vb: Crux.Core.Component.HandleFrozenStateChanged(Boolean)
+  nameWithType: Component.HandleFrozenStateChanged(bool)
+  nameWithType.vb: Component.HandleFrozenStateChanged(Boolean)
+- uid: Crux.Core.Component.HandleFrozenStateChanged*
+  name: HandleFrozenStateChanged
+  href: api/Crux.Core.Component.html#Crux_Core_Component_HandleFrozenStateChanged_
+  commentId: Overload:Crux.Core.Component.HandleFrozenStateChanged
+  isSpec: "True"
+  fullName: Crux.Core.Component.HandleFrozenStateChanged
+  nameWithType: Component.HandleFrozenStateChanged
 - uid: Crux.Core.Component.HasComponent*
   name: HasComponent
   href: api/Crux.Core.Component.html#Crux_Core_Component_HasComponent_
@@ -2274,6 +2330,19 @@ references:
   isSpec: "True"
   fullName: Crux.Core.GameObject.Delete
   nameWithType: GameObject.Delete
+- uid: Crux.Core.GameObject.Freeze
+  name: Freeze()
+  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_Freeze
+  commentId: M:Crux.Core.GameObject.Freeze
+  fullName: Crux.Core.GameObject.Freeze()
+  nameWithType: GameObject.Freeze()
+- uid: Crux.Core.GameObject.Freeze*
+  name: Freeze
+  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_Freeze_
+  commentId: Overload:Crux.Core.GameObject.Freeze
+  isSpec: "True"
+  fullName: Crux.Core.GameObject.Freeze
+  nameWithType: GameObject.Freeze
 - uid: Crux.Core.GameObject.GetComponent*
   name: GetComponent
   href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_GetComponent_
@@ -2290,22 +2359,6 @@ references:
   fullName.vb: Crux.Core.GameObject.GetComponent(Of T)()
   nameWithType: GameObject.GetComponent<T>()
   nameWithType.vb: GameObject.GetComponent(Of T)()
-- uid: Crux.Core.GameObject.GetComponents*
-  name: GetComponents
-  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_GetComponents_
-  commentId: Overload:Crux.Core.GameObject.GetComponents
-  isSpec: "True"
-  fullName: Crux.Core.GameObject.GetComponents
-  nameWithType: GameObject.GetComponents
-- uid: Crux.Core.GameObject.GetComponents``1
-  name: GetComponents<T>()
-  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_GetComponents__1
-  commentId: M:Crux.Core.GameObject.GetComponents``1
-  name.vb: GetComponents(Of T)()
-  fullName: Crux.Core.GameObject.GetComponents<T>()
-  fullName.vb: Crux.Core.GameObject.GetComponents(Of T)()
-  nameWithType: GameObject.GetComponents<T>()
-  nameWithType.vb: GameObject.GetComponents(Of T)()
 - uid: Crux.Core.GameObject.HasComponent*
   name: HasComponent
   href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_HasComponent_
@@ -2313,6 +2366,22 @@ references:
   isSpec: "True"
   fullName: Crux.Core.GameObject.HasComponent
   nameWithType: GameObject.HasComponent
+- uid: Crux.Core.GameObject.HasComponentOrSibling*
+  name: HasComponentOrSibling
+  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_HasComponentOrSibling_
+  commentId: Overload:Crux.Core.GameObject.HasComponentOrSibling
+  isSpec: "True"
+  fullName: Crux.Core.GameObject.HasComponentOrSibling
+  nameWithType: GameObject.HasComponentOrSibling
+- uid: Crux.Core.GameObject.HasComponentOrSibling``1
+  name: HasComponentOrSibling<T>()
+  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_HasComponentOrSibling__1
+  commentId: M:Crux.Core.GameObject.HasComponentOrSibling``1
+  name.vb: HasComponentOrSibling(Of T)()
+  fullName: Crux.Core.GameObject.HasComponentOrSibling<T>()
+  fullName.vb: Crux.Core.GameObject.HasComponentOrSibling(Of T)()
+  nameWithType: GameObject.HasComponentOrSibling<T>()
+  nameWithType.vb: GameObject.HasComponentOrSibling(Of T)()
 - uid: Crux.Core.GameObject.HasComponent``1
   name: HasComponent<T>()
   href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_HasComponent__1
@@ -2322,12 +2391,31 @@ references:
   fullName.vb: Crux.Core.GameObject.HasComponent(Of T)()
   nameWithType: GameObject.HasComponent<T>()
   nameWithType.vb: GameObject.HasComponent(Of T)()
+- uid: Crux.Core.GameObject.IsFrozen
+  name: IsFrozen
+  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_IsFrozen
+  commentId: P:Crux.Core.GameObject.IsFrozen
+  fullName: Crux.Core.GameObject.IsFrozen
+  nameWithType: GameObject.IsFrozen
+- uid: Crux.Core.GameObject.IsFrozen*
+  name: IsFrozen
+  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_IsFrozen_
+  commentId: Overload:Crux.Core.GameObject.IsFrozen
+  isSpec: "True"
+  fullName: Crux.Core.GameObject.IsFrozen
+  nameWithType: GameObject.IsFrozen
 - uid: Crux.Core.GameObject.Name
   name: Name
   href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_Name
   commentId: F:Crux.Core.GameObject.Name
   fullName: Crux.Core.GameObject.Name
   nameWithType: GameObject.Name
+- uid: Crux.Core.GameObject.OnFrozenStateChanged
+  name: OnFrozenStateChanged
+  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_OnFrozenStateChanged
+  commentId: E:Crux.Core.GameObject.OnFrozenStateChanged
+  fullName: Crux.Core.GameObject.OnFrozenStateChanged
+  nameWithType: GameObject.OnFrozenStateChanged
 - uid: Crux.Core.GameObject.RemoveComponent*
   name: RemoveComponent
   href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_RemoveComponent_
@@ -2344,12 +2432,6 @@ references:
   fullName.vb: Crux.Core.GameObject.RemoveComponent(Of T)()
   nameWithType: GameObject.RemoveComponent<T>()
   nameWithType.vb: GameObject.RemoveComponent(Of T)()
-- uid: Crux.Core.GameObject.Stationary
-  name: Stationary
-  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_Stationary
-  commentId: F:Crux.Core.GameObject.Stationary
-  fullName: Crux.Core.GameObject.Stationary
-  nameWithType: GameObject.Stationary
 - uid: Crux.Core.GameObject.ToString
   name: ToString()
   href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_ToString
@@ -2376,6 +2458,19 @@ references:
   isSpec: "True"
   fullName: Crux.Core.GameObject.Transform
   nameWithType: GameObject.Transform
+- uid: Crux.Core.GameObject.Unfreeze
+  name: Unfreeze()
+  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_Unfreeze
+  commentId: M:Crux.Core.GameObject.Unfreeze
+  fullName: Crux.Core.GameObject.Unfreeze()
+  nameWithType: GameObject.Unfreeze()
+- uid: Crux.Core.GameObject.Unfreeze*
+  name: Unfreeze
+  href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_Unfreeze_
+  commentId: Overload:Crux.Core.GameObject.Unfreeze
+  isSpec: "True"
+  fullName: Crux.Core.GameObject.Unfreeze
+  nameWithType: GameObject.Unfreeze
 - uid: Crux.Core.GameObject.Update
   name: Update()
   href: api/Crux.Core.GameObject.html#Crux_Core_GameObject_Update
@@ -2640,25 +2735,44 @@ references:
   fullName.vb: Crux.Core.RenderComponent.New
   nameWithType: RenderComponent.RenderComponent
   nameWithType.vb: RenderComponent.New
-- uid: Crux.Core.RenderComponent.Hidden
-  name: Hidden
-  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Hidden
-  commentId: F:Crux.Core.RenderComponent.Hidden
-  fullName: Crux.Core.RenderComponent.Hidden
-  nameWithType: RenderComponent.Hidden
-- uid: Crux.Core.RenderComponent.RegisterAsStationary
-  name: RegisterAsStationary()
-  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_RegisterAsStationary
-  commentId: M:Crux.Core.RenderComponent.RegisterAsStationary
-  fullName: Crux.Core.RenderComponent.RegisterAsStationary()
-  nameWithType: RenderComponent.RegisterAsStationary()
-- uid: Crux.Core.RenderComponent.RegisterAsStationary*
-  name: RegisterAsStationary
-  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_RegisterAsStationary_
-  commentId: Overload:Crux.Core.RenderComponent.RegisterAsStationary
+- uid: Crux.Core.RenderComponent.ContainerNode
+  name: ContainerNode
+  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_ContainerNode
+  commentId: F:Crux.Core.RenderComponent.ContainerNode
+  fullName: Crux.Core.RenderComponent.ContainerNode
+  nameWithType: RenderComponent.ContainerNode
+- uid: Crux.Core.RenderComponent.Hide
+  name: Hide()
+  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Hide
+  commentId: M:Crux.Core.RenderComponent.Hide
+  fullName: Crux.Core.RenderComponent.Hide()
+  nameWithType: RenderComponent.Hide()
+- uid: Crux.Core.RenderComponent.Hide*
+  name: Hide
+  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Hide_
+  commentId: Overload:Crux.Core.RenderComponent.Hide
   isSpec: "True"
-  fullName: Crux.Core.RenderComponent.RegisterAsStationary
-  nameWithType: RenderComponent.RegisterAsStationary
+  fullName: Crux.Core.RenderComponent.Hide
+  nameWithType: RenderComponent.Hide
+- uid: Crux.Core.RenderComponent.IsHidden
+  name: IsHidden
+  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_IsHidden
+  commentId: P:Crux.Core.RenderComponent.IsHidden
+  fullName: Crux.Core.RenderComponent.IsHidden
+  nameWithType: RenderComponent.IsHidden
+- uid: Crux.Core.RenderComponent.IsHidden*
+  name: IsHidden
+  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_IsHidden_
+  commentId: Overload:Crux.Core.RenderComponent.IsHidden
+  isSpec: "True"
+  fullName: Crux.Core.RenderComponent.IsHidden
+  nameWithType: RenderComponent.IsHidden
+- uid: Crux.Core.RenderComponent.OnHiddenStateChanged
+  name: OnHiddenStateChanged
+  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_OnHiddenStateChanged
+  commentId: E:Crux.Core.RenderComponent.OnHiddenStateChanged
+  fullName: Crux.Core.RenderComponent.OnHiddenStateChanged
+  nameWithType: RenderComponent.OnHiddenStateChanged
 - uid: Crux.Core.RenderComponent.Render
   name: Render()
   href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Render
@@ -2672,12 +2786,19 @@ references:
   isSpec: "True"
   fullName: Crux.Core.RenderComponent.Render
   nameWithType: RenderComponent.Render
-- uid: Crux.Core.RenderComponent.StationaryVisibilityNode
-  name: StationaryVisibilityNode
-  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_StationaryVisibilityNode
-  commentId: F:Crux.Core.RenderComponent.StationaryVisibilityNode
-  fullName: Crux.Core.RenderComponent.StationaryVisibilityNode
-  nameWithType: RenderComponent.StationaryVisibilityNode
+- uid: Crux.Core.RenderComponent.Unhide
+  name: Unhide()
+  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Unhide
+  commentId: M:Crux.Core.RenderComponent.Unhide
+  fullName: Crux.Core.RenderComponent.Unhide()
+  nameWithType: RenderComponent.Unhide()
+- uid: Crux.Core.RenderComponent.Unhide*
+  name: Unhide
+  href: api/Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Unhide_
+  commentId: Overload:Crux.Core.RenderComponent.Unhide
+  isSpec: "True"
+  fullName: Crux.Core.RenderComponent.Unhide
+  nameWithType: RenderComponent.Unhide
 - uid: Crux.Core.Scene
   name: Scene
   href: api/Crux.Core.Scene.html
@@ -3725,15 +3846,15 @@ references:
   commentId: T:Crux.Physics.Octree
   fullName: Crux.Physics.Octree
   nameWithType: Octree
-- uid: Crux.Physics.Octree.#ctor(OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Int32)
-  name: Octree(Vector3, Vector3, int)
-  href: api/Crux.Physics.Octree.html#Crux_Physics_Octree__ctor_OpenTK_Mathematics_Vector3_OpenTK_Mathematics_Vector3_System_Int32_
-  commentId: M:Crux.Physics.Octree.#ctor(OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Int32)
-  name.vb: New(Vector3, Vector3, Integer)
-  fullName: Crux.Physics.Octree.Octree(OpenTK.Mathematics.Vector3, OpenTK.Mathematics.Vector3, int)
-  fullName.vb: Crux.Physics.Octree.New(OpenTK.Mathematics.Vector3, OpenTK.Mathematics.Vector3, Integer)
-  nameWithType: Octree.Octree(Vector3, Vector3, int)
-  nameWithType.vb: Octree.New(Vector3, Vector3, Integer)
+- uid: Crux.Physics.Octree.#ctor(OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Int32,System.String)
+  name: Octree(Vector3, Vector3, int, string)
+  href: api/Crux.Physics.Octree.html#Crux_Physics_Octree__ctor_OpenTK_Mathematics_Vector3_OpenTK_Mathematics_Vector3_System_Int32_System_String_
+  commentId: M:Crux.Physics.Octree.#ctor(OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Int32,System.String)
+  name.vb: New(Vector3, Vector3, Integer, String)
+  fullName: Crux.Physics.Octree.Octree(OpenTK.Mathematics.Vector3, OpenTK.Mathematics.Vector3, int, string)
+  fullName.vb: Crux.Physics.Octree.New(OpenTK.Mathematics.Vector3, OpenTK.Mathematics.Vector3, Integer, String)
+  nameWithType: Octree.Octree(Vector3, Vector3, int, string)
+  nameWithType.vb: Octree.New(Vector3, Vector3, Integer, String)
 - uid: Crux.Physics.Octree.#ctor*
   name: Octree
   href: api/Crux.Physics.Octree.html#Crux_Physics_Octree__ctor_
@@ -3763,6 +3884,12 @@ references:
   commentId: F:Crux.Physics.Octree.MaxDepth
   fullName: Crux.Physics.Octree.MaxDepth
   nameWithType: Octree.MaxDepth
+- uid: Crux.Physics.Octree.OctreeName
+  name: OctreeName
+  href: api/Crux.Physics.Octree.html#Crux_Physics_Octree_OctreeName
+  commentId: F:Crux.Physics.Octree.OctreeName
+  fullName: Crux.Physics.Octree.OctreeName
+  nameWithType: Octree.OctreeName
 - uid: Crux.Physics.Octree.RecalculateVisibility
   name: RecalculateVisibility()
   href: api/Crux.Physics.Octree.html#Crux_Physics_Octree_RecalculateVisibility
@@ -3917,11 +4044,11 @@ references:
   commentId: F:Crux.Physics.PhysicsSystem.AABBChecks
   fullName: Crux.Physics.PhysicsSystem.AABBChecks
   nameWithType: PhysicsSystem.AABBChecks
-- uid: Crux.Physics.PhysicsSystem.CheckAABB(Crux.Components.ColliderComponent,Crux.Components.ColliderComponent)
+- uid: Crux.Physics.PhysicsSystem.CheckAABB(Crux.Core.ColliderComponent,Crux.Core.ColliderComponent)
   name: CheckAABB(ColliderComponent, ColliderComponent)
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_CheckAABB_Crux_Components_ColliderComponent_Crux_Components_ColliderComponent_
-  commentId: M:Crux.Physics.PhysicsSystem.CheckAABB(Crux.Components.ColliderComponent,Crux.Components.ColliderComponent)
-  fullName: Crux.Physics.PhysicsSystem.CheckAABB(Crux.Components.ColliderComponent, Crux.Components.ColliderComponent)
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_CheckAABB_Crux_Core_ColliderComponent_Crux_Core_ColliderComponent_
+  commentId: M:Crux.Physics.PhysicsSystem.CheckAABB(Crux.Core.ColliderComponent,Crux.Core.ColliderComponent)
+  fullName: Crux.Physics.PhysicsSystem.CheckAABB(Crux.Core.ColliderComponent, Crux.Core.ColliderComponent)
   nameWithType: PhysicsSystem.CheckAABB(ColliderComponent, ColliderComponent)
 - uid: Crux.Physics.PhysicsSystem.CheckAABB*
   name: CheckAABB
@@ -3930,11 +4057,11 @@ references:
   isSpec: "True"
   fullName: Crux.Physics.PhysicsSystem.CheckAABB
   nameWithType: PhysicsSystem.CheckAABB
-- uid: Crux.Physics.PhysicsSystem.CheckSphere(Crux.Components.ColliderComponent,Crux.Components.ColliderComponent)
+- uid: Crux.Physics.PhysicsSystem.CheckSphere(Crux.Core.ColliderComponent,Crux.Core.ColliderComponent)
   name: CheckSphere(ColliderComponent, ColliderComponent)
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_CheckSphere_Crux_Components_ColliderComponent_Crux_Components_ColliderComponent_
-  commentId: M:Crux.Physics.PhysicsSystem.CheckSphere(Crux.Components.ColliderComponent,Crux.Components.ColliderComponent)
-  fullName: Crux.Physics.PhysicsSystem.CheckSphere(Crux.Components.ColliderComponent, Crux.Components.ColliderComponent)
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_CheckSphere_Crux_Core_ColliderComponent_Crux_Core_ColliderComponent_
+  commentId: M:Crux.Physics.PhysicsSystem.CheckSphere(Crux.Core.ColliderComponent,Crux.Core.ColliderComponent)
+  fullName: Crux.Physics.PhysicsSystem.CheckSphere(Crux.Core.ColliderComponent, Crux.Core.ColliderComponent)
   nameWithType: PhysicsSystem.CheckSphere(ColliderComponent, ColliderComponent)
 - uid: Crux.Physics.PhysicsSystem.CheckSphere*
   name: CheckSphere
@@ -4031,32 +4158,32 @@ references:
   isSpec: "True"
   fullName: Crux.Physics.PhysicsSystem.RaycastAll
   nameWithType: PhysicsSystem.RaycastAll
-- uid: Crux.Physics.PhysicsSystem.RegisterAsDynamic(Crux.Components.ColliderComponent,Crux.Components.PhysicsComponent)
-  name: RegisterAsDynamic(ColliderComponent, PhysicsComponent)
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_RegisterAsDynamic_Crux_Components_ColliderComponent_Crux_Components_PhysicsComponent_
-  commentId: M:Crux.Physics.PhysicsSystem.RegisterAsDynamic(Crux.Components.ColliderComponent,Crux.Components.PhysicsComponent)
-  fullName: Crux.Physics.PhysicsSystem.RegisterAsDynamic(Crux.Components.ColliderComponent, Crux.Components.PhysicsComponent)
-  nameWithType: PhysicsSystem.RegisterAsDynamic(ColliderComponent, PhysicsComponent)
-- uid: Crux.Physics.PhysicsSystem.RegisterAsDynamic*
-  name: RegisterAsDynamic
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_RegisterAsDynamic_
-  commentId: Overload:Crux.Physics.PhysicsSystem.RegisterAsDynamic
+- uid: Crux.Physics.PhysicsSystem.RegisterColliderObject(Crux.Core.ColliderComponent)
+  name: RegisterColliderObject(ColliderComponent)
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_RegisterColliderObject_Crux_Core_ColliderComponent_
+  commentId: M:Crux.Physics.PhysicsSystem.RegisterColliderObject(Crux.Core.ColliderComponent)
+  fullName: Crux.Physics.PhysicsSystem.RegisterColliderObject(Crux.Core.ColliderComponent)
+  nameWithType: PhysicsSystem.RegisterColliderObject(ColliderComponent)
+- uid: Crux.Physics.PhysicsSystem.RegisterColliderObject*
+  name: RegisterColliderObject
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_RegisterColliderObject_
+  commentId: Overload:Crux.Physics.PhysicsSystem.RegisterColliderObject
   isSpec: "True"
-  fullName: Crux.Physics.PhysicsSystem.RegisterAsDynamic
-  nameWithType: PhysicsSystem.RegisterAsDynamic
-- uid: Crux.Physics.PhysicsSystem.RegisterAsStatic(Crux.Components.ColliderComponent)
-  name: RegisterAsStatic(ColliderComponent)
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_RegisterAsStatic_Crux_Components_ColliderComponent_
-  commentId: M:Crux.Physics.PhysicsSystem.RegisterAsStatic(Crux.Components.ColliderComponent)
-  fullName: Crux.Physics.PhysicsSystem.RegisterAsStatic(Crux.Components.ColliderComponent)
-  nameWithType: PhysicsSystem.RegisterAsStatic(ColliderComponent)
-- uid: Crux.Physics.PhysicsSystem.RegisterAsStatic*
-  name: RegisterAsStatic
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_RegisterAsStatic_
-  commentId: Overload:Crux.Physics.PhysicsSystem.RegisterAsStatic
+  fullName: Crux.Physics.PhysicsSystem.RegisterColliderObject
+  nameWithType: PhysicsSystem.RegisterColliderObject
+- uid: Crux.Physics.PhysicsSystem.RegisterPhysicsObject(Crux.Core.ColliderComponent,Crux.Components.PhysicsComponent)
+  name: RegisterPhysicsObject(ColliderComponent, PhysicsComponent)
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_RegisterPhysicsObject_Crux_Core_ColliderComponent_Crux_Components_PhysicsComponent_
+  commentId: M:Crux.Physics.PhysicsSystem.RegisterPhysicsObject(Crux.Core.ColliderComponent,Crux.Components.PhysicsComponent)
+  fullName: Crux.Physics.PhysicsSystem.RegisterPhysicsObject(Crux.Core.ColliderComponent, Crux.Components.PhysicsComponent)
+  nameWithType: PhysicsSystem.RegisterPhysicsObject(ColliderComponent, PhysicsComponent)
+- uid: Crux.Physics.PhysicsSystem.RegisterPhysicsObject*
+  name: RegisterPhysicsObject
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_RegisterPhysicsObject_
+  commentId: Overload:Crux.Physics.PhysicsSystem.RegisterPhysicsObject
   isSpec: "True"
-  fullName: Crux.Physics.PhysicsSystem.RegisterAsStatic
-  nameWithType: PhysicsSystem.RegisterAsStatic
+  fullName: Crux.Physics.PhysicsSystem.RegisterPhysicsObject
+  nameWithType: PhysicsSystem.RegisterPhysicsObject
 - uid: Crux.Physics.PhysicsSystem.SphereChecks
   name: SphereChecks
   href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_SphereChecks
@@ -4069,38 +4196,44 @@ references:
   commentId: F:Crux.Physics.PhysicsSystem.TotalColliders
   fullName: Crux.Physics.PhysicsSystem.TotalColliders
   nameWithType: PhysicsSystem.TotalColliders
-- uid: Crux.Physics.PhysicsSystem.TotalDynamicObjects
-  name: TotalDynamicObjects
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_TotalDynamicObjects
-  commentId: F:Crux.Physics.PhysicsSystem.TotalDynamicObjects
-  fullName: Crux.Physics.PhysicsSystem.TotalDynamicObjects
-  nameWithType: PhysicsSystem.TotalDynamicObjects
-- uid: Crux.Physics.PhysicsSystem.UnregisterAsDynamic(Crux.Components.ColliderComponent,Crux.Components.PhysicsComponent)
-  name: UnregisterAsDynamic(ColliderComponent, PhysicsComponent)
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_UnregisterAsDynamic_Crux_Components_ColliderComponent_Crux_Components_PhysicsComponent_
-  commentId: M:Crux.Physics.PhysicsSystem.UnregisterAsDynamic(Crux.Components.ColliderComponent,Crux.Components.PhysicsComponent)
-  fullName: Crux.Physics.PhysicsSystem.UnregisterAsDynamic(Crux.Components.ColliderComponent, Crux.Components.PhysicsComponent)
-  nameWithType: PhysicsSystem.UnregisterAsDynamic(ColliderComponent, PhysicsComponent)
-- uid: Crux.Physics.PhysicsSystem.UnregisterAsDynamic*
-  name: UnregisterAsDynamic
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_UnregisterAsDynamic_
-  commentId: Overload:Crux.Physics.PhysicsSystem.UnregisterAsDynamic
+- uid: Crux.Physics.PhysicsSystem.TotalPhysicsObjects
+  name: TotalPhysicsObjects
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_TotalPhysicsObjects
+  commentId: F:Crux.Physics.PhysicsSystem.TotalPhysicsObjects
+  fullName: Crux.Physics.PhysicsSystem.TotalPhysicsObjects
+  nameWithType: PhysicsSystem.TotalPhysicsObjects
+- uid: Crux.Physics.PhysicsSystem.Tree
+  name: Tree
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_Tree
+  commentId: F:Crux.Physics.PhysicsSystem.Tree
+  fullName: Crux.Physics.PhysicsSystem.Tree
+  nameWithType: PhysicsSystem.Tree
+- uid: Crux.Physics.PhysicsSystem.UnregisterColliderObject(Crux.Core.ColliderComponent)
+  name: UnregisterColliderObject(ColliderComponent)
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_UnregisterColliderObject_Crux_Core_ColliderComponent_
+  commentId: M:Crux.Physics.PhysicsSystem.UnregisterColliderObject(Crux.Core.ColliderComponent)
+  fullName: Crux.Physics.PhysicsSystem.UnregisterColliderObject(Crux.Core.ColliderComponent)
+  nameWithType: PhysicsSystem.UnregisterColliderObject(ColliderComponent)
+- uid: Crux.Physics.PhysicsSystem.UnregisterColliderObject*
+  name: UnregisterColliderObject
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_UnregisterColliderObject_
+  commentId: Overload:Crux.Physics.PhysicsSystem.UnregisterColliderObject
   isSpec: "True"
-  fullName: Crux.Physics.PhysicsSystem.UnregisterAsDynamic
-  nameWithType: PhysicsSystem.UnregisterAsDynamic
-- uid: Crux.Physics.PhysicsSystem.UnregisterAsStatic(Crux.Components.ColliderComponent)
-  name: UnregisterAsStatic(ColliderComponent)
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_UnregisterAsStatic_Crux_Components_ColliderComponent_
-  commentId: M:Crux.Physics.PhysicsSystem.UnregisterAsStatic(Crux.Components.ColliderComponent)
-  fullName: Crux.Physics.PhysicsSystem.UnregisterAsStatic(Crux.Components.ColliderComponent)
-  nameWithType: PhysicsSystem.UnregisterAsStatic(ColliderComponent)
-- uid: Crux.Physics.PhysicsSystem.UnregisterAsStatic*
-  name: UnregisterAsStatic
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_UnregisterAsStatic_
-  commentId: Overload:Crux.Physics.PhysicsSystem.UnregisterAsStatic
+  fullName: Crux.Physics.PhysicsSystem.UnregisterColliderObject
+  nameWithType: PhysicsSystem.UnregisterColliderObject
+- uid: Crux.Physics.PhysicsSystem.UnregisterPhysicsObject(Crux.Core.ColliderComponent,Crux.Components.PhysicsComponent)
+  name: UnregisterPhysicsObject(ColliderComponent, PhysicsComponent)
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_UnregisterPhysicsObject_Crux_Core_ColliderComponent_Crux_Components_PhysicsComponent_
+  commentId: M:Crux.Physics.PhysicsSystem.UnregisterPhysicsObject(Crux.Core.ColliderComponent,Crux.Components.PhysicsComponent)
+  fullName: Crux.Physics.PhysicsSystem.UnregisterPhysicsObject(Crux.Core.ColliderComponent, Crux.Components.PhysicsComponent)
+  nameWithType: PhysicsSystem.UnregisterPhysicsObject(ColliderComponent, PhysicsComponent)
+- uid: Crux.Physics.PhysicsSystem.UnregisterPhysicsObject*
+  name: UnregisterPhysicsObject
+  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_UnregisterPhysicsObject_
+  commentId: Overload:Crux.Physics.PhysicsSystem.UnregisterPhysicsObject
   isSpec: "True"
-  fullName: Crux.Physics.PhysicsSystem.UnregisterAsStatic
-  nameWithType: PhysicsSystem.UnregisterAsStatic
+  fullName: Crux.Physics.PhysicsSystem.UnregisterPhysicsObject
+  nameWithType: PhysicsSystem.UnregisterPhysicsObject
 - uid: Crux.Physics.PhysicsSystem.Update
   name: Update()
   href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_Update
@@ -4163,13 +4296,13 @@ references:
   commentId: T:Crux.Physics.RayHit
   fullName: Crux.Physics.RayHit
   nameWithType: RayHit
-- uid: Crux.Physics.RayHit.#ctor(Crux.Components.ColliderComponent,System.Single,OpenTK.Mathematics.Vector3)
+- uid: Crux.Physics.RayHit.#ctor(Crux.Core.ColliderComponent,System.Single,OpenTK.Mathematics.Vector3)
   name: RayHit(ColliderComponent, float, Vector3)
-  href: api/Crux.Physics.RayHit.html#Crux_Physics_RayHit__ctor_Crux_Components_ColliderComponent_System_Single_OpenTK_Mathematics_Vector3_
-  commentId: M:Crux.Physics.RayHit.#ctor(Crux.Components.ColliderComponent,System.Single,OpenTK.Mathematics.Vector3)
+  href: api/Crux.Physics.RayHit.html#Crux_Physics_RayHit__ctor_Crux_Core_ColliderComponent_System_Single_OpenTK_Mathematics_Vector3_
+  commentId: M:Crux.Physics.RayHit.#ctor(Crux.Core.ColliderComponent,System.Single,OpenTK.Mathematics.Vector3)
   name.vb: New(ColliderComponent, Single, Vector3)
-  fullName: Crux.Physics.RayHit.RayHit(Crux.Components.ColliderComponent, float, OpenTK.Mathematics.Vector3)
-  fullName.vb: Crux.Physics.RayHit.New(Crux.Components.ColliderComponent, Single, OpenTK.Mathematics.Vector3)
+  fullName: Crux.Physics.RayHit.RayHit(Crux.Core.ColliderComponent, float, OpenTK.Mathematics.Vector3)
+  fullName.vb: Crux.Physics.RayHit.New(Crux.Core.ColliderComponent, Single, OpenTK.Mathematics.Vector3)
   nameWithType: RayHit.RayHit(ColliderComponent, float, Vector3)
   nameWithType.vb: RayHit.New(ColliderComponent, Single, Vector3)
 - uid: Crux.Physics.RayHit.#ctor*
@@ -4516,6 +4649,12 @@ references:
   isSpec: "True"
   fullName: Crux.Utilities.IO.AssetHandler.AssetExists
   nameWithType: AssetHandler.AssetExists
+- uid: Crux.Utilities.IO.AssetHandler.GameAssetPath
+  name: GameAssetPath
+  href: api/Crux.Utilities.IO.AssetHandler.html#Crux_Utilities_IO_AssetHandler_GameAssetPath
+  commentId: F:Crux.Utilities.IO.AssetHandler.GameAssetPath
+  fullName: Crux.Utilities.IO.AssetHandler.GameAssetPath
+  nameWithType: AssetHandler.GameAssetPath
 - uid: Crux.Utilities.IO.AssetHandler.GetShortInfo
   name: GetShortInfo()
   href: api/Crux.Utilities.IO.AssetHandler.html#Crux_Utilities_IO_AssetHandler_GetShortInfo

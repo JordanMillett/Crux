@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Struct RayHit | CruxDocs </title>
+      <title>Class IslandScene | CruxDocs </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Struct RayHit | CruxDocs ">
+      <meta name="title" content="Class IslandScene | CruxDocs ">
       
       
       <link rel="icon" href="../logo.png">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/JordanMillett/Crux/new/main/apiSpec/new?filename=Crux_Physics_RayHit.md&amp;value=---%0Auid%3A%20Crux.Physics.RayHit%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/JordanMillett/Crux/new/main/apiSpec/new?filename=Crux_Assets_Scenes_IslandScene.md&amp;value=---%0Auid%3A%20Crux.Assets.Scenes.IslandScene%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,16 +84,16 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Crux.Physics.RayHit">
+        <article data-uid="Crux.Assets.Scenes.IslandScene">
 
 
 
-  <h1 id="Crux_Physics_RayHit" data-uid="Crux.Physics.RayHit" class="text-break">
-Struct RayHit  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Ray.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Crux_Assets_Scenes_IslandScene" data-uid="Crux.Assets.Scenes.IslandScene" class="text-break">
+Class IslandScene  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Assets/Scenes/IslandScene.cs/#L7"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.Physics.html">Physics</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.Assets.html">Assets</a>.<a class="xref" href="Crux.Assets.Scenes.html">Scenes</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Crux.dll</dd></dl>
   </div>
 
@@ -101,12 +101,20 @@ Struct RayHit  <a class="header-action link-secondary" title="View source" href=
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public struct RayHit</code></pre>
+    <pre><code class="lang-csharp hljs">public class IslandScene : Scene</code></pre>
   </div>
 
 
 
 
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Crux.Core.Scene.html">Scene</a></div>
+      <div><span class="xref">IslandScene</span></div>
+    </dd>
+  </dl>
 
 
 
@@ -114,22 +122,67 @@ Struct RayHit  <a class="header-action link-secondary" title="View source" href=
     <dt>Inherited Members</dt>
     <dd>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.equals">ValueType.Equals(object)</a>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_Skybox">Scene.Skybox</a>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode">ValueType.GetHashCode()</a>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_Engine">Scene.Engine</a>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.tostring">ValueType.ToString()</a>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_MainCamera">Scene.MainCamera</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_Ambient">Scene.Ambient</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_Fog">Scene.Fog</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_Hue">Scene.Hue</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_FadeStart">Scene.FadeStart</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_FadeEnd">Scene.FadeEnd</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_FogStart">Scene.FogStart</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_FogEnd">Scene.FogEnd</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_Dir">Scene.Dir</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_GetDataByteSize">Scene.GetDataByteSize()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_RenderSkybox">Scene.RenderSkybox()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.Scene.html#Crux_Core_Scene_Recalculate">Scene.Recalculate()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
     </div>
     <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
     </div>
     <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
   </dd></dl>
 
@@ -138,33 +191,24 @@ Struct RayHit  <a class="header-action link-secondary" title="View source" href=
 
 
 
-  <h2 class="section" id="constructors">Constructors
+  <h2 class="section" id="methods">Methods
 </h2>
 
 
-  <a id="Crux_Physics_RayHit__ctor_" data-uid="Crux.Physics.RayHit.#ctor*"></a>
+  <a id="Crux_Assets_Scenes_IslandScene_Start_" data-uid="Crux.Assets.Scenes.IslandScene.Start*"></a>
 
-  <h3 id="Crux_Physics_RayHit__ctor_Crux_Core_ColliderComponent_System_Single_OpenTK_Mathematics_Vector3_" data-uid="Crux.Physics.RayHit.#ctor(Crux.Core.ColliderComponent,System.Single,OpenTK.Mathematics.Vector3)">
-  RayHit(ColliderComponent, float, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Ray.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Assets_Scenes_IslandScene_Start" data-uid="Crux.Assets.Scenes.IslandScene.Start">
+  Start()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Assets/Scenes/IslandScene.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RayHit(ColliderComponent collider, float distance, Vector3 point)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Start()</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>collider</code> <a class="xref" href="Crux.Core.ColliderComponent.html">ColliderComponent</a></dt>
-    <dd></dd>
-    <dt><code>distance</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd></dd>
-    <dt><code>point</code> <span class="xref">Vector3</span></dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -177,91 +221,23 @@ Struct RayHit  <a class="header-action link-secondary" title="View source" href=
 
 
 
-  <h2 class="section" id="fields">Fields
-</h2>
+  <a id="Crux_Assets_Scenes_IslandScene_Update_" data-uid="Crux.Assets.Scenes.IslandScene.Update*"></a>
 
-
-
-  <h3 id="Crux_Physics_RayHit_Collider" data-uid="Crux.Physics.RayHit.Collider">
-  Collider
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Ray.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Assets_Scenes_IslandScene_Update" data-uid="Crux.Assets.Scenes.IslandScene.Update">
+  Update()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Assets/Scenes/IslandScene.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ColliderComponent Collider</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Update()</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Crux.Core.ColliderComponent.html">ColliderComponent</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="Crux_Physics_RayHit_Distance" data-uid="Crux.Physics.RayHit.Distance">
-  Distance
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Ray.cs/#L22"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float Distance</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="Crux_Physics_RayHit_Point" data-uid="Crux.Physics.RayHit.Point">
-  Point
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Ray.cs/#L23"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Vector3 Point</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><span class="xref">Vector3</span></dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -275,7 +251,7 @@ Struct RayHit  <a class="header-action link-secondary" title="View source" href=
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/JordanMillett/Crux/blob/main/Crux/Physics/Ray.cs/#L19" class="edit-link">Edit this page</a>
+          <a href="https://github.com/JordanMillett/Crux/blob/main/Crux/Assets/Scenes/IslandScene.cs/#L7" class="edit-link">Edit this page</a>
         </div>
 
 

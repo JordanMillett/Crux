@@ -153,7 +153,7 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Crux_Core_GameObject__ctor_System_String_" data-uid="Crux.Core.GameObject.#ctor(System.String)">
   GameObject(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -214,23 +214,29 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
 
-  <h3 id="Crux_Core_GameObject_Stationary" data-uid="Crux.Core.GameObject.Stationary">
-  Stationary
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L10"><i class="bi bi-code-slash"></i></a>
+
+  <a id="Crux_Core_GameObject_IsFrozen_" data-uid="Crux.Core.GameObject.IsFrozen*"></a>
+
+  <h3 id="Crux_Core_GameObject_IsFrozen" data-uid="Crux.Core.GameObject.IsFrozen">
+  IsFrozen
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Stationary</code></pre>
+    <pre><code class="lang-csharp hljs">public bool IsFrozen { get; }</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
@@ -243,16 +249,11 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
-
-  <h2 class="section" id="properties">Properties
-</h2>
-
-
   <a id="Crux_Core_GameObject_Transform_" data-uid="Crux.Core.GameObject.Transform*"></a>
 
   <h3 id="Crux_Core_GameObject_Transform" data-uid="Crux.Core.GameObject.Transform">
   Transform
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -287,21 +288,23 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Crux_Core_GameObject_AddComponent__1" data-uid="Crux.Core.GameObject.AddComponent``1">
   AddComponent&lt;T&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L77"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L129"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Adds a specified concrete type as a new component that is attached to the GameObject.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T AddComponent&lt;T&gt;() where T : Component</code></pre>
+    <pre><code class="lang-csharp hljs">public T? AddComponent&lt;T&gt;() where T : Component</code></pre>
   </div>
 
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><span class="xref">T</span></dt>
-    <dd></dd>
+    <dd><p>The newly created component, the existing component of the same concrete type, or null if adding the component failed.</p>
+</dd>
   </dl>
 
   <h4 class="section">Type Parameters</h4>
@@ -315,6 +318,9 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <h4 class="section" id="Crux_Core_GameObject_AddComponent__1_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Null will be returned if the GameObject contains a conflicting component.</p>
+</div>
 
 
 
@@ -323,7 +329,7 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Crux_Core_GameObject_Clone" data-uid="Crux.Core.GameObject.Clone">
   Clone()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -354,7 +360,7 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Crux_Core_GameObject_Delete" data-uid="Crux.Core.GameObject.Delete">
   Delete()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -376,14 +382,41 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <a id="Crux_Core_GameObject_Freeze_" data-uid="Crux.Core.GameObject.Freeze*"></a>
+
+  <h3 id="Crux_Core_GameObject_Freeze" data-uid="Crux.Core.GameObject.Freeze">
+  Freeze()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Freeze()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Crux_Core_GameObject_GetComponent_" data-uid="Crux.Core.GameObject.GetComponent*"></a>
 
   <h3 id="Crux_Core_GameObject_GetComponent__1" data-uid="Crux.Core.GameObject.GetComponent``1">
   GetComponent&lt;T&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L86"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns a specified concrete type if it is attached to the GameObject. A concrete type or an abstract type can be passed.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -408,28 +441,34 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <h4 class="section" id="Crux_Core_GameObject_GetComponent__1_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Null will be returned if the GameObject does not contain a concrete type that matches either
+the specified concrete type or a child of the specified abstract type.</p>
+</div>
 
 
 
 
-  <a id="Crux_Core_GameObject_GetComponents_" data-uid="Crux.Core.GameObject.GetComponents*"></a>
+  <a id="Crux_Core_GameObject_HasComponentOrSibling_" data-uid="Crux.Core.GameObject.HasComponentOrSibling*"></a>
 
-  <h3 id="Crux_Core_GameObject_GetComponents__1" data-uid="Crux.Core.GameObject.GetComponents``1">
-  GetComponents&lt;T&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Core_GameObject_HasComponentOrSibling__1" data-uid="Crux.Core.GameObject.HasComponentOrSibling``1">
+  HasComponentOrSibling&lt;T&gt;()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L199"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns true if the GameObject contains a concrete component that
+matches either the specified concrete type, a sibling of the specified concrete type, or a child of the specified abstract type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;T&gt;? GetComponents&lt;T&gt;() where T : Component</code></pre>
+    <pre><code class="lang-csharp hljs">public bool HasComponentOrSibling&lt;T&gt;() where T : Component</code></pre>
   </div>
 
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;T&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 
@@ -444,6 +483,9 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <h4 class="section" id="Crux_Core_GameObject_HasComponentOrSibling__1_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>If the specified abstract type is 'Component' then true will be returned if any concrete component exist.</p>
+</div>
 
 
 
@@ -452,10 +494,12 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Crux_Core_GameObject_HasComponent__1" data-uid="Crux.Core.GameObject.HasComponent``1">
   HasComponent&lt;T&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L178"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns true if the GameObject contains a concrete component that
+matches either the specified concrete type, or a child of the specified abstract type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -480,6 +524,9 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <h4 class="section" id="Crux_Core_GameObject_HasComponent__1_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>If the specified abstract type is 'Component' then true will be returned if any concrete component exist.</p>
+</div>
 
 
 
@@ -488,10 +535,11 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Crux_Core_GameObject_RemoveComponent__1" data-uid="Crux.Core.GameObject.RemoveComponent``1">
   RemoveComponent&lt;T&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L160"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Removes a specified concrete component that is attached to the GameObject. Removes a child component if an abstract type is specified.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -511,6 +559,9 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <h4 class="section" id="Crux_Core_GameObject_RemoveComponent__1_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Nothing will be removed if no concrete matches are found.</p>
+</div>
 
 
 
@@ -519,7 +570,7 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Crux_Core_GameObject_ToString" data-uid="Crux.Core.GameObject.ToString">
   ToString()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L222"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
@@ -548,11 +599,37 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
+  <a id="Crux_Core_GameObject_Unfreeze_" data-uid="Crux.Core.GameObject.Unfreeze*"></a>
+
+  <h3 id="Crux_Core_GameObject_Unfreeze" data-uid="Crux.Core.GameObject.Unfreeze">
+  Unfreeze()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Unfreeze()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Crux_Core_GameObject_Update_" data-uid="Crux.Core.GameObject.Update*"></a>
 
   <h3 id="Crux_Core_GameObject_Update" data-uid="Crux.Core.GameObject.Update">
   Update()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L121"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L213"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -567,6 +644,40 @@ Class GameObject  <a class="header-action link-secondary" title="View source" hr
 
 
 
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="Crux_Core_GameObject_OnFrozenStateChanged" data-uid="Crux.Core.GameObject.OnFrozenStateChanged">
+  OnFrozenStateChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/GameObject.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Action&lt;bool&gt; OnFrozenStateChanged</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+  </dl>
 
 
 

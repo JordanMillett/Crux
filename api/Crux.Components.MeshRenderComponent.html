@@ -123,10 +123,19 @@ Class MeshRenderComponent  <a class="header-action link-secondary" title="View s
     <dt>Inherited Members</dt>
     <dd>
     <div>
-      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Hidden">RenderComponent.Hidden</a>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_OnHiddenStateChanged">RenderComponent.OnHiddenStateChanged</a>
     </div>
     <div>
-      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_StationaryVisibilityNode">RenderComponent.StationaryVisibilityNode</a>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_IsHidden">RenderComponent.IsHidden</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Hide">RenderComponent.Hide()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_Unhide">RenderComponent.Unhide()</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.Core.RenderComponent.html#Crux_Core_RenderComponent_ContainerNode">RenderComponent.ContainerNode</a>
     </div>
     <div>
       <a class="xref" href="Crux.Core.Component.html#Crux_Core_Component_GameObject">Component.GameObject</a>
@@ -345,8 +354,8 @@ Class MeshRenderComponent  <a class="header-action link-secondary" title="View s
 
   <a id="Crux_Components_MeshRenderComponent_Delete_" data-uid="Crux.Components.MeshRenderComponent.Delete*"></a>
 
-  <h3 id="Crux_Components_MeshRenderComponent_Delete_System_Boolean_" data-uid="Crux.Components.MeshRenderComponent.Delete(System.Boolean)">
-  Delete(bool)
+  <h3 id="Crux_Components_MeshRenderComponent_Delete" data-uid="Crux.Components.MeshRenderComponent.Delete">
+  Delete()
   <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/MeshRenderComponent.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -354,14 +363,9 @@ Class MeshRenderComponent  <a class="header-action link-secondary" title="View s
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void Delete(bool OnlyRemovingComponent = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Delete()</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>OnlyRemovingComponent</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -374,10 +378,10 @@ Class MeshRenderComponent  <a class="header-action link-secondary" title="View s
 
 
 
-  <a id="Crux_Components_MeshRenderComponent_RegisterAsStationary_" data-uid="Crux.Components.MeshRenderComponent.RegisterAsStationary*"></a>
+  <a id="Crux_Components_MeshRenderComponent_HandleFrozenStateChanged_" data-uid="Crux.Components.MeshRenderComponent.HandleFrozenStateChanged*"></a>
 
-  <h3 id="Crux_Components_MeshRenderComponent_RegisterAsStationary" data-uid="Crux.Components.MeshRenderComponent.RegisterAsStationary">
-  RegisterAsStationary()
+  <h3 id="Crux_Components_MeshRenderComponent_HandleFrozenStateChanged_System_Boolean_" data-uid="Crux.Components.MeshRenderComponent.HandleFrozenStateChanged(System.Boolean)">
+  HandleFrozenStateChanged(bool)
   <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/MeshRenderComponent.cs/#L74"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -385,9 +389,14 @@ Class MeshRenderComponent  <a class="header-action link-secondary" title="View s
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void RegisterAsStationary()</code></pre>
+    <pre><code class="lang-csharp hljs">public override void HandleFrozenStateChanged(bool IsFrozen)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>IsFrozen</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -404,7 +413,7 @@ Class MeshRenderComponent  <a class="header-action link-secondary" title="View s
 
   <h3 id="Crux_Components_MeshRenderComponent_Render" data-uid="Crux.Components.MeshRenderComponent.Render">
   Render()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/MeshRenderComponent.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/MeshRenderComponent.cs/#L83"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
