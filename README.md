@@ -35,6 +35,11 @@ public class GameScene : Scene
 }
 ```
 
+Next open Game/Game.cs and set the GameScene as the active scene.
+```
+GameEngine.Link.ActiveScene = new GameScene();
+```
+
 And then compile and run using:
 ```
 dotnet run --project Game -c Debug
