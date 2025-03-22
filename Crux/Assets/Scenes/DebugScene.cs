@@ -14,7 +14,7 @@ public class DebugScene : Scene
         Skybox.SetUniform("bottomColor", Color4.Black);
 
         GameEngine.Link.Camera.GameObject.AddComponent<FreeLookComponent>();
-        string debugTexture = "Crux/Assets/Textures/Debug.jpg";
+        string debugTexture = "Crux/Assets/Textures/Required/Debug.jpg";
 
         GameObject selected;
         selected = Presets.MakePrimitive(Primitives.Quad, debugTexture);
@@ -77,7 +77,7 @@ public class DebugScene : Scene
     {
         if(GameEngine.Link.IsKeyPressed(Keys.Q))
         {
-            string debugTexture = "Crux/Assets/Textures/Debug.jpg";
+            string debugTexture = "Crux/Assets/Textures/Required/Debug.jpg";
 
             GameObject selected = Presets.MakePhysicsPrimitive(Primitives.Cube, debugTexture);
             selected.Transform.WorldPosition = GameEngine.Link.Camera.Transform.WorldPosition + (GameEngine.Link.Camera.Transform.Forward * 3f);

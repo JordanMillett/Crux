@@ -16,6 +16,9 @@ def texture_process(image, drawable):
     pdb.plug_in_gauss_iir(image, layer, 1.5, True, True)
     pdb.gimp_drawable_hue_saturation(layer, 0, 0, 0, 25, 0)
     
+    offset_x = (layer.width - pdb.gimp_image_width(image)) // 2
+    offset_y = (layer.height - pdb.gimp_image_height(image)) // 2
+    pdb.gimp_image_resize(image, layer.width, layer.height, offset_x, offset_y)
 
     pdb.gimp_displays_flush()
 

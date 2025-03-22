@@ -53,6 +53,8 @@ public class TransformComponent : Component
             worldPosition = value;
             if (parent != null)
                 localPosition = Vector3.Transform(worldPosition - parent.worldPosition, Quaternion.Invert(parent.worldRotation));
+            else
+                localPosition = worldPosition;
             Changed?.Invoke();
         }
     }
@@ -97,6 +99,8 @@ public class TransformComponent : Component
             worldRotation = Quaternion.Normalize(value);
             if (parent != null)
                 localRotation = Quaternion.Invert(parent.worldRotation) * worldRotation;
+            else
+                localRotation = worldRotation;
             Changed?.Invoke();
         }
     }
