@@ -195,6 +195,8 @@ public class GameEngine : GameWindow
         deltaTime = (float) e.Time;
         totalTime += deltaTime;
         
+        if (IsKeyPressed(Keys.F12))
+            TakeScreenshot();
         if (IsKeyDown(Keys.Escape))
             CursorState = CursorState.Normal;
         if (MouseState.IsButtonDown(MouseButton.Left))
@@ -262,5 +264,38 @@ public class GameEngine : GameWindow
         }*/
 
         SwapBuffers();
+    }
+
+    void TakeScreenshot()
+    {
+        string picturesPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), "Crux");
+        if (!Directory.Exists(picturesPath))
+            Directory.CreateDirectory(picturesPath);
+
+        string filename = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss} {GetEngineShortName()}.png";
+        string filePath = Path.Combine(picturesPath, filename);
+
+        int width = Resolution.X;
+        int height = Resolution.Y;
+
+        // Read pixels from OpenGL buffer
+        byte[] pixels = new byte[width * height * 4];
+        GL.ReadPixels(0, 0, width, height, PixelFormat.Rgba, PixelType.UnsignedByte, pixels);
+
+        // Flip the image vertically (OpenGL saves it upside-down)
+        byte[] flippedPixels = new byte[pixels.Length];
+        int rowSize = width * 4;
+        for (int y = 0; y < height; y++)
+        {
+            Array.Copy(pixels, y * rowSize, flippedPixels, (height - 1 - y) * rowSize, rowSize);
+        }
+        
+        var writer = new StbImageWriteSharp.ImageWriter();
+        using (var fs = File.OpenWrite(filePath))
+        {
+            writer.WritePng(flippedPixels, width, height, StbImageWriteSharp.ColorComponents.RedGreenBlueAlpha, fs);
+        }
+        
+        Logger.Log($"Screenshot taken '{filePath}'", LogSource.System);
     }
 }
