@@ -152,6 +152,10 @@ public class GameEngine : GameWindow
 
         Logger.Log("Engine Started!", LogSource.System);
 
+        //Register engine keys
+        Input.CreateAction("Unfocus Window", Keys.Escape);
+        Input.CreateAction("Take Screenshot", Keys.F12);
+
         //Required Objects INIT
         GameObject cam = InstantiateGameObject("Camera");
         cam.AddComponent<CameraComponent>();
@@ -195,9 +199,9 @@ public class GameEngine : GameWindow
         deltaTime = (float) e.Time;
         totalTime += deltaTime;
         
-        if (IsKeyPressed(Keys.F12))
+        if (Input.IsActionPressed("take screenshot"))
             TakeScreenshot();
-        if (IsKeyDown(Keys.Escape))
+        if (Input.IsActionPressed("unfocus window"))
             CursorState = CursorState.Normal;
         if (MouseState.IsButtonDown(MouseButton.Left))
             CursorState = CursorState.Grabbed;

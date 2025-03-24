@@ -71,11 +71,16 @@ public class DebugScene : Scene
     
         GameEngine.Link.Camera.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
         GameEngine.Link.Camera.GetComponent<FreeLookComponent>().yaw = MathHelper.DegreesToRadians(180f);
+
+        Input.CreateAction("Spawn Cube", Keys.Q);
+        Input.CreateAction("Cast Ray", Keys.E);
+
+        Input.OutputKeyBindings();
     }
 
     public override void Update()
     {
-        if(GameEngine.Link.IsKeyPressed(Keys.Q))
+        if(Input.IsActionPressed("Spawn Cube"))
         {
             string debugTexture = "Crux/Assets/Textures/Required/Debug.jpg";
 
@@ -83,7 +88,7 @@ public class DebugScene : Scene
             selected.Transform.WorldPosition = GameEngine.Link.Camera.Transform.WorldPosition + (GameEngine.Link.Camera.Transform.Forward * 3f);
         }
 
-        if(GameEngine.Link.IsKeyPressed(Keys.E))
+        if(Input.IsActionPressed("Cast Ray"))
         {
             Ray ray = new Ray(GameEngine.Link.Camera.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
             if(PhysicsSystem.Raycast(ray, out RayHit hit))
