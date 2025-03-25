@@ -48,8 +48,7 @@ public class LineRenderComponent : RenderComponent
         
         GL.BindVertexArray(vao);
 
-        //GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineAnchor.Count);
-        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineBounds.Count);
+        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineBounds.Length);
         GraphicsCache.DrawCallsThisFrame++;
 
         GL.BindVertexArray(0);

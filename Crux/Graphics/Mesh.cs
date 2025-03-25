@@ -86,6 +86,19 @@ public class Mesh
         return interleavedData.ToArray();
     }
 
+    public VertexAttribute[] GetSeparatedData()
+    {
+        Vector3[] positions = Vertices.Select(v => v.Position).ToArray();
+        Vector3[] normals = Vertices.Select(v => v.Normal).ToArray();
+        Vector2[] uvs = Vertices.Select(v => v.UV).ToArray();
+
+        VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", positions);
+        VertexAttribute normalAttribute = VertexAttributeHelper.ConvertToAttribute("Normal", normals);
+        VertexAttribute uvAttribute = VertexAttributeHelper.ConvertToAttribute("UV", uvs);
+
+        return new VertexAttribute[] { positionAttribute, normalAttribute, uvAttribute };
+    }
+
     public (Vector3 center, Vector3[] axes, Vector3 halfExtents) GetWorldSpaceOBB(Matrix4 modelMatrix)
     {
         MatrixHelper.Decompose(modelMatrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation);

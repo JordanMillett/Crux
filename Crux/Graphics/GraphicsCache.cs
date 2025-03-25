@@ -2,6 +2,7 @@ using OpenTK.Graphics.OpenGL4;
 using StbImageSharp;
 using Crux.Utilities.IO;
 using Crux.Physics;
+using Crux.Utilities.Helpers;
 
 namespace Crux.Graphics;
 
@@ -295,40 +296,28 @@ public static class GraphicsCache
         }
         else
         {
-            float[] vertices =
-            {
-                -1.0f,  1.0f,  0.0f, 1.0f,
-                -1.0f, -1.0f,  0.0f, 0.0f,
-                1.0f, -1.0f,  1.0f, 0.0f,
-                -1.0f,  1.0f,  0.0f, 1.0f,
-                1.0f, -1.0f,  1.0f, 0.0f,
-                1.0f,  1.0f,  1.0f, 1.0f
-            };
+            
+            VAOWrapper vaoWrapper = new();   
+
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", Shapes.QuadVertices);
+            VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute("UV", Shapes.QuadUVs);
+            VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
+
+            vaoWrapper.GenStaticVBO(staticAttributes);
+            
+            
+
+            //vaoWrapper.GenDynamicVBO([typeof(Matrix4), typeof(Vector2)]);
 
             int Matrix4SizeInBytes = 16 * sizeof(float); // 64 bytes
             int Vector2SizeInBytes = 2 * sizeof(float);  // 8 bytes
             int InstanceDataSize = Matrix4SizeInBytes + Vector2SizeInBytes; // 72 bytes
 
-            //Create VAO
-            int vao = GL.GenVertexArray();
-            GL.BindVertexArray(vao);
-            
-            // VBO for static vertex data (positions & UVs)
-            int vbo = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertices.Length * sizeof(float)), vertices, BufferUsageHint.StaticDraw);
-            
-            // Vertex position attribute (location = 0)
-            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 4 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(0);
 
-            // UV attribute (location = 1)
-            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 4 * sizeof(float), 2 * sizeof(float));
-            GL.EnableVertexAttribArray(1);
-            
-            // Instance VBO (dynamic model matrices & atlas offsets)
-            int instanceVBO = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, instanceVBO); 
+            GL.BindVertexArray(vaoWrapper.VAO);
+             // Instance VBO (dynamic model matrices & atlas offsets)
+            vaoWrapper.DynamicVBO = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vaoWrapper.DynamicVBO); 
             GL.BufferData(BufferTarget.ArrayBuffer, 0, IntPtr.Zero, BufferUsageHint.DynamicDraw);
 
             // Model Matrix (layout = 2, 3, 4, 5)
@@ -349,8 +338,8 @@ public static class GraphicsCache
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindVertexArray(0);
             
-            InstanceVAOs.Add(path, (vao, instanceVBO, 1));
-            return (vao, instanceVBO);
+            InstanceVAOs.Add(path, (vaoWrapper.VAO, vaoWrapper.DynamicVBO, 1));            
+            return (vaoWrapper.VAO, vaoWrapper.DynamicVBO);
         }
     }
     
@@ -367,57 +356,17 @@ public static class GraphicsCache
         }
         else
         {
-            int Matrix4SizeInBytes = 16 * sizeof(float);
+            VAOWrapper vaoWrapper = new();   
 
-            //Create VAO
-            int vao = GL.GenVertexArray();
-            GL.BindVertexArray(vao);
+            VertexAttribute[] staticAttributes = mesh.GetSeparatedData();
+            vaoWrapper.GenStaticVBO(staticAttributes);
 
-            //Create VBO for unchanging data (Pos, Normal, UV)
-            int vbo = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo); //bind VBO
-            float[] interleavedData = mesh.GetInterleavedVertexData(); //get Pos, Normal, and UV
-            GL.BufferData(BufferTarget.ArrayBuffer, interleavedData.Length * sizeof(float), interleavedData, BufferUsageHint.StaticDraw); //Bind
-
-            //Set up VAO attributes
-            int stride = 8 * sizeof(float); // 3 (position) + 3 (normal) + 2 (uv)
+            vaoWrapper.GenEBO(mesh.Indices);
             
-            // Position attribute (location = 0)
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, stride, 0);
-            GL.EnableVertexAttribArray(0);
-            
-            // Normal attribute (location = 1)
-            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, stride, 3 * sizeof(float));
-            GL.EnableVertexAttribArray(1);
-            
-            // UV attribute (location = 2)
-            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, stride, 6 * sizeof(float));
-            GL.EnableVertexAttribArray(2);
+            vaoWrapper.GenDynamicVBO([typeof(Matrix4)]);
 
-            //Create EBO for indices
-            int ebo = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, mesh.Indices.Length * sizeof(uint), mesh.Indices, BufferUsageHint.StaticDraw);
-
-            //Create VBO for instanced data (just Matrix4 for each Model Matrix)
-            int instanceVBO = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, instanceVBO); //bind
-            GL.BufferData(BufferTarget.ArrayBuffer, 0, IntPtr.Zero, BufferUsageHint.DynamicDraw); //buffer empty
-
-            int attributeIndex = 3; // Start from index 3 (after position, normal, UV)
-            // A Matrix4 consists of 4 vec4s, so we use 4 attribute slots
-            for (int i = 0; i < 4; i++)
-            {
-                GL.VertexAttribPointer(attributeIndex + i, 4, VertexAttribPointerType.Float, false, Matrix4SizeInBytes, (i * Vector4.SizeInBytes));
-                GL.EnableVertexAttribArray(attributeIndex + i);
-                GL.VertexAttribDivisor(attributeIndex + i, 1); // Set as per-instance data
-            }
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindVertexArray(0);
-
-            InstanceVAOs.Add(path, (vao, instanceVBO, 1));
-            return (vao, instanceVBO);
+            InstanceVAOs.Add(path, (vaoWrapper.VAO, vaoWrapper.DynamicVBO, 1));
+            return (vaoWrapper.VAO, vaoWrapper.DynamicVBO);
         }
     }
 
@@ -431,45 +380,19 @@ public static class GraphicsCache
         }
         else
         {
-            //int vao; configuration for vertex data, offsets, and indices
-            //int vbo; unique vertex data (pos, normal, uv)
-            //int ebo; indices to connect the vertices into triangles
-            
-            int vao = GL.GenVertexArray();
-            GL.BindVertexArray(vao);
+            VAOWrapper vaoWrapper = new();            
 
-            int vbo = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-            float[] interleavedData = mesh.GetInterleavedVertexData();
-            GL.BufferData(BufferTarget.ArrayBuffer, interleavedData.Length * sizeof(float), interleavedData, BufferUsageHint.StaticDraw);
+            VertexAttribute[] staticAttributes = mesh.GetSeparatedData();
+            vaoWrapper.GenStaticVBO(staticAttributes);
 
-            int stride = 8 * sizeof(float); // 3 (position) + 3 (normal) + 2 (uv)
-            
-            // Position attribute (location = 0)
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, stride, 0);
-            GL.EnableVertexAttribArray(0);
-            
-            // Normal attribute (location = 1)
-            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, stride, 3 * sizeof(float));
-            GL.EnableVertexAttribArray(1);
-            
-            // UV attribute (location = 2)
-            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, stride, 6 * sizeof(float));
-            GL.EnableVertexAttribArray(2);
+            vaoWrapper.GenEBO(mesh.Indices);            
 
-            int ebo = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, mesh.Indices.Length * sizeof(uint), mesh.Indices, BufferUsageHint.StaticDraw);
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindVertexArray(0);
-
-            VAOs.Add(path, (vao, 1));
-            return vao;
+            VAOs.Add(path, (vaoWrapper.VAO, 1));
+            return vaoWrapper.VAO;
         }
     }
     
-    public static int GetLineVAO(string path, List<Vector3> points)
+    public static int GetLineVAO(string path, Vector3[] vertices)
     {
         if (VAOs.TryGetValue(path, out var cached))
         {
@@ -479,21 +402,15 @@ public static class GraphicsCache
         }
         else
         {
-            int vao = GL.GenVertexArray();
-            GL.BindVertexArray(vao);
+            VAOWrapper vaoWrapper = new();  
+
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", vertices);
+            VertexAttribute[] staticAttributes = [positionAttribute]; 
+
+            vaoWrapper.GenStaticVBO(staticAttributes);
             
-            int vbo = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(points.Count * Vector3.SizeInBytes), points.ToArray(), BufferUsageHint.StaticDraw);
-            
-            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, Vector3.SizeInBytes, 0);
-            GL.EnableVertexAttribArray(0);
-            
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindVertexArray(0);
-            
-            VAOs.Add(path, (vao, 1));
-            return vao;
+            VAOs.Add(path, (vaoWrapper.VAO, 1));
+            return vaoWrapper.VAO;
         }
     }
     
@@ -509,34 +426,18 @@ public static class GraphicsCache
         }
         else
         {
-            float[] vertices = 
-            {
-                -1.0f,  1.0f,
-                -1.0f, -1.0f,
-                1.0f, -1.0f,
-                -1.0f,  1.0f,
-                1.0f, -1.0f,
-                1.0f,  1.0f
-            };
-                            
-            int vao = GL.GenVertexArray();
-            GL.BindVertexArray(vao);
+            VAOWrapper vaoWrapper = new();  
+
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", Shapes.QuadVertices);
+            VertexAttribute[] staticAttributes = [positionAttribute]; 
+
+            vaoWrapper.GenStaticVBO(staticAttributes);
             
-            int vbo = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertices.Length * sizeof(float)), vertices, BufferUsageHint.StaticDraw);
-            
-            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 2 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(0);
-            
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindVertexArray(0);
-            
-            VAOs.Add(path, (vao, 1));
-            return vao;
+            VAOs.Add(path, (vaoWrapper.VAO, 1));
+            return vaoWrapper.VAO;
         }
     }
-
+    
     public static int GetUIVAO()
     {
         string path = "ui";
@@ -549,36 +450,16 @@ public static class GraphicsCache
         }
         else
         {
-            float[] vertices =
-            {
-                -1.0f,  1.0f,  0.0f, 1.0f,
-                -1.0f, -1.0f,  0.0f, 0.0f,
-                1.0f, -1.0f,  1.0f, 0.0f,
-                -1.0f,  1.0f,  0.0f, 1.0f,
-                1.0f, -1.0f,  1.0f, 0.0f,
-                1.0f,  1.0f,  1.0f, 1.0f
-            };
-                            
-            int vao = GL.GenVertexArray();
-            GL.BindVertexArray(vao);
-            
-            int vbo = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertices.Length * sizeof(float)), vertices, BufferUsageHint.StaticDraw);
-            
-            // Pos
-            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 4 * sizeof(float), 0);
-            GL.EnableVertexAttribArray(0);
+            VAOWrapper vaoWrapper = new();  
 
-            // UV
-            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 4 * sizeof(float), 2 * sizeof(float));
-            GL.EnableVertexAttribArray(1);
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", Shapes.QuadVertices);
+            VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute("UV", Shapes.QuadUVs);
+            VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
+
+            vaoWrapper.GenStaticVBO(staticAttributes);
             
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindVertexArray(0);
-            
-            VAOs.Add(path, (vao, 1));
-            return vao;
+            VAOs.Add(path, (vaoWrapper.VAO, 1));
+            return vaoWrapper.VAO;
         }
     }
 

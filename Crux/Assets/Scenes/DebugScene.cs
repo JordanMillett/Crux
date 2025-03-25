@@ -51,6 +51,10 @@ public class DebugScene : Scene
         selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldPosition = new Vector3(5f, 3f, 0f);
         selected.Freeze();
+
+        selected = GameEngine.Link.InstantiateGameObject();
+        selected.Transform.WorldPosition = new Vector3(2f, 3f, 4f);
+        selected.AddComponent<LineRenderComponent>();
         
         selected = Presets.MakePrimitive(Primitives.Cube, debugTexture);
         selected.AddComponent<MeshBoundsColliderComponent>();
