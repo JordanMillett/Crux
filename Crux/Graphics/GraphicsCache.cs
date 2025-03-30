@@ -305,38 +305,7 @@ public static class GraphicsCache
 
             vaoWrapper.GenStaticVBO(staticAttributes);
             
-            
-
-            //vaoWrapper.GenDynamicVBO([typeof(Matrix4), typeof(Vector2)]);
-
-            int Matrix4SizeInBytes = 16 * sizeof(float); // 64 bytes
-            int Vector2SizeInBytes = 2 * sizeof(float);  // 8 bytes
-            int InstanceDataSize = Matrix4SizeInBytes + Vector2SizeInBytes; // 72 bytes
-
-
-            GL.BindVertexArray(vaoWrapper.VAO);
-             // Instance VBO (dynamic model matrices & atlas offsets)
-            vaoWrapper.DynamicVBO = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vaoWrapper.DynamicVBO); 
-            GL.BufferData(BufferTarget.ArrayBuffer, 0, IntPtr.Zero, BufferUsageHint.DynamicDraw);
-
-            // Model Matrix (layout = 2, 3, 4, 5)
-            int attributeIndex = 2; // Start from index 2
-            for (int i = 0; i < 4; i++) // Each row of Matrix4 is a vec4
-            {
-                GL.VertexAttribPointer(attributeIndex + i, 4, VertexAttribPointerType.Float, false, InstanceDataSize, (IntPtr)(i * Vector4.SizeInBytes));
-                GL.EnableVertexAttribArray(attributeIndex + i);
-                GL.VertexAttribDivisor(attributeIndex + i, 1); // Per-instance data
-            }
-
-            // Atlas Offset (layout = 6)
-            int atlasOffsetIndex = attributeIndex + 4;
-            GL.VertexAttribPointer(atlasOffsetIndex, 2, VertexAttribPointerType.Float, false, InstanceDataSize, (IntPtr)Matrix4SizeInBytes);
-            GL.EnableVertexAttribArray(atlasOffsetIndex);
-            GL.VertexAttribDivisor(atlasOffsetIndex, 1); // Per-instance data
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindVertexArray(0);
+            vaoWrapper.GenDynamicVBO([typeof(Matrix4), typeof(Vector2)]);
             
             InstanceVAOs.Add(path, (vaoWrapper.VAO, vaoWrapper.DynamicVBO, 1));            
             return (vaoWrapper.VAO, vaoWrapper.DynamicVBO);
