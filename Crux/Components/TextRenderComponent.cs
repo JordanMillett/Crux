@@ -1,20 +1,13 @@
 using OpenTK.Graphics.OpenGL4;
 using Crux.Graphics;
 using Crux.Utilities.IO;
+using Crux.Utilities.Helpers;
 
 namespace Crux.Components;
 
 public class TextRenderComponent : RenderComponent
 {     
-    public (int vao, int vbo) FontVAO;
-    public static Dictionary<(int vao, int vbo), bool> Rendered = [];
-    public static Dictionary<(int vao, int vbo), PerInstanceData> InstanceData = [];
-
-    public struct PerInstanceData
-    {
-        public List<(Matrix4 model, Vector2 atlasOffset)> CharacterData;
-        public int GPUBufferLength;
-    }
+    public MeshBuffer FontBuffer;
 
     string Charset = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
     
@@ -31,19 +24,7 @@ public class TextRenderComponent : RenderComponent
             fontMaterial.SetUniform("AtlasScale", new Vector2(10, 10));
         }
 
-        FontVAO = GraphicsCache.GetInstancedUIVAO();
-
-        if (!InstanceData.ContainsKey(FontVAO))
-        {
-            PerInstanceData data = new PerInstanceData
-            {
-                CharacterData = new List<(Matrix4, Vector2)>(),
-                GPUBufferLength = 0
-            };
-
-            InstanceData.Add(FontVAO, data);
-            Rendered.Add(FontVAO, false);
-        }
+        FontBuffer = GraphicsCache.GetInstancedUIBuffer();
     }
 
     public override string ToString()
@@ -64,23 +45,20 @@ public class TextRenderComponent : RenderComponent
 
     public override void Render()
     {  
-        int Matrix4SizeInBytes = 16 * sizeof(float);
-        int Vector2SizeInBytes = 2 * sizeof(float);
-        int InstanceSizeInBytes = Matrix4SizeInBytes + Vector2SizeInBytes;
-
-        if (!InstanceData.ContainsKey(FontVAO)) 
-            return;
-        PerInstanceData data = InstanceData[FontVAO];
-
-        if (!Rendered[FontVAO])
+        if (!FontBuffer.DrawnThisFrame)
         {
             float charWidth = 0.05f * FontScale;
             float charHeight = 0.1f * FontScale;
             float lineOffsetX = 0f;
             float lineOffsetY = 0;
 
-            data.CharacterData.Clear();
+            float[] flatpack = new float[Text.Length *
+                (
+                VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
+                VertexAttributeHelper.GetTypeByteSize(typeof(Vector2))
+                )];
 
+            int packIndex = 0;
             for (int i = 0; i < Text.Length; i++)
             {
                 char c = Text[i];
@@ -102,32 +80,23 @@ public class TextRenderComponent : RenderComponent
                         Matrix4.CreateScale(charWidth, charHeight, 1.0f) *
                         Matrix4.CreateTranslation(charPosition.X, charPosition.Y, 0.0f);
 
-                    data.CharacterData.Add((modelMatrix, atlasOffset));
+                    //PACK
+                    MatrixHelper.Matrix4ToArray(modelMatrix, out float[] values);
+                    for(int j = 0; j < values.Length; j++)
+                        flatpack[packIndex++] = values[j];
+
+                    flatpack[packIndex++] = atlasOffset.X;
+                    flatpack[packIndex++] = atlasOffset.Y;
                 }
             }
 
-            if (data.CharacterData.Count > data.GPUBufferLength)
-            {
-                data.GPUBufferLength = Math.Max(64, data.GPUBufferLength * 2);
-                InstanceData[FontVAO] = data;
-
-                GL.BindBuffer(BufferTarget.ArrayBuffer, FontVAO.vbo);
-                GL.BufferData(BufferTarget.ArrayBuffer, data.GPUBufferLength * InstanceSizeInBytes, IntPtr.Zero, BufferUsageHint.DynamicDraw);
-                GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            }
-
-            GL.BindBuffer(BufferTarget.ArrayBuffer, FontVAO.vbo);
-            GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, data.CharacterData.Count * InstanceSizeInBytes, data.CharacterData.ToArray());
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+            FontBuffer.SetDynamicVBOData(flatpack, Text.Length);
 
             fontMaterial.Bind();
-            GL.BindVertexArray(FontVAO.vao);
-            GL.DrawArraysInstanced(PrimitiveType.Triangles, 0, 6, data.CharacterData.Count);
-            GraphicsCache.DrawCallsThisFrame++;
-            GL.BindVertexArray(0);
-            fontMaterial.Unbind();
+            
+            FontBuffer.DrawInstancedWithoutIndices(6, Text.Length);
 
-            Rendered[FontVAO] = true;
+            fontMaterial.Unbind();
         }
     }
 

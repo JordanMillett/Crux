@@ -10,13 +10,13 @@ public class LineRenderComponent : RenderComponent
 
     public Color4 Color = Color4.Red;
 
-    int vao;
+    MeshBuffer meshBuffer;
     
     public LineRenderComponent(GameObject gameObject): base(gameObject)
     {
         shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline);
 
-        vao = GraphicsCache.GetLineVAO("LineBounds", Shapes.LineBounds);
+        meshBuffer = GraphicsCache.GetLineBuffer("LineBounds", Shapes.LineBounds);
 
         //vao = GraphicsCache.GetLineVAO("LineAnchor", Shapes.LineAnchor);
     }
@@ -46,10 +46,10 @@ public class LineRenderComponent : RenderComponent
         
         shader.Bind();
         
-        GL.BindVertexArray(vao);
+        GL.BindVertexArray(meshBuffer.VAO);
 
         GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineBounds.Length);
-        GraphicsCache.DrawCallsThisFrame++;
+        //GraphicsCache.DrawCallsThisFrame++;
 
         GL.BindVertexArray(0);
 

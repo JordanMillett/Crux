@@ -9,9 +9,7 @@ public class MeshRenderComponent : RenderComponent
     MeshComponent mesh;
 
     public List<Shader> Shaders { get; set; } = new List<Shader>();
-    public List<int> MeshVAOs { get; set; } = new List<int>();
-
-    public List<string> VAOKeys = new List<string>();
+    public List<MeshBuffer> MeshBuffers { get; set; } = new List<MeshBuffer>();
     
     public MeshRenderComponent(GameObject gameObject): base(gameObject)
     {
@@ -19,7 +17,7 @@ public class MeshRenderComponent : RenderComponent
 
         for(int i = 0; i < mesh.data.Submeshes.Count; i++)
         {
-            MeshVAOs.Add(GraphicsCache.GetMeshVAO(mesh.path + "_" + i, mesh.data.Submeshes[i]));
+            MeshBuffers.Add(GraphicsCache.GetMeshBuffer(mesh.path + "_" + i, mesh.data.Submeshes[i]));
             Shaders.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit));
         }
     }
@@ -28,7 +26,7 @@ public class MeshRenderComponent : RenderComponent
     {
         for(int i = 0; i < mesh.data.Submeshes.Count; i++)
         {
-            GraphicsCache.RemoveVAO(mesh.path + "_" + i);
+            GraphicsCache.RemoveBuffer(mesh.path + "_" + i);
         }
     }
     
@@ -85,19 +83,15 @@ public class MeshRenderComponent : RenderComponent
         if(IsHidden || (this.GameObject.IsFrozen && ContainerNode.Culled))
             return;
 
-        for(int i = 0; i < MeshVAOs.Count; i++)
+        for(int i = 0; i < MeshBuffers.Count; i++)
         {
             Shaders[i].SetUniform("model", this.Transform.ModelMatrix);
             Shaders[i].SetUniform("lightIndices", new int[4] {0, 1, 2, 3});
             Shaders[i].Bind();
-            
-            GL.BindVertexArray(MeshVAOs[i]);
-            GL.DrawElements(PrimitiveType.Triangles, mesh.data.Submeshes[i].Indices.Length, DrawElementsType.UnsignedInt, 0);
-            GL.BindVertexArray(0);
-            Shaders[i].Unbind();
+        
+            MeshBuffers[i].Draw(mesh.data.Submeshes[i].Indices.Length);
 
-            GraphicsCache.DrawCallsThisFrame++;
-            GraphicsCache.MeshDrawCallsThisFrame++;
+            Shaders[i].Unbind();
         }
     }
 }

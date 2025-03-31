@@ -3,7 +3,7 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace Crux.Graphics;
 
-public class VAOWrapper
+public class MeshBuffer
 {
     //int vao; configuration for vertex data, offsets, and indices
     //int vbo; unique vertex data (pos, normal, uv)
@@ -11,15 +11,66 @@ public class VAOWrapper
 
     public int VAO = -1;
     public int StaticVBO = -1;
+
     public int DynamicVBO = -1;
+    public int DynamicVBOBufferLength = 0;
+    public int DynamicVBOTypesByteSize = 0;
+
+    public bool DrawnThisFrame = false;
 
     public int EBO = -1;
 
     private int attributeIndex = 0;
 
-    public VAOWrapper()
+    public MeshBuffer()
     {
         VAO = GL.GenVertexArray();
+    }
+
+    public void SetDynamicVBOData(float[] flatpack, int instances)
+    {
+        if (instances > DynamicVBOBufferLength)
+        {
+            DynamicVBOBufferLength = Math.Max(64, DynamicVBOBufferLength * 2);
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, DynamicVBO);
+            GL.BufferData(BufferTarget.ArrayBuffer, DynamicVBOBufferLength * DynamicVBOTypesByteSize, IntPtr.Zero, BufferUsageHint.DynamicDraw);
+            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+        }
+
+        GL.BindBuffer(BufferTarget.ArrayBuffer, DynamicVBO);
+        GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, instances * DynamicVBOTypesByteSize, flatpack);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+    }
+
+    public void Draw(int vertices)
+    {
+        GL.BindVertexArray(VAO);
+        GL.DrawElements(PrimitiveType.Triangles, vertices, DrawElementsType.UnsignedInt, 0);
+        GL.BindVertexArray(0);
+
+        GraphicsCache.DrawCallsThisFrame++;
+        GraphicsCache.TrianglesThisFrame += (vertices / 3);
+    }
+
+    public void DrawInstanced(int vertices, int instances)
+    {
+        GL.BindVertexArray(VAO);
+        GL.DrawElementsInstanced(PrimitiveType.Triangles, vertices, DrawElementsType.UnsignedInt, IntPtr.Zero, instances);
+        GL.BindVertexArray(0);
+
+        GraphicsCache.DrawCallsThisFrame++;
+        GraphicsCache.TrianglesThisFrame += (vertices / 3) * instances;
+    }
+
+    public void DrawInstancedWithoutIndices(int vertices, int instances)
+    {
+        GL.BindVertexArray(VAO);
+        GL.DrawArraysInstanced(PrimitiveType.Triangles, 0, vertices, instances);
+        GL.BindVertexArray(0);
+
+        GraphicsCache.DrawCallsThisFrame++;
+        GraphicsCache.TrianglesThisFrame += (vertices / 3) * instances;
     }
 
     public void GenEBO(uint[] indices)
@@ -75,6 +126,9 @@ public class VAOWrapper
 
     public void GenDynamicVBO(Type[] attributes)
     {
+        foreach (Type T in attributes)
+            DynamicVBOTypesByteSize += VertexAttributeHelper.GetTypeByteSize(T);
+
         //Bind VAO    
         GL.BindVertexArray(VAO);
 

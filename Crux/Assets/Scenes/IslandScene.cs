@@ -25,6 +25,8 @@ public class IslandScene : Scene
         GameEngine.Link.Camera.Transform.Parent = CenterPoint;
 
         Dictionary<string, GameObject> Map = GltfHandler.LoadGltfAsMeshRenderers("Crux/Assets/Models/Examples/Island.gltf");
+
+        
     }
 
     public override void Update()

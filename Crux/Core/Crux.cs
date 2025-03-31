@@ -217,11 +217,11 @@ public class GameEngine : GameWindow
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
         GraphicsCache.DrawCallsThisFrame = 0;
-        GraphicsCache.MeshDrawCallsThisFrame = 0;
+        GraphicsCache.TrianglesThisFrame = 0;
         foreach (var key in InstancedMeshRenderComponent.Rendered.Keys.ToList())
             InstancedMeshRenderComponent.Rendered[key] = false;
-        foreach (var key in TextRenderComponent.Rendered.Keys.ToList())
-            TextRenderComponent.Rendered[key] = false;
+        foreach (var key in GraphicsCache.VAOs.Keys.ToList())
+            GraphicsCache.VAOs[key].meshBuffer.DrawnThisFrame = false;
 
         //RENDER
         ActiveScene.RenderSkybox();

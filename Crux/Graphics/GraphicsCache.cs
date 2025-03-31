@@ -14,11 +14,10 @@ public static class GraphicsCache
     static Dictionary<string, (int id, int users)> Fragment = new();
     static Dictionary<(int vertId, int fragId), (int id, int users)> Programs = new();
     
-    static Dictionary<string, (int vao, int users)> VAOs = new();
-    static Dictionary<string, (int vao, int vbo, int users)> InstanceVAOs = new();
+    public static Dictionary<string, (MeshBuffer meshBuffer, int users)> VAOs = new();
 
     public static int DrawCallsThisFrame = 0;
-    public static int MeshDrawCallsThisFrame = 0;
+    public static int TrianglesThisFrame = 0;
     public static float FramesPerSecond = 0f;
 
     public static Octree Tree;
@@ -33,11 +32,10 @@ public static class GraphicsCache
         StringBuilder sb = new StringBuilder();
 
         sb.AppendLine($"FPS - {FramesPerSecond:F2}");
-        sb.AppendLine($"Mesh Draw Calls - {MeshDrawCallsThisFrame}");
         sb.AppendLine($"Draw Calls - {DrawCallsThisFrame}");
+        sb.AppendLine($"Triangles - {TrianglesThisFrame}");
 
-        sb.AppendLine($"Standard VAOs - {VAOs.Count}x");
-        sb.AppendLine($"Instance VAOs - {InstanceVAOs.Count}x");
+        sb.AppendLine($"Unique VAOs - {VAOs.Count}x");
         sb.AppendLine($"Unique Textures - {Textures.Count}x");
         sb.AppendLine($"Unique Shader Programs - {Programs.Count}x");
 
@@ -49,15 +47,11 @@ public static class GraphicsCache
         StringBuilder sb = new StringBuilder();
 
         sb.AppendLine($"FPS - {FramesPerSecond:F2}");
-        sb.AppendLine($"Mesh Draw Calls - {MeshDrawCallsThisFrame}");
         sb.AppendLine($"Draw Calls - {DrawCallsThisFrame}");
+        sb.AppendLine($"Triangles - {TrianglesThisFrame}");
 
-        sb.AppendLine($"Standard VAOs - {VAOs.Count}x");
+        sb.AppendLine($"Unique VAOs - {VAOs.Count}x");
         foreach (var entry in VAOs)
-            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
-
-        sb.AppendLine($"Unique Instance VAOs - {InstanceVAOs.Count}x");
-        foreach (var entry in InstanceVAOs)
             sb.AppendLine($" {entry.Value.users}x {entry.Key}");
 
         sb.AppendLine($"Unique Textures - {Textures.Count}x");
@@ -284,106 +278,104 @@ public static class GraphicsCache
         }
     }
 
-    public static (int vao, int vbo) GetInstancedUIVAO()
+    public static MeshBuffer GetInstancedUIBuffer()
     {
         string path = "ui";
         
-        if (InstanceVAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(path, out var cached))
         {
             cached.users++;
-            InstanceVAOs[path] = cached;
-            return (cached.vao, cached.vbo);
+            VAOs[path] = cached;
+            return cached.meshBuffer;
         }
         else
         {
             
-            VAOWrapper vaoWrapper = new();   
+            MeshBuffer meshBuffer = new();   
 
             VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", Shapes.QuadVertices);
             VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute("UV", Shapes.QuadUVs);
             VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
-
-            vaoWrapper.GenStaticVBO(staticAttributes);
+            meshBuffer.GenStaticVBO(staticAttributes);
             
-            vaoWrapper.GenDynamicVBO([typeof(Matrix4), typeof(Vector2)]);
+            meshBuffer.GenDynamicVBO([typeof(Matrix4), typeof(Vector2)]);
             
-            InstanceVAOs.Add(path, (vaoWrapper.VAO, vaoWrapper.DynamicVBO, 1));            
-            return (vaoWrapper.VAO, vaoWrapper.DynamicVBO);
+            VAOs.Add(path, (meshBuffer, 1));            
+            return meshBuffer;
         }
     }
     
-    public static (int vao, int vbo) GetInstancedMeshVAO(string path, Mesh mesh)
+    public static MeshBuffer GetInstancedMeshBuffer(string path, Mesh mesh)
     {
         //if Instanced VAO already exists
-        if (InstanceVAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(path, out var cached))
         {
             //Add another user
             cached.users++;
             //Sync to dictionary
-            InstanceVAOs[path] = cached;
-            return (cached.vao, cached.vbo);
+            VAOs[path] = cached;
+            return cached.meshBuffer;
         }
         else
         {
-            VAOWrapper vaoWrapper = new();   
+            MeshBuffer meshBuffer = new();   
 
             VertexAttribute[] staticAttributes = mesh.GetSeparatedData();
-            vaoWrapper.GenStaticVBO(staticAttributes);
+            meshBuffer.GenStaticVBO(staticAttributes);
 
-            vaoWrapper.GenEBO(mesh.Indices);
+            meshBuffer.GenEBO(mesh.Indices);
             
-            vaoWrapper.GenDynamicVBO([typeof(Matrix4)]);
+            meshBuffer.GenDynamicVBO([typeof(Matrix4)]);
 
-            InstanceVAOs.Add(path, (vaoWrapper.VAO, vaoWrapper.DynamicVBO, 1));
-            return (vaoWrapper.VAO, vaoWrapper.DynamicVBO);
+            VAOs.Add(path, (meshBuffer, 1));
+            return meshBuffer;
         }
     }
 
-    public static int GetMeshVAO(string path, Mesh mesh)
+    public static MeshBuffer GetMeshBuffer(string path, Mesh mesh)
     {
         if (VAOs.TryGetValue(path, out var cached))
         {
             cached.users++;
             VAOs[path] = cached;
-            return cached.vao;
+            return cached.meshBuffer;
         }
         else
         {
-            VAOWrapper vaoWrapper = new();            
+            MeshBuffer meshBuffer = new();            
 
             VertexAttribute[] staticAttributes = mesh.GetSeparatedData();
-            vaoWrapper.GenStaticVBO(staticAttributes);
+            meshBuffer.GenStaticVBO(staticAttributes);
 
-            vaoWrapper.GenEBO(mesh.Indices);            
+            meshBuffer.GenEBO(mesh.Indices);            
 
-            VAOs.Add(path, (vaoWrapper.VAO, 1));
-            return vaoWrapper.VAO;
+            VAOs.Add(path, (meshBuffer, 1));
+            return meshBuffer;
         }
     }
     
-    public static int GetLineVAO(string path, Vector3[] vertices)
+    public static MeshBuffer GetLineBuffer(string path, Vector3[] vertices)
     {
         if (VAOs.TryGetValue(path, out var cached))
         {
             cached.users++;
             VAOs[path] = cached;
-            return cached.vao;
+            return cached.meshBuffer;
         }
         else
         {
-            VAOWrapper vaoWrapper = new();  
+            MeshBuffer meshBuffer = new();  
 
             VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", vertices);
             VertexAttribute[] staticAttributes = [positionAttribute]; 
-
-            vaoWrapper.GenStaticVBO(staticAttributes);
+            meshBuffer.GenStaticVBO(staticAttributes);
             
-            VAOs.Add(path, (vaoWrapper.VAO, 1));
-            return vaoWrapper.VAO;
+            VAOs.Add(path, (meshBuffer, 1));
+            return meshBuffer;
         }
     }
     
-    public static int GetSkyboxVAO()
+    public static MeshBuffer GetSkyboxBuffer()
     {
         string path = "skybox";
         
@@ -391,23 +383,22 @@ public static class GraphicsCache
         {
             cached.users++;
             VAOs[path] = cached;
-            return cached.vao;
+            return cached.meshBuffer;
         }
         else
         {
-            VAOWrapper vaoWrapper = new();  
+            MeshBuffer meshBuffer = new();  
 
             VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", Shapes.QuadVertices);
             VertexAttribute[] staticAttributes = [positionAttribute]; 
-
-            vaoWrapper.GenStaticVBO(staticAttributes);
+            meshBuffer.GenStaticVBO(staticAttributes);
             
-            VAOs.Add(path, (vaoWrapper.VAO, 1));
-            return vaoWrapper.VAO;
+            VAOs.Add(path, (meshBuffer, 1));
+            return meshBuffer;
         }
     }
     
-    public static int GetUIVAO()
+    public static MeshBuffer GetUIBuffer()
     {
         string path = "ui";
         
@@ -415,42 +406,23 @@ public static class GraphicsCache
         {
             cached.users++;
             VAOs[path] = cached;
-            return cached.vao;
+            return cached.meshBuffer;
         }
         else
         {
-            VAOWrapper vaoWrapper = new();  
+            MeshBuffer meshBuffer = new();  
 
             VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", Shapes.QuadVertices);
             VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute("UV", Shapes.QuadUVs);
             VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
-
-            vaoWrapper.GenStaticVBO(staticAttributes);
+            meshBuffer.GenStaticVBO(staticAttributes);
             
-            VAOs.Add(path, (vaoWrapper.VAO, 1));
-            return vaoWrapper.VAO;
+            VAOs.Add(path, (meshBuffer, 1));
+            return meshBuffer;
         }
     }
 
-    public static void RemoveInstancedVAO(string path)
-    {
-        if (InstanceVAOs.TryGetValue(path, out var cached))
-        {
-            cached.users--;
-
-            if (cached.users == 0)
-            {
-                GL.DeleteVertexArray(cached.vao);
-                InstanceVAOs.Remove(path);
-            }
-            else
-            {
-                InstanceVAOs[path] = cached;
-            }
-        }
-    }
-
-    public static void RemoveVAO(string path)
+    public static void RemoveBuffer(string path)
     {
         if (VAOs.TryGetValue(path, out var cached))
         {
@@ -458,7 +430,7 @@ public static class GraphicsCache
 
             if (cached.users == 0)
             {
-                GL.DeleteVertexArray(cached.vao);
+                GL.DeleteVertexArray(cached.meshBuffer.VAO);
                 VAOs.Remove(path);
             }
             else

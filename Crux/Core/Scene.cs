@@ -11,7 +11,7 @@ public abstract class Scene
 
     public Shader Skybox;
 
-    int skyboxVAO = -1;
+    MeshBuffer skyboxBuffer;
 
     public static GameEngine Engine
     {
@@ -121,7 +121,7 @@ public abstract class Scene
         string materialPath = "Crux/Assets/Materials/Skybox.json";
         Skybox = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Skybox);
 
-        skyboxVAO = GraphicsCache.GetSkyboxVAO();
+        skyboxBuffer = GraphicsCache.GetSkyboxBuffer();
         
         if (UBO == -1)
         {                
@@ -145,10 +145,10 @@ public abstract class Scene
 
         Skybox.Bind();
         
-        GL.BindVertexArray(skyboxVAO);
+        GL.BindVertexArray(skyboxBuffer.VAO);
         
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
-        GraphicsCache.DrawCallsThisFrame++;
+        //GraphicsCache.DrawCallsThisFrame++;
 
         GL.BindVertexArray(0);
 
