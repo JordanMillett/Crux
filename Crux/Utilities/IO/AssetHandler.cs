@@ -26,7 +26,7 @@ public static class AssetHandler
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.AppendLine($"Unique Full Meshes - {ObjHandler.UniqueMeshes.Count}x");
+        sb.AppendLine($"Unique Cached Meshes - {ObjHandler.UniqueMeshes.Count}x");
 
         return sb.ToString();
     }

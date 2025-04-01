@@ -2,6 +2,111 @@
 using OpenTK.Graphics.OpenGL4;
 using Crux.Graphics;
 using Crux.Utilities.IO;
+
+namespace Crux.Components;
+
+public class BoundsRenderComponent : RenderComponent
+{
+    public static MeshBuffer meshBuffer;
+    public static Shader shader { get; set; } = null!;
+
+    public static Dictionary<MeshBuffer, BoundsRenderComponent> Connected = [];
+
+    public MeshBoundsColliderComponent Source;
+    public 
+
+    //Instanced Data
+    public Color4 AABBColor = Color4.Orange;
+    public Color4 OBBColor = Color4.Blue;
+
+    public BoundsRenderComponent(GameObject gameObject): base(gameObject)
+    {
+        if(shader == null)
+            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline);
+        if(meshBuffer == null)
+            meshBuffer = GraphicsCache.GetLineBuffer("LineBounds", Shapes.LineBounds);
+
+        Connected.Add(meshBuffer, this);
+    }
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.AppendLine($"{ this.GetType().Name }");
+
+        return sb.ToString();
+    }
+
+    public override Component Clone(GameObject gameObject)
+    {
+        BoundsRenderComponent clone = new BoundsRenderComponent(gameObject);
+
+        return clone;
+    }
+
+    public override void Render()
+    {
+        shader.SetUniform("model", GameObject.Transform.ModelMatrix);
+
+        shader.TextureHue = Color;
+        
+        shader.Bind();
+        
+        GL.BindVertexArray(meshBuffer.VAO);
+
+        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineAnchor.Length);
+
+        GL.BindVertexArray(0);
+
+        shader.Unbind();
+    }
+
+    public override void Render()
+    { 
+        ComputeBounds();
+
+        if(OBBAxes == null)
+            return;
+        
+        //AABB
+        Vector3 middle = (AABBMin + AABBMax) * 0.5f;
+        Vector3 size = AABBMax - AABBMin;
+        Matrix4 BoundsModelMatrix = Matrix4.CreateScale(size) * Matrix4.CreateTranslation(middle);
+
+        boundsMaterial.SetUniform("model", BoundsModelMatrix);
+        boundsMaterial.TextureHue = AABBColor;
+        boundsMaterial.Bind();
+        GL.BindVertexArray(boundsVao);
+        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineBounds.Count);
+        GraphicsCache.DrawCallsThisFrame++;
+        GL.BindVertexArray(0);
+        boundsMaterial.Unbind();
+        
+        
+        //OBB
+        Matrix4 scaleMatrix = Matrix4.CreateScale(OBBHalfExtents * 2.0f);
+        Matrix4 rotationMatrix = MatrixHelper.CreateRotationMatrixFromAxes(OBBAxes);
+        Matrix4 translationMatrix = Matrix4.CreateTranslation(OBBCenter);
+        BoundsModelMatrix = scaleMatrix * rotationMatrix * translationMatrix;
+        
+        boundsMaterial.SetUniform("model", BoundsModelMatrix);
+        boundsMaterial.TextureHue = OBBColor;
+        boundsMaterial.Bind();
+        GL.BindVertexArray(boundsVao);
+        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineBounds.Count);
+        GraphicsCache.DrawCallsThisFrame++;
+        GL.BindVertexArray(0);
+        boundsMaterial.Unbind();
+        
+        
+    }
+}
+*/
+/*
+using OpenTK.Graphics.OpenGL4;
+using Crux.Graphics;
+using Crux.Utilities.IO;
 using Crux.Utilities.Helpers;
 using Crux.Physics;
 

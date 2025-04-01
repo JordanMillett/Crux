@@ -11,6 +11,7 @@ using Crux.Graphics;
 using Crux.Physics;
 using Crux.Utilities.IO;
 using Crux.Utilities;
+using System.Runtime.InteropServices;
 
 namespace Crux.Core;
 
@@ -62,7 +63,7 @@ public class GameEngine : GameWindow
         : base(gameWindowSettings, nativeWindowSettings)
     {
         link = this;
-        this.VSync = VSyncMode.On;
+        this.VSync = VSyncMode.Off;
         this.ClientSize = Resolution;
         this.Title = GetWindowShortName();
         this.Icon = AssetHandler.LoadIcon();
@@ -125,6 +126,41 @@ public class GameEngine : GameWindow
         string version = "0.0.1";
 
         return $"Game {version}";
+    }
+
+    public static string GetSystemInformation()
+    {
+        return $"Sys {GetArchitecture()} {GetOperatingSystem()}\n";
+    }
+
+    public static string GetApplicationInformation()
+    {
+        return $"App {(Environment.Is64BitProcess ? "x64" : "x86")} {GetOperatingSystem()}\n{GetGameShortName()}\n{GetEngineShortName()}\n";
+    }
+
+    public static string GetOperatingSystem()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            return "Windows";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            return "Linux";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            return "macOS";
+
+        return "Unknown";
+    }
+
+    static string GetArchitecture()
+    {
+        Architecture architecture = RuntimeInformation.OSArchitecture;
+        return architecture switch
+        {
+            Architecture.X86 => "x86",
+            Architecture.X64 => "x64",
+            Architecture.Arm => "arm",
+            Architecture.Arm64 => "arm64",
+            _ => "unknown"
+        };
     }
 
     protected override void OnLoad()
@@ -252,6 +288,8 @@ public class GameEngine : GameWindow
         DebugHUD.Text = GraphicsCache.GetShortInfo();
         DebugHUD.Text += AssetHandler.GetShortInfo();
         DebugHUD.Text += PhysicsSystem.GetShortInfo();
+        DebugHUD.Text += GetSystemInformation();
+        DebugHUD.Text += GetApplicationInformation();
 
         //Console.WriteLine(GraphicsCache.GetFullInfo());
         /*

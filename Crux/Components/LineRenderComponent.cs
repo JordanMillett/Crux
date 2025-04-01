@@ -11,14 +11,12 @@ public class LineRenderComponent : RenderComponent
     public Color4 Color = Color4.Red;
 
     MeshBuffer meshBuffer;
-    
+
     public LineRenderComponent(GameObject gameObject): base(gameObject)
     {
         shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline);
 
-        meshBuffer = GraphicsCache.GetLineBuffer("LineBounds", Shapes.LineBounds);
-
-        //vao = GraphicsCache.GetLineVAO("LineAnchor", Shapes.LineAnchor);
+        meshBuffer = GraphicsCache.GetLineBuffer("LineAnchor", Shapes.LineAnchor);
     }
     
     public override string ToString()
@@ -39,7 +37,6 @@ public class LineRenderComponent : RenderComponent
 
     public override void Render()
     {
-        //Per-Object Uniforms and Shared Uniforms
         shader.SetUniform("model", GameObject.Transform.ModelMatrix);
 
         shader.TextureHue = Color;
@@ -48,8 +45,7 @@ public class LineRenderComponent : RenderComponent
         
         GL.BindVertexArray(meshBuffer.VAO);
 
-        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineBounds.Length);
-        //GraphicsCache.DrawCallsThisFrame++;
+        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineAnchor.Length);
 
         GL.BindVertexArray(0);
 
