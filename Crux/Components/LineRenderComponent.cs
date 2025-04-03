@@ -43,11 +43,7 @@ public class LineRenderComponent : RenderComponent
         
         shader.Bind();
         
-        GL.BindVertexArray(meshBuffer.VAO);
-
-        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineAnchor.Length);
-
-        GL.BindVertexArray(0);
+        meshBuffer.DrawLines(Shapes.LineAnchor.Length);
 
         shader.Unbind();
     }

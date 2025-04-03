@@ -11,7 +11,7 @@ Hobbyist 3D C# Game Engine using OpenTK
 * [StbImageSharp (2.30.15)](https://github.com/StbSharp/StbImageSharp) - C# Image Handling
 * [StbImageWriteSharp (1.16.7)](https://github.com/StbSharp/StbImageWriteSharp) - C# Image Handling
 
-## Building
+## Set Up
 
 First you will need to create a GameScene.cs script under Game/Assets/Scenes/ using the following template:
 ```
@@ -40,9 +40,28 @@ Next open Game/Game.cs and set the GameScene as the active scene.
 GameEngine.Link.ActiveScene = new GameScene();
 ```
 
-And then compile and run using:
+## Build Commands
+
+Compile and run:
 ```
 dotnet run --project Game -c Debug
+```
+
+Publish:
+```
+.\publish.bat
+```
+
+Regenerate solution:
+```
+dotnet new sln --name OpenTK
+dotnet sln OpenTK.sln add (Get-ChildItem -Recurse *.csproj)
+```
+
+Setup and serve DocFX:
+```
+docfx metadata CruxDocs/docfx.json
+docfx CruxDocs/docfx.json --serve
 ```
 
 For more information, visit [Crux Docs](https://jordanmillett.github.io/Crux/).

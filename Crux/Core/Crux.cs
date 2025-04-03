@@ -63,7 +63,7 @@ public class GameEngine : GameWindow
         : base(gameWindowSettings, nativeWindowSettings)
     {
         link = this;
-        this.VSync = VSyncMode.Off;
+        this.VSync = VSyncMode.On;
         this.ClientSize = Resolution;
         this.Title = GetWindowShortName();
         this.Icon = AssetHandler.LoadIcon();
@@ -254,6 +254,7 @@ public class GameEngine : GameWindow
 
         GraphicsCache.DrawCallsThisFrame = 0;
         GraphicsCache.TrianglesThisFrame = 0;
+        GraphicsCache.LinesThisFrame = 0;
         foreach (var key in InstancedMeshRenderComponent.Rendered.Keys.ToList())
             InstancedMeshRenderComponent.Rendered[key] = false;
         foreach (var key in GraphicsCache.VAOs.Keys.ToList())

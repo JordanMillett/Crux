@@ -18,6 +18,7 @@ public static class GraphicsCache
 
     public static int DrawCallsThisFrame = 0;
     public static int TrianglesThisFrame = 0;
+    public static int LinesThisFrame = 0;
     public static float FramesPerSecond = 0f;
 
     public static Octree Tree;
@@ -34,6 +35,7 @@ public static class GraphicsCache
         sb.AppendLine($"FPS - {FramesPerSecond:F2}");
         sb.AppendLine($"Draw Calls - {DrawCallsThisFrame}");
         sb.AppendLine($"Triangles - {TrianglesThisFrame}");
+        sb.AppendLine($"Lines - {LinesThisFrame}");
 
         sb.AppendLine($"Unique VAOs - {VAOs.Count}x");
         sb.AppendLine($"Unique Textures - {Textures.Count}x");
@@ -49,6 +51,7 @@ public static class GraphicsCache
         sb.AppendLine($"FPS - {FramesPerSecond:F2}");
         sb.AppendLine($"Draw Calls - {DrawCallsThisFrame}");
         sb.AppendLine($"Triangles - {TrianglesThisFrame}");
+        sb.AppendLine($"Lines - {LinesThisFrame}");
 
         sb.AppendLine($"Unique VAOs - {VAOs.Count}x");
         foreach (var entry in VAOs)
