@@ -307,6 +307,30 @@ public static class GraphicsCache
             return meshBuffer;
         }
     }
+
+    public static MeshBuffer GetInstancedLineBuffer(string path, Vector3[] vertices)
+    {
+        if (VAOs.TryGetValue(path, out var cached))
+        {
+            cached.users++;
+            VAOs[path] = cached;
+            return cached.meshBuffer;
+        }
+        else
+        {
+            
+            MeshBuffer meshBuffer = new();   
+
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", vertices);
+            VertexAttribute[] staticAttributes = [positionAttribute]; 
+            meshBuffer.GenStaticVBO(staticAttributes);
+            
+            meshBuffer.GenDynamicVBO([typeof(Matrix4), typeof(Vector4)]);
+            
+            VAOs.Add(path, (meshBuffer, 1));            
+            return meshBuffer;
+        }
+    }
     
     public static MeshBuffer GetInstancedMeshBuffer(string path, Mesh mesh)
     {

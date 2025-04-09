@@ -7,8 +7,8 @@ namespace Crux.Components;
 
 public class BoundsRenderComponent : RenderComponent
 {
-    public static MeshBuffer meshBuffer;
-    public static Shader shader { get; set; } = null!;
+    MeshBuffer meshBuffer;
+    public Shader shader { get; set; } = null!;
 
     public static Dictionary<MeshBuffer, BoundsRenderComponent> Connected = [];
 
@@ -20,14 +20,10 @@ public class BoundsRenderComponent : RenderComponent
 
     public BoundsRenderComponent(GameObject gameObject): base(gameObject)
     {
-        Logger.LogWarning("NOW");
+        shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline);
+        meshBuffer = GraphicsCache.GetLineBuffer("LineBounds", Shapes.LineBounds);
 
-        if(shader == null)
-            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline);
-        if(meshBuffer == null)
-            meshBuffer = GraphicsCache.GetLineBuffer("LineBounds", Shapes.LineBounds);
-
-        Connected.Add(meshBuffer, this);
+        //Connected.Add(meshBuffer, this);
     }
 
     public override string ToString()
@@ -50,6 +46,8 @@ public class BoundsRenderComponent : RenderComponent
     { 
         if(Source == null || Source.OBBAxes == null)
             return;
+
+        return;
         
         //AABB
         Vector3 middle = (Source.AABBMin + Source.AABBMax) * 0.5f;

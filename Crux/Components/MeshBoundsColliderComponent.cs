@@ -25,6 +25,7 @@ public class MeshBoundsColliderComponent : ColliderComponent
         GameObject bounds = GameEngine.Link.InstantiateGameObject();
         bounds.Transform.Parent = this.Transform;
         bounds.Transform.LocalPosition = Vector3.Zero;
+        //bounds.AddComponent<LineRenderComponent>();
         bounds.AddComponent<BoundsRenderComponent>().Source = this;
     }
     

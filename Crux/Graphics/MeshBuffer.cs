@@ -53,6 +53,16 @@ public class MeshBuffer
         GraphicsCache.LinesThisFrame += (vertices / 2);
     }
 
+    public void DrawLinesInstanced(int vertices, int instances)
+    {
+        GL.BindVertexArray(VAO);
+        GL.DrawArraysInstanced(PrimitiveType.Lines, 0, vertices, instances);
+        GL.BindVertexArray(0);
+
+        GraphicsCache.DrawCallsThisFrame++;
+        GraphicsCache.LinesThisFrame += (vertices / 2) * instances;
+    }
+
     public void Draw(int vertices)
     {
         GL.BindVertexArray(VAO);

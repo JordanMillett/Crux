@@ -20,3 +20,5 @@ dotnet publish Game\Game.csproj -c Release -r win-x86 --self-contained true -p:P
 :: dotnet publish Game\Game.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=false -o Game\bin\Builds\linux-x64-standalone-single-file\
 :: dotnet publish Game\Game.csproj -c Release -r linux-x64 --self-contained false -p:PublishSingleFile=false -p:PublishTrimmed=false -o Game\bin\Builds\linux-x64-dotnet-multi-file\
 :: dotnet publish Game\Game.csproj -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=false -o Game\bin\Builds\linux-x64-standalone-multi-file\
+
+start explorer Game\bin\Builds\
