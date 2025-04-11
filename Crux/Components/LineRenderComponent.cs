@@ -10,6 +10,7 @@ public class LineRenderComponent : RenderComponent
 {
     public static Shader shader { get; set; } = null!;
 
+    //Instanced Data
     public Color4 Color = Color4.Red;
 
     MeshBuffer meshBuffer;
@@ -19,9 +20,7 @@ public class LineRenderComponent : RenderComponent
     public LineRenderComponent(GameObject gameObject): base(gameObject)
     {
         if (shader == null)
-        {
             shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Outline);
-        }
 
         meshBuffer = GraphicsCache.GetInstancedLineBuffer("LineAnchor", Shapes.LineAnchor);
         Instances.Add(this);

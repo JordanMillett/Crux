@@ -7,23 +7,25 @@ namespace Crux.Components;
 
 public class BoundsRenderComponent : RenderComponent
 {
-    MeshBuffer meshBuffer;
-    public Shader shader { get; set; } = null!;
-
-    public static Dictionary<MeshBuffer, BoundsRenderComponent> Connected = [];
-
-    public MeshBoundsColliderComponent Source;
+    public static Shader shader { get; set; } = null!;
 
     //Instanced Data
     public Color4 AABBColor = Color4.Orange;
     public Color4 OBBColor = Color4.Blue;
 
+    MeshBuffer meshBuffer;
+
+    public static List<BoundsRenderComponent> Instances = [];
+    
+    public MeshBoundsColliderComponent Source;
+
     public BoundsRenderComponent(GameObject gameObject): base(gameObject)
     {
-        shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline);
-        meshBuffer = GraphicsCache.GetLineBuffer("LineBounds", Shapes.LineBounds);
+        if (shader == null)
+            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Outline);
 
-        //Connected.Add(meshBuffer, this);
+        meshBuffer = GraphicsCache.GetInstancedLineBuffer("LineBounds", Shapes.LineBounds);
+        Instances.Add(this);
     }
 
     public override string ToString()
@@ -44,165 +46,64 @@ public class BoundsRenderComponent : RenderComponent
 
     public override void Render()
     { 
-        if(Source == null || Source.OBBAxes == null)
-            return;
-
-        return;
-        
-        //AABB
-        Vector3 middle = (Source.AABBMin + Source.AABBMax) * 0.5f;
-        Vector3 size = Source.AABBMax - Source.AABBMin;
-        Matrix4 BoundsModelMatrix = Matrix4.CreateScale(size) * Matrix4.CreateTranslation(middle);
-
-        shader.SetUniform("model", BoundsModelMatrix);
-        shader.TextureHue = AABBColor;
-        shader.Bind();
-        meshBuffer.DrawLines(Shapes.LineBounds.Length);
-        shader.Unbind();
-        
-        //OBB
-        Matrix4 scaleMatrix = Matrix4.CreateScale(Source.OBBHalfExtents * 2.0f);
-        Matrix4 rotationMatrix = MatrixHelper.CreateRotationMatrixFromAxes(Source.OBBAxes);
-        Matrix4 translationMatrix = Matrix4.CreateTranslation(Source.OBBCenter);
-        BoundsModelMatrix = scaleMatrix * rotationMatrix * translationMatrix;
-        
-        shader.SetUniform("model", BoundsModelMatrix);
-        shader.TextureHue = OBBColor;
-        shader.Bind();
-        meshBuffer.DrawLines(Shapes.LineBounds.Length);
-        shader.Unbind();
-    }
-}
-
-/*
-using OpenTK.Graphics.OpenGL4;
-using Crux.Graphics;
-using Crux.Utilities.IO;
-using Crux.Utilities.Helpers;
-using Crux.Physics;
-
-namespace Crux.Components;
-
-public class ColliderComponent : RenderComponent
-{     
-    readonly MeshComponent mesh;
-
-    static int boundsVao = -1;
-    public static Shader boundsMaterial = null!;
-
-    //World Space
-    public Vector3 SphereCenter;
-    public float SphereRadius;
-
-    //World Space
-    public Vector3 AABBMin;
-    public Vector3 AABBMax;
-
-    //World Space
-    public Vector3 OBBCenter; 
-    public Vector3[] OBBAxes = [];
-    public Vector3 OBBHalfExtents;
-
-    public Color4 AABBColor = Color4.Orange;
-    public Color4 OBBColor = Color4.Blue;
-
-    public bool ShowColliders = false;
-
-    public int ColliderIndex = -1;
-
-    public (Vector3 MinKey, Vector3 MaxKey) OctreeKeys;
-
-    public ColliderComponent(GameObject gameObject): base(gameObject)
-    {
-        mesh = GetComponent<MeshComponent>();
-        
-        if(boundsVao == -1)
+        if (!meshBuffer.DrawnThisFrame)
         {
-            boundsMaterial = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline);
+            int packIndex = 0;
+            int totalInstances = Instances.Count * 2;
             
-            boundsVao = GraphicsCache.GetLineVAO("LineBounds", Shapes.LineBounds);
+            float[] flatpack = new float[totalInstances *
+            (
+            VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
+            VertexAttributeHelper.GetTypeByteSize(typeof(Vector4))
+            )];
+
+            foreach(BoundsRenderComponent instance in Instances)
+            {
+                if(instance.Source == null || instance.Source.OBBAxes == null)
+                {
+                    totalInstances -= 2;
+                    continue;
+                }        
+
+                //AABB
+                Vector3 middle = (instance.Source.AABBMin + instance.Source.AABBMax) * 0.5f;
+                Vector3 size = instance.Source.AABBMax - instance.Source.AABBMin;
+                Matrix4 BoundsModelMatrix = Matrix4.CreateScale(size) * Matrix4.CreateTranslation(middle);
+
+                MatrixHelper.Matrix4ToArray(BoundsModelMatrix, out float[] values);
+                for(int j = 0; j < values.Length; j++)
+                    flatpack[packIndex++] = values[j];
+
+                flatpack[packIndex++] = instance.AABBColor.R;
+                flatpack[packIndex++] = instance.AABBColor.G;
+                flatpack[packIndex++] = instance.AABBColor.B;
+                flatpack[packIndex++] = instance.AABBColor.A;
+                
+                //OBB
+                Matrix4 scaleMatrix = Matrix4.CreateScale(instance.Source.OBBHalfExtents * 2.0f);
+                Matrix4 rotationMatrix = MatrixHelper.CreateRotationMatrixFromAxes(instance.Source.OBBAxes);
+                Matrix4 translationMatrix = Matrix4.CreateTranslation(instance.Source.OBBCenter);
+                BoundsModelMatrix = scaleMatrix * rotationMatrix * translationMatrix;
+
+                MatrixHelper.Matrix4ToArray(BoundsModelMatrix, out values);
+                for(int j = 0; j < values.Length; j++)
+                    flatpack[packIndex++] = values[j];
+                
+                flatpack[packIndex++] = instance.OBBColor.R;
+                flatpack[packIndex++] = instance.OBBColor.G;
+                flatpack[packIndex++] = instance.OBBColor.B;
+                flatpack[packIndex++] = instance.OBBColor.A;
+            }
+
+            meshBuffer.SetDynamicVBOData(flatpack, totalInstances);
+            
+            shader.Bind();
+            
+            meshBuffer.DrawLinesInstanced(Shapes.LineBounds.Length, totalInstances);
+
+            shader.Unbind();
+
+            meshBuffer.DrawnThisFrame = true;
         }
-
-        ComputeBounds();
-      
-    }
-
-
-    
-    public override string ToString()
-    {
-        StringBuilder sb = new();
-
-        sb.AppendLine($"{ this.GetType().Name }");
-
-        return sb.ToString();
-    }
-    
-    public override Component Clone(GameObject gameObject)
-    {
-        ColliderComponent clone = new ColliderComponent(gameObject);
-
-        return clone;
-    }
-    
-    public void ComputeBounds()
-    {
-        if(ColliderIndex > -1 && ColliderIndex < mesh.data.Submeshes.Count)
-        {
-            (AABBMin, AABBMax) = mesh.data.Submeshes[ColliderIndex].GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
-            (OBBCenter, OBBAxes, OBBHalfExtents) = mesh.data.Submeshes[ColliderIndex].GetWorldSpaceOBB(GameObject.Transform.ModelMatrix);
-        }else
-        {
-            (AABBMin, AABBMax) = mesh.data.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
-            (OBBCenter, OBBAxes, OBBHalfExtents) = mesh.data.GetWorldSpaceOBB(GameObject.Transform.ModelMatrix);
-        }
-
-        SphereCenter = (AABBMin + AABBMax) * 0.5f;
-        SphereRadius = ((AABBMax - AABBMin) * 0.5f).Length;
-    }
-
-    public override void Render()
-    { 
-        //ShowColliders = true;
-
-        if(!ShowColliders)
-            return;
-
-        if(OBBAxes == null)
-            return;
-        //ComputeBounds();
-        
-        //AABB
-        Vector3 middle = (AABBMin + AABBMax) * 0.5f;
-        Vector3 size = AABBMax - AABBMin;
-        Matrix4 BoundsModelMatrix = Matrix4.CreateScale(size) * Matrix4.CreateTranslation(middle);
-
-        boundsMaterial.SetUniform("model", BoundsModelMatrix);
-        boundsMaterial.TextureHue = AABBColor;
-        boundsMaterial.Bind();
-        GL.BindVertexArray(boundsVao);
-        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineBounds.Count);
-        GraphicsCache.DrawCallsThisFrame++;
-        GL.BindVertexArray(0);
-        boundsMaterial.Unbind();
-        
-        
-        //OBB
-        Matrix4 scaleMatrix = Matrix4.CreateScale(OBBHalfExtents * 2.0f);
-        Matrix4 rotationMatrix = MatrixHelper.CreateRotationMatrixFromAxes(OBBAxes);
-        Matrix4 translationMatrix = Matrix4.CreateTranslation(OBBCenter);
-        BoundsModelMatrix = scaleMatrix * rotationMatrix * translationMatrix;
-        
-        boundsMaterial.SetUniform("model", BoundsModelMatrix);
-        boundsMaterial.TextureHue = OBBColor;
-        boundsMaterial.Bind();
-        GL.BindVertexArray(boundsVao);
-        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineBounds.Count);
-        GraphicsCache.DrawCallsThisFrame++;
-        GL.BindVertexArray(0);
-        boundsMaterial.Unbind();
-        
-        
     }
 }
-*/
