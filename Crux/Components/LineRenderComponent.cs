@@ -2,6 +2,7 @@ using OpenTK.Graphics.OpenGL4;
 using Crux.Graphics;
 using Crux.Utilities.IO;
 using Crux.Utilities.Helpers;
+using System.Diagnostics;
 
 namespace Crux.Components;
 
@@ -13,15 +14,17 @@ public class LineRenderComponent : RenderComponent
 
     MeshBuffer meshBuffer;
 
+    public static List<LineRenderComponent> Instances = [];
+
     public LineRenderComponent(GameObject gameObject): base(gameObject)
     {
-
         if (shader == null)
         {
-            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline);
+            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Outline);
         }
 
         meshBuffer = GraphicsCache.GetInstancedLineBuffer("LineAnchor", Shapes.LineAnchor);
+        Instances.Add(this);
     }
     
     public override string ToString()
@@ -44,32 +47,35 @@ public class LineRenderComponent : RenderComponent
     {   
         if (!meshBuffer.DrawnThisFrame)
         {
-
-            int instances = 1;
-
-            float[] flatpack = new float[instances *
+            float[] flatpack = new float[Instances.Count *
             (
             VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
             VertexAttributeHelper.GetTypeByteSize(typeof(Vector4))
             )];
 
             int packIndex = 0;
-            MatrixHelper.Matrix4ToArray(GameObject.Transform.ModelMatrix, out float[] values);
-            for(int j = 0; j < values.Length; j++)
-                flatpack[packIndex++] = values[j];
 
-            flatpack[packIndex++] = Color.R;
-            flatpack[packIndex++] = Color.G;
-            flatpack[packIndex++] = Color.B;
-            flatpack[packIndex++] = Color.A;
+            foreach(LineRenderComponent instance in Instances)
+            {
+                MatrixHelper.Matrix4ToArray(instance.Transform.ModelMatrix, out float[] values);
+                for(int j = 0; j < values.Length; j++)
+                    flatpack[packIndex++] = values[j];
 
-            meshBuffer.SetDynamicVBOData(flatpack, instances);
+                flatpack[packIndex++] = instance.Color.R;
+                flatpack[packIndex++] = instance.Color.G;
+                flatpack[packIndex++] = instance.Color.B;
+                flatpack[packIndex++] = instance.Color.A;
+            }
+
+            meshBuffer.SetDynamicVBOData(flatpack, Instances.Count);
             
             shader.Bind();
             
-            meshBuffer.DrawLinesInstanced(Shapes.LineAnchor.Length, 1);
+            meshBuffer.DrawLinesInstanced(Shapes.LineAnchor.Length, Instances.Count);
 
             shader.Unbind();
+
+            meshBuffer.DrawnThisFrame = true;
         }
     }
 }

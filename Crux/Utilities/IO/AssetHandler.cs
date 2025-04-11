@@ -135,6 +135,7 @@ public static class AssetHandler
         Instance_Lit,
         Font,
         Outline,
+        Instance_Outline,
         Skybox,
     }
 
@@ -168,6 +169,13 @@ public static class AssetHandler
                 (
                     "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl", 
                     "Crux/Assets/Shaders/Required/Fragment/frag_outline.glsl",
+                    ""
+                );
+            case ShaderPresets.Instance_Outline:
+                return new Shader
+                (
+                    "Crux/Assets/Shaders/Required/Vertex/instance_vert_outline.glsl", 
+                    "Crux/Assets/Shaders/Required/Fragment/instance_frag_outline.glsl",
                     ""
                 );
             case ShaderPresets.Skybox:

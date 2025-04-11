@@ -97,6 +97,8 @@ public class TextRenderComponent : RenderComponent
             FontBuffer.DrawInstancedWithoutIndices(6, Text.Length);
 
             fontMaterial.Unbind();
+
+            FontBuffer.DrawnThisFrame = true;
         }
     }
 

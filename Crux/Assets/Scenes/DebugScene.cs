@@ -97,14 +97,18 @@ public class DebugScene : Scene
             Ray ray = new Ray(GameEngine.Link.Camera.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
             if(PhysicsSystem.Raycast(ray, out RayHit hit))
             {
-                Logger.Log(hit.Collider.GameObject.Name);
+                //Logger.Log(hit.Collider.GameObject.Name);
 
-                if(hit.Collider.HasComponent<RenderComponent>())
-                    hit.Collider.GameObject.RemoveComponent<ColliderComponent>();
+                //if(hit.Collider.HasComponent<RenderComponent>())
+                    //hit.Collider.GameObject.RemoveComponent<ColliderComponent>();
                     //hit.Collider.GameObject.RemoveComponent<MeshRenderComponent>();
                     //hit.Collider.GetComponent<RenderComponent>().Hide();
 
                 //hit.Collider.Transform.GameObject.Delete();
+
+                GameObject LineObject = GameEngine.Link.InstantiateGameObject();
+                LineObject.Transform.WorldPosition = hit.Point;
+                LineObject.AddComponent<LineRenderComponent>();
             }
         }
     }
