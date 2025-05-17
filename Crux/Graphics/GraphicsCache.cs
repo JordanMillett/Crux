@@ -142,7 +142,7 @@ public static class GraphicsCache
         }
     }
     
-    public static int GetVertexShader(string path)
+    public static int GetVertexShader(string path, bool instanced = false)
     {
         if (Vertex.TryGetValue(path, out var cached))
         {
@@ -152,7 +152,11 @@ public static class GraphicsCache
         }else
         {
             int id = GL.CreateShader(ShaderType.VertexShader);
-            GL.ShaderSource(id, AssetHandler.ReadAssetInFull(path));
+            string contents = AssetHandler.ReadAssetInFull(path);
+            if (instanced)
+                contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
+
+            GL.ShaderSource(id, contents);
             GL.CompileShader(id);
             string vertexShaderLog = GL.GetShaderInfoLog(id);
             if (!string.IsNullOrEmpty(vertexShaderLog))
@@ -184,7 +188,7 @@ public static class GraphicsCache
         }
     }
     
-    public static int GetFragmentShader(string path)
+    public static int GetFragmentShader(string path, bool instanced = false)
     {
         if (Fragment.TryGetValue(path, out var cached))
         {
@@ -194,7 +198,11 @@ public static class GraphicsCache
         }else
         {
             int id = GL.CreateShader(ShaderType.FragmentShader);
-            GL.ShaderSource(id, AssetHandler.ReadAssetInFull(path));
+            string contents = AssetHandler.ReadAssetInFull(path);
+            if (instanced)
+                contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
+                
+            GL.ShaderSource(id, contents);
             GL.CompileShader(id);
             string fragmentShaderLog = GL.GetShaderInfoLog(id);
             if (!string.IsNullOrEmpty(fragmentShaderLog))

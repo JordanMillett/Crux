@@ -84,7 +84,7 @@ public class DebugScene : Scene
 
     public override void Update()
     {
-        if(Input.IsActionPressed("Spawn Cube"))
+        if(Input.IsActionHeld("Spawn Cube"))
         {
             string debugTexture = "Crux/Assets/Textures/Required/Debug.jpg";
 
@@ -92,7 +92,7 @@ public class DebugScene : Scene
             selected.Transform.WorldPosition = GameEngine.Link.Camera.Transform.WorldPosition + (GameEngine.Link.Camera.Transform.Forward * 3f);
         }
 
-        if(Input.IsActionPressed("Cast Ray"))
+        if(Input.IsActionHeld("Cast Ray"))
         {
             Ray ray = new Ray(GameEngine.Link.Camera.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
             if(PhysicsSystem.Raycast(ray, out RayHit hit))

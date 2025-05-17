@@ -55,14 +55,14 @@ public class Octree
 
     public (Vector3 MinKey, Vector3 MaxKey) RegisterComponentGetAABB(Component component, Vector3 min, Vector3 max)
     {
-        Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
+        //Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
         InsertComponent(Root, component, min, max, 0);
         return (min, max);
     }
 
     public OctreeNode RegisterComponentGetNode(Component component, Vector3 min, Vector3 max)
     {
-        Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
+        //Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
         return InsertComponent(Root, component, min, max, 0);
     }
 

@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace Crux.Core;
 
 public enum LogSource
@@ -5,7 +7,8 @@ public enum LogSource
     User,
     System,
     Warning,
-    Error
+    Error,
+    Context
 }
 
 public static class Logger
@@ -18,6 +21,8 @@ public static class Logger
 
         Console.ForegroundColor = ConsoleColor.White;
         Console.BackgroundColor = ConsoleColor.Black;
+
+        //File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "lastrun.txt"), $"CRUX ENGINE LOGS @ {DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}{Environment.NewLine}");
     }
 
     public static void Log<T>(T obj, LogSource source = LogSource.User)
@@ -39,31 +44,45 @@ public static class Logger
             LogSource.System => ConsoleColor.Green,
             LogSource.Warning => ConsoleColor.Yellow,
             LogSource.Error => ConsoleColor.Red,
+            LogSource.Context => ConsoleColor.DarkGray,
             _ => ConsoleColor.Red
         };
 
         string prefix = source switch
         {
-            LogSource.User => "Usr",
+            LogSource.User => "Txt",
             LogSource.System => "Sys",
             LogSource.Warning => "Wrn",
             LogSource.Error => "Err",
+            LogSource.Context => "Inf",
             _ => "???"
         };
 
         string time = (DateTime.UtcNow - StartTime).ToString(@"hh\:mm\:ss\:fff");
-        Console.WriteLine($"[{time}]\t({prefix})\t{message}");
+        string line = $"[{time}]\t({prefix})\t{message}";
+        Console.WriteLine(line);
+        //File.AppendAllText(Path.Combine(AppContext.BaseDirectory, "lastrun.txt"), line + Environment.NewLine);
 
         Console.ForegroundColor = ConsoleColor.White;
     }
 
-    public static void LogWarning(string message)
+    public static void LogWarning(string message,
+    [CallerFilePath] string file = "",
+    [CallerLineNumber] int line = 0,
+    [CallerMemberName] string function = "")
     {
-        Log(message, LogSource.Warning);
+        string path = Path.GetRelativePath(Directory.GetCurrentDirectory(), file);
+        Log($"{message}", LogSource.Warning);
+        Log($"^ {path}({line},1) -> {function}()", LogSource.Context);
     }
 
-    public static void LogError(Exception ex)
+    public static void LogError(Exception ex,
+    [CallerFilePath] string file = "",
+    [CallerLineNumber] int line = 0,
+    [CallerMemberName] string function = "")
     {
+        string path = Path.GetRelativePath(Directory.GetCurrentDirectory(), file);
         Log(ex.Message, LogSource.Error);
+        Log($"^ {path}({line},1) -> {function}()", LogSource.Context);
     }
 }

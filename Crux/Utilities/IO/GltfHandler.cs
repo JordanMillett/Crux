@@ -68,6 +68,7 @@ public static class GltfHandler
                     Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, textures[i]));
                 }
                 Made.AddComponent<MeshRenderComponent>().SetShaders(Mats);
+                //Made.AddComponent<MeshBoundsColliderComponent>();
             }
         }
 

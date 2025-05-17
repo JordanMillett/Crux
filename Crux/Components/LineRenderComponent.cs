@@ -20,7 +20,7 @@ public class LineRenderComponent : RenderComponent
     public LineRenderComponent(GameObject gameObject): base(gameObject)
     {
         if (shader == null)
-            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Outline);
+            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline, "", true);
 
         meshBuffer = GraphicsCache.GetInstancedLineBuffer("LineAnchor", Shapes.LineAnchor);
         Instances.Add(this);

@@ -21,14 +21,17 @@ public class Shader
     private Dictionary<string, object> pendingUniformUpdates = [];
     private Dictionary<string, int> uniformLocations = [];
 
-    public Shader(string vertexShaderPath, string fragmentShaderPath, string colorTexturePath)
+    public bool Instanced = false;
+
+    public Shader(string vertexShaderPath, string fragmentShaderPath, string colorTexturePath, bool instanced = false)
     {
         VertexShaderPath = vertexShaderPath;
         FragmentShaderPath = fragmentShaderPath;
         ColorTexturePath = colorTexturePath;
+        Instanced = instanced;
         
-        _vertexShaderId = GraphicsCache.GetVertexShader(VertexShaderPath);
-        _fragmentShaderId = GraphicsCache.GetFragmentShader(FragmentShaderPath);
+        _vertexShaderId = GraphicsCache.GetVertexShader(VertexShaderPath, Instanced);
+        _fragmentShaderId = GraphicsCache.GetFragmentShader(FragmentShaderPath, Instanced);
         _programId = GraphicsCache.GetProgram((_vertexShaderId, _fragmentShaderId));
         if(!string.IsNullOrEmpty(ColorTexturePath))
             _textureId = GraphicsCache.GetTexture(ColorTexturePath);
@@ -40,7 +43,8 @@ public class Shader
         (
             VertexShaderPath,
             FragmentShaderPath,
-            ColorTexturePath
+            ColorTexturePath,
+            Instanced
         )
         {
             //Uniforms

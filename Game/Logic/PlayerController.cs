@@ -87,9 +87,9 @@ public class PlayerController : Component
         Vector3 forward = Transform.Forward;
         Vector3 right = -Transform.Right;
 
-        if (Input.IsActionHeld("Move Up"))
+        if (Input.IsActionHeld("Move Forward"))
             pos += forward * force;
-        if (Input.IsActionHeld("Move Down"))
+        if (Input.IsActionHeld("Move Back"))
             pos -= forward * force;
         if (Input.IsActionHeld("Move Left"))
             pos -= right * force;

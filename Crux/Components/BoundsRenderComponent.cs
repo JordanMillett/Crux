@@ -22,7 +22,7 @@ public class BoundsRenderComponent : RenderComponent
     public BoundsRenderComponent(GameObject gameObject): base(gameObject)
     {
         if (shader == null)
-            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Outline);
+            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline, "", true);
 
         meshBuffer = GraphicsCache.GetInstancedLineBuffer("LineBounds", Shapes.LineBounds);
         Instances.Add(this);
