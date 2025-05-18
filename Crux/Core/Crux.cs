@@ -12,6 +12,7 @@ using Crux.Physics;
 using Crux.Utilities.IO;
 using Crux.Utilities;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Crux.Core;
 
@@ -111,7 +112,7 @@ public class GameEngine : GameWindow
     public static string GetWindowShortName()
     {
         if(InDebugMode())
-            return GetEngineShortName();
+            return $"DEBUG {GetEngineShortName()}";
         else
             return GetGameShortName();   
     }
@@ -213,6 +214,21 @@ public class GameEngine : GameWindow
         
         Logger.Log("Game Stopped.", LogSource.System);
         Logger.Log("Engine Stopped.", LogSource.System);
+
+        Logger.WritePendingLogsToFile();
+
+        if(InDebugMode())
+        {
+            try
+            {
+                var psi = new ProcessStartInfo
+                {
+                    FileName = Logger.LogPath,
+                    UseShellExecute = true
+                };
+                Process.Start(psi);
+            }catch{}
+        }
     }
 
     private void OnPhysicsUpdate(object? state)

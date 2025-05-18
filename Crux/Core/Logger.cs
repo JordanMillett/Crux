@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using System.Collections.Concurrent;
 
 namespace Crux.Core;
 
@@ -13,7 +14,11 @@ public enum LogSource
 
 public static class Logger
 {
+    public static readonly string LogPath = Path.Combine(AppContext.BaseDirectory, "logs.txt");
+    private static readonly ConcurrentQueue<string> PendingLogs = new();
     public static readonly DateTime StartTime;
+
+    private static readonly Timer LogWriteTimer = new(_ => WritePendingLogsToFile(), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
 
     static Logger()
     {
@@ -22,7 +27,28 @@ public static class Logger
         Console.ForegroundColor = ConsoleColor.White;
         Console.BackgroundColor = ConsoleColor.Black;
 
-        //File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "lastrun.txt"), $"CRUX ENGINE LOGS @ {DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}{Environment.NewLine}");
+        File.WriteAllText(LogPath, "");
+        
+        Log($"Crux Engine Logs @ UTC {DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}", LogSource.System);
+    }
+
+    public static void WritePendingLogsToFile()
+    {
+        if (PendingLogs.IsEmpty) 
+            return;
+
+        var chunk = new StringBuilder();
+        while (PendingLogs.TryDequeue(out var log))
+            chunk.AppendLine(log);
+
+        try
+        {
+            File.AppendAllText(LogPath, chunk.ToString());
+        }
+        catch 
+        {
+            LogWarning($"Unable to write logs to file: {LogPath}");
+        }
     }
 
     public static void Log<T>(T obj, LogSource source = LogSource.User)
@@ -61,7 +87,7 @@ public static class Logger
         string time = (DateTime.UtcNow - StartTime).ToString(@"hh\:mm\:ss\:fff");
         string line = $"[{time}]\t({prefix})\t{message}";
         Console.WriteLine(line);
-        //File.AppendAllText(Path.Combine(AppContext.BaseDirectory, "lastrun.txt"), line + Environment.NewLine);
+        PendingLogs.Enqueue(line);
 
         Console.ForegroundColor = ConsoleColor.White;
     }

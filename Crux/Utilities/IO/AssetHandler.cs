@@ -124,7 +124,16 @@ public static class AssetHandler
         }
 
         if(GameEngine.InDebugMode())
-            File.WriteAllText(path, JsonSerializer.Serialize(history, JsonOptions));
+        {
+            try
+            {
+                File.WriteAllText(path, JsonSerializer.Serialize(history, JsonOptions));
+            }catch
+            {
+                Logger.LogWarning("Failed to iterate build number.");
+            }
+        }
+            
 
         return buildNumber;
     }
