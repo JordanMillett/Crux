@@ -49,6 +49,8 @@ public static class Logger
         {
             LogWarning($"Unable to write logs to file: {LogPath}");
         }
+
+        LogWarning("WRITTEN");
     }
 
     public static void Log<T>(T obj, LogSource source = LogSource.User)
@@ -97,7 +99,7 @@ public static class Logger
     [CallerLineNumber] int line = 0,
     [CallerMemberName] string function = "")
     {
-        string path = Path.GetRelativePath(Directory.GetCurrentDirectory(), file);
+        string path = TrimPath(file);
         Log($"{message}", LogSource.Warning);
         Log($"^ {path}({line},1) -> {function}()", LogSource.Context);
     }
@@ -107,8 +109,17 @@ public static class Logger
     [CallerLineNumber] int line = 0,
     [CallerMemberName] string function = "")
     {
-        string path = Path.GetRelativePath(Directory.GetCurrentDirectory(), file);
+        string path = TrimPath(file);
         Log(ex.Message, LogSource.Error);
         Log($"^ {path}({line},1) -> {function}()", LogSource.Context);
+    }
+
+    private const string RootMarker = @"\Crux\";
+    public static string TrimPath(string absolute)
+    {
+        int idx = absolute.IndexOf(RootMarker, StringComparison.OrdinalIgnoreCase);
+        string created = idx >= 0 ? absolute.Substring(idx + 1) : Path.GetFileName(absolute);
+        created = created.Substring(5, created.Length - 5);
+        return created;
     }
 }
