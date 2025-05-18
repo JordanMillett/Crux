@@ -232,7 +232,7 @@ public static class PhysicsSystem
             }
         }
 
-        //Console.WriteLine(axes.Count);
+        //Logger.LogLine(axes.Count);
 
         float minPenetration = float.MaxValue;
         Vector3 bestAxis = Vector3.Zero;
@@ -283,14 +283,14 @@ public static class PhysicsSystem
 
         if(clippedAShape.Count == 1) //single contact point is on surface
         {
-            //Console.WriteLine("point A");
+            //Logger.LogLine("point A");
             contactPoint = clippedAShape[0];
             return true;
         }
 
         if(clippedBShape.Count == 1) //single contact point is on surface
         {
-            //Console.WriteLine("point B");
+            //Logger.LogLine("point B");
             contactPoint = clippedBShape[0];
             return true;
         }
@@ -298,28 +298,28 @@ public static class PhysicsSystem
         //EDGE
         if(aShape.Count == 2 && clippedAShape.Count == 2) //middle of edge will work
         {
-            //Console.WriteLine("edge midpoint A");
+            //Logger.LogLine("edge midpoint A");
             contactPoint = (clippedAShape[0] + clippedAShape[1]) / 2f;
             return true;
         }
 
         if(bShape.Count == 2 && clippedBShape.Count == 2) //middle of edge will work
         {
-            //Console.WriteLine("edge midpoint B");
+            //Logger.LogLine("edge midpoint B");
             contactPoint = (clippedBShape[0] + clippedBShape[1]) / 2f;
             return true;
         }
         
         if(aShape.Count == 2 && bShape.Count == 2) //two edges contacting
         {
-            //Console.WriteLine($"edge intersection");
+            //Logger.LogLine($"edge intersection");
             contactPoint = ComputeEdgeIntersection(aShape[0], aShape[1], bShape[0], bShape[1]);
             return true;
         }
 
         if(aShape.Count == 2 && bShape.Count >= 3)
         {
-            //Console.WriteLine($"edge on face A");
+            //Logger.LogLine($"edge on face A");
             Vector3 midpoint = GetPolyhedronMidpoint(bShape);
             contactPoint = ClosestPointOnSegment(midpoint, aShape[0], aShape[1]);
             if(IsVertexInsideShape(bShape, bestAxis, contactPoint))
@@ -328,7 +328,7 @@ public static class PhysicsSystem
 
         if(bShape.Count == 2 && aShape.Count >= 3)
         {
-            //Console.WriteLine($"edge on face B");
+            //Logger.LogLine($"edge on face B");
             Vector3 midpoint = GetPolyhedronMidpoint(aShape);
             contactPoint = ClosestPointOnSegment(midpoint, bShape[0], bShape[1]);
             if(IsVertexInsideShape(aShape, bestAxis, contactPoint))
@@ -336,10 +336,10 @@ public static class PhysicsSystem
         }
 
         /*
-        Console.WriteLine($"A Shape: {aShape.Count}");
-        Console.WriteLine($"B Shape: {bShape.Count}");
-        Console.WriteLine($"Clipped A Shape: {clippedAShape.Count}");
-        Console.WriteLine($"Clipped B Shape: {clippedBShape.Count}"); 
+        Logger.Log($"A Shape: {aShape.Count}");
+        Logger.Log($"B Shape: {bShape.Count}");
+        Logger.Log($"Clipped A Shape: {clippedAShape.Count}");
+        Logger.Log($"Clipped B Shape: {clippedBShape.Count}"); 
         */
 
         if (clippedAShape.Count == 0 && clippedBShape.Count == 0)
@@ -348,11 +348,11 @@ public static class PhysicsSystem
 
             if(aShape.Count < bShape.Count)
             {
-                Console.WriteLine("face midpoint A");
+                Logger.Log("face midpoint A");
                 contactPoint = GetPolyhedronMidpoint(aShape);
             }else
             {
-                Console.WriteLine("face midpoint B");
+                Logger.Log("face midpoint B");
                 contactPoint = GetPolyhedronMidpoint(bShape);
             }
 
@@ -367,7 +367,7 @@ public static class PhysicsSystem
 
         if(bShape.Count >= 3)
         {
-            //Console.WriteLine($"face intersection");
+            //Logger.LogLine($"face intersection");
 
             if(clippedBShape.Count == 0)
                 contactPoint = GetPolyhedronMidpoint(SutherlandHodgmanClip(aShape, bShape, bestAxis));
@@ -382,7 +382,7 @@ public static class PhysicsSystem
         
         if(aShape.Count >= 3)
         {
-            //Console.WriteLine($"face intersection");
+            //Logger.LogLine($"face intersection");
 
             if(clippedAShape.Count == 0)
                 contactPoint = GetPolyhedronMidpoint(SutherlandHodgmanClip(bShape, aShape, bestAxis));
@@ -395,7 +395,7 @@ public static class PhysicsSystem
             return true;
         }
 
-        Console.WriteLine("NEVER");
+        Logger.LogWarning("You should never see this.");
 
         return false;
     }
@@ -612,9 +612,9 @@ public static class PhysicsSystem
         if(outputList.Count != subjectPolyhedron.Count)
             return SutherlandHodgmanClip(clipPolyhedron, subjectPolyhedron, axis);
         */
-        //Console.WriteLine($"Output list count: {outputList.Count}");
+        //Logger.LogLine($"Output list count: {outputList.Count}");
         //for(int i = 0; i < outputList.Count; i++)
-            //Console.WriteLine($"Output #[{i}] = {outputList[i]}");
+            //Logger.LogLine($"Output #[{i}] = {outputList[i]}");
 
         List<Vector3> clipped3D = new List<Vector3>();
         foreach (Vector2 point2D in outputList)

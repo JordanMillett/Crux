@@ -34,17 +34,17 @@ public static class AssetHandler
     public static void ListAllEmbeddedResources()
     {
         Assembly assembly = Assembly.GetExecutingAssembly();
-        Console.WriteLine(assembly.GetManifestResourceNames().Length);
-        Console.WriteLine("Assembly Location: " + assembly.Location);
+        Logger.Log(assembly.GetManifestResourceNames().Length, LogSource.System);
+        Logger.Log("Assembly Location: " + assembly.Location, LogSource.System);
 
         // Get all embedded resource names
         string[] resourceNames = assembly.GetManifestResourceNames();
 
         // Output all resource names
-        Console.WriteLine("Embedded resources in the assembly:");
+        Logger.Log("Embedded resources in the assembly:", LogSource.System);
         foreach (var resource in resourceNames)
         {
-            Console.WriteLine(resource);
+            Logger.Log(resource, LogSource.System);
         }
     }
 

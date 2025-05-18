@@ -287,10 +287,9 @@ public class GameEngine : GameWindow
                     E.GetComponent<RenderComponent>().Render();
                 //E.GetComponents<RenderComponent>().ForEach(renderComponent => renderComponent.Render());
             }
-        }catch (InvalidOperationException ex)
+        }catch
         {
             Logger.LogWarning("Failed to render frame, Instantiated objects was modified in runtime.");
-            //Console.WriteLine($"Iteration Error: {ex.Message}");
         }
 
         frameTimer += (float) e.Time;
@@ -308,7 +307,7 @@ public class GameEngine : GameWindow
         DebugHUD.Text += GetSystemInformation();
         DebugHUD.Text += GetApplicationInformation();
 
-        //Console.WriteLine(GraphicsCache.GetFullInfo());
+        //Logger.Log(GraphicsCache.GetFullInfo());
         /*
         foreach (var entry in InstancedMeshRenderComponent.InstanceData)
         {
@@ -316,10 +315,10 @@ public class GameEngine : GameWindow
             var transforms = entry.Value.Transforms;
             var gpuBufferLength = entry.Value.GPUBufferLength;
 
-            Console.WriteLine($"VAO: {pair.vao}, VBO: {pair.vbo}");
-            Console.WriteLine($"Number of Transforms: {transforms.Count}");
-            Console.WriteLine($"GPU Buffer Length: {gpuBufferLength}");
-            Console.WriteLine("--------------------------------------------------");
+            Logger.Log($"VAO: {pair.vao}, VBO: {pair.vbo}");
+            Logger.Log($"Number of Transforms: {transforms.Count}");
+            Logger.Log($"GPU Buffer Length: {gpuBufferLength}");
+            Logger.Log("--------------------------------------------------");
         }*/
 
         SwapBuffers();

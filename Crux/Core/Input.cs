@@ -18,9 +18,17 @@ public static class Input
 
     public static void OutputKeyBindings()
     {
+        Logger.Log(string.Format("{0,-14}{1}", "KEY", "ACTION"));
+
+        foreach (var pair in keybindings)
+            Logger.Log(string.Format("{0,-14}{1}",
+                                    pair.Value.ToString().ToUpper(),
+                                    pair.Key));
+        /*
         Logger.Log("KEY\t\tACTION");
         foreach (var pair in keybindings)
             Logger.Log($"{pair.Value.ToString().ToUpper()}\t\t{pair.Key}");
+        */
     }
 
     public static bool IsActionHeld(string action)

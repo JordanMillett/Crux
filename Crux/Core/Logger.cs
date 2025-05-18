@@ -49,8 +49,6 @@ public static class Logger
         {
             LogWarning($"Unable to write logs to file: {LogPath}");
         }
-
-        LogWarning("WRITTEN");
     }
 
     public static void Log<T>(T obj, LogSource source = LogSource.User)
@@ -63,7 +61,7 @@ public static class Logger
             Log(obj.ToString()!, source);
         }
     }
-
+    
     public static void Log(string message, LogSource source = LogSource.User)
     {
         Console.ForegroundColor = source switch
