@@ -58,12 +58,15 @@ public static class GltfHandler
                 List<Shader> Mats = new List<Shader>();
                 for(int i = 0; i < textures.Count; i++)
                 {    
-                    textures[i] = $"{AssetHandler.GameAssetPath}/Textures/" + textures[i];
+                    if(textures[i] == "")
+                        textures[i] = "Crux/Assets/Textures/Required/Blank";
+                    else
+                        textures[i] = $"{AssetHandler.GameAssetPath}/Textures/" + textures[i];
+                    
                     if(AssetHandler.AssetExists(textures[i] + ".jpg"))
                         textures[i] = textures[i] + ".jpg";
                     else if(AssetHandler.AssetExists(textures[i] + ".png"))
-                        textures[i] = textures[i] + ".png";
-                        
+                        textures[i] = textures[i] + ".png";  
                     
                     Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, textures[i]));
                 }
@@ -91,7 +94,11 @@ public static class GltfHandler
             List<Shader> Mats = new List<Shader>();
             for(int i = 0; i < textures.Count; i++)
             {    
-                textures[i] = $"{AssetHandler.GameAssetPath}/Textures/" + textures[i];
+                if(textures[i] == "")
+                    textures[i] = "Crux/Assets/Textures/Required/Blank";
+                else
+                    textures[i] = $"{AssetHandler.GameAssetPath}/Textures/" + textures[i];
+                
                 if(AssetHandler.AssetExists(textures[i] + ".jpg"))
                     textures[i] = textures[i] + ".jpg";
                 else if(AssetHandler.AssetExists(textures[i] + ".png"))
@@ -191,13 +198,16 @@ public static class GltfHandler
             
             for(int i = 0; i < textures.Count; i++)
             {    
-                textures[i] = $"{AssetHandler.GameAssetPath}/Textures/" + textures[i];
+                if(textures[i] == "")
+                    textures[i] = "Crux/Assets/Textures/Required/Blank";
+                else
+                    textures[i] = $"{AssetHandler.GameAssetPath}/Textures/" + textures[i];
+                
                 if(AssetHandler.AssetExists(textures[i] + ".jpg"))
                     textures[i] = textures[i] + ".jpg";
                 else if(AssetHandler.AssetExists(textures[i] + ".png"))
                     textures[i] = textures[i] + ".png";
 
-                
                 materials.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, textures[i]));
             }
 
@@ -255,6 +265,9 @@ public static class GltfHandler
                 {
                     int materialIndex = primitiveNode["material"].GetValue<int>();
                     textures.Add(materialsNode[materialIndex]["name"].GetValue<string>());
+                }else
+                {
+                    textures.Add("");
                 }
             }
         }

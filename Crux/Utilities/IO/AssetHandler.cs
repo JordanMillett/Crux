@@ -21,6 +21,7 @@ public static class AssetHandler
     };
 
     public static string GameAssetPath = "Game/Assets";
+    public static string MissingTexturePath = "Crux/Assets/Textures/Required/Missing.jpg";
 
     public static string GetShortInfo()
     {
@@ -156,14 +157,14 @@ public static class AssetHandler
                 (
                     "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl", 
                     "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Textures/Required/Missing.jpg"
+                    AssetExists(texturePath) ? texturePath : MissingTexturePath
                 );
             case ShaderPresets.Instance_Lit:
                 return new Shader
                 (
                     "Crux/Assets/Shaders/Required/Vertex/instance_vert_lit.glsl", 
                     "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Textures/Required/Missing.jpg"
+                    AssetExists(texturePath) ? texturePath : MissingTexturePath
                 );
             case ShaderPresets.Font:
                 return new Shader

@@ -78,8 +78,8 @@ public class PlayerController : Component
         float mult = 1f;
         if (Input.IsActionHeld("Sprint"))
         {
-            //mult *= 1.5f;
-            mult *= 5f;
+            mult *= 1.5f;
+            //mult *= 5f;
         }
         force *= mult;
 

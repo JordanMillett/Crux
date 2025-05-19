@@ -22,6 +22,7 @@ public class InstancedMeshRenderComponent : RenderComponent
     public Vector3 BoundsMin;
     public Vector3 BoundsMax;
 
+    [Obsolete("Class not maintained.")]
     public InstancedMeshRenderComponent(GameObject gameObject): base(gameObject)
     {
         mesh = GetComponent<MeshComponent>();

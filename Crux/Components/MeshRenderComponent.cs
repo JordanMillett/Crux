@@ -77,7 +77,7 @@ public class MeshRenderComponent : RenderComponent
             ContainerNode  = GraphicsCache.Tree.RegisterComponentGetNode(this, AABBMin, AABBMax);
         }
     }
-
+    
     public override void Render()
     {
         if(IsHidden || (this.GameObject.IsFrozen && ContainerNode.Culled))

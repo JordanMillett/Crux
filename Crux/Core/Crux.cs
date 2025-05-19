@@ -265,7 +265,7 @@ public class GameEngine : GameWindow
     {
         base.OnRenderFrame(e);
 
-        //RESET
+        //Reset
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
         GraphicsCache.DrawCallsThisFrame = 0;
@@ -276,7 +276,7 @@ public class GameEngine : GameWindow
         foreach (var key in GraphicsCache.VAOs.Keys.ToList())
             GraphicsCache.VAOs[key].meshBuffer.DrawnThisFrame = false;
 
-        //RENDER
+        //Main Render Pass
         ActiveScene.RenderSkybox();
 
         try
