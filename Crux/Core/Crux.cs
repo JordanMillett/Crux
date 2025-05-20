@@ -44,6 +44,7 @@ public class GameEngine : GameWindow
     public float fixedDeltaTime = 1f / 60f;
 
     int physicsFrameCalls = 0;
+    Timer? physicsTimer;
 
     float frameTimer = 0f;
     int frameCount = 0;
@@ -203,7 +204,7 @@ public class GameEngine : GameWindow
         OnEngineReadyCallback?.Invoke();
         
         //Physics Begin
-        Timer physicsTimer = new Timer(OnPhysicsUpdate, null, 0, (int)(fixedDeltaTime * 1000));
+        physicsTimer = new Timer(OnPhysicsUpdate, null, 0, (int)(fixedDeltaTime * 1000));
     }
 
     protected override void OnUnload()
