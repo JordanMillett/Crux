@@ -42,8 +42,7 @@ public class GameEngine : GameWindow
     public float fixedTotalTime = 0f;
 
     public float fixedDeltaTime = 1f / 60f;
-    Timer physicsTimer;
-    float physicsFrameTimer = 0f;
+    Timer physicsTimer = null!;
     int physicsFrameCalls = 0;
 
     float frameTimer = 0f;
@@ -197,7 +196,7 @@ public class GameEngine : GameWindow
         GameObject cam = InstantiateGameObject("Camera");
         cam.AddComponent<CameraComponent>();
 
-        DebugHUD = InstantiateGameObject("HUD").AddComponent<TextRenderComponent>();
+        DebugHUD = InstantiateGameObject("HUD").AddComponent<TextRenderComponent>()!;
         DebugHUD.FontScale = 0.3f;
         DebugHUD.StartPosition = new Vector2(-1f, 0.95f);
         
@@ -276,6 +275,9 @@ public class GameEngine : GameWindow
         foreach (var key in GraphicsCache.VAOs.Keys.ToList())
             GraphicsCache.VAOs[key].meshBuffer.DrawnThisFrame = false;
 
+        //Shadow Map Pass
+        //ActiveScene.RenderSkyboxShadow
+
         //Main Render Pass
         ActiveScene.RenderSkybox();
 
@@ -284,7 +286,7 @@ public class GameEngine : GameWindow
             foreach(GameObject E in Instantiated)
             {
                 if(E.HasComponent<RenderComponent>())
-                    E.GetComponent<RenderComponent>().Render();
+                    E.GetComponent<RenderComponent>()!.Render();
                 //E.GetComponents<RenderComponent>().ForEach(renderComponent => renderComponent.Render());
             }
         }catch

@@ -7,8 +7,8 @@ namespace Crux.Components;
 public class InstancedMeshRenderComponent : RenderComponent
 {
     public List<MeshBuffer> MeshBuffers { get; set; } = [];
-    public static Dictionary<MeshBuffer, bool> Rendered = [];
-    public static Dictionary<MeshBuffer, PerInstanceData> InstanceData = [];
+    public static readonly Dictionary<MeshBuffer, bool> Rendered = [];
+    public static readonly Dictionary<MeshBuffer, PerInstanceData> InstanceData = [];
 
     public struct PerInstanceData
     {
@@ -17,17 +17,17 @@ public class InstancedMeshRenderComponent : RenderComponent
         public int GPUBufferLength;
     }
 
-    MeshComponent mesh;
+    private readonly MeshComponent mesh;
 
     public Vector3 BoundsMin;
     public Vector3 BoundsMax;
 
-    [Obsolete("Class not maintained.")]
+    [Obsolete("Feature not maintained")]
     public InstancedMeshRenderComponent(GameObject gameObject): base(gameObject)
     {
         mesh = GetComponent<MeshComponent>();
 
-        for(int i = 0; i < mesh.data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data.Submeshes.Count; i++)
         {
             float worldSize = MathF.Max(GraphicsCache.Tree.Root.Max.X, MathF.Max(GraphicsCache.Tree.Root.Max.Y, GraphicsCache.Tree.Root.Max.Z));
             float chunkSize = worldSize/2/2;
@@ -39,9 +39,9 @@ public class InstancedMeshRenderComponent : RenderComponent
             BoundsMax = new Vector3((chunkX + 1) * chunkSize, (chunkY + 1) * chunkSize, (chunkZ + 1) * chunkSize);
 
             string location = $"({chunkX},{chunkY},{chunkZ})";
-            string nameKey = $"{mesh.path}_{i}_{location}";
+            string nameKey = $"{mesh.LoadedPath}_{i}_{location}";
 
-            MeshBuffer meshBuffer = GraphicsCache.GetInstancedMeshBuffer(nameKey, mesh.data.Submeshes[i]);
+            MeshBuffer meshBuffer = GraphicsCache.GetInstancedMeshBuffer(nameKey, mesh.Data.Submeshes[i]);
             MeshBuffers.Add(meshBuffer);
 
             if(!InstanceData.ContainsKey(meshBuffer))
@@ -67,7 +67,7 @@ public class InstancedMeshRenderComponent : RenderComponent
     
     public override void Delete()
     {
-        for(int i = 0; i < mesh.data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data.Submeshes.Count; i++)
         {
             PerInstanceData data = InstanceData[MeshBuffers[i]];
             data.Transforms.Remove(this.Transform);
@@ -82,7 +82,7 @@ public class InstancedMeshRenderComponent : RenderComponent
             int chunkZ = (int)Math.Floor(Transform.WorldPosition.Z / chunkSize);
 
             string location = $"({chunkX},{chunkY},{chunkZ})";
-            string nameKey = $"{mesh.path}_{i}_{location}";
+            string nameKey = $"{mesh.LoadedPath}_{i}_{location}";
 
             GraphicsCache.RemoveBuffer(nameKey);
         }
@@ -189,7 +189,7 @@ public class InstancedMeshRenderComponent : RenderComponent
                     data.Mat.Bind();
 
                     GL.BindVertexArray(MeshBuffers[i].DynamicVBO);
-                    GL.DrawElementsInstanced(PrimitiveType.Triangles, mesh.data.Submeshes[i].Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero, data.Transforms.Count);
+                    GL.DrawElementsInstanced(PrimitiveType.Triangles, mesh.Data.Submeshes[i].Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero, data.Transforms.Count);
                     GraphicsCache.DrawCallsThisFrame++;
                     
                     GL.BindVertexArray(0);

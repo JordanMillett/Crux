@@ -6,7 +6,7 @@ namespace Crux.Assets.Scenes;
 
 public class IslandScene : Scene
 {
-    TransformComponent CenterPoint;
+    TransformComponent CenterPoint = null!;
 
     public override void Start()
     {
@@ -24,8 +24,8 @@ public class IslandScene : Scene
         
         GameEngine.Link.Camera.Transform.Parent = CenterPoint;
 
-        Dictionary<string, GameObject> Map = GltfHandler.LoadGltfAsMeshRenderers("Crux/Assets/Models/Examples/Island.gltf");
-
+        //Dictionary<string, GameObject> Map = GltfHandler.LoadGltfAsMeshRenderers("Crux/Assets/Models/Examples/Island.gltf")!;
+        GltfHandler.LoadGltfAsMeshRenderers("Crux/Assets/Models/Examples/Island.gltf");
         
     }
 

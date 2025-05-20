@@ -14,4 +14,8 @@
     <PackageReference Include="StbImageWriteSharp" Version="1.16.7" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>CS1591;IDE0090;IDE0028;CA1854;IDE0290</NoWarn>
+  </PropertyGroup>
+
 </Project>

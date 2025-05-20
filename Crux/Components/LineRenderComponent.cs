@@ -8,7 +8,7 @@ namespace Crux.Components;
 
 public class LineRenderComponent : RenderComponent
 {
-    public static Shader shader { get; set; } = null!;
+    public static Shader ShaderSingleton { get; set; } = null!;
 
     //Instanced Data
     public Color4 Color = Color4.Red;
@@ -19,8 +19,8 @@ public class LineRenderComponent : RenderComponent
 
     public LineRenderComponent(GameObject gameObject): base(gameObject)
     {
-        if (shader == null)
-            shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline, "", true);
+        if (ShaderSingleton == null)
+            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline, "", true);
 
         meshBuffer = GraphicsCache.GetInstancedLineBuffer("LineAnchor", Shapes.LineAnchor);
         Instances.Add(this);
@@ -68,11 +68,11 @@ public class LineRenderComponent : RenderComponent
 
             meshBuffer.SetDynamicVBOData(flatpack, Instances.Count);
             
-            shader.Bind();
+            ShaderSingleton.Bind();
             
             meshBuffer.DrawLinesInstanced(Shapes.LineAnchor.Length, Instances.Count);
 
-            shader.Unbind();
+            ShaderSingleton.Unbind();
 
             meshBuffer.DrawnThisFrame = true;
         }

@@ -6,7 +6,7 @@ namespace Crux.Components;
 
 public class MeshRenderComponent : RenderComponent
 {
-    MeshComponent mesh;
+    private readonly MeshComponent mesh;
 
     public List<Shader> Shaders { get; set; } = new List<Shader>();
     public List<MeshBuffer> MeshBuffers { get; set; } = new List<MeshBuffer>();
@@ -15,18 +15,18 @@ public class MeshRenderComponent : RenderComponent
     {
         mesh = GetComponent<MeshComponent>();
 
-        for(int i = 0; i < mesh.data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data.Submeshes.Count; i++)
         {
-            MeshBuffers.Add(GraphicsCache.GetMeshBuffer(mesh.path + "_" + i, mesh.data.Submeshes[i]));
+            MeshBuffers.Add(GraphicsCache.GetMeshBuffer(mesh.LoadedPath + "_" + i, mesh.Data.Submeshes[i]));
             Shaders.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit));
         }
     }
 
     public override void Delete()
     {
-        for(int i = 0; i < mesh.data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data.Submeshes.Count; i++)
         {
-            GraphicsCache.RemoveBuffer(mesh.path + "_" + i);
+            GraphicsCache.RemoveBuffer(mesh.LoadedPath + "_" + i);
         }
     }
     
@@ -52,8 +52,7 @@ public class MeshRenderComponent : RenderComponent
         if(index >= Shaders.Count)
             return;
         
-        if(Shaders[index] != null)
-            Shaders[index].Delete();
+        Shaders[index]?.Delete();
         Shaders[index] = passed;
     }
     
@@ -63,8 +62,7 @@ public class MeshRenderComponent : RenderComponent
 
         for(int i = 0; i < least; i++)
         {
-            if(Shaders[i] != null)
-                Shaders[i].Delete();
+            Shaders[i]?.Delete();
             Shaders[i] = passed[i];
         }
     }
@@ -73,7 +71,7 @@ public class MeshRenderComponent : RenderComponent
     {
         if(IsFrozen)
         {
-            (Vector3 AABBMin, Vector3 AABBMax) = mesh.data.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
+            (Vector3 AABBMin, Vector3 AABBMax) = mesh.Data.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
             ContainerNode  = GraphicsCache.Tree.RegisterComponentGetNode(this, AABBMin, AABBMax);
         }
     }
@@ -89,7 +87,7 @@ public class MeshRenderComponent : RenderComponent
             Shaders[i].SetUniform("lightIndices", new int[4] {0, 1, 2, 3});
             Shaders[i].Bind();
         
-            MeshBuffers[i].Draw(mesh.data.Submeshes[i].Indices.Length);
+            MeshBuffers[i].Draw(mesh.Data.Submeshes[i].Indices.Length);
 
             Shaders[i].Unbind();
         }

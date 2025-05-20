@@ -15,16 +15,16 @@ public class PhysicsComponent : Component
     public float AngularStaticFriction = 0.1f; 
     public float AngularKineticFriction = 0.1f;
 
-    float LastInteracted = 0f;
-    float SleepTime = 2f;
+    private float LastInteracted = 0f;
+    private readonly float SleepTime = 2f;
     public bool Awake = true;
 
     public bool DisableRotation = false;
 
-    float threshold = 0.5f * 0.5f;
-    float requiredAwakeImpulse = 0.01f * 0.01f;
+    private readonly float threshold = 0.5f * 0.5f;
+    private readonly float requiredAwakeImpulse = 0.01f * 0.01f;
 
-    ColliderComponent col;
+    private readonly ColliderComponent col;
     
     public PhysicsComponent(GameObject gameObject): base(gameObject)
     {
@@ -99,7 +99,7 @@ public class PhysicsComponent : Component
         // ===== Position =====
         //Calculate mass
         bool otherIsStatic = other == null;
-        float otherMass = otherIsStatic ? 0f : other.Mass;
+        float otherMass = otherIsStatic ? 0f : other!.Mass;
         float totalMass = Mass + otherMass;
 
         //Offset object
@@ -110,7 +110,7 @@ public class PhysicsComponent : Component
 
         // ===== Linear Velocity =====
         //Determine relative velocity
-        Vector3 otherVelocity = otherIsStatic ? Vector3.Zero : other.Velocity;
+        Vector3 otherVelocity = otherIsStatic ? Vector3.Zero : other!.Velocity;
         Vector3 resolutionNormal = resolution.LengthSquared > 0 ? Vector3.Normalize(resolution) : Vector3.Zero;
         Vector3 relativeVelocity = Velocity - otherVelocity;
         float velocityAlongNormal = Vector3.Dot(relativeVelocity, resolutionNormal);
@@ -133,7 +133,7 @@ public class PhysicsComponent : Component
             Vector3 frictionDirection = Vector3.Normalize(tangentialVelocity);
             float maxStaticFriction = StaticFriction * Math.Abs(impulseScalar);
             float maxKineticFriction = KineticFriction * Math.Abs(impulseScalar);
-            Vector3 frictionForce = Vector3.Zero;
+            Vector3 frictionForce;
 
             if (velocityAlongNormal == 0)
             {
@@ -159,7 +159,7 @@ public class PhysicsComponent : Component
         Vector3 angularImpulse = Vector3.Cross(relativePosition, linearImpulse);
 
         // Calculate relative angular velocity
-        Vector3 otherAngularVelocity = otherIsStatic ? Vector3.Zero : other.AngularVelocity;
+        Vector3 otherAngularVelocity = otherIsStatic ? Vector3.Zero : other!.AngularVelocity;
         Vector3 relativeAngularVelocity = AngularVelocity - otherAngularVelocity;
 
         // Project relative angular velocity onto the contact normal
@@ -172,7 +172,7 @@ public class PhysicsComponent : Component
             Vector3 angularFrictionDirection = Vector3.Normalize(tangentialAngularVelocity);
             float maxAngularStaticFriction = AngularStaticFriction * Math.Abs(impulseScalar);
             float maxAngularKineticFriction = AngularKineticFriction * Math.Abs(impulseScalar);
-            Vector3 angularFrictionTorque = Vector3.Zero;
+            Vector3 angularFrictionTorque;
 
             if (velocityAlongNormal == 0)
             {

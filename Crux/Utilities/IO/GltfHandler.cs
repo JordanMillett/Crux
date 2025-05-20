@@ -19,8 +19,8 @@ public static class GltfHandler
         Made.Transform.WorldPosition = objectPosition;
         Made.Transform.WorldRotation = objectRotation;
         Made.Transform.Scale = objectScale;
-        Made.AddComponent<MeshComponent>().data = fullMesh;
-        Made.GetComponent<MeshComponent>().path = path + "_" + objectNode["name"].GetValue<string>();
+        Made.AddComponent<MeshComponent>().Data = fullMesh;
+        Made.GetComponent<MeshComponent>().LoadedPath = path + "_" + objectNode["name"].GetValue<string>();
 
         return Made;
     }
@@ -289,9 +289,9 @@ public static class GltfHandler
             {
                 objectPosition = new Vector3
                 (
-                    objectNode["translation"][0].GetValue<float>(), 
-                    objectNode["translation"][1].GetValue<float>(), 
-                    objectNode["translation"][2].GetValue<float>()
+                    objectNode["translation"]![0]!.GetValue<float>(), 
+                    objectNode["translation"]![1]!.GetValue<float>(), 
+                    objectNode["translation"]![2]!.GetValue<float>()
                 );
             }
 
@@ -299,10 +299,10 @@ public static class GltfHandler
             {
                 objectRotation = new Quaternion
                 (
-                    objectNode["rotation"][0].GetValue<float>(), 
-                    objectNode["rotation"][1].GetValue<float>(), 
-                    objectNode["rotation"][2].GetValue<float>(), 
-                    objectNode["rotation"][3].GetValue<float>()
+                    objectNode["rotation"]![0]!.GetValue<float>(), 
+                    objectNode["rotation"]![1]!.GetValue<float>(), 
+                    objectNode["rotation"]![2]!.GetValue<float>(), 
+                    objectNode["rotation"]![3]!.GetValue<float>()
                 );
             }
 
@@ -310,9 +310,9 @@ public static class GltfHandler
             {
                 objectScale = new Vector3
                 (
-                    objectNode["scale"][0].GetValue<float>(), 
-                    objectNode["scale"][1].GetValue<float>(), 
-                    objectNode["scale"][2].GetValue<float>()
+                    objectNode["scale"]![0]!.GetValue<float>(), 
+                    objectNode["scale"]![1]!.GetValue<float>(), 
+                    objectNode["scale"]![2]!.GetValue<float>()
                 );
             }
         }
@@ -320,11 +320,11 @@ public static class GltfHandler
 
     public static List<T> GetBufferData<T>(string directory, JsonNode rootNode, int accessorIndex) where T : struct
     {
-        JsonNode accessorNode = rootNode["accessors"][accessorIndex];
-        int bufferViewIndex = accessorNode["bufferView"].GetValue<int>();
-        JsonNode bufferViewNode = rootNode["bufferViews"][bufferViewIndex];
-        int bufferIndex = bufferViewNode["buffer"].GetValue<int>();
-        string bufferPath = Path.Combine(directory, rootNode["buffers"][bufferIndex]["uri"].GetValue<string>());
+        JsonNode accessorNode = rootNode["accessors"]![accessorIndex]!;
+        int bufferViewIndex = accessorNode["bufferView"]!.GetValue<int>();
+        JsonNode bufferViewNode = rootNode["bufferViews"]![bufferViewIndex]!;
+        int bufferIndex = bufferViewNode["buffer"]!.GetValue<int>();
+        string bufferPath = Path.Combine(directory, rootNode["buffers"]![bufferIndex]!["uri"]!.GetValue<string>());
         
         byte[] bufferData;
         using (Stream stream = AssetHandler.GetStream(bufferPath))
