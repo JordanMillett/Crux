@@ -7,7 +7,7 @@ public class MeshComponent : Component
 {
     public string LoadedPath { get; set; } = "";
     
-    public Mesh Data { get; set; } = null!;
+    public Mesh? Data { get; set; }
 
     public MeshComponent(GameObject gameObject): base(gameObject)
     {               
@@ -19,7 +19,7 @@ public class MeshComponent : Component
         StringBuilder sb = new StringBuilder();
 
         sb.AppendLine($"{ this.GetType().Name }");
-        sb.AppendLine($"- Vertices: {Data.Vertices.Length}");
+        sb.AppendLine($"- Vertices: {Data!.Vertices.Length}");
 
         return sb.ToString();
     }
@@ -29,7 +29,7 @@ public class MeshComponent : Component
         return new MeshComponent(gameObject)
         {
             LoadedPath = this.LoadedPath,
-            Data = this.Data.Clone()
+            Data = this.Data!.Clone()
         };
     }
     

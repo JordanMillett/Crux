@@ -5,26 +5,26 @@ namespace Crux.Physics;
 
 public static class PhysicsSystem
 {
-    public static int TotalColliders = 0;
-    public static int TotalPhysicsObjects = 0;
+    private static int TotalColliders = 0;
+    private static int TotalPhysicsObjects = 0;
 
-    public static bool IntegratingAndComputing = false;
+    private static bool IntegratingAndComputing = false;
 
     public static Octree Tree;
 
-    private static List<ColliderComponent> ColliderObjects = [];
-    private static Dictionary<ColliderComponent, PhysicsComponent> PhysicsObjects = [];
+    private static readonly List<ColliderComponent> ColliderObjects = [];
+    private static readonly Dictionary<ColliderComponent, PhysicsComponent> PhysicsObjects = [];
 
     //NEED TO SUPPORT NON STATIC COLLIDERS THAT DONT HAVE PHYSICS COMPONENTS
     //SO DYNAMIC OBJECTS OUTSIDE OF OCTREE LIKE PHYSICS
 
-    private static List<ColliderComponent> PendingAddColliderObjects = [];
-    private static Dictionary<ColliderComponent, PhysicsComponent> PendingAddPhysicsObjects = [];
+    private static readonly List<ColliderComponent> PendingAddColliderObjects = [];
+    private static readonly Dictionary<ColliderComponent, PhysicsComponent> PendingAddPhysicsObjects = [];
 
-    private static List<ColliderComponent> PendingRemoveColliderObjects = [];
-    private static Dictionary<ColliderComponent, PhysicsComponent> PendingRemovePhysicsObjects = [];
+    private static readonly List<ColliderComponent> PendingRemoveColliderObjects = [];
+    private static readonly Dictionary<ColliderComponent, PhysicsComponent> PendingRemovePhysicsObjects = [];
 
-    public static Vector3 Gravity = new Vector3(0f, -9.8f, 0f);
+    public static readonly Vector3 Gravity = new Vector3(0f, -9.8f, 0f);
 
     public static float FramesPerSecond = 0f;
     public static int PhysicsFrameCount = 0;
@@ -345,6 +345,8 @@ public static class PhysicsSystem
         if (clippedAShape.Count == 0 && clippedBShape.Count == 0)
         {
             return false;
+            
+            /*
 
             if(aShape.Count < bShape.Count)
             {
@@ -358,6 +360,8 @@ public static class PhysicsSystem
 
             GameEngine.Link.DebugDisplayPositions.Add(contactPoint);
             return true;
+
+            */
         }
 
 
@@ -431,6 +435,7 @@ public static class PhysicsSystem
         }
     }
 
+    /*
     private static Vector3 ClampToPlane(Vector3 point, List<Vector3> shape)
     {
         Vector3 center = GetPolyhedronMidpoint(shape);
@@ -450,6 +455,7 @@ public static class PhysicsSystem
 
         return projectedPoint;
     }
+    */
 
     private static bool IsVertexInsideShape(List<Vector3> shape, Vector3 axis, Vector3 point)
     {
@@ -477,6 +483,7 @@ public static class PhysicsSystem
         return IsPointInsideShape(flatPoint, flattened);
     }
 
+    /*
     private static bool IsPointNearSegment(Vector3 point, Vector3 a, Vector3 b)
     {
         Vector3 ab = b - a;
@@ -488,6 +495,7 @@ public static class PhysicsSystem
         Vector3 closestPoint = a + t * ab;
         return Vector3.DistanceSquared(closestPoint, point) < 1e-4f; // Tolerance check
     }
+    */
 
     private static Vector3 ClosestPointOnSegment(Vector3 P, Vector3 A, Vector3 B)
     {
@@ -754,10 +762,10 @@ public static class PhysicsSystem
     private static void ResolveCollision(ColliderComponent a, ColliderComponent b, Vector3 resolution, Vector3 contactPoint)
     {     
         if (PhysicsObjects.ContainsKey(a))
-            PhysicsObjects[a].RespondToCollision(contactPoint, resolution, PhysicsObjects.ContainsKey(b) ? PhysicsObjects[b] : null);
+            PhysicsObjects[a].RespondToCollision(contactPoint, resolution, PhysicsObjects.ContainsKey(b) ? PhysicsObjects[b] : null!);
 
         if (PhysicsObjects.ContainsKey(b))
-            PhysicsObjects[b].RespondToCollision(contactPoint, -resolution,  PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null);
+            PhysicsObjects[b].RespondToCollision(contactPoint, -resolution,  PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null!);
     }
 
     public static bool Raycast(Ray ray, out RayHit hit)
@@ -770,7 +778,7 @@ public static class PhysicsSystem
             return true;
         }else
         {
-            hit = new RayHit(null, 0f, Vector3.Zero);
+            hit = new RayHit(null!, 0f, Vector3.Zero);
             return false;
         }
     }
@@ -805,8 +813,6 @@ public static class PhysicsSystem
 
     private static bool RayIntersectsAABB(Ray ray, Vector3 aabbMin, Vector3 aabbMax, out float hitDistance)
     {
-        hitDistance = float.MaxValue;
-
         // Calculate the intersections with the AABB boundaries
         Vector3 tMin = (aabbMin - ray.Origin) / ray.Direction;
         Vector3 tMax = (aabbMax - ray.Origin) / ray.Direction;

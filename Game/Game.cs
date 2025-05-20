@@ -39,7 +39,7 @@ public class GameInstance
             
     public void Update()
     {
-        GameEngine.Link.ActiveScene.Update();
+        GameEngine.Link.ActiveScene?.Update();
     }
 }
 

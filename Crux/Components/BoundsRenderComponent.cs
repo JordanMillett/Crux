@@ -7,17 +7,17 @@ namespace Crux.Components;
 
 public class BoundsRenderComponent : RenderComponent
 {
-    public static Shader ShaderSingleton { get; set; } = null!;
+    private static Shader? ShaderSingleton { get; set; }
 
     //Instanced Data
     public Color4 AABBColor = Color4.Orange;
     public Color4 OBBColor = Color4.Blue;
 
-    MeshBuffer meshBuffer;
+    private readonly MeshBuffer meshBuffer;
 
     public static List<BoundsRenderComponent> Instances = [];
     
-    public MeshBoundsColliderComponent Source = null!;
+    public MeshBoundsColliderComponent? Source;
 
     public BoundsRenderComponent(GameObject gameObject): base(gameObject)
     {
@@ -97,11 +97,11 @@ public class BoundsRenderComponent : RenderComponent
 
             meshBuffer.SetDynamicVBOData(flatpack, totalInstances);
             
-            ShaderSingleton.Bind();
+            ShaderSingleton?.Bind();
             
             meshBuffer.DrawLinesInstanced(Shapes.LineBounds.Length, totalInstances);
 
-            ShaderSingleton.Unbind();
+            ShaderSingleton?.Unbind();
 
             meshBuffer.DrawnThisFrame = true;
         }

@@ -15,7 +15,7 @@ public class MeshRenderComponent : RenderComponent
     {
         mesh = GetComponent<MeshComponent>();
 
-        for(int i = 0; i < mesh.Data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
             MeshBuffers.Add(GraphicsCache.GetMeshBuffer(mesh.LoadedPath + "_" + i, mesh.Data.Submeshes[i]));
             Shaders.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit));
@@ -24,7 +24,7 @@ public class MeshRenderComponent : RenderComponent
 
     public override void Delete()
     {
-        for(int i = 0; i < mesh.Data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
             GraphicsCache.RemoveBuffer(mesh.LoadedPath + "_" + i);
         }
@@ -71,14 +71,14 @@ public class MeshRenderComponent : RenderComponent
     {
         if(IsFrozen)
         {
-            (Vector3 AABBMin, Vector3 AABBMax) = mesh.Data.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
+            (Vector3 AABBMin, Vector3 AABBMax) = mesh.Data!.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
             ContainerNode  = GraphicsCache.Tree.RegisterComponentGetNode(this, AABBMin, AABBMax);
         }
     }
     
     public override void Render()
     {
-        if(IsHidden || (this.GameObject.IsFrozen && ContainerNode.Culled))
+        if(IsHidden || (this.GameObject.IsFrozen && ContainerNode!.Culled))
             return;
 
         for(int i = 0; i < MeshBuffers.Count; i++)
@@ -87,7 +87,7 @@ public class MeshRenderComponent : RenderComponent
             Shaders[i].SetUniform("lightIndices", new int[4] {0, 1, 2, 3});
             Shaders[i].Bind();
         
-            MeshBuffers[i].Draw(mesh.Data.Submeshes[i].Indices.Length);
+            MeshBuffers[i].Draw(mesh.Data!.Submeshes[i].Indices.Length);
 
             Shaders[i].Unbind();
         }

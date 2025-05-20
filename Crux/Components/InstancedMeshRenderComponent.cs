@@ -27,7 +27,7 @@ public class InstancedMeshRenderComponent : RenderComponent
     {
         mesh = GetComponent<MeshComponent>();
 
-        for(int i = 0; i < mesh.Data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
             float worldSize = MathF.Max(GraphicsCache.Tree.Root.Max.X, MathF.Max(GraphicsCache.Tree.Root.Max.Y, GraphicsCache.Tree.Root.Max.Z));
             float chunkSize = worldSize/2/2;
@@ -67,7 +67,7 @@ public class InstancedMeshRenderComponent : RenderComponent
     
     public override void Delete()
     {
-        for(int i = 0; i < mesh.Data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
             PerInstanceData data = InstanceData[MeshBuffers[i]];
             data.Transforms.Remove(this.Transform);
@@ -167,7 +167,7 @@ public class InstancedMeshRenderComponent : RenderComponent
                         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
                     }
 
-                    if(this.GameObject.IsFrozen && ContainerNode.Culled)
+                    if(this.GameObject.IsFrozen && ContainerNode!.Culled)
                     {
                         Rendered[MeshBuffers[i]] = true;
                         return;
@@ -189,7 +189,7 @@ public class InstancedMeshRenderComponent : RenderComponent
                     data.Mat.Bind();
 
                     GL.BindVertexArray(MeshBuffers[i].DynamicVBO);
-                    GL.DrawElementsInstanced(PrimitiveType.Triangles, mesh.Data.Submeshes[i].Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero, data.Transforms.Count);
+                    GL.DrawElementsInstanced(PrimitiveType.Triangles, mesh.Data!.Submeshes[i].Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero, data.Transforms.Count);
                     GraphicsCache.DrawCallsThisFrame++;
                     
                     GL.BindVertexArray(0);

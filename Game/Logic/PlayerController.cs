@@ -6,7 +6,7 @@ namespace Game.Logic;
 
 public class PlayerController : Component
 {      
-    PhysicsComponent physics;
+    readonly PhysicsComponent physics;
 
     public PlayerController(GameObject gameObject) : base(gameObject)
     {
@@ -49,7 +49,7 @@ public class PlayerController : Component
     
     public void Look()
     {
-        TransformComponent cam = GameEngine.Link.Camera.Transform;
+        TransformComponent cam = GameEngine.Link.Camera!.Transform;
 
         float sensitivity = 0.1f;
         Vector2 LookInput = new Vector2(GameEngine.Link.MouseState.Delta.X, GameEngine.Link.MouseState.Delta.Y);
@@ -108,7 +108,8 @@ public class PlayerController : Component
         */
     }
 
-    float lastJumped = 0f;
+    /*
+    readonly float lastJumped = 0f;
 
     bool CanJump()
     {
@@ -118,4 +119,5 @@ public class PlayerController : Component
         Ray ray = new Ray(this.Transform.WorldPosition, -this.Transform.Up, 0.95f);
         return PhysicsSystem.Raycast(ray, out _);
     }
+    */
 }

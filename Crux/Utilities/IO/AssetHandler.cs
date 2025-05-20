@@ -52,16 +52,16 @@ public static class AssetHandler
     public static Stream GetStream(string path)
     {
         if(string.IsNullOrEmpty(path))
-            return null;
+            return null!;
         
         path = path.Replace("/", "\\");
         Assembly assembly = Assembly.GetExecutingAssembly();
 
-        Stream stream = assembly.GetManifestResourceStream(path);
+        Stream stream = assembly.GetManifestResourceStream(path)!;
         if (stream == null)
         {
             Logger.LogWarning($"Asset '{path}' not found.");
-            return null;
+            return null!;
         }
         return stream;
     }
@@ -149,47 +149,41 @@ public static class AssetHandler
     }
 
     public static Shader LoadPresetShader(ShaderPresets shaderPreset, string texturePath = "", bool instanced = false)
-    {    
-        switch (shaderPreset)
+    {
+        return shaderPreset switch
         {
-            case ShaderPresets.Lit:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                    AssetExists(texturePath) ? texturePath : MissingTexturePath
-                );
-            case ShaderPresets.Instance_Lit:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/instance_vert_lit.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                    AssetExists(texturePath) ? texturePath : MissingTexturePath
-                );
-            case ShaderPresets.Font:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/vert_font.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_font.glsl",
-                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg"
-                );
-            case ShaderPresets.Outline:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_outline.glsl",
-                    "",
-                    instanced
-                );
-            case ShaderPresets.Skybox:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/vert_skybox.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_skybox.glsl",
-                    ""
-                );
-        }
-
-        return null!;
+            ShaderPresets.Lit => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
+                AssetExists(texturePath) ? texturePath : MissingTexturePath
+            ),
+            ShaderPresets.Instance_Lit => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/instance_vert_lit.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
+                AssetExists(texturePath) ? texturePath : MissingTexturePath
+            ),
+            ShaderPresets.Font => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_font.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_font.glsl",
+                AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg"
+            ),
+            ShaderPresets.Outline => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_outline.glsl",
+                "",
+                instanced
+            ),
+            ShaderPresets.Skybox => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_skybox.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_skybox.glsl",
+                ""
+            ),
+            _ => null!,
+        };
     }
 }

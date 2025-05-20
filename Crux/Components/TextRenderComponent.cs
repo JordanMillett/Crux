@@ -9,9 +9,9 @@ public class TextRenderComponent : RenderComponent
 {     
     public MeshBuffer FontBuffer;
 
-    string Charset = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+    private readonly string Charset = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
     
-    public static Shader fontMaterial = null!;
+    private static Shader? fontMaterial;
     public string Text = "";
     public Vector2 StartPosition = Vector2.Zero;
     public float FontScale = 1f;
@@ -92,11 +92,11 @@ public class TextRenderComponent : RenderComponent
 
             FontBuffer.SetDynamicVBOData(flatpack, Text.Length);
 
-            fontMaterial.Bind();
+            fontMaterial?.Bind();
             
             FontBuffer.DrawInstancedWithoutIndices(6, Text.Length);
 
-            fontMaterial.Unbind();
+            fontMaterial?.Unbind();
 
             FontBuffer.DrawnThisFrame = true;
         }
@@ -132,7 +132,7 @@ public class TextRenderComponent : RenderComponent
         return charWidths.ContainsKey(c) ? charWidths[c] : 1.5f;
     }
 
-    Dictionary<char, float> charWidths = new Dictionary<char, float>
+    private readonly Dictionary<char, float> charWidths = new Dictionary<char, float>
     {
         { 'i', 1.1f }, { 'j', 1.1f }, { 'l', 1.1f }, { '!', 1.1f }, { '|', 1.1f }, { '\'', 1.1f }, { '`', 1.1f }, 
         { ':', 1.1f }, { ';', 1.1f },

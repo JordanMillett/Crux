@@ -13,7 +13,7 @@ public class DebugScene : Scene
         Skybox.SetUniform("topColor", Color4.Black);
         Skybox.SetUniform("bottomColor", Color4.Black);
 
-        GameEngine.Link.Camera.GameObject.AddComponent<FreeLookComponent>();
+        GameEngine.Link.Camera?.GameObject.AddComponent<FreeLookComponent>();
         string debugTexture = "Crux/Assets/Textures/Required/Debug.jpg";
 
         GameObject selected;
@@ -73,7 +73,7 @@ public class DebugScene : Scene
         selected.AddComponent<MovementComponent>();
         selected.AddComponent<MeshBoundsColliderComponent>();
     
-        GameEngine.Link.Camera.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
+        GameEngine.Link.Camera!.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
         GameEngine.Link.Camera.GetComponent<FreeLookComponent>().yaw = MathHelper.DegreesToRadians(180f);
 
         Input.CreateAction("Spawn Cube", Keys.Q);
@@ -89,12 +89,12 @@ public class DebugScene : Scene
             string debugTexture = "Crux/Assets/Textures/Required/Debug.jpg";
 
             GameObject selected = Presets.MakePhysicsPrimitive(Primitives.Cube, debugTexture);
-            selected.Transform.WorldPosition = GameEngine.Link.Camera.Transform.WorldPosition + (GameEngine.Link.Camera.Transform.Forward * 3f);
+            selected.Transform.WorldPosition = GameEngine.Link.Camera!.Transform.WorldPosition + (GameEngine.Link.Camera.Transform.Forward * 3f);
         }
 
         if(Input.IsActionHeld("Cast Ray"))
         {
-            Ray ray = new Ray(GameEngine.Link.Camera.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
+            Ray ray = new Ray(GameEngine.Link.Camera!.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
             if(PhysicsSystem.Raycast(ray, out RayHit hit))
             {
                 //Logger.Log(hit.Collider.GameObject.Name);

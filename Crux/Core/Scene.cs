@@ -11,7 +11,7 @@ public abstract class Scene
 
     public Shader Skybox;
 
-    MeshBuffer skyboxBuffer;
+    private readonly MeshBuffer skyboxBuffer;
 
     public static GameEngine Engine
     {
@@ -20,7 +20,7 @@ public abstract class Scene
 
     public static CameraComponent MainCamera
     {
-        get { return GameEngine.Link.Camera; }
+        get { return GameEngine.Link.Camera!; }
     }
     
     private Color4 _ambient = Color4.White;
@@ -118,7 +118,7 @@ public abstract class Scene
     
     public Scene()
     {
-        string materialPath = "Crux/Assets/Materials/Skybox.json";
+        //string materialPath = "Crux/Assets/Materials/Skybox.json";
         Skybox = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Skybox);
 
         skyboxBuffer = GraphicsCache.GetSkyboxBuffer();

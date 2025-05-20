@@ -31,7 +31,7 @@ public class GameEngine : GameWindow
     
     public List<GameObject> Instantiated = new List<GameObject>();
 
-    public Scene ActiveScene = null!;
+    public Scene? ActiveScene;
 
     public event Action? OnUpdateCallback;
     public Action? OnEngineReadyCallback;
@@ -42,7 +42,7 @@ public class GameEngine : GameWindow
     public float fixedTotalTime = 0f;
 
     public float fixedDeltaTime = 1f / 60f;
-    Timer physicsTimer = null!;
+
     int physicsFrameCalls = 0;
 
     float frameTimer = 0f;
@@ -50,8 +50,8 @@ public class GameEngine : GameWindow
 
     public Vector2i Resolution = new Vector2i(1280, 720);
 
-    public CameraComponent Camera = null!;
-    public TextRenderComponent DebugHUD = null!;
+    public CameraComponent? Camera;
+    public TextRenderComponent? DebugHUD;
 
     public List<Vector3> DebugDisplayPositions = new List<Vector3>();
 
@@ -77,8 +77,7 @@ public class GameEngine : GameWindow
         
         Resolution = new Vector2i(e.Width, e.Height);
         
-        if(Camera != null)
-            Camera.Recalculate();
+        Camera?.Recalculate();
     }
     
     public GameObject CloneGameObject(GameObject toCopy)
@@ -204,7 +203,7 @@ public class GameEngine : GameWindow
         OnEngineReadyCallback?.Invoke();
         
         //Physics Begin
-        physicsTimer = new Timer(OnPhysicsUpdate, null, 0, (int)(fixedDeltaTime * 1000));
+        Timer physicsTimer = new Timer(OnPhysicsUpdate, null, 0, (int)(fixedDeltaTime * 1000));
     }
 
     protected override void OnUnload()
@@ -279,7 +278,7 @@ public class GameEngine : GameWindow
         //ActiveScene.RenderSkyboxShadow
 
         //Main Render Pass
-        ActiveScene.RenderSkybox();
+        ActiveScene!.RenderSkybox();
 
         try
         {
@@ -303,11 +302,14 @@ public class GameEngine : GameWindow
             frameTimer = 0f;
         }
 
-        DebugHUD.Text = GraphicsCache.GetShortInfo();
-        DebugHUD.Text += AssetHandler.GetShortInfo();
-        DebugHUD.Text += PhysicsSystem.GetShortInfo();
-        DebugHUD.Text += GetSystemInformation();
-        DebugHUD.Text += GetApplicationInformation();
+        if(DebugHUD != null)
+        {
+            DebugHUD.Text = GraphicsCache.GetShortInfo();
+            DebugHUD.Text += AssetHandler.GetShortInfo();
+            DebugHUD.Text += PhysicsSystem.GetShortInfo();
+            DebugHUD.Text += GetSystemInformation();
+            DebugHUD.Text += GetApplicationInformation();
+        }
 
         //Logger.Log(GraphicsCache.GetFullInfo());
         /*

@@ -162,7 +162,7 @@ public class MeshBuffer
             totalByteSize += VertexAttributeHelper.GetTypeByteSize(attributeType);
 
         int byteOffset = 0;
-        int byteSize = 0;
+        //int byteSize = 0;
         foreach (Type attributeType in attributes)
         {
             if (attributeType == typeof(float))
