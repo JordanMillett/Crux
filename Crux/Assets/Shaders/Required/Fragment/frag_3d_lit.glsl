@@ -13,7 +13,7 @@ flat in vec4 instHue;
 #endif
 
 //Non-Instanced Uniforms
-uniform sampler2D albedoTexture;
+uniform sampler2D albedoTexture; //TextureUnit.Texture0
 uniform vec4 albedoHue = vec4(1.0, 1.0, 1.0, 1.0);
 uniform vec2 tiling = vec2(1.0, 1.0);
 

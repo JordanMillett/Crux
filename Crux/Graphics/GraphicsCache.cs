@@ -147,7 +147,7 @@ public static class GraphicsCache
         }
     }
     
-    public static int GetVertexShader(string path, bool instanced = false)
+    public static int GetVertexShader(string path, bool useInstancing)
     {
         if (Vertex.TryGetValue(path, out var cached))
         {
@@ -158,7 +158,7 @@ public static class GraphicsCache
         {
             int id = GL.CreateShader(ShaderType.VertexShader);
             string contents = AssetHandler.ReadAssetInFull(path);
-            if (instanced)
+            if (useInstancing)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
 
             contents = contents.Replace("#include <common_vert.glsl>", common_vert);
@@ -195,7 +195,7 @@ public static class GraphicsCache
         }
     }
     
-    public static int GetFragmentShader(string path, bool instanced = false)
+    public static int GetFragmentShader(string path, bool useInstancing)
     {
         if (Fragment.TryGetValue(path, out var cached))
         {
@@ -206,7 +206,7 @@ public static class GraphicsCache
         {
             int id = GL.CreateShader(ShaderType.FragmentShader);
             string contents = AssetHandler.ReadAssetInFull(path);
-            if (instanced)
+            if (useInstancing)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
                 
             contents = contents.Replace("#include <common_frag.glsl>", common_frag);

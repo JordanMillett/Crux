@@ -141,16 +141,42 @@ public static class AssetHandler
 
     public enum ShaderPresets
     {
-        Lit,
-        Instance_Lit,
-        Font,
-        Outline,
-        Skybox,
-        UI
+        Lit_3D,
+        Unlit_3D,
+        Unlit_2D,
+        Unlit_2D_Skybox,
+        Unlit_2D_Font,
     }
 
-    public static Shader LoadPresetShader(ShaderPresets shaderPreset, bool instanced, string texturePath = "")
+    public static Shader LoadPresetShader(ShaderPresets shaderPreset, bool useInstancing, string texturePath = "")
     {
+        return shaderPreset switch
+        {
+            ShaderPresets.Lit_3D => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_3d.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_3d_lit.glsl",
+                AssetExists(texturePath) ? texturePath : MissingTexturePath,
+                useInstancing
+            ),
+            ShaderPresets.Unlit_3D => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_3d.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_3d_unlit.glsl",
+                "",
+                useInstancing
+            ),
+            ShaderPresets.Unlit_2D_Skybox => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_2d.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit_skybox.glsl",
+                "",
+                useInstancing
+            ),
+            _ => null!,
+        };
+
+        /*
         return shaderPreset switch
         {
             ShaderPresets.Lit => new Shader
@@ -197,5 +223,6 @@ public static class AssetHandler
             ),
             _ => null!,
         };
+        */
     }
 }

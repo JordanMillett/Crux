@@ -21,17 +21,17 @@ public class Shader
     private Dictionary<string, object> pendingUniformUpdates = [];
     private Dictionary<string, int> uniformLocations = [];
 
-    public bool Instanced = false;
+    public bool UseInstancing = false;
 
-    public Shader(string vertexShaderPath, string fragmentShaderPath, string colorTexturePath, bool instanced)
+    public Shader(string vertexShaderPath, string fragmentShaderPath, string colorTexturePath, bool useInstancing)
     {
         VertexShaderPath = vertexShaderPath;
         FragmentShaderPath = fragmentShaderPath;
         ColorTexturePath = colorTexturePath;
-        Instanced = instanced;
+        UseInstancing = useInstancing;
         
-        _vertexShaderId = GraphicsCache.GetVertexShader(VertexShaderPath, Instanced);
-        _fragmentShaderId = GraphicsCache.GetFragmentShader(FragmentShaderPath, Instanced);
+        _vertexShaderId = GraphicsCache.GetVertexShader(VertexShaderPath, UseInstancing);
+        _fragmentShaderId = GraphicsCache.GetFragmentShader(FragmentShaderPath, UseInstancing);
         _programId = GraphicsCache.GetProgram((_vertexShaderId, _fragmentShaderId));
         if(!string.IsNullOrEmpty(ColorTexturePath))
             _textureId = GraphicsCache.GetTexture(ColorTexturePath);
@@ -44,7 +44,7 @@ public class Shader
             VertexShaderPath,
             FragmentShaderPath,
             ColorTexturePath,
-            Instanced
+            UseInstancing
         )
         {
             //Uniforms
@@ -57,7 +57,7 @@ public class Shader
     public void Bind()
     {
         //Set standard uniforms
-        SetUniform("TextureHue", TextureHue); 
+        SetUniform("albedoHue", TextureHue); 
 
         GL.UseProgram(_programId);
 
