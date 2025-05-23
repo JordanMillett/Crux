@@ -23,7 +23,7 @@ public class Shader
 
     public bool Instanced = false;
 
-    public Shader(string vertexShaderPath, string fragmentShaderPath, string colorTexturePath, bool instanced = false)
+    public Shader(string vertexShaderPath, string fragmentShaderPath, string colorTexturePath, bool instanced)
     {
         VertexShaderPath = vertexShaderPath;
         FragmentShaderPath = fragmentShaderPath;

@@ -20,11 +20,11 @@ public class TextRenderComponent : RenderComponent
     {
         if (fontMaterial == null)
         {
-            fontMaterial = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Font);
+            fontMaterial = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Font, true);
             fontMaterial.SetUniform("AtlasScale", new Vector2(10, 10));
         }
 
-        FontBuffer = GraphicsCache.GetInstancedUIBuffer();
+        FontBuffer = GraphicsCache.GetInstancedUIBuffer(false);
     }
 
     public override string ToString()

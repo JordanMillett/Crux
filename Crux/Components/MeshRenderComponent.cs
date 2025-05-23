@@ -18,7 +18,7 @@ public class MeshRenderComponent : RenderComponent
         for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
             MeshBuffers.Add(GraphicsCache.GetMeshBuffer(mesh.LoadedPath + "_" + i, mesh.Data.Submeshes[i]));
-            Shaders.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit));
+            Shaders.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, false));
         }
     }
 

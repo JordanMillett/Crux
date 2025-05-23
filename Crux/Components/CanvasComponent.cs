@@ -40,6 +40,7 @@ public class CanvasComponent : Component
 
     public override void Update()
     {
+        Root.Measure();
         Root.Render();
     }
 }

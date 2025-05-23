@@ -1,12 +1,19 @@
 #version 430
 
+//this is hell, remake in this format:
+//frag-3d-lit
+//frag-2d-unlit
+//and make them universal with support for instancing
+
 layout(location = 0) in vec3 vertexPosition; 
 layout(location = 1) in vec3 vertexNormal;   
 layout(location = 2) in vec2 vertexUV;    
 
 #ifdef INSTANCED
 
+// Per-instance data
 layout(location = 3) in mat4 instanceModel;
+layout(location = 7) in vec4 instanceHue;
 
 #endif
 
@@ -28,12 +35,16 @@ out vec3 fragNormal;
 out vec2 fragUV;
 flat out int fragLightIndices[4];
 
+//USED FOR INSTANCE COLOR???
+flat out vec4 vHue;
+
 void main()
 {
     #ifdef INSTANCED
     fragPosition = vec3(instanceModel * vec4(vertexPosition, 1.0));
     mat3 normalMatrix = mat3(transpose(inverse(instanceModel)));
-    
+    vHue = instanceHue;
+
     #else
 
     fragPosition = vec3(model * vec4(vertexPosition, 1.0));

@@ -45,7 +45,7 @@ public static class Presets
         target.AddComponent<MeshComponent>()!.Load(model);
         target.AddComponent<MeshRenderComponent>()!.SetShader
         (
-            AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, texture),
+            AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, false, texture),
             0
         );
 
@@ -68,7 +68,7 @@ public static class Presets
         List<Shader> Mats = new List<Shader>();
         for(int i = 0; i < textures.Count; i++)
         {           
-            Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, textures[i]));
+            Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, false, textures[i]));
         }
         target.AddComponent<MeshRenderComponent>()!.SetShaders(Mats);
         //target.AddComponent<MeshBoundsColliderComponent>();

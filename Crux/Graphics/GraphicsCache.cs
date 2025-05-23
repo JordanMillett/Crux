@@ -289,9 +289,9 @@ public static class GraphicsCache
         }
     }
 
-    public static MeshBuffer GetInstancedUIBuffer()
+    public static MeshBuffer GetInstancedUIBuffer(bool ColorDynamic)
     {
-        string path = "ui";
+        string path = ColorDynamic ? "ui_container" : "ui_font";
         
         if (VAOs.TryGetValue(path, out var cached))
         {
@@ -309,7 +309,10 @@ public static class GraphicsCache
             VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             
-            meshBuffer.GenDynamicVBO([typeof(Matrix4), typeof(Vector2)]);
+            if(ColorDynamic)
+                meshBuffer.GenDynamicVBO([typeof(Matrix4), typeof(Vector4)]);
+            else
+                meshBuffer.GenDynamicVBO([typeof(Matrix4), typeof(Vector2)]);
             
             VAOs.Add(path, (meshBuffer, 1));            
             return meshBuffer;

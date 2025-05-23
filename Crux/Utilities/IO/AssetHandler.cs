@@ -146,9 +146,10 @@ public static class AssetHandler
         Font,
         Outline,
         Skybox,
+        UI
     }
 
-    public static Shader LoadPresetShader(ShaderPresets shaderPreset, string texturePath = "", bool instanced = false)
+    public static Shader LoadPresetShader(ShaderPresets shaderPreset, bool instanced, string texturePath = "")
     {
         return shaderPreset switch
         {
@@ -156,19 +157,22 @@ public static class AssetHandler
             (
                 "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl",
                 "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                AssetExists(texturePath) ? texturePath : MissingTexturePath
+                AssetExists(texturePath) ? texturePath : MissingTexturePath,
+                instanced
             ),
             ShaderPresets.Instance_Lit => new Shader
             (
                 "Crux/Assets/Shaders/Required/Vertex/instance_vert_lit.glsl",
                 "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                AssetExists(texturePath) ? texturePath : MissingTexturePath
+                AssetExists(texturePath) ? texturePath : MissingTexturePath,
+                instanced
             ),
             ShaderPresets.Font => new Shader
             (
                 "Crux/Assets/Shaders/Required/Vertex/vert_font.glsl",
                 "Crux/Assets/Shaders/Required/Fragment/frag_font.glsl",
-                AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg"
+                AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg",
+                instanced
             ),
             ShaderPresets.Outline => new Shader
             (
@@ -181,7 +185,15 @@ public static class AssetHandler
             (
                 "Crux/Assets/Shaders/Required/Vertex/vert_skybox.glsl",
                 "Crux/Assets/Shaders/Required/Fragment/frag_skybox.glsl",
-                ""
+                "",
+                instanced
+            ),
+            ShaderPresets.UI => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_ui.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_ui.glsl",
+                "",
+                instanced
             ),
             _ => null!,
         };

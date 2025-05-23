@@ -109,6 +109,8 @@ public class DebugScene : Scene
                 GameObject LineObject = GameEngine.Link.InstantiateGameObject();
                 LineObject.Transform.WorldPosition = hit.Point;
                 LineObject.AddComponent<LineRenderComponent>();
+
+                Logger.LogWarning("CAST RAY");
             }
         }
     }
