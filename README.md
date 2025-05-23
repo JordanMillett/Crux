@@ -10,6 +10,7 @@ Hobbyist 3D C# Game Engine using OpenTK
 * [OpenTK (4.8.2)](https://github.com/opentk/opentk) - C# Wrapper For OpenGL
 * [StbImageSharp (2.30.15)](https://github.com/StbSharp/StbImageSharp) - C# Image Handling
 * [StbImageWriteSharp (1.16.7)](https://github.com/StbSharp/StbImageWriteSharp) - C# Image Handling
+* [AngleSharp (1.3.0)](https://github.com/AngleSharp/AngleSharp) - C# Angle Bracket Parser 
 
 ## Set Up
 
