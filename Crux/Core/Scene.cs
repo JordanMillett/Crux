@@ -119,7 +119,7 @@ public abstract class Scene
     public Scene()
     {
         //string materialPath = "Crux/Assets/Materials/Skybox.json";
-        Skybox = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Skybox, false);
+        Skybox = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Skybox, false);
 
         skyboxBuffer = GraphicsCache.GetSkyboxBuffer();
         

@@ -37,7 +37,7 @@ public class CUIContainer : CUINode
     public CUIContainer()
     {
         if (ShaderSingleton == null)
-            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.UI, true, "");
+            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "");
 
         meshBuffer = GraphicsCache.GetInstancedUIBuffer(true);
         Instances.Add(this);

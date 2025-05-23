@@ -166,6 +166,20 @@ public static class AssetHandler
                 "",
                 useInstancing
             ),
+            ShaderPresets.Unlit_2D => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_2d.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit.glsl",
+                "",
+                useInstancing
+            ),
+            ShaderPresets.Unlit_2D_Font => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_2d_font.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit_font.glsl",
+                "",
+                useInstancing
+            ),
             ShaderPresets.Unlit_2D_Skybox => new Shader
             (
                 "Crux/Assets/Shaders/Required/Vertex/vert_2d.glsl",

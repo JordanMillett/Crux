@@ -29,8 +29,8 @@ public static class GraphicsCache
     static GraphicsCache()
     {
         Tree = new Octree(new Vector3(-500, -500, -500), new Vector3(500, 500, 500), 5, "Visibility Octree");
-        common_vert = AssetHandler.ReadAssetInFull("Crux/Assets/Shaders/common_vert.glsl");
-        common_frag = AssetHandler.ReadAssetInFull("Crux/Assets/Shaders/common_frag.glsl");
+        common_vert = AssetHandler.ReadAssetInFull("Crux/Assets/Shaders/Required/common_vert.glsl");
+        common_frag = AssetHandler.ReadAssetInFull("Crux/Assets/Shaders/Required/common_frag.glsl");
     }
     
     public static string GetShortInfo()
@@ -149,6 +149,8 @@ public static class GraphicsCache
     
     public static int GetVertexShader(string path, bool useInstancing)
     {
+        Logger.LogWarning(path);
+
         if (Vertex.TryGetValue(path, out var cached))
         {
             cached.users++;
@@ -161,7 +163,7 @@ public static class GraphicsCache
             if (useInstancing)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
 
-            contents = contents.Replace("#include <common_vert.glsl>", common_vert);
+            contents = contents.Replace("#include <common_vert.glsl>", "\n" + common_vert);
 
             GL.ShaderSource(id, contents);
             GL.CompileShader(id);
@@ -209,7 +211,7 @@ public static class GraphicsCache
             if (useInstancing)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
                 
-            contents = contents.Replace("#include <common_frag.glsl>", common_frag);
+            contents = contents.Replace("#include <common_frag.glsl>", "\n" + common_frag);
 
             GL.ShaderSource(id, contents);
             GL.CompileShader(id);

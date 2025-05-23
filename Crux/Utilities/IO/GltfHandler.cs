@@ -68,7 +68,7 @@ public static class GltfHandler
                     else if(AssetHandler.AssetExists(textures[i] + ".png"))
                         textures[i] = textures[i] + ".png";  
                     
-                    Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, false, textures[i]));
+                    Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false, textures[i]));
                 }
                 Made.AddComponent<MeshRenderComponent>()!.SetShaders(Mats);
                 //Made.AddComponent<MeshBoundsColliderComponent>();
@@ -104,7 +104,7 @@ public static class GltfHandler
                 else if(AssetHandler.AssetExists(textures[i] + ".png"))
                     textures[i] = textures[i] + ".png";
 
-                Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, false, textures[i]));
+                Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false, textures[i]));
             }
             Made.AddComponent<MeshRenderComponent>()!.SetShaders(Mats);
 
@@ -207,7 +207,7 @@ public static class GltfHandler
                 else if(AssetHandler.AssetExists(textures[i] + ".png"))
                     textures[i] = textures[i] + ".png";
 
-                materials.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, false, textures[i]));
+                materials.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false, textures[i]));
             }
 
             return fullMesh;

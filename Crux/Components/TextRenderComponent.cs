@@ -20,7 +20,7 @@ public class TextRenderComponent : RenderComponent
     {
         if (fontMaterial == null)
         {
-            fontMaterial = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Font, true);
+            fontMaterial = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Font, true);
             fontMaterial.SetUniform("AtlasScale", new Vector2(10, 10));
         }
 

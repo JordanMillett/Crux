@@ -18,7 +18,7 @@ public class MeshRenderComponent : RenderComponent
         for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
             MeshBuffers.Add(GraphicsCache.GetMeshBuffer(mesh.LoadedPath + "_" + i, mesh.Data.Submeshes[i]));
-            Shaders.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, false));
+            Shaders.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false));
         }
     }
 
@@ -84,7 +84,7 @@ public class MeshRenderComponent : RenderComponent
         for(int i = 0; i < MeshBuffers.Count; i++)
         {
             Shaders[i].SetUniform("model", this.Transform.ModelMatrix);
-            Shaders[i].SetUniform("lightIndices", new int[4] {0, 1, 2, 3});
+            //Shaders[i].SetUniform("lightIndices", new int[4] {0, 1, 2, 3});
             Shaders[i].Bind();
         
             MeshBuffers[i].Draw(mesh.Data!.Submeshes[i].Indices.Length);
