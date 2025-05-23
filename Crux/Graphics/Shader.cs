@@ -81,8 +81,8 @@ public class Shader
     
     public void Delete()
     {
-        GraphicsCache.RemoveVertexUser(VertexShaderPath);
-        GraphicsCache.RemoveFragmentUser(FragmentShaderPath);
+        GraphicsCache.RemoveVertexUser(VertexShaderPath, UseInstancing);
+        GraphicsCache.RemoveFragmentUser(FragmentShaderPath, UseInstancing);
         GraphicsCache.RemoveProgramUser((_vertexShaderId, _fragmentShaderId));
         GraphicsCache.RemoveTextureUser(ColorTexturePath);
     }

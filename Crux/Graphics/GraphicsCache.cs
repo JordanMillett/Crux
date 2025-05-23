@@ -10,8 +10,8 @@ public static class GraphicsCache
 {
     static Dictionary<string, (int id, int users)> Textures = new();
     
-    static Dictionary<string, (int id, int users)> Vertex = new();
-    static Dictionary<string, (int id, int users)> Fragment = new();
+    static Dictionary<(string path, bool instanced), (int id, int users)> Vertex = new();
+    static Dictionary<(string path, bool instanced), (int id, int users)> Fragment = new();
     static Dictionary<(int vertId, int fragId), (int id, int users)> Programs = new();
     
     public static Dictionary<string, (MeshBuffer meshBuffer, int users)> VAOs = new();
@@ -149,12 +149,10 @@ public static class GraphicsCache
     
     public static int GetVertexShader(string path, bool useInstancing)
     {
-        Logger.LogWarning(path);
-
-        if (Vertex.TryGetValue(path, out var cached))
+        if (Vertex.TryGetValue((path, useInstancing), out var cached))
         {
             cached.users++;
-            Vertex[path] = cached;
+            Vertex[(path, useInstancing)] = cached;
             return cached.id;
         }else
         {
@@ -174,35 +172,35 @@ public static class GraphicsCache
                 throw new Exception($"Error compiling vertex shader {path}: {vertexShaderLog}");
             }
 
-            Vertex.Add(path, (id, 1));
+            Vertex.Add((path, useInstancing), (id, 1));
 
             return id;
         }
     }
     
-    public static void RemoveVertexUser(string path)
+    public static void RemoveVertexUser(string path, bool useInstancing)
     {
-        if (Vertex.TryGetValue(path, out var cached))
+        if (Vertex.TryGetValue((path, useInstancing), out var cached))
         {
             cached.users--;
             
             if(cached.users == 0)
             {
-                Vertex.Remove(path);
+                Vertex.Remove((path, useInstancing));
                 GL.DeleteShader(cached.id);
             }else
             {
-                Vertex[path] = cached; 
+                Vertex[(path, useInstancing)] = cached; 
             }
         }
     }
     
     public static int GetFragmentShader(string path, bool useInstancing)
     {
-        if (Fragment.TryGetValue(path, out var cached))
+        if (Fragment.TryGetValue((path, useInstancing), out var cached))
         {
             cached.users++;
-            Fragment[path] = cached;
+            Fragment[(path, useInstancing)] = cached;
             return cached.id;
         }else
         {
@@ -222,25 +220,25 @@ public static class GraphicsCache
                 throw new Exception($"Error compiling fragment shader {path}: {fragmentShaderLog}");
             }
 
-            Fragment.Add(path, (id, 1));
+            Fragment.Add((path, useInstancing), (id, 1));
 
             return id;
         }
     }
     
-    public static void RemoveFragmentUser(string path)
+    public static void RemoveFragmentUser(string path, bool useInstancing)
     {
-        if (Fragment.TryGetValue(path, out var cached))
+        if (Fragment.TryGetValue((path, useInstancing), out var cached))
         {
             cached.users--;
             
             if(cached.users == 0)
             {
-                Fragment.Remove(path);
+                Fragment.Remove((path, useInstancing));
                 GL.DeleteShader(cached.id);
             }else
             {
-                Fragment[path] = cached; 
+                Fragment[(path, useInstancing)] = cached; 
             }
         }
     }
