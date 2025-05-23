@@ -1,3 +1,5 @@
+- name: Graphics Pipeline
+  href: graphics-pipeline.md
 - name: Introduction
   href: introduction.md
 - name: Version History

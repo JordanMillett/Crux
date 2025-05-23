@@ -59,10 +59,9 @@ dotnet new sln --name OpenTK
 dotnet sln OpenTK.sln add (Get-ChildItem -Recurse *.csproj)
 ```
 
-Setup and serve DocFX:
+Generate and serve DocFX (using dotnet-script):
 ```
-docfx metadata CruxDocs/docfx.json
-docfx CruxDocs/docfx.json --serve
+dotnet script docfx.csx
 ```
 
 For more information, visit [Crux Docs](https://jordanmillett.github.io/Crux/).
