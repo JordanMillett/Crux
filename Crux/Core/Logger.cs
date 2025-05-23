@@ -61,6 +61,20 @@ public static class Logger
             Log(obj.ToString()!, source);
         }
     }
+
+    public static void LogWarning<T>(T obj,
+    [CallerFilePath] string file = "",
+    [CallerLineNumber] int line = 0,
+    [CallerMemberName] string function = "")
+    {
+        if(obj == null || string.IsNullOrWhiteSpace(obj.GetType().Name))
+        {
+            LogWarning($"Type '{typeof(T).Name}' was unable to log due to being null.");
+        }else
+        {
+            LogWarning(obj.ToString()!, file, line, function);
+        }
+    }
     
     public static void Log(string message, LogSource source = LogSource.User)
     {

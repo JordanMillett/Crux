@@ -1,16 +1,16 @@
 using AngleSharp;
 using AngleSharp.Dom;
 
-namespace Crux.UI.CUI;
+namespace Crux.CUI;
 
 public class CUIParser
 {
     private readonly string input;
 
-    public static readonly Dictionary<string, Func<UINode>> TagMap = new()
+    public static readonly Dictionary<string, Func<CUINode>> TagMap = new()
     {
-        { "p", () => new UIText() },
-        { "div", () => new UIContainer() }
+        { "p", () => new CUIText() },
+        { "div", () => new CUIContainer() }
     };
 
     public CUIParser(string input)
@@ -18,7 +18,7 @@ public class CUIParser
         this.input = input;
     }
 
-    public UINode? Parse()
+    public CUINode? Parse()
     {
         IConfiguration config = Configuration.Default;
         IBrowsingContext context = BrowsingContext.New(config);
@@ -28,7 +28,7 @@ public class CUIParser
         return ConvertFromAngleSharp(body.FirstChild!);
     }
 
-    UINode ConvertFromAngleSharp(INode angleSharpNode)
+    CUINode ConvertFromAngleSharp(INode angleSharpNode)
     {
         if (angleSharpNode is IElement angleSharpElement)
         {
@@ -37,28 +37,28 @@ public class CUIParser
             if (!TagMap.TryGetValue(tagName, out var constructor))
                 return null!;
 
-            UINode node = constructor(); 
+            CUINode cruxNode = constructor(); 
 
-            if (node is UIContainer)
+            if (cruxNode is CUIContainer)
             {
-                UIContainer casted = (node as UIContainer)!;
+                CUIContainer casted = (cruxNode as CUIContainer)!;
 
                 foreach (INode child in angleSharpElement.ChildNodes)
                 {
-                    UINode createdChild = ConvertFromAngleSharp(child);
+                    CUINode createdChild = ConvertFromAngleSharp(child);
                     if (createdChild != null)
                         casted.Children.Add(createdChild);
                 }
-            }else if (node is UIText)
+            }else if (cruxNode is CUIText)
             {
-                UIText casted = (node as UIText)!;
+                CUIText casted = (cruxNode as CUIText)!;
 
                 casted.Text = string.Join("", angleSharpElement.ChildNodes
                     .OfType<IText>()
                     .Select(t => t.Text.Trim()));
             }
 
-            return node;
+            return cruxNode;
         }
 
         return null!;

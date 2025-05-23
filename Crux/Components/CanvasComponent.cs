@@ -1,5 +1,4 @@
-using Crux.UI;
-using Crux.UI.CUI;
+using Crux.CUI;
 
 namespace Crux.Components;
 
@@ -12,7 +11,7 @@ public class CanvasComponent : Component
     </div>
     ";
 
-    private List<UIObject> Nodes = new List<UIObject>();
+    private CUINode Root = null!;
 
     public CanvasComponent(GameObject gameObject) : base(gameObject)
     {
@@ -22,12 +21,7 @@ public class CanvasComponent : Component
     public void ParseMarkup()
     {
         var parser = new CUIParser(CUIMarkup);
-        UIObject? root = parser.Parse();
-
-        Nodes.Clear();
-
-        if (root != null)
-            Nodes.Add(root);
+        Root = parser.Parse()!;
     }
 
     public override string ToString()
@@ -46,9 +40,6 @@ public class CanvasComponent : Component
 
     public override void Update()
     {
-        foreach (var node in Nodes)
-        {
-            // Your logic here, e.g., update layout, animations, etc.
-        }
+        Root.Render();
     }
 }
