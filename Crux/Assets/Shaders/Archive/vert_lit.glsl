@@ -1,10 +1,5 @@
 #version 430
 
-//this is hell, remake in this format:
-//frag-3d-lit
-//frag-2d-unlit
-//and make them universal with support for instancing
-
 layout(location = 0) in vec3 vertexPosition; 
 layout(location = 1) in vec3 vertexNormal;   
 layout(location = 2) in vec2 vertexUV;    

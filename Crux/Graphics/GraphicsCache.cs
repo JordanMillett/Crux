@@ -23,9 +23,14 @@ public static class GraphicsCache
 
     public static Octree Tree;
 
+    public static string common_vert;
+    public static string common_frag;
+
     static GraphicsCache()
     {
         Tree = new Octree(new Vector3(-500, -500, -500), new Vector3(500, 500, 500), 5, "Visibility Octree");
+        common_vert = AssetHandler.ReadAssetInFull("Crux/Assets/Shaders/common_vert.glsl");
+        common_frag = AssetHandler.ReadAssetInFull("Crux/Assets/Shaders/common_frag.glsl");
     }
     
     public static string GetShortInfo()
@@ -156,6 +161,8 @@ public static class GraphicsCache
             if (instanced)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
 
+            contents = contents.Replace("#include <common_vert.glsl>", common_vert);
+
             GL.ShaderSource(id, contents);
             GL.CompileShader(id);
             string vertexShaderLog = GL.GetShaderInfoLog(id);
@@ -202,6 +209,8 @@ public static class GraphicsCache
             if (instanced)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
                 
+            contents = contents.Replace("#include <common_frag.glsl>", common_frag);
+
             GL.ShaderSource(id, contents);
             GL.CompileShader(id);
             string fragmentShaderLog = GL.GetShaderInfoLog(id);
