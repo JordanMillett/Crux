@@ -1,6 +1,6 @@
-# Graphics Pipeline
+# Graphics Flow
 
-Use the graphic below to understand the graphics pipeline. Most things revolve around [the Graphics Cache](xref:Crux.Graphics.GraphicsCache)
+The graphic below shows how the initialization of a new graphics object. Most things revolve around [the Graphics Cache](xref:Crux.Graphics.GraphicsCache)
 
 
 ```mermaid
