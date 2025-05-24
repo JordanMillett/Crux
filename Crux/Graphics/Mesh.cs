@@ -92,9 +92,9 @@ public class Mesh
         Vector3[] normals = Vertices.Select(v => v.Normal).ToArray();
         Vector2[] uvs = Vertices.Select(v => v.UV).ToArray();
 
-        VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", positions);
-        VertexAttribute normalAttribute = VertexAttributeHelper.ConvertToAttribute("Normal", normals);
-        VertexAttribute uvAttribute = VertexAttributeHelper.ConvertToAttribute("UV", uvs);
+        VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute(0, "inPosition", positions);
+        VertexAttribute normalAttribute = VertexAttributeHelper.ConvertToAttribute(1, "inNormal", normals);
+        VertexAttribute uvAttribute = VertexAttributeHelper.ConvertToAttribute(2, "inUV", uvs);
 
         return new VertexAttribute[] { positionAttribute, normalAttribute, uvAttribute };
     }

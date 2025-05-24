@@ -170,14 +170,14 @@ public static class AssetHandler
             (
                 "Crux/Assets/Shaders/Required/Vertex/vert_2d.glsl",
                 "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit.glsl",
-                "",
+                AssetExists(texturePath) ? texturePath : MissingTexturePath,
                 useInstancing
             ),
             ShaderPresets.Unlit_2D_Font => new Shader
             (
                 "Crux/Assets/Shaders/Required/Vertex/vert_2d_font.glsl",
                 "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit_font.glsl",
-                "",
+                AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg",
                 useInstancing
             ),
             ShaderPresets.Unlit_2D_Skybox => new Shader
@@ -189,54 +189,5 @@ public static class AssetHandler
             ),
             _ => null!,
         };
-
-        /*
-        return shaderPreset switch
-        {
-            ShaderPresets.Lit => new Shader
-            (
-                "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl",
-                "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                AssetExists(texturePath) ? texturePath : MissingTexturePath,
-                instanced
-            ),
-            ShaderPresets.Instance_Lit => new Shader
-            (
-                "Crux/Assets/Shaders/Required/Vertex/instance_vert_lit.glsl",
-                "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                AssetExists(texturePath) ? texturePath : MissingTexturePath,
-                instanced
-            ),
-            ShaderPresets.Font => new Shader
-            (
-                "Crux/Assets/Shaders/Required/Vertex/vert_font.glsl",
-                "Crux/Assets/Shaders/Required/Fragment/frag_font.glsl",
-                AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg",
-                instanced
-            ),
-            ShaderPresets.Outline => new Shader
-            (
-                "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl",
-                "Crux/Assets/Shaders/Required/Fragment/frag_outline.glsl",
-                "",
-                instanced
-            ),
-            ShaderPresets.Skybox => new Shader
-            (
-                "Crux/Assets/Shaders/Required/Vertex/vert_skybox.glsl",
-                "Crux/Assets/Shaders/Required/Fragment/frag_skybox.glsl",
-                "",
-                instanced
-            ),
-            ShaderPresets.UI => new Shader
-            (
-                "Crux/Assets/Shaders/Required/Vertex/vert_ui.glsl",
-                "Crux/Assets/Shaders/Required/Fragment/frag_ui.glsl",
-                "",
-                instanced
-            ),
-            _ => null!,
-        };
-        */
     }
 }

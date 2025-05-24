@@ -20,8 +20,6 @@ public class MeshBuffer
 
     public int EBO = -1;
 
-    private int attributeIndex = 0;
-
     public MeshBuffer()
     {
         VAO = GL.GenVertexArray();
@@ -134,20 +132,19 @@ public class MeshBuffer
         int byteOffset = 0;
         for (int i = 0; i < attributes.Length; i++)
         {
-            GL.VertexAttribPointer(i, attributes[i].TypeSize, VertexAttribPointerType.Float, false, stride * sizeof(float), byteOffset);
-            GL.EnableVertexAttribArray(i);
+            GL.VertexAttribPointer(attributes[i].LayoutLocation, attributes[i].TypeSize, VertexAttribPointerType.Float, false, stride * sizeof(float), byteOffset);
+            GL.EnableVertexAttribArray(attributes[i].LayoutLocation);
             byteOffset += attributes[i].TypeSize * sizeof(float);
-            attributeIndex++;
         }
 
         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
         GL.BindVertexArray(0);
     }
 
-    public void GenDynamicVBO(Type[] attributes)
+    public void GenDynamicVBO((int locations, Type types)[] attributes)
     {
-        foreach (Type T in attributes)
-            DynamicVBOTypesByteSize += VertexAttributeHelper.GetTypeByteSize(T);
+        foreach ((int _, Type attributeType) in attributes)
+            DynamicVBOTypesByteSize += VertexAttributeHelper.GetTypeByteSize(attributeType);
 
         //Bind VAO    
         GL.BindVertexArray(VAO);
@@ -158,51 +155,47 @@ public class MeshBuffer
         GL.BufferData(BufferTarget.ArrayBuffer, 0, IntPtr.Zero, BufferUsageHint.DynamicDraw); //buffer empty
 
         int totalByteSize = 0;
-        foreach (Type attributeType in attributes)
+        foreach ((int _, Type attributeType) in attributes)
             totalByteSize += VertexAttributeHelper.GetTypeByteSize(attributeType);
 
         int byteOffset = 0;
         //int byteSize = 0;
-        foreach (Type attributeType in attributes)
+        foreach ((int layoutLocation, Type attributeType) in attributes)
         {
             if (attributeType == typeof(float))
             {
-                GL.VertexAttribPointer(attributeIndex, VertexAttributeHelper.GetTypeWidth(typeof(float)), VertexAttribPointerType.Float, false, totalByteSize, byteOffset);
-                GL.EnableVertexAttribArray(attributeIndex);
-                GL.VertexAttribDivisor(attributeIndex, 1);
+                GL.VertexAttribPointer(layoutLocation, VertexAttributeHelper.GetTypeWidth(typeof(float)), VertexAttribPointerType.Float, false, totalByteSize, byteOffset);
+                GL.EnableVertexAttribArray(layoutLocation);
+                GL.VertexAttribDivisor(layoutLocation, 1);
                 byteOffset += VertexAttributeHelper.GetTypeByteSize(typeof(float));
-                attributeIndex++;
             }
             else if (attributeType == typeof(Vector2))
             {
-                GL.VertexAttribPointer(attributeIndex, VertexAttributeHelper.GetTypeWidth(typeof(Vector2)), VertexAttribPointerType.Float, false, totalByteSize, byteOffset);
-                GL.EnableVertexAttribArray(attributeIndex);
-                GL.VertexAttribDivisor(attributeIndex, 1);
+                GL.VertexAttribPointer(layoutLocation, VertexAttributeHelper.GetTypeWidth(typeof(Vector2)), VertexAttribPointerType.Float, false, totalByteSize, byteOffset);
+                GL.EnableVertexAttribArray(layoutLocation);
+                GL.VertexAttribDivisor(layoutLocation, 1);
                 byteOffset += VertexAttributeHelper.GetTypeByteSize(typeof(Vector2));
-                attributeIndex++;
             }
             else if (attributeType == typeof(Vector3))
             {
-                GL.VertexAttribPointer(attributeIndex, VertexAttributeHelper.GetTypeWidth(typeof(Vector3)), VertexAttribPointerType.Float, false, totalByteSize, byteOffset);
-                GL.EnableVertexAttribArray(attributeIndex);
-                GL.VertexAttribDivisor(attributeIndex, 1);
+                GL.VertexAttribPointer(layoutLocation, VertexAttributeHelper.GetTypeWidth(typeof(Vector3)), VertexAttribPointerType.Float, false, totalByteSize, byteOffset);
+                GL.EnableVertexAttribArray(layoutLocation);
+                GL.VertexAttribDivisor(layoutLocation, 1);
                 byteOffset += VertexAttributeHelper.GetTypeByteSize(typeof(Vector3));
-                attributeIndex++;
             }
             else if (attributeType == typeof(Vector4))
             {
-                GL.VertexAttribPointer(attributeIndex, VertexAttributeHelper.GetTypeWidth(typeof(Vector4)), VertexAttribPointerType.Float, false, totalByteSize, byteOffset);
-                GL.EnableVertexAttribArray(attributeIndex);
-                GL.VertexAttribDivisor(attributeIndex, 1);
+                GL.VertexAttribPointer(layoutLocation, VertexAttributeHelper.GetTypeWidth(typeof(Vector4)), VertexAttribPointerType.Float, false, totalByteSize, byteOffset);
+                GL.EnableVertexAttribArray(layoutLocation);
+                GL.VertexAttribDivisor(layoutLocation, 1);
                 byteOffset += VertexAttributeHelper.GetTypeByteSize(typeof(Vector4));
-                attributeIndex++;
             }
             else if (attributeType == typeof(Matrix4))
             {
                 for (int i = 0; i < 4; i++) // Each row of Matrix4 is a vec4
                 {
                     GL.VertexAttribPointer(
-                        attributeIndex,                                             //Index
+                        layoutLocation + i,                                         //Index
                         VertexAttributeHelper.GetTypeWidth(typeof(Vector4)),        //Width
                         VertexAttribPointerType.Float,                              //Type                
                         false,                                                      //Normalized
@@ -210,10 +203,9 @@ public class MeshBuffer
                         i * VertexAttributeHelper.GetTypeByteSize(typeof(Vector4))  //Offset
                         );
 
-                    GL.EnableVertexAttribArray(attributeIndex);
-                    GL.VertexAttribDivisor(attributeIndex, 1);
+                    GL.EnableVertexAttribArray(layoutLocation + i);
+                    GL.VertexAttribDivisor(layoutLocation + i, 1);
                     byteOffset += VertexAttributeHelper.GetTypeByteSize(typeof(Vector4));
-                    attributeIndex++;
                 }
             }
         }

@@ -298,9 +298,9 @@ public static class GraphicsCache
         }
     }
 
-    public static MeshBuffer GetInstancedUIBuffer(bool ColorDynamic)
+    public static MeshBuffer GetInstancedQuadBuffer(bool ui_container)
     {
-        string path = ColorDynamic ? "ui_container" : "ui_font";
+        string path = ui_container ? "ui_container" : "ui_font";
         
         if (VAOs.TryGetValue(path, out var cached))
         {
@@ -313,15 +313,26 @@ public static class GraphicsCache
             
             MeshBuffer meshBuffer = new();   
 
-            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", Shapes.QuadVertices);
-            VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute("UV", Shapes.QuadUVs);
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute(0, "inPosition", Shapes.QuadVertices);
+            VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute(1, "inUV", Shapes.QuadUVs);
             VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             
-            if(ColorDynamic)
-                meshBuffer.GenDynamicVBO([typeof(Matrix4), typeof(Vector4)]);
-            else
-                meshBuffer.GenDynamicVBO([typeof(Matrix4), typeof(Vector2)]);
+            if(ui_container)
+            {
+                meshBuffer.GenDynamicVBO(new (int, Type)[]
+                {
+                    (3, typeof(Matrix4)),
+                    (7, typeof(Vector4))
+                });
+            }else
+            {
+                meshBuffer.GenDynamicVBO(new (int, Type)[]
+                {
+                    (2, typeof(Matrix4)),
+                    (6, typeof(Vector2))
+                });
+            }
             
             VAOs.Add(path, (meshBuffer, 1));            
             return meshBuffer;
@@ -341,11 +352,15 @@ public static class GraphicsCache
             
             MeshBuffer meshBuffer = new();   
 
-            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", vertices);
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute(0, "inPosition", vertices);
             VertexAttribute[] staticAttributes = [positionAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
-            
-            meshBuffer.GenDynamicVBO([typeof(Matrix4), typeof(Vector4)]);
+    
+            meshBuffer.GenDynamicVBO(new (int, Type)[]
+            {
+                (3, typeof(Matrix4)),
+                (7, typeof(Vector4))
+            });
             
             VAOs.Add(path, (meshBuffer, 1));            
             return meshBuffer;
@@ -371,8 +386,11 @@ public static class GraphicsCache
             meshBuffer.GenStaticVBO(staticAttributes);
 
             meshBuffer.GenEBO(mesh.Indices);
-            
-            meshBuffer.GenDynamicVBO([typeof(Matrix4)]);
+
+            meshBuffer.GenDynamicVBO(new (int, Type)[]
+            {
+                (3, typeof(Matrix4))
+            });
 
             VAOs.Add(path, (meshBuffer, 1));
             return meshBuffer;
@@ -413,7 +431,7 @@ public static class GraphicsCache
         {
             MeshBuffer meshBuffer = new();  
 
-            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", vertices);
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute(0, "inPosition", vertices);
             VertexAttribute[] staticAttributes = [positionAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             
@@ -436,7 +454,7 @@ public static class GraphicsCache
         {
             MeshBuffer meshBuffer = new();  
 
-            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", Shapes.QuadVertices);
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute(0, "inPosition", Shapes.QuadVertices);
             VertexAttribute[] staticAttributes = [positionAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             
@@ -445,6 +463,7 @@ public static class GraphicsCache
         }
     }
     
+    [Obsolete("Feature not maintained")]
     public static MeshBuffer GetUIBuffer()
     {
         string path = "ui";
@@ -459,8 +478,8 @@ public static class GraphicsCache
         {
             MeshBuffer meshBuffer = new();  
 
-            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute("Position", Shapes.QuadVertices);
-            VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute("UV", Shapes.QuadUVs);
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute(0, "inPosition", Shapes.QuadVertices);
+            VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute(1, "inUV", Shapes.QuadUVs);
             VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             

@@ -25,23 +25,23 @@ public static class VertexAttributeHelper
         return GetTypeWidth(attributeType) * sizeof(float);
     }
 
-    public static VertexAttribute ConvertToAttribute<T>(string attributeName, T[] vectors) where T : struct
+    public static VertexAttribute ConvertToAttribute<T>(int layoutLocation, string attributeName, T[] vectors) where T : struct
     {
         if (typeof(T) == typeof(Vector4))
         {
-            return new VertexAttribute(attributeName, GetTypeWidth(typeof(T)), vectors.Cast<Vector4>().SelectMany(v => new float[] { v.X, v.Y, v.Z, v.W }).ToArray());
+            return new VertexAttribute(layoutLocation, attributeName, GetTypeWidth(typeof(T)), vectors.Cast<Vector4>().SelectMany(v => new float[] { v.X, v.Y, v.Z, v.W }).ToArray());
         }
         else if (typeof(T) == typeof(Vector3))
         {
-            return new VertexAttribute(attributeName, GetTypeWidth(typeof(T)), vectors.Cast<Vector3>().SelectMany(v => new float[] { v.X, v.Y, v.Z }).ToArray());
+            return new VertexAttribute(layoutLocation, attributeName, GetTypeWidth(typeof(T)), vectors.Cast<Vector3>().SelectMany(v => new float[] { v.X, v.Y, v.Z }).ToArray());
         }
         else if (typeof(T) == typeof(Vector2))
         {
-            return new VertexAttribute(attributeName, GetTypeWidth(typeof(T)), vectors.Cast<Vector2>().SelectMany(v => new float[] { v.X, v.Y }).ToArray());
+            return new VertexAttribute(layoutLocation, attributeName, GetTypeWidth(typeof(T)), vectors.Cast<Vector2>().SelectMany(v => new float[] { v.X, v.Y }).ToArray());
         }
         else if (typeof(T) == typeof(float))
         {
-            return new VertexAttribute(attributeName, GetTypeWidth(typeof(T)), vectors.Cast<float>().ToArray());
+            return new VertexAttribute(layoutLocation, attributeName, GetTypeWidth(typeof(T)), vectors.Cast<float>().ToArray());
         }
         else
         {
