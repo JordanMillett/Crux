@@ -1,16 +1,18 @@
 using AngleSharp;
 using AngleSharp.Dom;
+using Crux.Components;
 
 namespace Crux.CUI;
 
 public class CUIParser
 {
     private readonly string input;
+    public static CanvasComponent canvas;
 
     public static readonly Dictionary<string, Func<CUINode>> TagMap = new()
     {
-        { "p", () => new CUIText() },
-        { "div", () => new CUIContainer() }
+        { "p", () => new CUIText(canvas) },
+        { "div", () => new CUIContainer(canvas) }
     };
 
     public CUIParser(string input)

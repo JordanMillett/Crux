@@ -1,6 +1,7 @@
 using Crux.Graphics;
 using Crux.Utilities.IO;
 using Crux.Utilities.Helpers;
+using Crux.Components;
 
 namespace Crux.CUI;
 
@@ -14,8 +15,14 @@ public struct CUIBounds
 
 public abstract class CUINode
 {
+    public CanvasComponent Canvas { get; init; }
     public CUIBounds Bounds;
     public List<CUINode> Children = [];
+
+    public CUINode(CanvasComponent canvas)
+    {
+        Canvas = canvas;
+    }
 
     public abstract void Measure();
     public abstract void Render();
@@ -33,7 +40,7 @@ public class CUIContainer : CUINode
 
     public static List<CUIContainer> Instances = [];
 
-    public CUIContainer()
+    public CUIContainer(CanvasComponent canvas): base(canvas)
     {
         if (ShaderSingleton == null)
             ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "");
@@ -75,8 +82,8 @@ public class CUIContainer : CUINode
             foreach(CUIContainer instance in Instances)
             {
                 Matrix4 modelMatrix = 
-                    Matrix4.CreateScale(0.1f, 0.1f, 1.0f) *
-                    Matrix4.CreateTranslation(-0.3f, -0.3f, 0.0f); //todo set positions with margins and such
+                    Canvas.GetVirtualScale(1280, 50) *
+                    Matrix4.CreateTranslation(0f, -0.3f, 0.0f); //todo set positions with margins and such
 
                 //PACK
                 MatrixHelper.Matrix4ToArray(modelMatrix, out float[] values);
@@ -110,6 +117,11 @@ public class CUIContainer : CUINode
 public class CUIText : CUINode
 {
     public string Text { get; set; } = "";
+
+    public CUIText(CanvasComponent canvas): base(canvas)
+    {
+
+    }
 
     public override void Measure()
     {
