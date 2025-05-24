@@ -39,7 +39,7 @@ public class CUIContainer : CUINode
         if (ShaderSingleton == null)
             ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "");
 
-        meshBuffer = GraphicsCache.GetInstancedQuadBuffer(true);
+        meshBuffer = GraphicsCache.GetInstancedQuadBuffer(GraphicsCache.QuadBufferType.ui_with_color);
         Instances.Add(this);
     }
 
@@ -77,7 +77,7 @@ public class CUIContainer : CUINode
             foreach(CUIContainer instance in Instances)
             {
                 Matrix4 modelMatrix = 
-                    Matrix4.CreateScale(1f, 1f, 1.0f) *
+                    Matrix4.CreateScale(0f, 1f, 1.0f) *
                     Matrix4.CreateTranslation(0.5f, 0.5f, 0.0f); //todo set positions with margins and such
 
                 MatrixHelper.Matrix4ToArray(modelMatrix, out float[] values);

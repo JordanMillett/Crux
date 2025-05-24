@@ -298,9 +298,22 @@ public static class GraphicsCache
         }
     }
 
-    public static MeshBuffer GetInstancedQuadBuffer(bool ui_container)
+    public enum QuadBufferType
     {
-        string path = ui_container ? "ui_container" : "ui_font";
+        ui_with_color,
+        ui_with_atlas,
+        ui_with_no_uvs
+    }
+
+    public static MeshBuffer GetInstancedQuadBuffer(QuadBufferType bufferType)
+    {
+        string path = bufferType switch
+        {
+            QuadBufferType.ui_with_color => "ui_container",
+            QuadBufferType.ui_with_atlas => "ui_text",
+            QuadBufferType.ui_with_no_uvs => "ui_skybox",
+            _ => "unknown"
+        };
         
         if (VAOs.TryGetValue(path, out var cached))
         {
@@ -310,7 +323,6 @@ public static class GraphicsCache
         }
         else
         {
-            
             MeshBuffer meshBuffer = new();   
 
             VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute(0, "inPosition", Shapes.QuadVertices);
@@ -318,21 +330,23 @@ public static class GraphicsCache
             VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             
-            if(ui_container)
+            (int, Type)[] dynamicAttributes = bufferType switch
             {
-                meshBuffer.GenDynamicVBO(new (int, Type)[]
+                QuadBufferType.ui_with_color => new (int, Type)[]
                 {
                     (3, typeof(Matrix4)),
                     (7, typeof(Vector4))
-                });
-            }else
-            {
-                meshBuffer.GenDynamicVBO(new (int, Type)[]
+                },
+                QuadBufferType.ui_with_atlas => new (int, Type)[]
                 {
                     (2, typeof(Matrix4)),
                     (6, typeof(Vector2))
-                });
-            }
+                },
+                _ => null!
+            };
+
+            if(dynamicAttributes != null)
+                meshBuffer.GenDynamicVBO(dynamicAttributes);
             
             VAOs.Add(path, (meshBuffer, 1));            
             return meshBuffer;
@@ -440,6 +454,7 @@ public static class GraphicsCache
         }
     }
     
+    [Obsolete("Feature not maintained")]
     public static MeshBuffer GetSkyboxBuffer()
     {
         string path = "skybox";

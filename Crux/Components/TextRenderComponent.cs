@@ -24,7 +24,7 @@ public class TextRenderComponent : RenderComponent
             fontMaterial.SetUniform("atlasScale", new Vector2(10, 10));
         }
 
-        FontBuffer = GraphicsCache.GetInstancedQuadBuffer(false);
+        FontBuffer = GraphicsCache.GetInstancedQuadBuffer(GraphicsCache.QuadBufferType.ui_with_atlas);
     }
 
     public override string ToString()
