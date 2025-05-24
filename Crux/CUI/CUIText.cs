@@ -1,23 +1,22 @@
-using OpenTK.Graphics.OpenGL4;
 using Crux.Graphics;
 using Crux.Utilities.IO;
 using Crux.Utilities.Helpers;
+using Crux.Components;
 
-namespace Crux.Components;
+namespace Crux.CUI;
 
-[Obsolete("Feature not maintained")]
-public class TextRenderComponent : RenderComponent
-{     
+public class CUIText : CUINode
+{
     private static Shader? ShaderSingleton;
     private readonly MeshBuffer meshBuffer;
-
     private readonly string Charset = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
-    public string Text = "";
-    public Vector2 StartPosition = Vector2.Zero;
-    public float FontScale = 1f;
+    public string Text { get; set; } = "";
+    public static int InstanceID = 0;
 
-    public TextRenderComponent(GameObject gameObject): base(gameObject)
+    public float VirtualFontSize = 16f;
+
+    public CUIText(CanvasComponent canvas): base(canvas)
     {
         if (ShaderSingleton == null)
         {
@@ -25,31 +24,33 @@ public class TextRenderComponent : RenderComponent
             ShaderSingleton.SetUniform("atlasScale", new Vector2(10, 10));
         }
 
-        meshBuffer = GraphicsCache.GetInstancedFontBuffer("oldText");
+        meshBuffer = GraphicsCache.GetInstancedFontBuffer($"CUIText_{InstanceID}");
+        InstanceID++;
     }
 
-    public override string ToString()
+    public override void Measure()
     {
-        StringBuilder sb = new StringBuilder();
+        float totalWidth = 0;
+        float fontHeight = VirtualFontSize;
 
-        sb.AppendLine($"{ this.GetType().Name }");
+        foreach (char c in Text)
+        {
+            float charWidthFactor = GetCharWidth(c);
+            float charWidth = fontHeight * charWidthFactor;
 
-        return sb.ToString();
-    }
-    
-    public override Component Clone(GameObject gameObject)
-    {
-        TextRenderComponent clone = new TextRenderComponent(gameObject);
+            totalWidth += charWidth;
+        }
 
-        return clone;
+        Bounds.Width = totalWidth;
+        Bounds.Height = fontHeight;
     }
 
     public override void Render()
-    {  
+    {
         if (!meshBuffer.DrawnThisFrame)
         {
-            float charWidth = 0.05f * FontScale;
-            float charHeight = 0.1f * FontScale;
+            float charWidth = 0.05f * VirtualFontSize;
+            float charHeight = 0.1f * VirtualFontSize;
             float lineOffsetX = 0f;
             float lineOffsetY = 0;
 
@@ -75,11 +76,17 @@ public class TextRenderComponent : RenderComponent
                 if (TryGetCharacterAtlasOffset(c, out Vector2 atlasOffset))
                 {
                     lineOffsetX += charWidth * GetCharWidth(c);
-                    Vector2 charPosition = StartPosition + new Vector2(lineOffsetX, lineOffsetY);
+                    Vector2 charPosition = Bounds.AbsolutePosition + new Vector2(lineOffsetX, lineOffsetY);
 
-                    Matrix4 modelMatrix = 
-                        Matrix4.CreateScale(charWidth, charHeight, 1.0f) *
-                        Matrix4.CreateTranslation(charPosition.X, charPosition.Y, 0.0f);
+                    CUIBounds charBounds = new CUIBounds
+                    {
+                        Width = charWidth,
+                        Height = charHeight,
+                        AbsolutePosition = charPosition,
+                        RelativePosition = Vector2.Zero,
+                    };
+
+                        Matrix4 modelMatrix = Canvas.GetLetterModelMatrix(charBounds);
 
                     //PACK
                     MatrixHelper.Matrix4ToArray(modelMatrix, out float[] values);

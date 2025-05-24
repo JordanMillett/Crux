@@ -10,8 +10,8 @@ public static class GraphicsCache
 {
     static Dictionary<string, (int id, int users)> Textures = new();
     
-    static Dictionary<(string path, bool instanced), (int id, int users)> Vertex = new();
-    static Dictionary<(string path, bool instanced), (int id, int users)> Fragment = new();
+    static Dictionary<(string cacheKey, bool instanced), (int id, int users)> Vertex = new();
+    static Dictionary<(string cacheKey, bool instanced), (int id, int users)> Fragment = new();
     static Dictionary<(int vertId, int fragId), (int id, int users)> Programs = new();
     
     public static Dictionary<string, (MeshBuffer meshBuffer, int users)> VAOs = new();
@@ -86,18 +86,18 @@ public static class GraphicsCache
         return sb.ToString();
     }
 
-    public static int GetTexture(string path)
+    public static int GetTexture(string cacheKey)
     {
-        if (Textures.TryGetValue(path, out var cached))
+        if (Textures.TryGetValue(cacheKey, out var cached))
         {
             cached.users++;
-            Textures[path] = cached;
+            Textures[cacheKey] = cached;
             return cached.id;
         }
         else
         {
             StbImage.stbi_set_flip_vertically_on_load(1);
-            using (var stream = AssetHandler.GetStream(path))
+            using (var stream = AssetHandler.GetStream(cacheKey))
             {
                 ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
 
@@ -123,41 +123,41 @@ public static class GraphicsCache
 
                 GL.BindTexture(TextureTarget.Texture2D, 0);
 
-                Textures.Add(path, (id, 1));
+                Textures.Add(cacheKey, (id, 1));
 
                 return id;
             }
         }
     }
     
-    public static void RemoveTextureUser(string path)
+    public static void RemoveTextureUser(string cacheKey)
     {
-        if (Textures.TryGetValue(path, out var cached))
+        if (Textures.TryGetValue(cacheKey, out var cached))
         {
             cached.users--;
             
             if(cached.users == 0)
             {
                 GL.DeleteTexture(cached.id);
-                Textures.Remove(path);
+                Textures.Remove(cacheKey);
             }else
             {
-                Textures[path] = cached; 
+                Textures[cacheKey] = cached; 
             }
         }
     }
     
-    public static int GetVertexShader(string path, bool useInstancing)
+    public static int GetVertexShader(string cacheKey, bool useInstancing)
     {
-        if (Vertex.TryGetValue((path, useInstancing), out var cached))
+        if (Vertex.TryGetValue((cacheKey, useInstancing), out var cached))
         {
             cached.users++;
-            Vertex[(path, useInstancing)] = cached;
+            Vertex[(cacheKey, useInstancing)] = cached;
             return cached.id;
         }else
         {
             int id = GL.CreateShader(ShaderType.VertexShader);
-            string contents = AssetHandler.ReadAssetInFull(path);
+            string contents = AssetHandler.ReadAssetInFull(cacheKey);
             if (useInstancing)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
 
@@ -169,43 +169,43 @@ public static class GraphicsCache
             if (!string.IsNullOrEmpty(vertexShaderLog))
             {
                 //GL.DeleteShader(id);
-                throw new Exception($"Error compiling vertex shader {path}: {vertexShaderLog}");
+                throw new Exception($"Error compiling vertex shader {cacheKey}: {vertexShaderLog}");
             }
 
-            Vertex.Add((path, useInstancing), (id, 1));
+            Vertex.Add((cacheKey, useInstancing), (id, 1));
 
             return id;
         }
     }
     
-    public static void RemoveVertexUser(string path, bool useInstancing)
+    public static void RemoveVertexUser(string cacheKey, bool useInstancing)
     {
-        if (Vertex.TryGetValue((path, useInstancing), out var cached))
+        if (Vertex.TryGetValue((cacheKey, useInstancing), out var cached))
         {
             cached.users--;
             
             if(cached.users == 0)
             {
-                Vertex.Remove((path, useInstancing));
+                Vertex.Remove((cacheKey, useInstancing));
                 GL.DeleteShader(cached.id);
             }else
             {
-                Vertex[(path, useInstancing)] = cached; 
+                Vertex[(cacheKey, useInstancing)] = cached; 
             }
         }
     }
     
-    public static int GetFragmentShader(string path, bool useInstancing)
+    public static int GetFragmentShader(string cacheKey, bool useInstancing)
     {
-        if (Fragment.TryGetValue((path, useInstancing), out var cached))
+        if (Fragment.TryGetValue((cacheKey, useInstancing), out var cached))
         {
             cached.users++;
-            Fragment[(path, useInstancing)] = cached;
+            Fragment[(cacheKey, useInstancing)] = cached;
             return cached.id;
         }else
         {
             int id = GL.CreateShader(ShaderType.FragmentShader);
-            string contents = AssetHandler.ReadAssetInFull(path);
+            string contents = AssetHandler.ReadAssetInFull(cacheKey);
             if (useInstancing)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
                 
@@ -217,28 +217,28 @@ public static class GraphicsCache
             if (!string.IsNullOrEmpty(fragmentShaderLog))
             {
                 //GL.DeleteShader(id);
-                throw new Exception($"Error compiling fragment shader {path}: {fragmentShaderLog}");
+                throw new Exception($"Error compiling fragment shader {cacheKey}: {fragmentShaderLog}");
             }
 
-            Fragment.Add((path, useInstancing), (id, 1));
+            Fragment.Add((cacheKey, useInstancing), (id, 1));
 
             return id;
         }
     }
     
-    public static void RemoveFragmentUser(string path, bool useInstancing)
+    public static void RemoveFragmentUser(string cacheKey, bool useInstancing)
     {
-        if (Fragment.TryGetValue((path, useInstancing), out var cached))
+        if (Fragment.TryGetValue((cacheKey, useInstancing), out var cached))
         {
             cached.users--;
             
             if(cached.users == 0)
             {
-                Fragment.Remove((path, useInstancing));
+                Fragment.Remove((cacheKey, useInstancing));
                 GL.DeleteShader(cached.id);
             }else
             {
-                Fragment[(path, useInstancing)] = cached; 
+                Fragment[(cacheKey, useInstancing)] = cached; 
             }
         }
     }
@@ -298,27 +298,40 @@ public static class GraphicsCache
         }
     }
 
-    public enum QuadBufferType
+    public static MeshBuffer GetInstancedFontBuffer(string cacheKey)
     {
-        ui_with_color,
-        ui_with_atlas,
-        ui_with_no_uvs
-    }
-
-    public static MeshBuffer GetInstancedQuadBuffer(QuadBufferType bufferType)
-    {
-        string path = bufferType switch
-        {
-            QuadBufferType.ui_with_color => "ui_container",
-            QuadBufferType.ui_with_atlas => "ui_text",
-            QuadBufferType.ui_with_no_uvs => "ui_skybox",
-            _ => "unknown"
-        };
-        
-        if (VAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(cacheKey, out var cached))
         {
             cached.users++;
-            VAOs[path] = cached;
+            VAOs[cacheKey] = cached;
+            return cached.meshBuffer;
+        }
+        else
+        {
+            MeshBuffer meshBuffer = new();   
+
+            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute(0, "inPosition", Shapes.QuadVertices);
+            VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute(1, "inUV", Shapes.QuadUVs);
+            VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
+            meshBuffer.GenStaticVBO(staticAttributes);
+
+            meshBuffer.GenDynamicVBO(new (int, Type)[]
+            {
+                (2, typeof(Matrix4)),
+                (6, typeof(Vector2))
+            });
+            
+            VAOs.Add(cacheKey, (meshBuffer, 1));            
+            return meshBuffer;
+        }
+    }
+
+    public static MeshBuffer GetInstancedQuadBuffer(string cacheKey)
+    {        
+        if (VAOs.TryGetValue(cacheKey, out var cached))
+        {
+            cached.users++;
+            VAOs[cacheKey] = cached;
             return cached.meshBuffer;
         }
         else
@@ -330,35 +343,23 @@ public static class GraphicsCache
             VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             
-            (int, Type)[] dynamicAttributes = bufferType switch
+            meshBuffer.GenDynamicVBO(new (int, Type)[]
             {
-                QuadBufferType.ui_with_color => new (int, Type)[]
-                {
-                    (3, typeof(Matrix4)),
-                    (7, typeof(Vector4))
-                },
-                QuadBufferType.ui_with_atlas => new (int, Type)[]
-                {
-                    (2, typeof(Matrix4)),
-                    (6, typeof(Vector2))
-                },
-                _ => null!
-            };
-
-            if(dynamicAttributes != null)
-                meshBuffer.GenDynamicVBO(dynamicAttributes);
+                (3, typeof(Matrix4)),
+                (7, typeof(Vector4))
+            });
             
-            VAOs.Add(path, (meshBuffer, 1));            
+            VAOs.Add(cacheKey, (meshBuffer, 1));            
             return meshBuffer;
         }
     }
 
-    public static MeshBuffer GetInstancedLineBuffer(string path, Vector3[] vertices)
+    public static MeshBuffer GetInstancedLineBuffer(string cacheKey, Vector3[] vertices)
     {
-        if (VAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(cacheKey, out var cached))
         {
             cached.users++;
-            VAOs[path] = cached;
+            VAOs[cacheKey] = cached;
             return cached.meshBuffer;
         }
         else
@@ -376,20 +377,20 @@ public static class GraphicsCache
                 (7, typeof(Vector4))
             });
             
-            VAOs.Add(path, (meshBuffer, 1));            
+            VAOs.Add(cacheKey, (meshBuffer, 1));            
             return meshBuffer;
         }
     }
     
-    public static MeshBuffer GetInstancedMeshBuffer(string path, Mesh mesh)
+    public static MeshBuffer GetInstancedMeshBuffer(string cacheKey, Mesh mesh)
     {
         //if Instanced VAO already exists
-        if (VAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(cacheKey, out var cached))
         {
             //Add another user
             cached.users++;
             //Sync to dictionary
-            VAOs[path] = cached;
+            VAOs[cacheKey] = cached;
             return cached.meshBuffer;
         }
         else
@@ -406,17 +407,17 @@ public static class GraphicsCache
                 (3, typeof(Matrix4))
             });
 
-            VAOs.Add(path, (meshBuffer, 1));
+            VAOs.Add(cacheKey, (meshBuffer, 1));
             return meshBuffer;
         }
     }
 
-    public static MeshBuffer GetMeshBuffer(string path, Mesh mesh)
+    public static MeshBuffer GetMeshBuffer(string cacheKey, Mesh mesh)
     {
-        if (VAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(cacheKey, out var cached))
         {
             cached.users++;
-            VAOs[path] = cached;
+            VAOs[cacheKey] = cached;
             return cached.meshBuffer;
         }
         else
@@ -428,17 +429,17 @@ public static class GraphicsCache
 
             meshBuffer.GenEBO(mesh.Indices);            
 
-            VAOs.Add(path, (meshBuffer, 1));
+            VAOs.Add(cacheKey, (meshBuffer, 1));
             return meshBuffer;
         }
     }
     
-    public static MeshBuffer GetLineBuffer(string path, Vector3[] vertices)
+    public static MeshBuffer GetLineBuffer(string cacheKey, Vector3[] vertices)
     {
-        if (VAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(cacheKey, out var cached))
         {
             cached.users++;
-            VAOs[path] = cached;
+            VAOs[cacheKey] = cached;
             return cached.meshBuffer;
         }
         else
@@ -449,7 +450,7 @@ public static class GraphicsCache
             VertexAttribute[] staticAttributes = [positionAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             
-            VAOs.Add(path, (meshBuffer, 1));
+            VAOs.Add(cacheKey, (meshBuffer, 1));
             return meshBuffer;
         }
     }
@@ -457,12 +458,12 @@ public static class GraphicsCache
     [Obsolete("Feature not maintained")]
     public static MeshBuffer GetSkyboxBuffer()
     {
-        string path = "skybox";
+        string cacheKey = "skybox";
         
-        if (VAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(cacheKey, out var cached))
         {
             cached.users++;
-            VAOs[path] = cached;
+            VAOs[cacheKey] = cached;
             return cached.meshBuffer;
         }
         else
@@ -473,7 +474,7 @@ public static class GraphicsCache
             VertexAttribute[] staticAttributes = [positionAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             
-            VAOs.Add(path, (meshBuffer, 1));
+            VAOs.Add(cacheKey, (meshBuffer, 1));
             return meshBuffer;
         }
     }
@@ -481,12 +482,12 @@ public static class GraphicsCache
     [Obsolete("Feature not maintained")]
     public static MeshBuffer GetUIBuffer()
     {
-        string path = "ui";
+        string cacheKey = "ui";
         
-        if (VAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(cacheKey, out var cached))
         {
             cached.users++;
-            VAOs[path] = cached;
+            VAOs[cacheKey] = cached;
             return cached.meshBuffer;
         }
         else
@@ -498,25 +499,25 @@ public static class GraphicsCache
             VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
             meshBuffer.GenStaticVBO(staticAttributes);
             
-            VAOs.Add(path, (meshBuffer, 1));
+            VAOs.Add(cacheKey, (meshBuffer, 1));
             return meshBuffer;
         }
     }
 
-    public static void RemoveBuffer(string path)
+    public static void RemoveBuffer(string cacheKey)
     {
-        if (VAOs.TryGetValue(path, out var cached))
+        if (VAOs.TryGetValue(cacheKey, out var cached))
         {
             cached.users--;
 
             if (cached.users == 0)
             {
                 GL.DeleteVertexArray(cached.meshBuffer.VAO);
-                VAOs.Remove(path);
+                VAOs.Remove(cacheKey);
             }
             else
             {
-                VAOs[path] = cached;
+                VAOs[cacheKey] = cached;
             }
         }
     }

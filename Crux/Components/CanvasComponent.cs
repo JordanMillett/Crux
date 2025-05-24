@@ -1,16 +1,10 @@
 using Crux.CUI;
+using Crux.Utilities.IO;
 
 namespace Crux.Components;
 
 public class CanvasComponent : RenderComponent
 {          
-    public string CUIMarkup =
-    @"
-    <div>
-        <p>Hello!</p>
-    </div>
-    ";
-
     private CUINode Root = null!;
 
     public Vector2 VirtualResolution = new Vector2(1280, 720);
@@ -23,7 +17,7 @@ public class CanvasComponent : RenderComponent
     public void ParseMarkup()
     {
         CUIParser.canvas = this; //Must do!
-        var parser = new CUIParser(CUIMarkup);
+        var parser = new CUIParser(AssetHandler.ReadAssetInFull("Game/Assets/CUI/main.html"));
         Root = parser.Parse()!;
     }
 
@@ -43,32 +37,41 @@ public class CanvasComponent : RenderComponent
 
     public override void Update()
     {
-        
+        Root.Update();
     }
 
     public override void Render()
     {
         Root.Measure();
+        Root.Arrange(Vector2.Zero);
         Root.Render();
     }
 
-    public Matrix4 GetVirtualScale(float width, float height)
+    public Matrix4 GetModelMatrix(CUIBounds bounds)
     {
-        float scaleX = 2f / VirtualResolution.X;
-        float scaleY = 2f / VirtualResolution.Y;
+        float scaleX = bounds.Width / VirtualResolution.X;
+        float scaleY = bounds.Height / VirtualResolution.Y;
+        Matrix4 scale = Matrix4.CreateScale(scaleX, scaleY, 1f);
 
-        return Matrix4.CreateScale(width * scaleX, height * scaleY, 1.0f);
+        float posX = ((bounds.AbsolutePosition.X + bounds.Width / 2f) / VirtualResolution.X) * 2f - 1f;
+        float posY = -(((bounds.AbsolutePosition.Y + bounds.Height / 2f) / VirtualResolution.Y) * 2f - 1f);
+        Matrix4 translation = Matrix4.CreateTranslation(posX, posY, 0f);
+
+        return scale * translation;
     }
 
-    public Matrix4 GetVirtualTranslation(float x, float y, float width, float height)
+    public Matrix4 GetLetterModelMatrix(CUIBounds bounds)
     {
-        float scaleX = 2f / VirtualResolution.X;
-        float scaleY = 2f / VirtualResolution.Y;
+        float width = bounds.Width / VirtualResolution.X;
+        float height = 2f * width;
 
-        // Translate to the center of the quad
-        float translatedX = x * scaleX - 1.0f + (width * scaleX * 0.5f);
-        float translatedY = -(y * scaleY - 1.0f + (height * scaleY * 0.5f)); // flip Y if top-left origin
+        Matrix4 scale = Matrix4.CreateScale(width, height, 1f);
 
-        return Matrix4.CreateTranslation(translatedX, translatedY, 0.0f);
+        float posX = ((bounds.AbsolutePosition.X + bounds.Width / 2f) / VirtualResolution.X) * 2f - 1f;
+        float posY = -(((bounds.AbsolutePosition.Y + bounds.Height / 2f) / VirtualResolution.Y) * 2f - 1f);
+
+        Matrix4 translation = Matrix4.CreateTranslation(posX, posY, 0f);
+
+        return scale * translation;
     }
 }

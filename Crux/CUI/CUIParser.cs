@@ -1,6 +1,7 @@
 using AngleSharp;
 using AngleSharp.Dom;
 using Crux.Components;
+using Crux.Utilities.Helpers;
 
 namespace Crux.CUI;
 
@@ -12,7 +13,8 @@ public class CUIParser
     public static readonly Dictionary<string, Func<CUINode>> TagMap = new()
     {
         { "p", () => new CUIText(canvas) },
-        { "div", () => new CUIContainer(canvas) }
+        { "div", () => new CUIContainer(canvas) },
+        { "page", () => new CUIPage(canvas) }
     };
 
     public CUIParser(string input)
@@ -41,9 +43,24 @@ public class CUIParser
 
             CUINode cruxNode = constructor(); 
 
+            if (cruxNode is CUIPage)
+            {
+                CUIPage casted = (cruxNode as CUIPage)!;
+
+                foreach (INode child in angleSharpElement.ChildNodes)
+                {
+                    CUINode createdChild = ConvertFromAngleSharp(child);
+                    if (createdChild != null)
+                        casted.Children.Add(createdChild);
+                }
+            }else
             if (cruxNode is CUIContainer)
             {
                 CUIContainer casted = (cruxNode as CUIContainer)!;
+
+                string? attributeColor = angleSharpElement.GetAttribute("color");
+                if(!string.IsNullOrEmpty(attributeColor))
+                    casted.Background = ColorHelper.HexToColor4(attributeColor);
 
                 foreach (INode child in angleSharpElement.ChildNodes)
                 {

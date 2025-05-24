@@ -121,7 +121,7 @@ public abstract class Scene
         //string materialPath = "Crux/Assets/Materials/Skybox.json";
         Skybox = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Skybox, false);
 
-        skyboxBuffer = GraphicsCache.GetInstancedQuadBuffer(GraphicsCache.QuadBufferType.ui_with_no_uvs);
+        skyboxBuffer = GraphicsCache.GetInstancedQuadBuffer("skybox");
         
         if (UBO == -1)
         {                
@@ -147,8 +147,9 @@ public abstract class Scene
         
         GL.BindVertexArray(skyboxBuffer.VAO);
         
+        //MOVE OUT OF HERE TO GRAPHICS CACHE I THINK
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
-        //GraphicsCache.DrawCallsThisFrame++;
+        GraphicsCache.DrawCallsThisFrame++;
 
         GL.BindVertexArray(0);
 
