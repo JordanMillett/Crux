@@ -2,7 +2,7 @@ using Crux.CUI;
 
 namespace Crux.Components;
 
-public class CanvasComponent : Component
+public class CanvasComponent : RenderComponent
 {          
     public string CUIMarkup =
     @"
@@ -39,6 +39,11 @@ public class CanvasComponent : Component
     }
 
     public override void Update()
+    {
+        
+    }
+
+    public override void Render()
     {
         Root.Measure();
         Root.Render();

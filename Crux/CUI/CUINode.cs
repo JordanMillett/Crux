@@ -26,11 +26,10 @@ public abstract class CUINode
 public class CUIContainer : CUINode
 {
     private static Shader? ShaderSingleton { get; set; }
+    private readonly MeshBuffer meshBuffer;
 
     //Instanced Data
     public Color4 Background = Color4.White;
-
-    private readonly MeshBuffer meshBuffer;
 
     public static List<CUIContainer> Instances = [];
 
@@ -73,13 +72,13 @@ public class CUIContainer : CUINode
             )];
 
             int packIndex = 0;
-
             foreach(CUIContainer instance in Instances)
             {
                 Matrix4 modelMatrix = 
-                    Matrix4.CreateScale(0f, 1f, 1.0f) *
-                    Matrix4.CreateTranslation(0.5f, 0.5f, 0.0f); //todo set positions with margins and such
+                    Matrix4.CreateScale(0.1f, 0.1f, 1.0f) *
+                    Matrix4.CreateTranslation(-0.3f, -0.3f, 0.0f); //todo set positions with margins and such
 
+                //PACK
                 MatrixHelper.Matrix4ToArray(modelMatrix, out float[] values);
                 for(int j = 0; j < values.Length; j++)
                     flatpack[packIndex++] = values[j];

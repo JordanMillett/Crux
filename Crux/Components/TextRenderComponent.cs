@@ -7,24 +7,24 @@ namespace Crux.Components;
 
 public class TextRenderComponent : RenderComponent
 {     
-    public MeshBuffer FontBuffer;
+    private static Shader? ShaderSingleton;
+    private readonly MeshBuffer meshBuffer;
 
     private readonly string Charset = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-    
-    private static Shader? fontMaterial;
+
     public string Text = "";
     public Vector2 StartPosition = Vector2.Zero;
     public float FontScale = 1f;
 
     public TextRenderComponent(GameObject gameObject): base(gameObject)
     {
-        if (fontMaterial == null)
+        if (ShaderSingleton == null)
         {
-            fontMaterial = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Font, true);
-            fontMaterial.SetUniform("atlasScale", new Vector2(10, 10));
+            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Font, true);
+            ShaderSingleton.SetUniform("atlasScale", new Vector2(10, 10));
         }
 
-        FontBuffer = GraphicsCache.GetInstancedQuadBuffer(GraphicsCache.QuadBufferType.ui_with_atlas);
+        meshBuffer = GraphicsCache.GetInstancedQuadBuffer(GraphicsCache.QuadBufferType.ui_with_atlas);
     }
 
     public override string ToString()
@@ -45,7 +45,7 @@ public class TextRenderComponent : RenderComponent
 
     public override void Render()
     {  
-        if (!FontBuffer.DrawnThisFrame)
+        if (!meshBuffer.DrawnThisFrame)
         {
             float charWidth = 0.05f * FontScale;
             float charHeight = 0.1f * FontScale;
@@ -53,10 +53,10 @@ public class TextRenderComponent : RenderComponent
             float lineOffsetY = 0;
 
             float[] flatpack = new float[Text.Length *
-                (
-                VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
-                VertexAttributeHelper.GetTypeByteSize(typeof(Vector2))
-                )];
+            (
+            VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
+            VertexAttributeHelper.GetTypeByteSize(typeof(Vector2))
+            )];
 
             int packIndex = 0;
             for (int i = 0; i < Text.Length; i++)
@@ -90,15 +90,15 @@ public class TextRenderComponent : RenderComponent
                 }
             }
 
-            FontBuffer.SetDynamicVBOData(flatpack, Text.Length);
+            meshBuffer.SetDynamicVBOData(flatpack, Text.Length);
 
-            fontMaterial?.Bind();
+            ShaderSingleton?.Bind();
             
-            FontBuffer.DrawInstancedWithoutIndices(6, Text.Length);
+            meshBuffer.DrawInstancedWithoutIndices(Shapes.QuadVertices.Length, Text.Length);
 
-            fontMaterial?.Unbind();
+            ShaderSingleton?.Unbind();
 
-            FontBuffer.DrawnThisFrame = true;
+            meshBuffer.DrawnThisFrame = true;
         }
     }
 

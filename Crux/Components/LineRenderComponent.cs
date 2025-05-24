@@ -9,11 +9,10 @@ namespace Crux.Components;
 public class LineRenderComponent : RenderComponent
 {
     private static Shader? ShaderSingleton { get; set; }
+    private readonly MeshBuffer meshBuffer;
 
     //Instanced Data
     public Color4 Color = Color4.Red;
-
-    private readonly MeshBuffer meshBuffer;
 
     public static List<LineRenderComponent> Instances = [];
 
@@ -53,9 +52,9 @@ public class LineRenderComponent : RenderComponent
             )];
 
             int packIndex = 0;
-
             foreach(LineRenderComponent instance in Instances)
             {
+                //PACK
                 MatrixHelper.Matrix4ToArray(instance.Transform.ModelMatrix, out float[] values);
                 for(int j = 0; j < values.Length; j++)
                     flatpack[packIndex++] = values[j];

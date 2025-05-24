@@ -20,16 +20,17 @@ out vec4 outColor;
 
 void main()
 {
-    vec4 computedColor = texture(albedoTexture, passUV * tiling);
-    
+    //vec4 computedColor = texture(albedoTexture, passUV * tiling);
+    vec4 computedColor = vec4(1.0);
+
     #ifdef INSTANCED
         computedColor = computedColor * instHue;
     #else
         computedColor = computedColor * albedoHue;
     #endif
 
-    if (computedColor.a < 0.9)
-        discard;
+    //if (computedColor.a < 0.9)
+        //discard;
 
     outColor = computedColor;
 }
