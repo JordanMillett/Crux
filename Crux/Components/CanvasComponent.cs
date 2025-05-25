@@ -5,7 +5,7 @@ namespace Crux.Components;
 
 public class CanvasComponent : RenderComponent
 {          
-    private CUINode Root = null!;
+    private CUINode? Root;
 
     public Vector2 VirtualResolution = new Vector2(1280, 720);
 
@@ -16,9 +16,8 @@ public class CanvasComponent : RenderComponent
     
     public void ParseMarkup()
     {
-        CUIParser.canvas = this; //Must do!
         var parser = new CUIParser(AssetHandler.ReadAssetInFull("Game/Assets/CUI/main.html"));
-        Root = parser.Parse()!;
+        Root = parser.Parse(this)!;
     }
 
     public override string ToString()
@@ -37,14 +36,14 @@ public class CanvasComponent : RenderComponent
 
     public override void Update()
     {
-        Root.Update();
+        Root?.Update();
     }
 
     public override void Render()
     {
-        Root.Measure();
-        Root.Arrange(Vector2.Zero);
-        Root.Render();
+        Root?.Measure();
+        Root?.Arrange(Vector2.Zero);
+        Root?.Render();
     }
 
     public Matrix4 GetModelMatrix(CUIBounds bounds)

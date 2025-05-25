@@ -5,9 +5,9 @@ using Crux.Components;
 
 namespace Crux.CUI;
 
-public class CUIPage : CUINode
+public class CUIEmpty : CUINode
 {
-    public CUIPage(CanvasComponent canvas): base(canvas)
+    public CUIEmpty(CanvasComponent canvas): base(canvas)
     {
         
     }

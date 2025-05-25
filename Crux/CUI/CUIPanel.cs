@@ -5,7 +5,7 @@ using Crux.Components;
 
 namespace Crux.CUI;
 
-public class CUIContainer : CUINode
+public class CUIPanel : CUINode
 {
     private static Shader? ShaderSingleton { get; set; }
     private readonly MeshBuffer meshBuffer;
@@ -13,14 +13,14 @@ public class CUIContainer : CUINode
     //Instanced Data
     public Color4 Background = Color4.White;
 
-    public static List<CUIContainer> Instances = [];
+    public static List<CUIPanel> Instances = [];
 
-    public CUIContainer(CanvasComponent canvas): base(canvas)
+    public CUIPanel(CanvasComponent canvas): base(canvas)
     {
         if (ShaderSingleton == null)
             ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "");
 
-        meshBuffer = GraphicsCache.GetInstancedQuadBuffer("CUIContainer");
+        meshBuffer = GraphicsCache.GetInstancedQuadBuffer("CUIPanel");
         Instances.Add(this);
     }
 
@@ -35,7 +35,7 @@ public class CUIContainer : CUINode
             )];
 
             int packIndex = 0;
-            foreach(CUIContainer instance in Instances)
+            foreach(CUIPanel instance in Instances)
             {
                 Matrix4 modelMatrix = Canvas.GetModelMatrix(instance.Bounds);
 
@@ -49,7 +49,7 @@ public class CUIContainer : CUINode
                 flatpack[packIndex++] = instance.Background.B;
                 flatpack[packIndex++] = instance.Background.A;
 
-                Logger.Log($"Container: {instance.Bounds.Width} x {instance.Bounds.Height} at ({instance.Bounds.AbsolutePosition.X}, {instance.Bounds.AbsolutePosition.Y})");
+                //Logger.Log($"Container: {instance.Bounds.Width} x {instance.Bounds.Height} at ({instance.Bounds.AbsolutePosition.X}, {instance.Bounds.AbsolutePosition.Y})");
             }
 
             meshBuffer.SetDynamicVBOData(flatpack, Instances.Count);

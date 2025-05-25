@@ -1,85 +1,78 @@
 using AngleSharp;
 using AngleSharp.Dom;
+using AngleSharp.Css;
 using Crux.Components;
 using Crux.Utilities.Helpers;
+using AngleSharp.Css.Dom;
+using System.Drawing;
 
 namespace Crux.CUI;
 
 public class CUIParser
 {
     private readonly string input;
-    public static CanvasComponent canvas;
-
-    public static readonly Dictionary<string, Func<CUINode>> TagMap = new()
-    {
-        { "p", () => new CUIText(canvas) },
-        { "div", () => new CUIContainer(canvas) },
-        { "page", () => new CUIPage(canvas) }
-    };
 
     public CUIParser(string input)
     {
         this.input = input;
     }
 
-    public CUINode? Parse()
+    public CUINode? Parse(CanvasComponent canvas)
     {
-        IConfiguration config = Configuration.Default;
+        IConfiguration config = Configuration.Default.WithCss();
         IBrowsingContext context = BrowsingContext.New(config);
         IDocument document = context.OpenAsync(req => req.Content(input)).Result;
         IElement body = document.Body ?? document.DocumentElement;
 
-        return ConvertFromAngleSharp(body.FirstChild!);
+        return ConvertFromAngleSharp(body!, canvas);
     }
 
-    CUINode ConvertFromAngleSharp(INode angleSharpNode)
+    CUINode ConvertFromAngleSharp(INode angleSharpNode, CanvasComponent canvas)
     {
+        //Logger.Log($"INode Type: {angleSharpNode.GetType().Name}");
+
+        CUINode cruxNode = null!;
+
         if (angleSharpNode is IElement angleSharpElement)
         {
             string tagName = angleSharpElement.TagName.ToLower();
 
-            if (!TagMap.TryGetValue(tagName, out var constructor))
-                return null!;
+            //Logger.Log($"IElement parsed: {tagName}");
 
-            CUINode cruxNode = constructor(); 
-
-            if (cruxNode is CUIPage)
+            switch (tagName)
             {
-                CUIPage casted = (cruxNode as CUIPage)!;
+                case "div": 
+                    ICssStyleDeclaration styleData = angleSharpElement.GetStyle();
+                    string backgroundColor = styleData.GetPropertyValue("background-color");
+            
+                    if(!string.IsNullOrEmpty(backgroundColor))
+                    {
+                        cruxNode = new CUIPanel(canvas);
+                        
+                        (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(backgroundColor);
+                    }
+                break;
+                case "p": 
+                    cruxNode = new CUIText(canvas);
 
-                foreach (INode child in angleSharpElement.ChildNodes)
-                {
-                    CUINode createdChild = ConvertFromAngleSharp(child);
-                    if (createdChild != null)
-                        casted.Children.Add(createdChild);
-                }
-            }else
-            if (cruxNode is CUIContainer)
-            {
-                CUIContainer casted = (cruxNode as CUIContainer)!;
-
-                string? attributeColor = angleSharpElement.GetAttribute("color");
-                if(!string.IsNullOrEmpty(attributeColor))
-                    casted.Background = ColorHelper.HexToColor4(attributeColor);
-
-                foreach (INode child in angleSharpElement.ChildNodes)
-                {
-                    CUINode createdChild = ConvertFromAngleSharp(child);
-                    if (createdChild != null)
-                        casted.Children.Add(createdChild);
-                }
-            }else if (cruxNode is CUIText)
-            {
-                CUIText casted = (cruxNode as CUIText)!;
-
-                casted.Text = string.Join("", angleSharpElement.ChildNodes
-                    .OfType<IText>()
-                    .Select(t => t.Text.Trim()));
+                    (cruxNode as CUIText)!.Text = string.Join("", angleSharpElement.ChildNodes
+                        .OfType<IText>()
+                        .Select(t => t.Text.Trim()));
+                break;
             }
-
-            return cruxNode;
         }
 
-        return null!;
+        if(cruxNode == null)
+            cruxNode = new CUIEmpty(canvas);
+
+        foreach (INode child in angleSharpNode.ChildNodes)
+        {
+            //Logger.Log("ENTERING...");
+            CUINode createdChild = ConvertFromAngleSharp(child, canvas);
+            cruxNode.Children.Add(createdChild);
+            //Logger.Log("EXITING...");
+        }
+
+        return cruxNode;
     }
 }

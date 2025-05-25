@@ -13,6 +13,7 @@
     <PackageReference Include="StbImageSharp" Version="2.30.15" />
     <PackageReference Include="StbImageWriteSharp" Version="1.16.7" />
     <PackageReference Include="AngleSharp" Version="1.3.0" />
+    <PackageReference Include="AngleSharp.Css" Version="1.0.0-beta.154" />
   </ItemGroup>
 
   <PropertyGroup>
