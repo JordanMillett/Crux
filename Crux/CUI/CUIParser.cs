@@ -8,6 +8,17 @@ using System.Drawing;
 
 namespace Crux.CUI;
 
+/*
+Supported Features
+
+div
+- background-color
+
+p
+- color
+- font-size
+*/
+
 public class CUIParser
 {
     private readonly string input;
