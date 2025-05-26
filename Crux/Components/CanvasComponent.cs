@@ -48,29 +48,28 @@ public class CanvasComponent : RenderComponent
 
     public Matrix4 GetModelMatrix(CUIBounds bounds)
     {
-        float scaleX = bounds.Width / VirtualResolution.X;
-        float scaleY = bounds.Height / VirtualResolution.Y;
-        Matrix4 scale = Matrix4.CreateScale(scaleX, scaleY, 1f);
+        float aspectDifference = Math.Min(GameEngine.Link.Resolution.X / VirtualResolution.X, GameEngine.Link.Resolution.Y / VirtualResolution.Y);
 
-        float posX = ((bounds.AbsolutePosition.X + bounds.Width / 2f) / VirtualResolution.X) * 2f - 1f;
-        float posY = -(((bounds.AbsolutePosition.Y + bounds.Height / 2f) / VirtualResolution.Y) * 2f - 1f);
+        float scaledWidth = VirtualResolution.X * aspectDifference;
+        float scaledHeight = VirtualResolution.Y * aspectDifference;
+
+        float offsetX = (GameEngine.Link.Resolution.X - scaledWidth) / 2f;
+        float offsetY = (GameEngine.Link.Resolution.Y - scaledHeight) / 2f;
+
+        float normalizedOffsetX = (offsetX / GameEngine.Link.Resolution.X) * 2f;
+        float normalizedOffsetY = (offsetY / GameEngine.Link.Resolution.Y) * 2f;
+
+        float normScaleX = (bounds.Width / VirtualResolution.X) * aspectDifference;
+        float normScaleY = (bounds.Height / VirtualResolution.Y) * aspectDifference;
+
+        Matrix4 scale = Matrix4.CreateScale(normScaleX, normScaleY, 1f);
+
+        float posX = ((bounds.AbsolutePosition.X / VirtualResolution.X) * 2f - 1f) * aspectDifference + normalizedOffsetX - 1f + aspectDifference;
+        float posY = -(((bounds.AbsolutePosition.Y / VirtualResolution.Y) * 2f - 1f) * aspectDifference + normalizedOffsetY - 1f + aspectDifference);
+
+        Matrix4 originShift = Matrix4.CreateTranslation(1f, -1f, 0f);
         Matrix4 translation = Matrix4.CreateTranslation(posX, posY, 0f);
 
-        return scale * translation;
-    }
-
-    public Matrix4 GetLetterModelMatrix(CUIBounds bounds)
-    {
-        float width = bounds.Width / VirtualResolution.X;
-        float height = 2f * width;
-
-        Matrix4 scale = Matrix4.CreateScale(width, height, 1f);
-
-        float posX = ((bounds.AbsolutePosition.X + bounds.Width / 2f) / VirtualResolution.X) * 2f - 1f;
-        float posY = -(((bounds.AbsolutePosition.Y + bounds.Height / 2f) / VirtualResolution.Y) * 2f - 1f);
-
-        Matrix4 translation = Matrix4.CreateTranslation(posX, posY, 0f);
-
-        return scale * translation;
+        return originShift * scale * translation;
     }
 }

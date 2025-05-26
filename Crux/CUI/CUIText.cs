@@ -14,7 +14,7 @@ public class CUIText : CUINode
     public string Text { get; set; } = "";
     public static int InstanceID = 0;
 
-    public float VirtualFontSize = 16f;
+    public float VirtualFontSize = 32f;
 
     public CUIText(CanvasComponent canvas): base(canvas)
     {
@@ -31,28 +31,23 @@ public class CUIText : CUINode
     public override void Measure()
     {
         float totalWidth = 0;
-        float fontHeight = VirtualFontSize;
 
         foreach (char c in Text)
         {
-            float charWidthFactor = GetCharWidth(c);
-            float charWidth = fontHeight * charWidthFactor;
-
+            float charWidth = VirtualFontSize * GetCharWidth(c) / 2f;
             totalWidth += charWidth;
         }
 
         Bounds.Width = totalWidth;
-        Bounds.Height = fontHeight;
+        Bounds.Height = VirtualFontSize;
     }
 
     public override void Render()
     {
         if (!meshBuffer.DrawnThisFrame)
         {
-            float charWidth = 0.05f * VirtualFontSize;
-            float charHeight = 0.1f * VirtualFontSize;
-            float lineOffsetX = 0f;
-            float lineOffsetY = 0;
+            float cursorX = -VirtualFontSize/6f;
+            float cursorY = 0f;
 
             float[] flatpack = new float[Text.Length *
             (
@@ -65,43 +60,51 @@ public class CUIText : CUINode
             {
                 char c = Text[i];
 
-                if (c == '\n' || lineOffsetX + charWidth * GetCharWidth(c) > 10f)
+                if (c == '\n')
                 {
-                    lineOffsetX = 0;
-                    lineOffsetY -= charHeight * 2f;
-                    if (c == '\n') 
-                        continue;
+                    cursorX = 0f;
+                    cursorY -= VirtualFontSize; 
+                    continue;
                 }
 
-                if (TryGetCharacterAtlasOffset(c, out Vector2 atlasOffset))
+                // Get character width scaled by VirtualFontSize
+                float charWidth = VirtualFontSize * GetCharWidth(c) / 2f;
+
+                // Calculate character bounds in virtual resolution space
+                CUIBounds charBounds = new CUIBounds
                 {
-                    lineOffsetX += charWidth * GetCharWidth(c);
-                    Vector2 charPosition = Bounds.AbsolutePosition + new Vector2(lineOffsetX, lineOffsetY);
+                    Width = VirtualFontSize,
+                    Height = VirtualFontSize,
+                    AbsolutePosition = Bounds.AbsolutePosition + new Vector2(cursorX, cursorY),
+                    RelativePosition = Vector2.Zero,
+                };
 
-                    CUIBounds charBounds = new CUIBounds
-                    {
-                        Width = charWidth,
-                        Height = charHeight,
-                        AbsolutePosition = charPosition,
-                        RelativePosition = Vector2.Zero,
-                    };
+                // Get model matrix for this character
+                Matrix4 modelMatrix = Canvas.GetModelMatrix(charBounds);
 
-                        Matrix4 modelMatrix = Canvas.GetLetterModelMatrix(charBounds);
+                // Convert modelMatrix to float array
+                MatrixHelper.Matrix4ToArray(modelMatrix, out float[] values);
 
-                    //PACK
-                    MatrixHelper.Matrix4ToArray(modelMatrix, out float[] values);
-                    for(int j = 0; j < values.Length; j++)
-                        flatpack[packIndex++] = values[j];
+                // Copy matrix floats to flatpack
+                for (int j = 0; j < values.Length; j++)
+                    flatpack[packIndex++] = values[j];
 
-                    flatpack[packIndex++] = atlasOffset.X;
-                    flatpack[packIndex++] = atlasOffset.Y;
+                // Get atlas offset for this character
+                if (!TryGetCharacterAtlasOffset(c, out Vector2 atlasOffset))
+                {
+                    atlasOffset = Vector2.Zero; // fallback if char not found
                 }
+
+                flatpack[packIndex++] = atlasOffset.X;
+                flatpack[packIndex++] = atlasOffset.Y;
+
+                cursorX += charWidth;
             }
 
             meshBuffer.SetDynamicVBOData(flatpack, Text.Length);
 
             ShaderSingleton?.Bind();
-            
+
             meshBuffer.DrawInstancedWithoutIndices(Shapes.QuadVertices.Length, Text.Length);
 
             ShaderSingleton?.Unbind();
@@ -109,6 +112,7 @@ public class CUIText : CUINode
             meshBuffer.DrawnThisFrame = true;
         }
     }
+
 
     private bool TryGetCharacterAtlasOffset(char c, out Vector2 atlasOffset)
     {

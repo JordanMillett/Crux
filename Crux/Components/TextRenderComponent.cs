@@ -19,6 +19,8 @@ public class TextRenderComponent : RenderComponent
 
     public TextRenderComponent(GameObject gameObject): base(gameObject)
     {
+        return;
+
         if (ShaderSingleton == null)
         {
             ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Font, true);
@@ -46,6 +48,8 @@ public class TextRenderComponent : RenderComponent
 
     public override void Render()
     {  
+        return;
+
         if (!meshBuffer.DrawnThisFrame)
         {
             float charWidth = 0.05f * FontScale;
