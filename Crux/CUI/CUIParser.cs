@@ -36,13 +36,12 @@ public class CUIParser
         if (angleSharpNode is IElement angleSharpElement)
         {
             string tagName = angleSharpElement.TagName.ToLower();
-
+            ICssStyleDeclaration styleData = angleSharpElement.GetStyle();
             //Logger.Log($"IElement parsed: {tagName}");
 
             switch (tagName)
             {
                 case "div": 
-                    ICssStyleDeclaration styleData = angleSharpElement.GetStyle();
                     string backgroundColor = styleData.GetPropertyValue("background-color");
             
                     if(!string.IsNullOrEmpty(backgroundColor))
@@ -54,6 +53,19 @@ public class CUIParser
                 break;
                 case "p": 
                     cruxNode = new CUIText(canvas);
+
+                    string textSize = styleData.GetPropertyValue("font-size");
+                    if(!string.IsNullOrEmpty(textSize))
+                    {
+                        if(textSize.EndsWith("px"))
+                            textSize = textSize[..^2];
+
+                        (cruxNode as CUIText)!.VirtualFontSize = float.Parse(textSize);
+                    }
+
+                    string textColor = styleData.GetPropertyValue("color");
+                    if(!string.IsNullOrEmpty(textColor))
+                        (cruxNode as CUIText)!.FontColor = ColorHelper.RGBAStringToColor4(textColor);
 
                     (cruxNode as CUIText)!.Text = string.Join("", angleSharpElement.ChildNodes
                         .OfType<IText>()

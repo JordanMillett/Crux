@@ -27,7 +27,7 @@ public class TextRenderComponent : RenderComponent
             ShaderSingleton.SetUniform("atlasScale", new Vector2(10, 10));
         }
 
-        meshBuffer = GraphicsCache.GetInstancedFontBuffer("oldText");
+        //meshBuffer = GraphicsCache.GetInstancedFontBuffer("oldText");
     }
 
     public override string ToString()

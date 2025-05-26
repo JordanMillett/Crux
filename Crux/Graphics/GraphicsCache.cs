@@ -298,34 +298,6 @@ public static class GraphicsCache
         }
     }
 
-    public static MeshBuffer GetInstancedFontBuffer(string cacheKey)
-    {
-        if (VAOs.TryGetValue(cacheKey, out var cached))
-        {
-            cached.users++;
-            VAOs[cacheKey] = cached;
-            return cached.meshBuffer;
-        }
-        else
-        {
-            MeshBuffer meshBuffer = new();   
-
-            VertexAttribute positionAttribute = VertexAttributeHelper.ConvertToAttribute(0, "inPosition", Shapes.QuadVertices);
-            VertexAttribute uvsAttribute = VertexAttributeHelper.ConvertToAttribute(1, "inUV", Shapes.QuadUVs);
-            VertexAttribute[] staticAttributes = [positionAttribute, uvsAttribute]; 
-            meshBuffer.GenStaticVBO(staticAttributes);
-
-            meshBuffer.GenDynamicVBO(new (int, Type)[]
-            {
-                (2, typeof(Matrix4)),
-                (6, typeof(Vector2))
-            });
-            
-            VAOs.Add(cacheKey, (meshBuffer, 1));            
-            return meshBuffer;
-        }
-    }
-
     public static MeshBuffer GetInstancedQuadBuffer(string cacheKey)
     {        
         if (VAOs.TryGetValue(cacheKey, out var cached))
@@ -345,8 +317,9 @@ public static class GraphicsCache
             
             meshBuffer.GenDynamicVBO(new (int, Type)[]
             {
-                (3, typeof(Matrix4)),
-                (7, typeof(Vector4))
+                (3, typeof(Matrix4)), //Model Matrix
+                (7, typeof(Vector4)), //Color
+                (8, typeof(Vector2)), //Atlas Offset
             });
             
             VAOs.Add(cacheKey, (meshBuffer, 1));            
@@ -373,8 +346,8 @@ public static class GraphicsCache
     
             meshBuffer.GenDynamicVBO(new (int, Type)[]
             {
-                (3, typeof(Matrix4)),
-                (7, typeof(Vector4))
+                (3, typeof(Matrix4)), //Model Matrix
+                (7, typeof(Vector4))  //Color
             });
             
             VAOs.Add(cacheKey, (meshBuffer, 1));            
@@ -404,7 +377,7 @@ public static class GraphicsCache
 
             meshBuffer.GenDynamicVBO(new (int, Type)[]
             {
-                (3, typeof(Matrix4))
+                (3, typeof(Matrix4))  //Model Matrix
             });
 
             VAOs.Add(cacheKey, (meshBuffer, 1));

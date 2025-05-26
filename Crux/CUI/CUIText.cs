@@ -15,6 +15,7 @@ public class CUIText : CUINode
     public static int InstanceID = 0;
 
     public float VirtualFontSize = 32f;
+    public Color4 FontColor = Color4.White;
 
     public CUIText(CanvasComponent canvas): base(canvas)
     {
@@ -24,7 +25,7 @@ public class CUIText : CUINode
             ShaderSingleton.SetUniform("atlasScale", new Vector2(10, 10));
         }
 
-        meshBuffer = GraphicsCache.GetInstancedFontBuffer($"CUIText_{InstanceID}");
+        meshBuffer = GraphicsCache.GetInstancedQuadBuffer($"CUIText_{InstanceID}");
         InstanceID++;
     }
 
@@ -52,6 +53,7 @@ public class CUIText : CUINode
             float[] flatpack = new float[Text.Length *
             (
             VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
+            VertexAttributeHelper.GetTypeByteSize(typeof(Vector4)) +
             VertexAttributeHelper.GetTypeByteSize(typeof(Vector2))
             )];
 
@@ -94,6 +96,11 @@ public class CUIText : CUINode
                 {
                     atlasOffset = Vector2.Zero; // fallback if char not found
                 }
+
+                flatpack[packIndex++] = FontColor.R;
+                flatpack[packIndex++] = FontColor.G;
+                flatpack[packIndex++] = FontColor.B;
+                flatpack[packIndex++] = FontColor.A;
 
                 flatpack[packIndex++] = atlasOffset.X;
                 flatpack[packIndex++] = atlasOffset.Y;

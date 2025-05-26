@@ -6,6 +6,7 @@
 in vec2 passUV;
 
 //Take From Vertex - Per Instance
+flat in vec4 instHue;
 flat in vec2 instAtlasOffset;
 
 //Non-Instanced Uniforms
@@ -23,6 +24,6 @@ void main()
     if (length(sampled.rgb) < 0.75)
         discard;
 
-    outColor = sampled * albedoHue;
+    outColor = sampled * instHue;
 }
 

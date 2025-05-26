@@ -31,7 +31,8 @@ public class CUIPanel : CUINode
             float[] flatpack = new float[Instances.Count *
             (
             VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
-            VertexAttributeHelper.GetTypeByteSize(typeof(Vector4))
+            VertexAttributeHelper.GetTypeByteSize(typeof(Vector4)) +
+            VertexAttributeHelper.GetTypeByteSize(typeof(Vector2))
             )];
 
             int packIndex = 0;
@@ -48,6 +49,8 @@ public class CUIPanel : CUINode
                 flatpack[packIndex++] = instance.Background.G;
                 flatpack[packIndex++] = instance.Background.B;
                 flatpack[packIndex++] = instance.Background.A;
+
+                packIndex += 2;
 
                 //Logger.Log($"Container: {instance.Bounds.Width} x {instance.Bounds.Height} at ({instance.Bounds.AbsolutePosition.X}, {instance.Bounds.AbsolutePosition.Y})");
             }
