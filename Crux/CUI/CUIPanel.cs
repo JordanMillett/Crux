@@ -26,8 +26,6 @@ public class CUIPanel : CUINode
 
     public override void Render()
     {
-        base.Render();
-
         if (!meshBuffer.DrawnThisFrame)
         {
             float[] flatpack = new float[Instances.Count *
@@ -64,5 +62,7 @@ public class CUIPanel : CUINode
 
             meshBuffer.DrawnThisFrame = true;
         }
+
+        base.Render();
     }
 }

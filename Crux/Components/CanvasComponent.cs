@@ -1,5 +1,6 @@
 using Crux.CUI;
 using Crux.Utilities.IO;
+using OpenTK.Graphics.OpenGL4;
 
 namespace Crux.Components;
 
@@ -43,7 +44,10 @@ public class CanvasComponent : RenderComponent
     {
         Root?.Measure();
         Root?.Arrange(Vector2.Zero);
+
+        GL.DepthMask(false);
         Root?.Render();
+        GL.DepthMask(true);
     }
 
     public Matrix4 GetModelMatrix(CUIBounds bounds)
