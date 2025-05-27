@@ -2,6 +2,8 @@ using Crux.Graphics;
 using Crux.Utilities.IO;
 using Crux.Utilities.Helpers;
 using Crux.Components;
+using AngleSharp.Text;
+using System.Diagnostics;
 
 namespace Crux.CUI;
 
@@ -11,7 +13,8 @@ public class CUIText : CUINode
     private readonly MeshBuffer meshBuffer;
     private readonly string Charset = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
-    public string Text { get; set; } = "";
+    public string TextData { get; set; } = "";
+    public string RenderText { get; set; } = "";
     public static int InstanceID = 0;
 
     public float VirtualFontSize = 32f;
@@ -31,9 +34,31 @@ public class CUIText : CUINode
 
     public override void Measure()
     {
-        float totalWidth = 0;
+        RenderText = "";
+        string[] parts = TextData.SplitSpaces();
+        foreach (string part in parts)
+        {
+            if(!part.StartsWith('@'))
+            {
+                RenderText += part + " ";
+            }else
+            {
+                if(Canvas.BindPoints.ContainsKey(part[1..]))
+                    RenderText += Canvas.BindPoints[part[1..]]() + " ";
+                else
+                    Logger.LogWarning($"CUICanvas bind point {part} not found.");
+            }
+        }
 
-        foreach (char c in Text)
+        /*
+        foreach (var pair in Canvas.BindPoints)
+        {
+            renderedText = renderedText.Replace("@" + pair.Key, pair.Value);
+        }
+        */
+
+        float totalWidth = 0;
+        foreach (char c in RenderText)
         {
             float charWidth = VirtualFontSize * GetCharWidth(c) / 2f;
             totalWidth += charWidth;
@@ -50,7 +75,7 @@ public class CUIText : CUINode
             float cursorX = -VirtualFontSize/6f;
             float cursorY = 0f;
 
-            float[] flatpack = new float[Text.Length *
+            float[] flatpack = new float[RenderText.Length *
             (
             VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
             VertexAttributeHelper.GetTypeByteSize(typeof(Vector4)) +
@@ -58,9 +83,9 @@ public class CUIText : CUINode
             )];
 
             int packIndex = 0;
-            for (int i = 0; i < Text.Length; i++)
+            for (int i = 0; i < RenderText.Length; i++)
             {
-                char c = Text[i];
+                char c = RenderText[i];
 
                 if (c == '\n')
                 {
@@ -108,18 +133,17 @@ public class CUIText : CUINode
                 cursorX += charWidth;
             }
 
-            meshBuffer.SetDynamicVBOData(flatpack, Text.Length);
+            meshBuffer.SetDynamicVBOData(flatpack, RenderText.Length);
 
             ShaderSingleton?.Bind();
 
-            meshBuffer.DrawInstancedWithoutIndices(Shapes.QuadVertices.Length, Text.Length);
+            meshBuffer.DrawInstancedWithoutIndices(Shapes.QuadVertices.Length, RenderText.Length);
 
             ShaderSingleton?.Unbind();
 
             meshBuffer.DrawnThisFrame = true;
         }
     }
-
 
     private bool TryGetCharacterAtlasOffset(char c, out Vector2 atlasOffset)
     {

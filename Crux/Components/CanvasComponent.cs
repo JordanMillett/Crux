@@ -9,6 +9,7 @@ public class CanvasComponent : RenderComponent
     private CUINode? Root;
 
     public Vector2 VirtualResolution = new Vector2(1280, 720);
+    public Dictionary<string, Func<string>> BindPoints = [];
 
     public CanvasComponent(GameObject gameObject) : base(gameObject)
     {

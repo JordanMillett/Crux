@@ -78,7 +78,7 @@ public class CUIParser
                     if(!string.IsNullOrEmpty(textColor))
                         (cruxNode as CUIText)!.FontColor = ColorHelper.RGBAStringToColor4(textColor);
 
-                    (cruxNode as CUIText)!.Text = string.Join("", angleSharpElement.ChildNodes
+                    (cruxNode as CUIText)!.TextData = string.Join("", angleSharpElement.ChildNodes
                         .OfType<IText>()
                         .Select(t => t.Text.Trim()));
                 break;
