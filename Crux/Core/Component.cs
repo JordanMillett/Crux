@@ -16,7 +16,7 @@ public abstract class Component
 
     public T GetComponent<T>() where T : Component
     {
-        return GameObject.GetComponent<T>();
+        return GameObject.GetComponent<T>()!;
     }
 
     public bool HasComponent<T>() where T : Component

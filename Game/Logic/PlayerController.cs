@@ -6,11 +6,23 @@ namespace Game.Logic;
 
 public class PlayerController : Component
 {      
-    PhysicsComponent physics;
+    readonly PhysicsComponent physics;
 
     public PlayerController(GameObject gameObject) : base(gameObject)
     {
         physics = GetComponent<PhysicsComponent>();
+
+        Input.CreateAction("Look Up", Keys.Up);
+        Input.CreateAction("Look Down", Keys.Down);
+        Input.CreateAction("Look Left", Keys.Left);
+        Input.CreateAction("Look Right", Keys.Right);
+
+        Input.CreateAction("Move Forward", Keys.W);
+        Input.CreateAction("Move Back", Keys.S);
+        Input.CreateAction("Move Left", Keys.A);
+        Input.CreateAction("Move Right", Keys.D);
+
+        Input.CreateAction("Sprint", Keys.LeftShift);
     }
     
     public override string ToString()
@@ -37,17 +49,17 @@ public class PlayerController : Component
     
     public void Look()
     {
-        TransformComponent cam = GameEngine.Link.Camera.Transform;
+        TransformComponent cam = GameEngine.Link.Camera!.Transform;
 
         float sensitivity = 0.1f;
         Vector2 LookInput = new Vector2(GameEngine.Link.MouseState.Delta.X, GameEngine.Link.MouseState.Delta.Y);
-        if (GameEngine.Link.IsKeyDown(Keys.Up))
+        if (Input.IsActionHeld("Look Up"))
             LookInput -= new Vector2(0, 1) * 15;
-        if (GameEngine.Link.IsKeyDown(Keys.Down))
+        if (Input.IsActionHeld("Look Down"))
             LookInput += new Vector2(0, 1) * 15;
-        if (GameEngine.Link.IsKeyDown(Keys.Left))
+        if (Input.IsActionHeld("Look Left"))
             LookInput -= new Vector2(1, 0) * 20;
-        if (GameEngine.Link.IsKeyDown(Keys.Right))
+        if (Input.IsActionHeld("Look Right"))
             LookInput += new Vector2(1, 0) * 20;
 
         float yawDelta = -LookInput.X * sensitivity;
@@ -64,10 +76,10 @@ public class PlayerController : Component
     {
         float force = 10f;
         float mult = 1f;
-        if (GameEngine.Link.IsKeyDown(Keys.LeftShift))
+        if (Input.IsActionHeld("Sprint"))
         {
-            //mult *= 1.5f;
-            mult *= 5f;
+            mult *= 1.5f;
+            //mult *= 5f;
         }
         force *= mult;
 
@@ -75,20 +87,20 @@ public class PlayerController : Component
         Vector3 forward = Transform.Forward;
         Vector3 right = -Transform.Right;
 
-        if (GameEngine.Link.IsKeyDown(Keys.W))
+        if (Input.IsActionHeld("Move Forward"))
             pos += forward * force;
-        if (GameEngine.Link.IsKeyDown(Keys.S))
+        if (Input.IsActionHeld("Move Back"))
             pos -= forward * force;
-        if (GameEngine.Link.IsKeyDown(Keys.A))
+        if (Input.IsActionHeld("Move Left"))
             pos -= right * force;
-        if (GameEngine.Link.IsKeyDown(Keys.D))
+        if (Input.IsActionHeld("Move Right"))
             pos += right * force;
     
         if(physics.Velocity.Length < 3f * mult)
             physics.AddForce(pos * GameEngine.Link.deltaTime, true); 
 
         /*
-        if (GameEngine.Link.IsKeyPressed(Keys.Space) && CanJump())
+        if (Input.Action("Jump") && CanJump())
         {
             lastJumped = GameEngine.Link.totalTime;
             physics.AddForce(Vector3.UnitY * GameEngine.Link.deltaTime * 200f, true); 
@@ -96,7 +108,8 @@ public class PlayerController : Component
         */
     }
 
-    float lastJumped = 0f;
+    /*
+    readonly float lastJumped = 0f;
 
     bool CanJump()
     {
@@ -106,4 +119,5 @@ public class PlayerController : Component
         Ray ray = new Ray(this.Transform.WorldPosition, -this.Transform.Up, 0.95f);
         return PhysicsSystem.Raycast(ray, out _);
     }
+    */
 }

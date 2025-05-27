@@ -5,9 +5,9 @@ namespace Crux.Components;
 
 public class MeshComponent : Component
 {
-    public string path { get; set; } = "";
+    public string LoadedPath { get; set; } = "";
     
-    public Mesh data { get; set; } = null!;
+    public Mesh? Data { get; set; }
 
     public MeshComponent(GameObject gameObject): base(gameObject)
     {               
@@ -19,7 +19,7 @@ public class MeshComponent : Component
         StringBuilder sb = new StringBuilder();
 
         sb.AppendLine($"{ this.GetType().Name }");
-        sb.AppendLine($"- Vertices: {data.Vertices.Length}");
+        sb.AppendLine($"- Vertices: {Data!.Vertices.Length}");
 
         return sb.ToString();
     }
@@ -28,8 +28,8 @@ public class MeshComponent : Component
     {
         return new MeshComponent(gameObject)
         {
-            path = this.path,
-            data = this.data.Clone()
+            LoadedPath = this.LoadedPath,
+            Data = this.Data!.Clone()
         };
     }
     
@@ -40,16 +40,16 @@ public class MeshComponent : Component
         switch (extension)
         {
             case ".obj":
-                data = ObjHandler.LoadObjAsMesh(ref desired);
+                Data = ObjHandler.LoadObjAsMesh(ref desired);
                 break;
             case ".gltf":
-                data = GltfHandler.LoadGltfAsMesh(ref desired, out Vector3 pos, out Quaternion rot, out Vector3 scale);
+                Data = GltfHandler.LoadGltfAsMesh(ref desired, out Vector3 pos, out Quaternion rot, out Vector3 scale)!;
                 Transform.WorldPosition = pos;
                 Transform.WorldRotation = rot;
                 Transform.Scale = scale;
                 break;
         }
         
-        path = desired;
+        LoadedPath = desired;
     }
 }

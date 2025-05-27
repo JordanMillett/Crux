@@ -21,12 +21,13 @@ public static class AssetHandler
     };
 
     public static string GameAssetPath = "Game/Assets";
+    public static string MissingTexturePath = "Crux/Assets/Textures/Required/Missing.jpg";
 
     public static string GetShortInfo()
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.AppendLine($"Unique Full Meshes - {ObjHandler.UniqueMeshes.Count}x");
+        sb.AppendLine($"Unique Cached Meshes - {ObjHandler.UniqueMeshes.Count}x");
 
         return sb.ToString();
     }
@@ -34,33 +35,33 @@ public static class AssetHandler
     public static void ListAllEmbeddedResources()
     {
         Assembly assembly = Assembly.GetExecutingAssembly();
-        Console.WriteLine(assembly.GetManifestResourceNames().Length);
-        Console.WriteLine("Assembly Location: " + assembly.Location);
+        Logger.Log(assembly.GetManifestResourceNames().Length, LogSource.System);
+        Logger.Log("Assembly Location: " + assembly.Location, LogSource.System);
 
         // Get all embedded resource names
         string[] resourceNames = assembly.GetManifestResourceNames();
 
         // Output all resource names
-        Console.WriteLine("Embedded resources in the assembly:");
+        Logger.Log("Embedded resources in the assembly:", LogSource.System);
         foreach (var resource in resourceNames)
         {
-            Console.WriteLine(resource);
+            Logger.Log(resource, LogSource.System);
         }
     }
 
     public static Stream GetStream(string path)
     {
         if(string.IsNullOrEmpty(path))
-            return null;
+            return null!;
         
         path = path.Replace("/", "\\");
         Assembly assembly = Assembly.GetExecutingAssembly();
 
-        Stream stream = assembly.GetManifestResourceStream(path);
+        Stream stream = assembly.GetManifestResourceStream(path)!;
         if (stream == null)
         {
             Logger.LogWarning($"Asset '{path}' not found.");
-            return null;
+            return null!;
         }
         return stream;
     }
@@ -124,61 +125,69 @@ public static class AssetHandler
         }
 
         if(GameEngine.InDebugMode())
-            File.WriteAllText(path, JsonSerializer.Serialize(history, JsonOptions));
+        {
+            try
+            {
+                File.WriteAllText(path, JsonSerializer.Serialize(history, JsonOptions));
+            }catch
+            {
+                Logger.LogWarning("Failed to iterate build number.");
+            }
+        }
+            
 
         return buildNumber;
     }
 
     public enum ShaderPresets
     {
-        Lit,
-        Instance_Lit,
-        Font,
-        Outline,
-        Skybox,
+        Lit_3D,
+        Unlit_3D,
+        Unlit_2D,
+        Unlit_2D_Skybox,
+        Unlit_2D_Font,
     }
 
-    public static Shader LoadPresetShader(ShaderPresets shaderPreset, string texturePath = "")
-    {    
-        switch (shaderPreset)
+    public static Shader LoadPresetShader(ShaderPresets shaderPreset, bool useInstancing, string texturePath = "")
+    {
+        return shaderPreset switch
         {
-            case ShaderPresets.Lit:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Textures/Required/Missing.jpg"
-                );
-            case ShaderPresets.Instance_Lit:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/instance_vert_lit.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_lit.glsl",
-                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Textures/Required/Missing.jpg"
-                );
-            case ShaderPresets.Font:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/vert_font.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_font.glsl",
-                    AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg"
-                );
-            case ShaderPresets.Outline:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/vert_lit.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_outline.glsl",
-                    ""
-                );
-            case ShaderPresets.Skybox:
-                return new Shader
-                (
-                    "Crux/Assets/Shaders/Required/Vertex/vert_skybox.glsl", 
-                    "Crux/Assets/Shaders/Required/Fragment/frag_skybox.glsl",
-                    ""
-                );
-        }
-
-        return null!;
+            ShaderPresets.Lit_3D => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_3d.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_3d_lit.glsl",
+                AssetExists(texturePath) ? texturePath : MissingTexturePath,
+                useInstancing
+            ),
+            ShaderPresets.Unlit_3D => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_3d.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_3d_unlit.glsl",
+                "",
+                useInstancing
+            ),
+            ShaderPresets.Unlit_2D => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_2d.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit.glsl",
+                AssetExists(texturePath) ? texturePath : MissingTexturePath,
+                useInstancing
+            ),
+            ShaderPresets.Unlit_2D_Font => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_2d_font.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit_font.glsl",
+                AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg",
+                useInstancing
+            ),
+            ShaderPresets.Unlit_2D_Skybox => new Shader
+            (
+                "Crux/Assets/Shaders/Required/Vertex/vert_2d.glsl",
+                "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit_skybox.glsl",
+                "",
+                useInstancing
+            ),
+            _ => null!,
+        };
     }
 }

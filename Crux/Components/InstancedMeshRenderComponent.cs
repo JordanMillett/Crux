@@ -6,9 +6,9 @@ namespace Crux.Components;
 
 public class InstancedMeshRenderComponent : RenderComponent
 {
-    public List<(int vao, int vbo)> MeshVAOs { get; set; } = [];
-    public static Dictionary<(int vao, int vbo), bool> Rendered = [];
-    public static Dictionary<(int vao, int vbo), PerInstanceData> InstanceData = [];
+    public List<MeshBuffer> MeshBuffers { get; set; } = [];
+    public static readonly Dictionary<MeshBuffer, bool> Rendered = [];
+    public static readonly Dictionary<MeshBuffer, PerInstanceData> InstanceData = [];
 
     public struct PerInstanceData
     {
@@ -17,16 +17,17 @@ public class InstancedMeshRenderComponent : RenderComponent
         public int GPUBufferLength;
     }
 
-    MeshComponent mesh;
+    private readonly MeshComponent mesh;
 
     public Vector3 BoundsMin;
     public Vector3 BoundsMax;
 
+    [Obsolete("Feature not maintained")]
     public InstancedMeshRenderComponent(GameObject gameObject): base(gameObject)
     {
         mesh = GetComponent<MeshComponent>();
 
-        for(int i = 0; i < mesh.data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
             float worldSize = MathF.Max(GraphicsCache.Tree.Root.Max.X, MathF.Max(GraphicsCache.Tree.Root.Max.Y, GraphicsCache.Tree.Root.Max.Z));
             float chunkSize = worldSize/2/2;
@@ -38,41 +39,41 @@ public class InstancedMeshRenderComponent : RenderComponent
             BoundsMax = new Vector3((chunkX + 1) * chunkSize, (chunkY + 1) * chunkSize, (chunkZ + 1) * chunkSize);
 
             string location = $"({chunkX},{chunkY},{chunkZ})";
-            string nameKey = $"{mesh.path}_{i}_{location}";
-            
-            var pair = GraphicsCache.GetInstancedMeshVAO(nameKey, mesh.data.Submeshes[i]);
-            MeshVAOs.Add(pair);
+            string nameKey = $"{mesh.LoadedPath}_{i}_{location}";
 
-            if(!InstanceData.ContainsKey(pair))
+            MeshBuffer meshBuffer = GraphicsCache.GetInstancedMeshBuffer(nameKey, mesh.Data.Submeshes[i]);
+            MeshBuffers.Add(meshBuffer);
+
+            if(!InstanceData.ContainsKey(meshBuffer))
             {
                 PerInstanceData data = new PerInstanceData
                 {
                     Transforms = new List<TransformComponent> { this.Transform },
-                    Mat = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Lit),
+                    Mat = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, true),
                     GPUBufferLength = 0
                 };
 
-                InstanceData.Add(pair, data);
-                Rendered.Add(pair, false);
+                InstanceData.Add(meshBuffer, data);
+                Rendered.Add(meshBuffer, false);
             }else
             {
-                var entry = InstanceData[pair];
+                var entry = InstanceData[meshBuffer];
                 entry.Transforms.Add(this.Transform);
                 
-                InstanceData[pair] = entry;
+                InstanceData[meshBuffer] = entry;
             }
         }
     }
     
     public override void Delete()
     {
-        for(int i = 0; i < mesh.data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
-            PerInstanceData data = InstanceData[MeshVAOs[i]];
+            PerInstanceData data = InstanceData[MeshBuffers[i]];
             data.Transforms.Remove(this.Transform);
-            InstanceData[MeshVAOs[i]] = data;
+            InstanceData[MeshBuffers[i]] = data;
 
-            InstanceData[MeshVAOs[i]].Mat.Delete();
+            InstanceData[MeshBuffers[i]].Mat.Delete();
 
             float worldSize = MathF.Max(GraphicsCache.Tree.Root.Max.X, MathF.Max(GraphicsCache.Tree.Root.Max.Y, GraphicsCache.Tree.Root.Max.Z));
             float chunkSize = worldSize/2/2;
@@ -81,9 +82,9 @@ public class InstancedMeshRenderComponent : RenderComponent
             int chunkZ = (int)Math.Floor(Transform.WorldPosition.Z / chunkSize);
 
             string location = $"({chunkX},{chunkY},{chunkZ})";
-            string nameKey = $"{mesh.path}_{i}_{location}";
+            string nameKey = $"{mesh.LoadedPath}_{i}_{location}";
 
-            GraphicsCache.RemoveInstancedVAO(nameKey);
+            GraphicsCache.RemoveBuffer(nameKey);
         }
     }
 
@@ -112,10 +113,10 @@ public class InstancedMeshRenderComponent : RenderComponent
     
     public void SetMaterial(Shader mat, int index)
     {
-        if(index >= MeshVAOs.Count)
+        if(index >= MeshBuffers.Count)
             return;
 
-        var pair = MeshVAOs[index];
+        var pair = MeshBuffers[index];
 
         if (InstanceData.ContainsKey(pair))
         {
@@ -128,11 +129,11 @@ public class InstancedMeshRenderComponent : RenderComponent
     
     public void SetMaterials(List<Shader> mats)
     {
-        int least = Math.Min(MeshVAOs.Count, mats.Count);
+        int least = Math.Min(MeshBuffers.Count, mats.Count);
 
         for (int i = 0; i < least; i++)
         {
-            var pair = MeshVAOs[i];
+            var pair = MeshBuffers[i];
 
             if (InstanceData.ContainsKey(pair))
             {
@@ -148,37 +149,27 @@ public class InstancedMeshRenderComponent : RenderComponent
     {
         int Matrix4SizeInBytes = 16 * sizeof(float);
 
-        for(int i = 0; i < MeshVAOs.Count; i++) //for each submesh in the mesh
+        for(int i = 0; i < MeshBuffers.Count; i++) //for each submesh in the mesh
         {
-            if(InstanceData.ContainsKey(MeshVAOs[i]))
+            if(InstanceData.ContainsKey(MeshBuffers[i]))
             {
-                PerInstanceData data = InstanceData[MeshVAOs[i]];
+                PerInstanceData data = InstanceData[MeshBuffers[i]];
 
-                if(!Rendered[MeshVAOs[i]])
+                if(!Rendered[MeshBuffers[i]])
                 {
-                    /*
-                    Random Rand = new Random();
-                    if(Rand.NextDouble() > 0.75)
-                    {
-                        InstanceData[MeshVAOs[i]] = (transforms, mat, gpuBufferLength, true);
-                        return;
-                    }
-                    Logger.Log(gpuBufferLength);
-                    */
-
                     if(data.Transforms.Count > data.GPUBufferLength)
                     {
                         data.GPUBufferLength = Math.Max(64, data.GPUBufferLength * 2);
-                        InstanceData[MeshVAOs[i]] = data;
+                        InstanceData[MeshBuffers[i]] = data;
 
-                        GL.BindBuffer(BufferTarget.ArrayBuffer, MeshVAOs[i].vbo);
+                        GL.BindBuffer(BufferTarget.ArrayBuffer, MeshBuffers[i].DynamicVBO);
                         GL.BufferData(BufferTarget.ArrayBuffer, data.GPUBufferLength * Matrix4SizeInBytes, IntPtr.Zero, BufferUsageHint.DynamicDraw);
                         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
                     }
 
-                    if(this.GameObject.IsFrozen && ContainerNode.Culled)
+                    if(this.GameObject.IsFrozen && ContainerNode!.Culled)
                     {
-                        Rendered[MeshVAOs[i]] = true;
+                        Rendered[MeshBuffers[i]] = true;
                         return;
                     }
 
@@ -190,21 +181,20 @@ public class InstancedMeshRenderComponent : RenderComponent
                         instanceMatrices[j] = data.Transforms[j].ModelMatrix;
                     }
 
-                    GL.BindBuffer(BufferTarget.ArrayBuffer, MeshVAOs[i].vbo);
+                    GL.BindBuffer(BufferTarget.ArrayBuffer, MeshBuffers[i].DynamicVBO);
                     GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, data.Transforms.Count * Matrix4SizeInBytes, instanceMatrices);
                     GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
                     
 
                     data.Mat.Bind();
 
-                    GL.BindVertexArray(MeshVAOs[i].vao);
-                    GL.DrawElementsInstanced(PrimitiveType.Triangles, mesh.data.Submeshes[i].Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero, data.Transforms.Count);
+                    GL.BindVertexArray(MeshBuffers[i].DynamicVBO);
+                    GL.DrawElementsInstanced(PrimitiveType.Triangles, mesh.Data!.Submeshes[i].Indices.Length, DrawElementsType.UnsignedInt, IntPtr.Zero, data.Transforms.Count);
                     GraphicsCache.DrawCallsThisFrame++;
-                    GraphicsCache.MeshDrawCallsThisFrame++;
                     
                     GL.BindVertexArray(0);
                     data.Mat.Unbind();
-                    Rendered[MeshVAOs[i]] = true;
+                    Rendered[MeshBuffers[i]] = true;
                 }
             }
         }

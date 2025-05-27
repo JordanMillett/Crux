@@ -28,4 +28,18 @@ public static class ColorHelper
 
         return new Color4(r, g, b, a);
     }
+    
+    public static Color4 RGBAStringToColor4(string rgbaString)
+    {
+        string inner = rgbaString.Substring(5, rgbaString.Length - 6);
+        string[] parts = inner.Split(',');
+
+        byte r = byte.Parse(parts[0].Trim());
+        byte g = byte.Parse(parts[1].Trim());
+        byte b = byte.Parse(parts[2].Trim());
+        float alphaFloat = float.Parse(parts[3].Trim(), System.Globalization.CultureInfo.InvariantCulture);
+        byte a = (byte)(Math.Clamp(alphaFloat, 0f, 1f) * 255);
+
+        return new Color4(r, g, b, a);
+    }
 }

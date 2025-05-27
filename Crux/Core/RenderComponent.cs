@@ -4,7 +4,7 @@ namespace Crux.Core;
 
 public abstract class RenderComponent : Component
 {
-    public event Action<bool> OnHiddenStateChanged;
+    public event Action<bool>? OnHiddenStateChanged;
     private bool isHidden = false;
     public bool IsHidden 
     { 
@@ -22,7 +22,7 @@ public abstract class RenderComponent : Component
     public void Hide() => IsHidden = true;
     public void Unhide() => IsHidden = false;
 
-    public OctreeNode ContainerNode = null!;
+    public OctreeNode? ContainerNode;
 
     public RenderComponent(GameObject gameObject): base(gameObject)
     {

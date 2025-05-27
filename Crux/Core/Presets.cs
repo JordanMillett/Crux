@@ -42,10 +42,10 @@ public static class Presets
         string modelName = Path.GetFileNameWithoutExtension(model);
 
         GameObject target = GameEngine.Link.InstantiateGameObject(textureName + " " + modelName);
-        target.AddComponent<MeshComponent>().Load(model);
-        target.AddComponent<MeshRenderComponent>().SetShader
+        target.AddComponent<MeshComponent>()!.Load(model);
+        target.AddComponent<MeshRenderComponent>()!.SetShader
         (
-            AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, texture),
+            AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false, texture),
             0
         );
 
@@ -63,14 +63,14 @@ public static class Presets
     {
         string modelName = Path.GetFileNameWithoutExtension(model);
         GameObject target = GameEngine.Link.InstantiateGameObject(Path.GetFileNameWithoutExtension(textures[0]) + " " + modelName);
-        target.AddComponent<MeshComponent>().Load(model);
+        target.AddComponent<MeshComponent>()!.Load(model);
 
         List<Shader> Mats = new List<Shader>();
         for(int i = 0; i < textures.Count; i++)
         {           
-            Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit, textures[i]));
+            Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false, textures[i]));
         }
-        target.AddComponent<MeshRenderComponent>().SetShaders(Mats);
+        target.AddComponent<MeshRenderComponent>()!.SetShaders(Mats);
         //target.AddComponent<MeshBoundsColliderComponent>();
 
         return target;

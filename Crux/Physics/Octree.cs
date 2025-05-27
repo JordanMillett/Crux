@@ -55,14 +55,14 @@ public class Octree
 
     public (Vector3 MinKey, Vector3 MaxKey) RegisterComponentGetAABB(Component component, Vector3 min, Vector3 max)
     {
-        Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
+        //Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
         InsertComponent(Root, component, min, max, 0);
         return (min, max);
     }
 
     public OctreeNode RegisterComponentGetNode(Component component, Vector3 min, Vector3 max)
     {
-        Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
+        //Logger.Log($"Added GameObject '{component.GameObject.Name}' to {OctreeName}");
         return InsertComponent(Root, component, min, max, 0);
     }
 
@@ -111,7 +111,7 @@ public class Octree
             node.Divide();
 
         // Try to insert into one of the children
-        foreach (var child in node.Octants)
+        foreach (var child in node.Octants!)
         {
             if (AABBContains(child.Min, child.Max, min, max))
             {
@@ -138,7 +138,7 @@ public class Octree
             return false;
 
         // Try to remove from child nodes
-        foreach (var child in node.Octants)
+        foreach (var child in node.Octants!)
         {
             if (AABBContains(child.Min, child.Max, min, max) && RemoveComponent(child, component, min, max))
             {
@@ -184,7 +184,7 @@ public class Octree
     {
         if(!forceCull)
         {
-            node.Culled = GameEngine.Link.Camera.OutsideOfFrustrum(node.Min, node.Max);
+            node.Culled = GameEngine.Link.Camera!.OutsideOfFrustrum(node.Min, node.Max);
         }else
         {
             node.Culled = true;
@@ -192,7 +192,7 @@ public class Octree
 
         if(!node.IsLeaf)
         {
-            foreach (OctreeNode octant in node.Octants)
+            foreach (OctreeNode octant in node.Octants!)
             {
                 RecalculateVisibilityRecursive(octant, node.Culled);
             }

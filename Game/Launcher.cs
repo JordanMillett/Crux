@@ -13,7 +13,7 @@ class GameLauncher
         };
 
         GameEngine.BuildNumber = AssetHandler.IterateBuildNumber();
-        
+
         using (var engine = new GameEngine(GameWindowSettings.Default, nativeWindowSettings))
         {
             engine.Title = GameEngine.GetWindowShortName();

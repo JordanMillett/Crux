@@ -11,7 +11,7 @@ public abstract class Scene
 
     public Shader Skybox;
 
-    int skyboxVAO = -1;
+    private readonly MeshBuffer skyboxBuffer;
 
     public static GameEngine Engine
     {
@@ -20,7 +20,7 @@ public abstract class Scene
 
     public static CameraComponent MainCamera
     {
-        get { return GameEngine.Link.Camera; }
+        get { return GameEngine.Link.Camera!; }
     }
     
     private Color4 _ambient = Color4.White;
@@ -118,10 +118,10 @@ public abstract class Scene
     
     public Scene()
     {
-        string materialPath = "Crux/Assets/Materials/Skybox.json";
-        Skybox = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Skybox);
+        //string materialPath = "Crux/Assets/Materials/Skybox.json";
+        Skybox = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Skybox, false);
 
-        skyboxVAO = GraphicsCache.GetSkyboxVAO();
+        skyboxBuffer = GraphicsCache.GetInstancedQuadBuffer("skybox");
         
         if (UBO == -1)
         {                
@@ -145,8 +145,9 @@ public abstract class Scene
 
         Skybox.Bind();
         
-        GL.BindVertexArray(skyboxVAO);
+        GL.BindVertexArray(skyboxBuffer.VAO);
         
+        //MOVE OUT OF HERE TO GRAPHICS CACHE I THINK
         GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
         GraphicsCache.DrawCallsThisFrame++;
 

@@ -1,11 +1,14 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using Crux.Components;
 using Crux.Physics;
+using Crux.Graphics;
 
 namespace Crux.Assets.Scenes;
 
 public class DebugScene : Scene
 {
+    public CanvasComponent? Canvas;
+
     public override void Start()
     {
         //Skybox
@@ -13,7 +16,7 @@ public class DebugScene : Scene
         Skybox.SetUniform("topColor", Color4.Black);
         Skybox.SetUniform("bottomColor", Color4.Black);
 
-        GameEngine.Link.Camera.GameObject.AddComponent<FreeLookComponent>();
+        GameEngine.Link.Camera?.GameObject.AddComponent<FreeLookComponent>();
         string debugTexture = "Crux/Assets/Textures/Required/Debug.jpg";
 
         GameObject selected;
@@ -51,6 +54,9 @@ public class DebugScene : Scene
         selected.AddComponent<MeshBoundsColliderComponent>();
         selected.Transform.WorldPosition = new Vector3(5f, 3f, 0f);
         selected.Freeze();
+
+        selected = GameEngine.Link.InstantiateGameObject();
+        selected.Transform.WorldPosition = new Vector3(2f, 3f, 4f);
         
         selected = Presets.MakePrimitive(Primitives.Cube, debugTexture);
         selected.AddComponent<MeshBoundsColliderComponent>();
@@ -69,33 +75,36 @@ public class DebugScene : Scene
         selected.AddComponent<MovementComponent>();
         selected.AddComponent<MeshBoundsColliderComponent>();
     
-        GameEngine.Link.Camera.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
+        GameEngine.Link.Camera!.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
         GameEngine.Link.Camera.GetComponent<FreeLookComponent>().yaw = MathHelper.DegreesToRadians(180f);
+
+        Input.CreateAction("Spawn Cube", Keys.Q);
+        Input.CreateAction("Cast Ray", Keys.E);
+        Input.OutputKeyBindings();
+
+        Canvas = GameEngine.Link.SetupDebugCanvas();
     }
 
     public override void Update()
     {
-        if(GameEngine.Link.IsKeyPressed(Keys.Q))
+        if(Input.IsActionHeld("Spawn Cube"))
         {
             string debugTexture = "Crux/Assets/Textures/Required/Debug.jpg";
 
             GameObject selected = Presets.MakePhysicsPrimitive(Primitives.Cube, debugTexture);
-            selected.Transform.WorldPosition = GameEngine.Link.Camera.Transform.WorldPosition + (GameEngine.Link.Camera.Transform.Forward * 3f);
+            selected.Transform.WorldPosition = GameEngine.Link.Camera!.Transform.WorldPosition + (GameEngine.Link.Camera.Transform.Forward * 3f);
         }
 
-        if(GameEngine.Link.IsKeyPressed(Keys.E))
+        if(Input.IsActionHeld("Cast Ray"))
         {
-            Ray ray = new Ray(GameEngine.Link.Camera.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
+            Ray ray = new Ray(GameEngine.Link.Camera!.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
             if(PhysicsSystem.Raycast(ray, out RayHit hit))
             {
-                Logger.Log(hit.Collider.GameObject.Name);
+                Logger.LogWarning(hit.Collider.GameObject.Name);
 
-                if(hit.Collider.HasComponent<RenderComponent>())
-                    hit.Collider.GameObject.RemoveComponent<ColliderComponent>();
-                    //hit.Collider.GameObject.RemoveComponent<MeshRenderComponent>();
-                    //hit.Collider.GetComponent<RenderComponent>().Hide();
-
-                //hit.Collider.Transform.GameObject.Delete();
+                GameObject LineObject = GameEngine.Link.InstantiateGameObject();
+                LineObject.Transform.WorldPosition = hit.Point;
+                LineObject.AddComponent<LineRenderComponent>();
             }
         }
     }

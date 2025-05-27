@@ -21,6 +21,13 @@ public class MeshBoundsColliderComponent : ColliderComponent
     {
         mesh = GetComponent<MeshComponent>();
         ComputeBounds();
+
+        /*
+        GameObject bounds = GameEngine.Link.InstantiateGameObject();
+        bounds.Transform.Parent = this.Transform;
+        bounds.Transform.LocalPosition = Vector3.Zero;
+        bounds.AddComponent<BoundsRenderComponent>().Source = this;
+        */
     }
     
     public override string ToString()
@@ -41,14 +48,14 @@ public class MeshBoundsColliderComponent : ColliderComponent
     
     public override void ComputeBounds()
     {
-        if(ColliderIndex > -1 && ColliderIndex < mesh.data.Submeshes.Count)
+        if(ColliderIndex > -1 && ColliderIndex < mesh.Data!.Submeshes.Count)
         {
-            (AABBMin, AABBMax) = mesh.data.Submeshes[ColliderIndex].GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
-            (OBBCenter, OBBAxes, OBBHalfExtents) = mesh.data.Submeshes[ColliderIndex].GetWorldSpaceOBB(GameObject.Transform.ModelMatrix);
+            (AABBMin, AABBMax) = mesh.Data.Submeshes[ColliderIndex].GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
+            (OBBCenter, OBBAxes, OBBHalfExtents) = mesh.Data.Submeshes[ColliderIndex].GetWorldSpaceOBB(GameObject.Transform.ModelMatrix);
         }else
         {
-            (AABBMin, AABBMax) = mesh.data.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
-            (OBBCenter, OBBAxes, OBBHalfExtents) = mesh.data.GetWorldSpaceOBB(GameObject.Transform.ModelMatrix);
+            (AABBMin, AABBMax) = mesh.Data!.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
+            (OBBCenter, OBBAxes, OBBHalfExtents) = mesh.Data.GetWorldSpaceOBB(GameObject.Transform.ModelMatrix);
         }
 
         SphereCenter = (AABBMin + AABBMax) * 0.5f;

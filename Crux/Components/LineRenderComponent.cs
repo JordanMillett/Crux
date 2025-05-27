@@ -1,24 +1,28 @@
 using OpenTK.Graphics.OpenGL4;
 using Crux.Graphics;
 using Crux.Utilities.IO;
+using Crux.Utilities.Helpers;
+using System.Diagnostics;
 
 namespace Crux.Components;
 
 public class LineRenderComponent : RenderComponent
 {
-    public Shader shader { get; set; } = null!;
+    private static Shader? ShaderSingleton { get; set; }
+    private readonly MeshBuffer meshBuffer;
 
+    //Instanced Data
     public Color4 Color = Color4.Red;
 
-    int vao;
-    
+    public static List<LineRenderComponent> Instances = [];
+
     public LineRenderComponent(GameObject gameObject): base(gameObject)
     {
-        shader = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Outline);
+        if (ShaderSingleton == null)
+            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_3D, true, "");
 
-        vao = GraphicsCache.GetLineVAO("LineBounds", Shapes.LineBounds);
-
-        //vao = GraphicsCache.GetLineVAO("LineAnchor", Shapes.LineAnchor);
+        meshBuffer = GraphicsCache.GetInstancedLineBuffer("LineAnchor", Shapes.LineAnchor);
+        Instances.Add(this);
     }
     
     public override string ToString()
@@ -38,22 +42,38 @@ public class LineRenderComponent : RenderComponent
     }
 
     public override void Render()
-    {
-        //Per-Object Uniforms and Shared Uniforms
-        shader.SetUniform("model", GameObject.Transform.ModelMatrix);
+    {   
+        if (!meshBuffer.DrawnThisFrame)
+        {
+            float[] flatpack = new float[Instances.Count *
+            (
+            VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
+            VertexAttributeHelper.GetTypeByteSize(typeof(Vector4))
+            )];
 
-        shader.TextureHue = Color;
-        
-        shader.Bind();
-        
-        GL.BindVertexArray(vao);
+            int packIndex = 0;
+            foreach(LineRenderComponent instance in Instances)
+            {
+                //PACK
+                MatrixHelper.Matrix4ToArray(instance.Transform.ModelMatrix, out float[] values);
+                for(int j = 0; j < values.Length; j++)
+                    flatpack[packIndex++] = values[j];
 
-        //GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineAnchor.Count);
-        GL.DrawArrays(PrimitiveType.Lines, 0, Shapes.LineBounds.Count);
-        GraphicsCache.DrawCallsThisFrame++;
+                flatpack[packIndex++] = instance.Color.R;
+                flatpack[packIndex++] = instance.Color.G;
+                flatpack[packIndex++] = instance.Color.B;
+                flatpack[packIndex++] = instance.Color.A;
+            }
 
-        GL.BindVertexArray(0);
+            meshBuffer.SetDynamicVBOData(flatpack, Instances.Count);
+            
+            ShaderSingleton?.Bind();
+            
+            meshBuffer.DrawLinesInstanced(Shapes.LineAnchor.Length, Instances.Count);
 
-        shader.Unbind();
+            ShaderSingleton?.Unbind();
+
+            meshBuffer.DrawnThisFrame = true;
+        }
     }
 }

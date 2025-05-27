@@ -13,6 +13,11 @@ public static class MatrixHelper
         };
     }
 
+    public static void Matrix4ToArray(Matrix4 matrix, out float[] values)
+    {
+        values = Matrix4ToArray(matrix);
+    }
+
     public static void Decompose(Matrix4 matrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation)
     {
         // Start by extracting the translation

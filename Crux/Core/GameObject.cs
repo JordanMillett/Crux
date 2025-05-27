@@ -7,7 +7,7 @@ public class GameObject
 {
     public string Name;
     
-    public event Action<bool> OnFrozenStateChanged;
+    public event Action<bool>? OnFrozenStateChanged;
     private bool isFrozen = false;
     public bool IsFrozen 
     { 
@@ -27,21 +27,21 @@ public class GameObject
 
     // ========== Private Fields ==========
     private Dictionary<Type, Component> components = new Dictionary<Type, Component>();
-    private readonly TransformComponent transform = null!;
+    private readonly TransformComponent? transform;
     
     // ========== Public Properties ==========
     public TransformComponent Transform
     {
         get
         {
-            return transform;
+            return transform!;
         }
     }
     
     // ========== Public Constructors ==========
     public GameObject(string name)
     {
-        transform = AddComponent<TransformComponent>();
+        transform = AddComponent<TransformComponent>()!;
         GameEngine.Link.OnUpdateCallback += Update;
 
         Name = name;

@@ -27,8 +27,8 @@ public class GameInstance
         
         GameEngine.Link.OnUpdateCallback += Update;
 
-        GameEngine.Link.ActiveScene = new IslandScene();
-        //GameEngine.Link.ActiveScene = new DebugScene();
+        //GameEngine.Link.ActiveScene = new IslandScene();
+        GameEngine.Link.ActiveScene = new DebugScene();
         //GameEngine.Link.ActiveScene = new GameScene();
         GameEngine.Link.ActiveScene.Start();
 
@@ -39,7 +39,7 @@ public class GameInstance
             
     public void Update()
     {
-        GameEngine.Link.ActiveScene.Update();
+        GameEngine.Link.ActiveScene?.Update();
     }
 }
 

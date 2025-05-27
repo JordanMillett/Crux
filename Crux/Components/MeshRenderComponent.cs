@@ -6,29 +6,27 @@ namespace Crux.Components;
 
 public class MeshRenderComponent : RenderComponent
 {
-    MeshComponent mesh;
+    private readonly MeshComponent mesh;
 
     public List<Shader> Shaders { get; set; } = new List<Shader>();
-    public List<int> MeshVAOs { get; set; } = new List<int>();
-
-    public List<string> VAOKeys = new List<string>();
+    public List<MeshBuffer> MeshBuffers { get; set; } = new List<MeshBuffer>();
     
     public MeshRenderComponent(GameObject gameObject): base(gameObject)
     {
         mesh = GetComponent<MeshComponent>();
 
-        for(int i = 0; i < mesh.data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
-            MeshVAOs.Add(GraphicsCache.GetMeshVAO(mesh.path + "_" + i, mesh.data.Submeshes[i]));
-            Shaders.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit));
+            MeshBuffers.Add(GraphicsCache.GetMeshBuffer(mesh.LoadedPath + "_" + i, mesh.Data.Submeshes[i]));
+            Shaders.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false));
         }
     }
 
     public override void Delete()
     {
-        for(int i = 0; i < mesh.data.Submeshes.Count; i++)
+        for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
-            GraphicsCache.RemoveVAO(mesh.path + "_" + i);
+            GraphicsCache.RemoveBuffer(mesh.LoadedPath + "_" + i);
         }
     }
     
@@ -54,8 +52,7 @@ public class MeshRenderComponent : RenderComponent
         if(index >= Shaders.Count)
             return;
         
-        if(Shaders[index] != null)
-            Shaders[index].Delete();
+        Shaders[index]?.Delete();
         Shaders[index] = passed;
     }
     
@@ -65,8 +62,7 @@ public class MeshRenderComponent : RenderComponent
 
         for(int i = 0; i < least; i++)
         {
-            if(Shaders[i] != null)
-                Shaders[i].Delete();
+            Shaders[i]?.Delete();
             Shaders[i] = passed[i];
         }
     }
@@ -75,29 +71,25 @@ public class MeshRenderComponent : RenderComponent
     {
         if(IsFrozen)
         {
-            (Vector3 AABBMin, Vector3 AABBMax) = mesh.data.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
+            (Vector3 AABBMin, Vector3 AABBMax) = mesh.Data!.GetWorldSpaceAABB(GameObject.Transform.ModelMatrix);
             ContainerNode  = GraphicsCache.Tree.RegisterComponentGetNode(this, AABBMin, AABBMax);
         }
     }
-
+    
     public override void Render()
     {
-        if(IsHidden || (this.GameObject.IsFrozen && ContainerNode.Culled))
+        if(IsHidden || (this.GameObject.IsFrozen && ContainerNode!.Culled))
             return;
 
-        for(int i = 0; i < MeshVAOs.Count; i++)
+        for(int i = 0; i < MeshBuffers.Count; i++)
         {
             Shaders[i].SetUniform("model", this.Transform.ModelMatrix);
-            Shaders[i].SetUniform("lightIndices", new int[4] {0, 1, 2, 3});
+            //Shaders[i].SetUniform("lightIndices", new int[4] {0, 1, 2, 3});
             Shaders[i].Bind();
-            
-            GL.BindVertexArray(MeshVAOs[i]);
-            GL.DrawElements(PrimitiveType.Triangles, mesh.data.Submeshes[i].Indices.Length, DrawElementsType.UnsignedInt, 0);
-            GL.BindVertexArray(0);
-            Shaders[i].Unbind();
+        
+            MeshBuffers[i].Draw(mesh.Data!.Submeshes[i].Indices.Length);
 
-            GraphicsCache.DrawCallsThisFrame++;
-            GraphicsCache.MeshDrawCallsThisFrame++;
+            Shaders[i].Unbind();
         }
     }
 }

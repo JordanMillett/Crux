@@ -7,7 +7,7 @@ namespace Crux.Components;
 public class TransformComponent : Component
 {
     // ========== Private Fields ==========
-    private TransformComponent parent = null!;
+    private TransformComponent? parent;
     private Vector3 worldPosition = Vector3.Zero;
     private Vector3 localPosition = Vector3.Zero;
     private Quaternion worldRotation = Quaternion.Identity;
@@ -20,7 +20,7 @@ public class TransformComponent : Component
     // ========== Public Properties ==========
     public TransformComponent Parent
     {
-        get { return parent; }
+        get { return parent!; }
         set
         {
             if (parent != value)
