@@ -13,6 +13,12 @@ references:
   commentId: T:Crux.Assets.Scenes.DebugScene
   fullName: Crux.Assets.Scenes.DebugScene
   nameWithType: DebugScene
+- uid: Crux.Assets.Scenes.DebugScene.Canvas
+  name: Canvas
+  href: api/Crux.Assets.Scenes.DebugScene.html#Crux_Assets_Scenes_DebugScene_Canvas
+  commentId: F:Crux.Assets.Scenes.DebugScene.Canvas
+  fullName: Crux.Assets.Scenes.DebugScene.Canvas
+  nameWithType: DebugScene.Canvas
 - uid: Crux.Assets.Scenes.DebugScene.Start
   name: Start()
   href: api/Crux.Assets.Scenes.DebugScene.html#Crux_Assets_Scenes_DebugScene_Start
@@ -71,12 +77,446 @@ references:
   isSpec: "True"
   fullName: Crux.Assets.Scenes.IslandScene.Update
   nameWithType: IslandScene.Update
+- uid: Crux.CUI
+  name: Crux.CUI
+  href: api/Crux.CUI.html
+  commentId: N:Crux.CUI
+  fullName: Crux.CUI
+  nameWithType: Crux.CUI
+- uid: Crux.CUI.CUIBounds
+  name: CUIBounds
+  href: api/Crux.CUI.CUIBounds.html
+  commentId: T:Crux.CUI.CUIBounds
+  fullName: Crux.CUI.CUIBounds
+  nameWithType: CUIBounds
+- uid: Crux.CUI.CUIBounds.AbsolutePosition
+  name: AbsolutePosition
+  href: api/Crux.CUI.CUIBounds.html#Crux_CUI_CUIBounds_AbsolutePosition
+  commentId: F:Crux.CUI.CUIBounds.AbsolutePosition
+  fullName: Crux.CUI.CUIBounds.AbsolutePosition
+  nameWithType: CUIBounds.AbsolutePosition
+- uid: Crux.CUI.CUIBounds.Height
+  name: Height
+  href: api/Crux.CUI.CUIBounds.html#Crux_CUI_CUIBounds_Height
+  commentId: F:Crux.CUI.CUIBounds.Height
+  fullName: Crux.CUI.CUIBounds.Height
+  nameWithType: CUIBounds.Height
+- uid: Crux.CUI.CUIBounds.RelativePosition
+  name: RelativePosition
+  href: api/Crux.CUI.CUIBounds.html#Crux_CUI_CUIBounds_RelativePosition
+  commentId: F:Crux.CUI.CUIBounds.RelativePosition
+  fullName: Crux.CUI.CUIBounds.RelativePosition
+  nameWithType: CUIBounds.RelativePosition
+- uid: Crux.CUI.CUIBounds.Width
+  name: Width
+  href: api/Crux.CUI.CUIBounds.html#Crux_CUI_CUIBounds_Width
+  commentId: F:Crux.CUI.CUIBounds.Width
+  fullName: Crux.CUI.CUIBounds.Width
+  nameWithType: CUIBounds.Width
+- uid: Crux.CUI.CUIEmpty
+  name: CUIEmpty
+  href: api/Crux.CUI.CUIEmpty.html
+  commentId: T:Crux.CUI.CUIEmpty
+  fullName: Crux.CUI.CUIEmpty
+  nameWithType: CUIEmpty
+- uid: Crux.CUI.CUIEmpty.#ctor(Crux.Components.CanvasComponent)
+  name: CUIEmpty(CanvasComponent)
+  href: api/Crux.CUI.CUIEmpty.html#Crux_CUI_CUIEmpty__ctor_Crux_Components_CanvasComponent_
+  commentId: M:Crux.CUI.CUIEmpty.#ctor(Crux.Components.CanvasComponent)
+  name.vb: New(CanvasComponent)
+  fullName: Crux.CUI.CUIEmpty.CUIEmpty(Crux.Components.CanvasComponent)
+  fullName.vb: Crux.CUI.CUIEmpty.New(Crux.Components.CanvasComponent)
+  nameWithType: CUIEmpty.CUIEmpty(CanvasComponent)
+  nameWithType.vb: CUIEmpty.New(CanvasComponent)
+- uid: Crux.CUI.CUIEmpty.#ctor*
+  name: CUIEmpty
+  href: api/Crux.CUI.CUIEmpty.html#Crux_CUI_CUIEmpty__ctor_
+  commentId: Overload:Crux.CUI.CUIEmpty.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.CUI.CUIEmpty.CUIEmpty
+  fullName.vb: Crux.CUI.CUIEmpty.New
+  nameWithType: CUIEmpty.CUIEmpty
+  nameWithType.vb: CUIEmpty.New
+- uid: Crux.CUI.CUINode
+  name: CUINode
+  href: api/Crux.CUI.CUINode.html
+  commentId: T:Crux.CUI.CUINode
+  fullName: Crux.CUI.CUINode
+  nameWithType: CUINode
+- uid: Crux.CUI.CUINode.#ctor(Crux.Components.CanvasComponent)
+  name: CUINode(CanvasComponent)
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode__ctor_Crux_Components_CanvasComponent_
+  commentId: M:Crux.CUI.CUINode.#ctor(Crux.Components.CanvasComponent)
+  name.vb: New(CanvasComponent)
+  fullName: Crux.CUI.CUINode.CUINode(Crux.Components.CanvasComponent)
+  fullName.vb: Crux.CUI.CUINode.New(Crux.Components.CanvasComponent)
+  nameWithType: CUINode.CUINode(CanvasComponent)
+  nameWithType.vb: CUINode.New(CanvasComponent)
+- uid: Crux.CUI.CUINode.#ctor*
+  name: CUINode
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode__ctor_
+  commentId: Overload:Crux.CUI.CUINode.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.CUI.CUINode.CUINode
+  fullName.vb: Crux.CUI.CUINode.New
+  nameWithType: CUINode.CUINode
+  nameWithType.vb: CUINode.New
+- uid: Crux.CUI.CUINode.Arrange(OpenTK.Mathematics.Vector2)
+  name: Arrange(Vector2)
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Arrange_OpenTK_Mathematics_Vector2_
+  commentId: M:Crux.CUI.CUINode.Arrange(OpenTK.Mathematics.Vector2)
+  fullName: Crux.CUI.CUINode.Arrange(OpenTK.Mathematics.Vector2)
+  nameWithType: CUINode.Arrange(Vector2)
+- uid: Crux.CUI.CUINode.Arrange*
+  name: Arrange
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Arrange_
+  commentId: Overload:Crux.CUI.CUINode.Arrange
+  isSpec: "True"
+  fullName: Crux.CUI.CUINode.Arrange
+  nameWithType: CUINode.Arrange
+- uid: Crux.CUI.CUINode.Bounds
+  name: Bounds
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Bounds
+  commentId: F:Crux.CUI.CUINode.Bounds
+  fullName: Crux.CUI.CUINode.Bounds
+  nameWithType: CUINode.Bounds
+- uid: Crux.CUI.CUINode.Canvas
+  name: Canvas
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Canvas
+  commentId: P:Crux.CUI.CUINode.Canvas
+  fullName: Crux.CUI.CUINode.Canvas
+  nameWithType: CUINode.Canvas
+- uid: Crux.CUI.CUINode.Canvas*
+  name: Canvas
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Canvas_
+  commentId: Overload:Crux.CUI.CUINode.Canvas
+  isSpec: "True"
+  fullName: Crux.CUI.CUINode.Canvas
+  nameWithType: CUINode.Canvas
+- uid: Crux.CUI.CUINode.Children
+  name: Children
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Children
+  commentId: F:Crux.CUI.CUINode.Children
+  fullName: Crux.CUI.CUINode.Children
+  nameWithType: CUINode.Children
+- uid: Crux.CUI.CUINode.Measure
+  name: Measure()
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Measure
+  commentId: M:Crux.CUI.CUINode.Measure
+  fullName: Crux.CUI.CUINode.Measure()
+  nameWithType: CUINode.Measure()
+- uid: Crux.CUI.CUINode.Measure*
+  name: Measure
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Measure_
+  commentId: Overload:Crux.CUI.CUINode.Measure
+  isSpec: "True"
+  fullName: Crux.CUI.CUINode.Measure
+  nameWithType: CUINode.Measure
+- uid: Crux.CUI.CUINode.Render
+  name: Render()
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Render
+  commentId: M:Crux.CUI.CUINode.Render
+  fullName: Crux.CUI.CUINode.Render()
+  nameWithType: CUINode.Render()
+- uid: Crux.CUI.CUINode.Render*
+  name: Render
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Render_
+  commentId: Overload:Crux.CUI.CUINode.Render
+  isSpec: "True"
+  fullName: Crux.CUI.CUINode.Render
+  nameWithType: CUINode.Render
+- uid: Crux.CUI.CUINode.Update
+  name: Update()
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Update
+  commentId: M:Crux.CUI.CUINode.Update
+  fullName: Crux.CUI.CUINode.Update()
+  nameWithType: CUINode.Update()
+- uid: Crux.CUI.CUINode.Update*
+  name: Update
+  href: api/Crux.CUI.CUINode.html#Crux_CUI_CUINode_Update_
+  commentId: Overload:Crux.CUI.CUINode.Update
+  isSpec: "True"
+  fullName: Crux.CUI.CUINode.Update
+  nameWithType: CUINode.Update
+- uid: Crux.CUI.CUIPanel
+  name: CUIPanel
+  href: api/Crux.CUI.CUIPanel.html
+  commentId: T:Crux.CUI.CUIPanel
+  fullName: Crux.CUI.CUIPanel
+  nameWithType: CUIPanel
+- uid: Crux.CUI.CUIPanel.#ctor(Crux.Components.CanvasComponent)
+  name: CUIPanel(CanvasComponent)
+  href: api/Crux.CUI.CUIPanel.html#Crux_CUI_CUIPanel__ctor_Crux_Components_CanvasComponent_
+  commentId: M:Crux.CUI.CUIPanel.#ctor(Crux.Components.CanvasComponent)
+  name.vb: New(CanvasComponent)
+  fullName: Crux.CUI.CUIPanel.CUIPanel(Crux.Components.CanvasComponent)
+  fullName.vb: Crux.CUI.CUIPanel.New(Crux.Components.CanvasComponent)
+  nameWithType: CUIPanel.CUIPanel(CanvasComponent)
+  nameWithType.vb: CUIPanel.New(CanvasComponent)
+- uid: Crux.CUI.CUIPanel.#ctor*
+  name: CUIPanel
+  href: api/Crux.CUI.CUIPanel.html#Crux_CUI_CUIPanel__ctor_
+  commentId: Overload:Crux.CUI.CUIPanel.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.CUI.CUIPanel.CUIPanel
+  fullName.vb: Crux.CUI.CUIPanel.New
+  nameWithType: CUIPanel.CUIPanel
+  nameWithType.vb: CUIPanel.New
+- uid: Crux.CUI.CUIPanel.Background
+  name: Background
+  href: api/Crux.CUI.CUIPanel.html#Crux_CUI_CUIPanel_Background
+  commentId: F:Crux.CUI.CUIPanel.Background
+  fullName: Crux.CUI.CUIPanel.Background
+  nameWithType: CUIPanel.Background
+- uid: Crux.CUI.CUIPanel.Instances
+  name: Instances
+  href: api/Crux.CUI.CUIPanel.html#Crux_CUI_CUIPanel_Instances
+  commentId: F:Crux.CUI.CUIPanel.Instances
+  fullName: Crux.CUI.CUIPanel.Instances
+  nameWithType: CUIPanel.Instances
+- uid: Crux.CUI.CUIPanel.Render
+  name: Render()
+  href: api/Crux.CUI.CUIPanel.html#Crux_CUI_CUIPanel_Render
+  commentId: M:Crux.CUI.CUIPanel.Render
+  fullName: Crux.CUI.CUIPanel.Render()
+  nameWithType: CUIPanel.Render()
+- uid: Crux.CUI.CUIPanel.Render*
+  name: Render
+  href: api/Crux.CUI.CUIPanel.html#Crux_CUI_CUIPanel_Render_
+  commentId: Overload:Crux.CUI.CUIPanel.Render
+  isSpec: "True"
+  fullName: Crux.CUI.CUIPanel.Render
+  nameWithType: CUIPanel.Render
+- uid: Crux.CUI.CUIParser
+  name: CUIParser
+  href: api/Crux.CUI.CUIParser.html
+  commentId: T:Crux.CUI.CUIParser
+  fullName: Crux.CUI.CUIParser
+  nameWithType: CUIParser
+- uid: Crux.CUI.CUIParser.#ctor(System.String)
+  name: CUIParser(string)
+  href: api/Crux.CUI.CUIParser.html#Crux_CUI_CUIParser__ctor_System_String_
+  commentId: M:Crux.CUI.CUIParser.#ctor(System.String)
+  name.vb: New(String)
+  fullName: Crux.CUI.CUIParser.CUIParser(string)
+  fullName.vb: Crux.CUI.CUIParser.New(String)
+  nameWithType: CUIParser.CUIParser(string)
+  nameWithType.vb: CUIParser.New(String)
+- uid: Crux.CUI.CUIParser.#ctor*
+  name: CUIParser
+  href: api/Crux.CUI.CUIParser.html#Crux_CUI_CUIParser__ctor_
+  commentId: Overload:Crux.CUI.CUIParser.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.CUI.CUIParser.CUIParser
+  fullName.vb: Crux.CUI.CUIParser.New
+  nameWithType: CUIParser.CUIParser
+  nameWithType.vb: CUIParser.New
+- uid: Crux.CUI.CUIParser.Parse(Crux.Components.CanvasComponent)
+  name: Parse(CanvasComponent)
+  href: api/Crux.CUI.CUIParser.html#Crux_CUI_CUIParser_Parse_Crux_Components_CanvasComponent_
+  commentId: M:Crux.CUI.CUIParser.Parse(Crux.Components.CanvasComponent)
+  fullName: Crux.CUI.CUIParser.Parse(Crux.Components.CanvasComponent)
+  nameWithType: CUIParser.Parse(CanvasComponent)
+- uid: Crux.CUI.CUIParser.Parse*
+  name: Parse
+  href: api/Crux.CUI.CUIParser.html#Crux_CUI_CUIParser_Parse_
+  commentId: Overload:Crux.CUI.CUIParser.Parse
+  isSpec: "True"
+  fullName: Crux.CUI.CUIParser.Parse
+  nameWithType: CUIParser.Parse
+- uid: Crux.CUI.CUIText
+  name: CUIText
+  href: api/Crux.CUI.CUIText.html
+  commentId: T:Crux.CUI.CUIText
+  fullName: Crux.CUI.CUIText
+  nameWithType: CUIText
+- uid: Crux.CUI.CUIText.#ctor(Crux.Components.CanvasComponent)
+  name: CUIText(CanvasComponent)
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText__ctor_Crux_Components_CanvasComponent_
+  commentId: M:Crux.CUI.CUIText.#ctor(Crux.Components.CanvasComponent)
+  name.vb: New(CanvasComponent)
+  fullName: Crux.CUI.CUIText.CUIText(Crux.Components.CanvasComponent)
+  fullName.vb: Crux.CUI.CUIText.New(Crux.Components.CanvasComponent)
+  nameWithType: CUIText.CUIText(CanvasComponent)
+  nameWithType.vb: CUIText.New(CanvasComponent)
+- uid: Crux.CUI.CUIText.#ctor*
+  name: CUIText
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText__ctor_
+  commentId: Overload:Crux.CUI.CUIText.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.CUI.CUIText.CUIText
+  fullName.vb: Crux.CUI.CUIText.New
+  nameWithType: CUIText.CUIText
+  nameWithType.vb: CUIText.New
+- uid: Crux.CUI.CUIText.FontColor
+  name: FontColor
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_FontColor
+  commentId: F:Crux.CUI.CUIText.FontColor
+  fullName: Crux.CUI.CUIText.FontColor
+  nameWithType: CUIText.FontColor
+- uid: Crux.CUI.CUIText.InstanceID
+  name: InstanceID
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_InstanceID
+  commentId: F:Crux.CUI.CUIText.InstanceID
+  fullName: Crux.CUI.CUIText.InstanceID
+  nameWithType: CUIText.InstanceID
+- uid: Crux.CUI.CUIText.Measure
+  name: Measure()
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_Measure
+  commentId: M:Crux.CUI.CUIText.Measure
+  fullName: Crux.CUI.CUIText.Measure()
+  nameWithType: CUIText.Measure()
+- uid: Crux.CUI.CUIText.Measure*
+  name: Measure
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_Measure_
+  commentId: Overload:Crux.CUI.CUIText.Measure
+  isSpec: "True"
+  fullName: Crux.CUI.CUIText.Measure
+  nameWithType: CUIText.Measure
+- uid: Crux.CUI.CUIText.Render
+  name: Render()
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_Render
+  commentId: M:Crux.CUI.CUIText.Render
+  fullName: Crux.CUI.CUIText.Render()
+  nameWithType: CUIText.Render()
+- uid: Crux.CUI.CUIText.Render*
+  name: Render
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_Render_
+  commentId: Overload:Crux.CUI.CUIText.Render
+  isSpec: "True"
+  fullName: Crux.CUI.CUIText.Render
+  nameWithType: CUIText.Render
+- uid: Crux.CUI.CUIText.RenderText
+  name: RenderText
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_RenderText
+  commentId: P:Crux.CUI.CUIText.RenderText
+  fullName: Crux.CUI.CUIText.RenderText
+  nameWithType: CUIText.RenderText
+- uid: Crux.CUI.CUIText.RenderText*
+  name: RenderText
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_RenderText_
+  commentId: Overload:Crux.CUI.CUIText.RenderText
+  isSpec: "True"
+  fullName: Crux.CUI.CUIText.RenderText
+  nameWithType: CUIText.RenderText
+- uid: Crux.CUI.CUIText.TextData
+  name: TextData
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_TextData
+  commentId: P:Crux.CUI.CUIText.TextData
+  fullName: Crux.CUI.CUIText.TextData
+  nameWithType: CUIText.TextData
+- uid: Crux.CUI.CUIText.TextData*
+  name: TextData
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_TextData_
+  commentId: Overload:Crux.CUI.CUIText.TextData
+  isSpec: "True"
+  fullName: Crux.CUI.CUIText.TextData
+  nameWithType: CUIText.TextData
+- uid: Crux.CUI.CUIText.VirtualFontSize
+  name: VirtualFontSize
+  href: api/Crux.CUI.CUIText.html#Crux_CUI_CUIText_VirtualFontSize
+  commentId: F:Crux.CUI.CUIText.VirtualFontSize
+  fullName: Crux.CUI.CUIText.VirtualFontSize
+  nameWithType: CUIText.VirtualFontSize
 - uid: Crux.Components
   name: Crux.Components
   href: api/Crux.Components.html
   commentId: N:Crux.Components
   fullName: Crux.Components
   nameWithType: Crux.Components
+- uid: Crux.Components.BoundsRenderComponent
+  name: BoundsRenderComponent
+  href: api/Crux.Components.BoundsRenderComponent.html
+  commentId: T:Crux.Components.BoundsRenderComponent
+  fullName: Crux.Components.BoundsRenderComponent
+  nameWithType: BoundsRenderComponent
+- uid: Crux.Components.BoundsRenderComponent.#ctor(Crux.Core.GameObject)
+  name: BoundsRenderComponent(GameObject)
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent__ctor_Crux_Core_GameObject_
+  commentId: M:Crux.Components.BoundsRenderComponent.#ctor(Crux.Core.GameObject)
+  name.vb: New(GameObject)
+  fullName: Crux.Components.BoundsRenderComponent.BoundsRenderComponent(Crux.Core.GameObject)
+  fullName.vb: Crux.Components.BoundsRenderComponent.New(Crux.Core.GameObject)
+  nameWithType: BoundsRenderComponent.BoundsRenderComponent(GameObject)
+  nameWithType.vb: BoundsRenderComponent.New(GameObject)
+- uid: Crux.Components.BoundsRenderComponent.#ctor*
+  name: BoundsRenderComponent
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent__ctor_
+  commentId: Overload:Crux.Components.BoundsRenderComponent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.Components.BoundsRenderComponent.BoundsRenderComponent
+  fullName.vb: Crux.Components.BoundsRenderComponent.New
+  nameWithType: BoundsRenderComponent.BoundsRenderComponent
+  nameWithType.vb: BoundsRenderComponent.New
+- uid: Crux.Components.BoundsRenderComponent.AABBColor
+  name: AABBColor
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_AABBColor
+  commentId: F:Crux.Components.BoundsRenderComponent.AABBColor
+  fullName: Crux.Components.BoundsRenderComponent.AABBColor
+  nameWithType: BoundsRenderComponent.AABBColor
+- uid: Crux.Components.BoundsRenderComponent.Clone(Crux.Core.GameObject)
+  name: Clone(GameObject)
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_Clone_Crux_Core_GameObject_
+  commentId: M:Crux.Components.BoundsRenderComponent.Clone(Crux.Core.GameObject)
+  fullName: Crux.Components.BoundsRenderComponent.Clone(Crux.Core.GameObject)
+  nameWithType: BoundsRenderComponent.Clone(GameObject)
+- uid: Crux.Components.BoundsRenderComponent.Clone*
+  name: Clone
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_Clone_
+  commentId: Overload:Crux.Components.BoundsRenderComponent.Clone
+  isSpec: "True"
+  fullName: Crux.Components.BoundsRenderComponent.Clone
+  nameWithType: BoundsRenderComponent.Clone
+- uid: Crux.Components.BoundsRenderComponent.Instances
+  name: Instances
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_Instances
+  commentId: F:Crux.Components.BoundsRenderComponent.Instances
+  fullName: Crux.Components.BoundsRenderComponent.Instances
+  nameWithType: BoundsRenderComponent.Instances
+- uid: Crux.Components.BoundsRenderComponent.OBBColor
+  name: OBBColor
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_OBBColor
+  commentId: F:Crux.Components.BoundsRenderComponent.OBBColor
+  fullName: Crux.Components.BoundsRenderComponent.OBBColor
+  nameWithType: BoundsRenderComponent.OBBColor
+- uid: Crux.Components.BoundsRenderComponent.Render
+  name: Render()
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_Render
+  commentId: M:Crux.Components.BoundsRenderComponent.Render
+  fullName: Crux.Components.BoundsRenderComponent.Render()
+  nameWithType: BoundsRenderComponent.Render()
+- uid: Crux.Components.BoundsRenderComponent.Render*
+  name: Render
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_Render_
+  commentId: Overload:Crux.Components.BoundsRenderComponent.Render
+  isSpec: "True"
+  fullName: Crux.Components.BoundsRenderComponent.Render
+  nameWithType: BoundsRenderComponent.Render
+- uid: Crux.Components.BoundsRenderComponent.Source
+  name: Source
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_Source
+  commentId: F:Crux.Components.BoundsRenderComponent.Source
+  fullName: Crux.Components.BoundsRenderComponent.Source
+  nameWithType: BoundsRenderComponent.Source
+- uid: Crux.Components.BoundsRenderComponent.ToString
+  name: ToString()
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_ToString
+  commentId: M:Crux.Components.BoundsRenderComponent.ToString
+  fullName: Crux.Components.BoundsRenderComponent.ToString()
+  nameWithType: BoundsRenderComponent.ToString()
+- uid: Crux.Components.BoundsRenderComponent.ToString*
+  name: ToString
+  href: api/Crux.Components.BoundsRenderComponent.html#Crux_Components_BoundsRenderComponent_ToString_
+  commentId: Overload:Crux.Components.BoundsRenderComponent.ToString
+  isSpec: "True"
+  fullName: Crux.Components.BoundsRenderComponent.ToString
+  nameWithType: BoundsRenderComponent.ToString
 - uid: Crux.Components.CameraComponent
   name: CameraComponent
   href: api/Crux.Components.CameraComponent.html
@@ -209,6 +649,137 @@ references:
   isSpec: "True"
   fullName: Crux.Components.CameraComponent.Update
   nameWithType: CameraComponent.Update
+- uid: Crux.Components.CanvasComponent
+  name: CanvasComponent
+  href: api/Crux.Components.CanvasComponent.html
+  commentId: T:Crux.Components.CanvasComponent
+  fullName: Crux.Components.CanvasComponent
+  nameWithType: CanvasComponent
+- uid: Crux.Components.CanvasComponent.#ctor(Crux.Core.GameObject)
+  name: CanvasComponent(GameObject)
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent__ctor_Crux_Core_GameObject_
+  commentId: M:Crux.Components.CanvasComponent.#ctor(Crux.Core.GameObject)
+  name.vb: New(GameObject)
+  fullName: Crux.Components.CanvasComponent.CanvasComponent(Crux.Core.GameObject)
+  fullName.vb: Crux.Components.CanvasComponent.New(Crux.Core.GameObject)
+  nameWithType: CanvasComponent.CanvasComponent(GameObject)
+  nameWithType.vb: CanvasComponent.New(GameObject)
+- uid: Crux.Components.CanvasComponent.#ctor*
+  name: CanvasComponent
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent__ctor_
+  commentId: Overload:Crux.Components.CanvasComponent.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.Components.CanvasComponent.CanvasComponent
+  fullName.vb: Crux.Components.CanvasComponent.New
+  nameWithType: CanvasComponent.CanvasComponent
+  nameWithType.vb: CanvasComponent.New
+- uid: Crux.Components.CanvasComponent.AfterRender
+  name: AfterRender()
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_AfterRender
+  commentId: M:Crux.Components.CanvasComponent.AfterRender
+  fullName: Crux.Components.CanvasComponent.AfterRender()
+  nameWithType: CanvasComponent.AfterRender()
+- uid: Crux.Components.CanvasComponent.AfterRender*
+  name: AfterRender
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_AfterRender_
+  commentId: Overload:Crux.Components.CanvasComponent.AfterRender
+  isSpec: "True"
+  fullName: Crux.Components.CanvasComponent.AfterRender
+  nameWithType: CanvasComponent.AfterRender
+- uid: Crux.Components.CanvasComponent.BindPoints
+  name: BindPoints
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_BindPoints
+  commentId: F:Crux.Components.CanvasComponent.BindPoints
+  fullName: Crux.Components.CanvasComponent.BindPoints
+  nameWithType: CanvasComponent.BindPoints
+- uid: Crux.Components.CanvasComponent.Clone(Crux.Core.GameObject)
+  name: Clone(GameObject)
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_Clone_Crux_Core_GameObject_
+  commentId: M:Crux.Components.CanvasComponent.Clone(Crux.Core.GameObject)
+  fullName: Crux.Components.CanvasComponent.Clone(Crux.Core.GameObject)
+  nameWithType: CanvasComponent.Clone(GameObject)
+- uid: Crux.Components.CanvasComponent.Clone*
+  name: Clone
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_Clone_
+  commentId: Overload:Crux.Components.CanvasComponent.Clone
+  isSpec: "True"
+  fullName: Crux.Components.CanvasComponent.Clone
+  nameWithType: CanvasComponent.Clone
+- uid: Crux.Components.CanvasComponent.GetModelMatrix(Crux.CUI.CUIBounds)
+  name: GetModelMatrix(CUIBounds)
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_GetModelMatrix_Crux_CUI_CUIBounds_
+  commentId: M:Crux.Components.CanvasComponent.GetModelMatrix(Crux.CUI.CUIBounds)
+  fullName: Crux.Components.CanvasComponent.GetModelMatrix(Crux.CUI.CUIBounds)
+  nameWithType: CanvasComponent.GetModelMatrix(CUIBounds)
+- uid: Crux.Components.CanvasComponent.GetModelMatrix*
+  name: GetModelMatrix
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_GetModelMatrix_
+  commentId: Overload:Crux.Components.CanvasComponent.GetModelMatrix
+  isSpec: "True"
+  fullName: Crux.Components.CanvasComponent.GetModelMatrix
+  nameWithType: CanvasComponent.GetModelMatrix
+- uid: Crux.Components.CanvasComponent.ParseMarkup(System.String)
+  name: ParseMarkup(string)
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_ParseMarkup_System_String_
+  commentId: M:Crux.Components.CanvasComponent.ParseMarkup(System.String)
+  name.vb: ParseMarkup(String)
+  fullName: Crux.Components.CanvasComponent.ParseMarkup(string)
+  fullName.vb: Crux.Components.CanvasComponent.ParseMarkup(String)
+  nameWithType: CanvasComponent.ParseMarkup(string)
+  nameWithType.vb: CanvasComponent.ParseMarkup(String)
+- uid: Crux.Components.CanvasComponent.ParseMarkup*
+  name: ParseMarkup
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_ParseMarkup_
+  commentId: Overload:Crux.Components.CanvasComponent.ParseMarkup
+  isSpec: "True"
+  fullName: Crux.Components.CanvasComponent.ParseMarkup
+  nameWithType: CanvasComponent.ParseMarkup
+- uid: Crux.Components.CanvasComponent.Render
+  name: Render()
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_Render
+  commentId: M:Crux.Components.CanvasComponent.Render
+  fullName: Crux.Components.CanvasComponent.Render()
+  nameWithType: CanvasComponent.Render()
+- uid: Crux.Components.CanvasComponent.Render*
+  name: Render
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_Render_
+  commentId: Overload:Crux.Components.CanvasComponent.Render
+  isSpec: "True"
+  fullName: Crux.Components.CanvasComponent.Render
+  nameWithType: CanvasComponent.Render
+- uid: Crux.Components.CanvasComponent.ToString
+  name: ToString()
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_ToString
+  commentId: M:Crux.Components.CanvasComponent.ToString
+  fullName: Crux.Components.CanvasComponent.ToString()
+  nameWithType: CanvasComponent.ToString()
+- uid: Crux.Components.CanvasComponent.ToString*
+  name: ToString
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_ToString_
+  commentId: Overload:Crux.Components.CanvasComponent.ToString
+  isSpec: "True"
+  fullName: Crux.Components.CanvasComponent.ToString
+  nameWithType: CanvasComponent.ToString
+- uid: Crux.Components.CanvasComponent.Update
+  name: Update()
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_Update
+  commentId: M:Crux.Components.CanvasComponent.Update
+  fullName: Crux.Components.CanvasComponent.Update()
+  nameWithType: CanvasComponent.Update()
+- uid: Crux.Components.CanvasComponent.Update*
+  name: Update
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_Update_
+  commentId: Overload:Crux.Components.CanvasComponent.Update
+  isSpec: "True"
+  fullName: Crux.Components.CanvasComponent.Update
+  nameWithType: CanvasComponent.Update
+- uid: Crux.Components.CanvasComponent.VirtualResolution
+  name: VirtualResolution
+  href: api/Crux.Components.CanvasComponent.html#Crux_Components_CanvasComponent_VirtualResolution
+  commentId: F:Crux.Components.CanvasComponent.VirtualResolution
+  fullName: Crux.Components.CanvasComponent.VirtualResolution
+  nameWithType: CanvasComponent.VirtualResolution
 - uid: Crux.Components.FreeLookComponent
   name: FreeLookComponent
   href: api/Crux.Components.FreeLookComponent.html
@@ -389,19 +960,19 @@ references:
   commentId: F:Crux.Components.InstancedMeshRenderComponent.InstanceData
   fullName: Crux.Components.InstancedMeshRenderComponent.InstanceData
   nameWithType: InstancedMeshRenderComponent.InstanceData
-- uid: Crux.Components.InstancedMeshRenderComponent.MeshVAOs
-  name: MeshVAOs
-  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_MeshVAOs
-  commentId: P:Crux.Components.InstancedMeshRenderComponent.MeshVAOs
-  fullName: Crux.Components.InstancedMeshRenderComponent.MeshVAOs
-  nameWithType: InstancedMeshRenderComponent.MeshVAOs
-- uid: Crux.Components.InstancedMeshRenderComponent.MeshVAOs*
-  name: MeshVAOs
-  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_MeshVAOs_
-  commentId: Overload:Crux.Components.InstancedMeshRenderComponent.MeshVAOs
+- uid: Crux.Components.InstancedMeshRenderComponent.MeshBuffers
+  name: MeshBuffers
+  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_MeshBuffers
+  commentId: P:Crux.Components.InstancedMeshRenderComponent.MeshBuffers
+  fullName: Crux.Components.InstancedMeshRenderComponent.MeshBuffers
+  nameWithType: InstancedMeshRenderComponent.MeshBuffers
+- uid: Crux.Components.InstancedMeshRenderComponent.MeshBuffers*
+  name: MeshBuffers
+  href: api/Crux.Components.InstancedMeshRenderComponent.html#Crux_Components_InstancedMeshRenderComponent_MeshBuffers_
+  commentId: Overload:Crux.Components.InstancedMeshRenderComponent.MeshBuffers
   isSpec: "True"
-  fullName: Crux.Components.InstancedMeshRenderComponent.MeshVAOs
-  nameWithType: InstancedMeshRenderComponent.MeshVAOs
+  fullName: Crux.Components.InstancedMeshRenderComponent.MeshBuffers
+  nameWithType: InstancedMeshRenderComponent.MeshBuffers
 - uid: Crux.Components.InstancedMeshRenderComponent.PerInstanceData
   name: InstancedMeshRenderComponent.PerInstanceData
   href: api/Crux.Components.InstancedMeshRenderComponent.PerInstanceData.html
@@ -643,6 +1214,12 @@ references:
   commentId: F:Crux.Components.LineRenderComponent.Color
   fullName: Crux.Components.LineRenderComponent.Color
   nameWithType: LineRenderComponent.Color
+- uid: Crux.Components.LineRenderComponent.Instances
+  name: Instances
+  href: api/Crux.Components.LineRenderComponent.html#Crux_Components_LineRenderComponent_Instances
+  commentId: F:Crux.Components.LineRenderComponent.Instances
+  fullName: Crux.Components.LineRenderComponent.Instances
+  nameWithType: LineRenderComponent.Instances
 - uid: Crux.Components.LineRenderComponent.Render
   name: Render()
   href: api/Crux.Components.LineRenderComponent.html#Crux_Components_LineRenderComponent_Render
@@ -669,19 +1246,6 @@ references:
   isSpec: "True"
   fullName: Crux.Components.LineRenderComponent.ToString
   nameWithType: LineRenderComponent.ToString
-- uid: Crux.Components.LineRenderComponent.shader
-  name: shader
-  href: api/Crux.Components.LineRenderComponent.html#Crux_Components_LineRenderComponent_shader
-  commentId: P:Crux.Components.LineRenderComponent.shader
-  fullName: Crux.Components.LineRenderComponent.shader
-  nameWithType: LineRenderComponent.shader
-- uid: Crux.Components.LineRenderComponent.shader*
-  name: shader
-  href: api/Crux.Components.LineRenderComponent.html#Crux_Components_LineRenderComponent_shader_
-  commentId: Overload:Crux.Components.LineRenderComponent.shader
-  isSpec: "True"
-  fullName: Crux.Components.LineRenderComponent.shader
-  nameWithType: LineRenderComponent.shader
 - uid: Crux.Components.MeshBoundsColliderComponent
   name: MeshBoundsColliderComponent
   href: api/Crux.Components.MeshBoundsColliderComponent.html
@@ -895,6 +1459,19 @@ references:
   isSpec: "True"
   fullName: Crux.Components.MeshComponent.Clone
   nameWithType: MeshComponent.Clone
+- uid: Crux.Components.MeshComponent.Data
+  name: Data
+  href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_Data
+  commentId: P:Crux.Components.MeshComponent.Data
+  fullName: Crux.Components.MeshComponent.Data
+  nameWithType: MeshComponent.Data
+- uid: Crux.Components.MeshComponent.Data*
+  name: Data
+  href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_Data_
+  commentId: Overload:Crux.Components.MeshComponent.Data
+  isSpec: "True"
+  fullName: Crux.Components.MeshComponent.Data
+  nameWithType: MeshComponent.Data
 - uid: Crux.Components.MeshComponent.Load(System.String)
   name: Load(string)
   href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_Load_System_String_
@@ -911,6 +1488,19 @@ references:
   isSpec: "True"
   fullName: Crux.Components.MeshComponent.Load
   nameWithType: MeshComponent.Load
+- uid: Crux.Components.MeshComponent.LoadedPath
+  name: LoadedPath
+  href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_LoadedPath
+  commentId: P:Crux.Components.MeshComponent.LoadedPath
+  fullName: Crux.Components.MeshComponent.LoadedPath
+  nameWithType: MeshComponent.LoadedPath
+- uid: Crux.Components.MeshComponent.LoadedPath*
+  name: LoadedPath
+  href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_LoadedPath_
+  commentId: Overload:Crux.Components.MeshComponent.LoadedPath
+  isSpec: "True"
+  fullName: Crux.Components.MeshComponent.LoadedPath
+  nameWithType: MeshComponent.LoadedPath
 - uid: Crux.Components.MeshComponent.ToString
   name: ToString()
   href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_ToString
@@ -924,32 +1514,6 @@ references:
   isSpec: "True"
   fullName: Crux.Components.MeshComponent.ToString
   nameWithType: MeshComponent.ToString
-- uid: Crux.Components.MeshComponent.data
-  name: data
-  href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_data
-  commentId: P:Crux.Components.MeshComponent.data
-  fullName: Crux.Components.MeshComponent.data
-  nameWithType: MeshComponent.data
-- uid: Crux.Components.MeshComponent.data*
-  name: data
-  href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_data_
-  commentId: Overload:Crux.Components.MeshComponent.data
-  isSpec: "True"
-  fullName: Crux.Components.MeshComponent.data
-  nameWithType: MeshComponent.data
-- uid: Crux.Components.MeshComponent.path
-  name: path
-  href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_path
-  commentId: P:Crux.Components.MeshComponent.path
-  fullName: Crux.Components.MeshComponent.path
-  nameWithType: MeshComponent.path
-- uid: Crux.Components.MeshComponent.path*
-  name: path
-  href: api/Crux.Components.MeshComponent.html#Crux_Components_MeshComponent_path_
-  commentId: Overload:Crux.Components.MeshComponent.path
-  isSpec: "True"
-  fullName: Crux.Components.MeshComponent.path
-  nameWithType: MeshComponent.path
 - uid: Crux.Components.MeshRenderComponent
   name: MeshRenderComponent
   href: api/Crux.Components.MeshRenderComponent.html
@@ -1017,19 +1581,19 @@ references:
   isSpec: "True"
   fullName: Crux.Components.MeshRenderComponent.HandleFrozenStateChanged
   nameWithType: MeshRenderComponent.HandleFrozenStateChanged
-- uid: Crux.Components.MeshRenderComponent.MeshVAOs
-  name: MeshVAOs
-  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_MeshVAOs
-  commentId: P:Crux.Components.MeshRenderComponent.MeshVAOs
-  fullName: Crux.Components.MeshRenderComponent.MeshVAOs
-  nameWithType: MeshRenderComponent.MeshVAOs
-- uid: Crux.Components.MeshRenderComponent.MeshVAOs*
-  name: MeshVAOs
-  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_MeshVAOs_
-  commentId: Overload:Crux.Components.MeshRenderComponent.MeshVAOs
+- uid: Crux.Components.MeshRenderComponent.MeshBuffers
+  name: MeshBuffers
+  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_MeshBuffers
+  commentId: P:Crux.Components.MeshRenderComponent.MeshBuffers
+  fullName: Crux.Components.MeshRenderComponent.MeshBuffers
+  nameWithType: MeshRenderComponent.MeshBuffers
+- uid: Crux.Components.MeshRenderComponent.MeshBuffers*
+  name: MeshBuffers
+  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_MeshBuffers_
+  commentId: Overload:Crux.Components.MeshRenderComponent.MeshBuffers
   isSpec: "True"
-  fullName: Crux.Components.MeshRenderComponent.MeshVAOs
-  nameWithType: MeshRenderComponent.MeshVAOs
+  fullName: Crux.Components.MeshRenderComponent.MeshBuffers
+  nameWithType: MeshRenderComponent.MeshBuffers
 - uid: Crux.Components.MeshRenderComponent.Render
   name: Render()
   href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_Render
@@ -1101,12 +1665,6 @@ references:
   isSpec: "True"
   fullName: Crux.Components.MeshRenderComponent.ToString
   nameWithType: MeshRenderComponent.ToString
-- uid: Crux.Components.MeshRenderComponent.VAOKeys
-  name: VAOKeys
-  href: api/Crux.Components.MeshRenderComponent.html#Crux_Components_MeshRenderComponent_VAOKeys
-  commentId: F:Crux.Components.MeshRenderComponent.VAOKeys
-  fullName: Crux.Components.MeshRenderComponent.VAOKeys
-  nameWithType: MeshRenderComponent.VAOKeys
 - uid: Crux.Components.MovementComponent
   name: MovementComponent
   href: api/Crux.Components.MovementComponent.html
@@ -1365,130 +1923,6 @@ references:
   commentId: F:Crux.Components.PhysicsComponent.Velocity
   fullName: Crux.Components.PhysicsComponent.Velocity
   nameWithType: PhysicsComponent.Velocity
-- uid: Crux.Components.TextRenderComponent
-  name: TextRenderComponent
-  href: api/Crux.Components.TextRenderComponent.html
-  commentId: T:Crux.Components.TextRenderComponent
-  fullName: Crux.Components.TextRenderComponent
-  nameWithType: TextRenderComponent
-- uid: Crux.Components.TextRenderComponent.#ctor(Crux.Core.GameObject)
-  name: TextRenderComponent(GameObject)
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent__ctor_Crux_Core_GameObject_
-  commentId: M:Crux.Components.TextRenderComponent.#ctor(Crux.Core.GameObject)
-  name.vb: New(GameObject)
-  fullName: Crux.Components.TextRenderComponent.TextRenderComponent(Crux.Core.GameObject)
-  fullName.vb: Crux.Components.TextRenderComponent.New(Crux.Core.GameObject)
-  nameWithType: TextRenderComponent.TextRenderComponent(GameObject)
-  nameWithType.vb: TextRenderComponent.New(GameObject)
-- uid: Crux.Components.TextRenderComponent.#ctor*
-  name: TextRenderComponent
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent__ctor_
-  commentId: Overload:Crux.Components.TextRenderComponent.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Crux.Components.TextRenderComponent.TextRenderComponent
-  fullName.vb: Crux.Components.TextRenderComponent.New
-  nameWithType: TextRenderComponent.TextRenderComponent
-  nameWithType.vb: TextRenderComponent.New
-- uid: Crux.Components.TextRenderComponent.Clone(Crux.Core.GameObject)
-  name: Clone(GameObject)
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_Clone_Crux_Core_GameObject_
-  commentId: M:Crux.Components.TextRenderComponent.Clone(Crux.Core.GameObject)
-  fullName: Crux.Components.TextRenderComponent.Clone(Crux.Core.GameObject)
-  nameWithType: TextRenderComponent.Clone(GameObject)
-- uid: Crux.Components.TextRenderComponent.Clone*
-  name: Clone
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_Clone_
-  commentId: Overload:Crux.Components.TextRenderComponent.Clone
-  isSpec: "True"
-  fullName: Crux.Components.TextRenderComponent.Clone
-  nameWithType: TextRenderComponent.Clone
-- uid: Crux.Components.TextRenderComponent.FontScale
-  name: FontScale
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_FontScale
-  commentId: F:Crux.Components.TextRenderComponent.FontScale
-  fullName: Crux.Components.TextRenderComponent.FontScale
-  nameWithType: TextRenderComponent.FontScale
-- uid: Crux.Components.TextRenderComponent.FontVAO
-  name: FontVAO
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_FontVAO
-  commentId: F:Crux.Components.TextRenderComponent.FontVAO
-  fullName: Crux.Components.TextRenderComponent.FontVAO
-  nameWithType: TextRenderComponent.FontVAO
-- uid: Crux.Components.TextRenderComponent.InstanceData
-  name: InstanceData
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_InstanceData
-  commentId: F:Crux.Components.TextRenderComponent.InstanceData
-  fullName: Crux.Components.TextRenderComponent.InstanceData
-  nameWithType: TextRenderComponent.InstanceData
-- uid: Crux.Components.TextRenderComponent.PerInstanceData
-  name: TextRenderComponent.PerInstanceData
-  href: api/Crux.Components.TextRenderComponent.PerInstanceData.html
-  commentId: T:Crux.Components.TextRenderComponent.PerInstanceData
-  fullName: Crux.Components.TextRenderComponent.PerInstanceData
-  nameWithType: TextRenderComponent.PerInstanceData
-- uid: Crux.Components.TextRenderComponent.PerInstanceData.CharacterData
-  name: CharacterData
-  href: api/Crux.Components.TextRenderComponent.PerInstanceData.html#Crux_Components_TextRenderComponent_PerInstanceData_CharacterData
-  commentId: F:Crux.Components.TextRenderComponent.PerInstanceData.CharacterData
-  fullName: Crux.Components.TextRenderComponent.PerInstanceData.CharacterData
-  nameWithType: TextRenderComponent.PerInstanceData.CharacterData
-- uid: Crux.Components.TextRenderComponent.PerInstanceData.GPUBufferLength
-  name: GPUBufferLength
-  href: api/Crux.Components.TextRenderComponent.PerInstanceData.html#Crux_Components_TextRenderComponent_PerInstanceData_GPUBufferLength
-  commentId: F:Crux.Components.TextRenderComponent.PerInstanceData.GPUBufferLength
-  fullName: Crux.Components.TextRenderComponent.PerInstanceData.GPUBufferLength
-  nameWithType: TextRenderComponent.PerInstanceData.GPUBufferLength
-- uid: Crux.Components.TextRenderComponent.Render
-  name: Render()
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_Render
-  commentId: M:Crux.Components.TextRenderComponent.Render
-  fullName: Crux.Components.TextRenderComponent.Render()
-  nameWithType: TextRenderComponent.Render()
-- uid: Crux.Components.TextRenderComponent.Render*
-  name: Render
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_Render_
-  commentId: Overload:Crux.Components.TextRenderComponent.Render
-  isSpec: "True"
-  fullName: Crux.Components.TextRenderComponent.Render
-  nameWithType: TextRenderComponent.Render
-- uid: Crux.Components.TextRenderComponent.Rendered
-  name: Rendered
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_Rendered
-  commentId: F:Crux.Components.TextRenderComponent.Rendered
-  fullName: Crux.Components.TextRenderComponent.Rendered
-  nameWithType: TextRenderComponent.Rendered
-- uid: Crux.Components.TextRenderComponent.StartPosition
-  name: StartPosition
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_StartPosition
-  commentId: F:Crux.Components.TextRenderComponent.StartPosition
-  fullName: Crux.Components.TextRenderComponent.StartPosition
-  nameWithType: TextRenderComponent.StartPosition
-- uid: Crux.Components.TextRenderComponent.Text
-  name: Text
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_Text
-  commentId: F:Crux.Components.TextRenderComponent.Text
-  fullName: Crux.Components.TextRenderComponent.Text
-  nameWithType: TextRenderComponent.Text
-- uid: Crux.Components.TextRenderComponent.ToString
-  name: ToString()
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_ToString
-  commentId: M:Crux.Components.TextRenderComponent.ToString
-  fullName: Crux.Components.TextRenderComponent.ToString()
-  nameWithType: TextRenderComponent.ToString()
-- uid: Crux.Components.TextRenderComponent.ToString*
-  name: ToString
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_ToString_
-  commentId: Overload:Crux.Components.TextRenderComponent.ToString
-  isSpec: "True"
-  fullName: Crux.Components.TextRenderComponent.ToString
-  nameWithType: TextRenderComponent.ToString
-- uid: Crux.Components.TextRenderComponent.fontMaterial
-  name: fontMaterial
-  href: api/Crux.Components.TextRenderComponent.html#Crux_Components_TextRenderComponent_fontMaterial
-  commentId: F:Crux.Components.TextRenderComponent.fontMaterial
-  fullName: Crux.Components.TextRenderComponent.fontMaterial
-  nameWithType: TextRenderComponent.fontMaterial
 - uid: Crux.Components.TransformComponent
   name: TransformComponent
   href: api/Crux.Components.TransformComponent.html
@@ -2057,12 +2491,19 @@ references:
   commentId: F:Crux.Core.GameEngine.DebugDisplayPositions
   fullName: Crux.Core.GameEngine.DebugDisplayPositions
   nameWithType: GameEngine.DebugDisplayPositions
-- uid: Crux.Core.GameEngine.DebugHUD
-  name: DebugHUD
-  href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_DebugHUD
-  commentId: F:Crux.Core.GameEngine.DebugHUD
-  fullName: Crux.Core.GameEngine.DebugHUD
-  nameWithType: GameEngine.DebugHUD
+- uid: Crux.Core.GameEngine.GetApplicationInformation
+  name: GetApplicationInformation()
+  href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_GetApplicationInformation
+  commentId: M:Crux.Core.GameEngine.GetApplicationInformation
+  fullName: Crux.Core.GameEngine.GetApplicationInformation()
+  nameWithType: GameEngine.GetApplicationInformation()
+- uid: Crux.Core.GameEngine.GetApplicationInformation*
+  name: GetApplicationInformation
+  href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_GetApplicationInformation_
+  commentId: Overload:Crux.Core.GameEngine.GetApplicationInformation
+  isSpec: "True"
+  fullName: Crux.Core.GameEngine.GetApplicationInformation
+  nameWithType: GameEngine.GetApplicationInformation
 - uid: Crux.Core.GameEngine.GetEngineShortName
   name: GetEngineShortName()
   href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_GetEngineShortName
@@ -2089,6 +2530,32 @@ references:
   isSpec: "True"
   fullName: Crux.Core.GameEngine.GetGameShortName
   nameWithType: GameEngine.GetGameShortName
+- uid: Crux.Core.GameEngine.GetOperatingSystem
+  name: GetOperatingSystem()
+  href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_GetOperatingSystem
+  commentId: M:Crux.Core.GameEngine.GetOperatingSystem
+  fullName: Crux.Core.GameEngine.GetOperatingSystem()
+  nameWithType: GameEngine.GetOperatingSystem()
+- uid: Crux.Core.GameEngine.GetOperatingSystem*
+  name: GetOperatingSystem
+  href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_GetOperatingSystem_
+  commentId: Overload:Crux.Core.GameEngine.GetOperatingSystem
+  isSpec: "True"
+  fullName: Crux.Core.GameEngine.GetOperatingSystem
+  nameWithType: GameEngine.GetOperatingSystem
+- uid: Crux.Core.GameEngine.GetSystemInformation
+  name: GetSystemInformation()
+  href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_GetSystemInformation
+  commentId: M:Crux.Core.GameEngine.GetSystemInformation
+  fullName: Crux.Core.GameEngine.GetSystemInformation()
+  nameWithType: GameEngine.GetSystemInformation()
+- uid: Crux.Core.GameEngine.GetSystemInformation*
+  name: GetSystemInformation
+  href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_GetSystemInformation_
+  commentId: Overload:Crux.Core.GameEngine.GetSystemInformation
+  isSpec: "True"
+  fullName: Crux.Core.GameEngine.GetSystemInformation
+  nameWithType: GameEngine.GetSystemInformation
 - uid: Crux.Core.GameEngine.GetWindowShortName
   name: GetWindowShortName()
   href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_GetWindowShortName
@@ -2233,6 +2700,19 @@ references:
   commentId: F:Crux.Core.GameEngine.Resolution
   fullName: Crux.Core.GameEngine.Resolution
   nameWithType: GameEngine.Resolution
+- uid: Crux.Core.GameEngine.SetupDebugCanvas
+  name: SetupDebugCanvas()
+  href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_SetupDebugCanvas
+  commentId: M:Crux.Core.GameEngine.SetupDebugCanvas
+  fullName: Crux.Core.GameEngine.SetupDebugCanvas()
+  nameWithType: GameEngine.SetupDebugCanvas()
+- uid: Crux.Core.GameEngine.SetupDebugCanvas*
+  name: SetupDebugCanvas
+  href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_SetupDebugCanvas_
+  commentId: Overload:Crux.Core.GameEngine.SetupDebugCanvas
+  isSpec: "True"
+  fullName: Crux.Core.GameEngine.SetupDebugCanvas
+  nameWithType: GameEngine.SetupDebugCanvas
 - uid: Crux.Core.GameEngine.Version
   name: Version
   href: api/Crux.Core.GameEngine.html#Crux_Core_GameEngine_Version
@@ -2484,12 +2964,101 @@ references:
   isSpec: "True"
   fullName: Crux.Core.GameObject.Update
   nameWithType: GameObject.Update
+- uid: Crux.Core.Input
+  name: Input
+  href: api/Crux.Core.Input.html
+  commentId: T:Crux.Core.Input
+  fullName: Crux.Core.Input
+  nameWithType: Input
+- uid: Crux.Core.Input.CreateAction(System.String,OpenTK.Windowing.GraphicsLibraryFramework.Keys)
+  name: CreateAction(string, Keys)
+  href: api/Crux.Core.Input.html#Crux_Core_Input_CreateAction_System_String_OpenTK_Windowing_GraphicsLibraryFramework_Keys_
+  commentId: M:Crux.Core.Input.CreateAction(System.String,OpenTK.Windowing.GraphicsLibraryFramework.Keys)
+  name.vb: CreateAction(String, Keys)
+  fullName: Crux.Core.Input.CreateAction(string, OpenTK.Windowing.GraphicsLibraryFramework.Keys)
+  fullName.vb: Crux.Core.Input.CreateAction(String, OpenTK.Windowing.GraphicsLibraryFramework.Keys)
+  nameWithType: Input.CreateAction(string, Keys)
+  nameWithType.vb: Input.CreateAction(String, Keys)
+- uid: Crux.Core.Input.CreateAction*
+  name: CreateAction
+  href: api/Crux.Core.Input.html#Crux_Core_Input_CreateAction_
+  commentId: Overload:Crux.Core.Input.CreateAction
+  isSpec: "True"
+  fullName: Crux.Core.Input.CreateAction
+  nameWithType: Input.CreateAction
+- uid: Crux.Core.Input.IsActionHeld(System.String)
+  name: IsActionHeld(string)
+  href: api/Crux.Core.Input.html#Crux_Core_Input_IsActionHeld_System_String_
+  commentId: M:Crux.Core.Input.IsActionHeld(System.String)
+  name.vb: IsActionHeld(String)
+  fullName: Crux.Core.Input.IsActionHeld(string)
+  fullName.vb: Crux.Core.Input.IsActionHeld(String)
+  nameWithType: Input.IsActionHeld(string)
+  nameWithType.vb: Input.IsActionHeld(String)
+- uid: Crux.Core.Input.IsActionHeld*
+  name: IsActionHeld
+  href: api/Crux.Core.Input.html#Crux_Core_Input_IsActionHeld_
+  commentId: Overload:Crux.Core.Input.IsActionHeld
+  isSpec: "True"
+  fullName: Crux.Core.Input.IsActionHeld
+  nameWithType: Input.IsActionHeld
+- uid: Crux.Core.Input.IsActionPressed(System.String)
+  name: IsActionPressed(string)
+  href: api/Crux.Core.Input.html#Crux_Core_Input_IsActionPressed_System_String_
+  commentId: M:Crux.Core.Input.IsActionPressed(System.String)
+  name.vb: IsActionPressed(String)
+  fullName: Crux.Core.Input.IsActionPressed(string)
+  fullName.vb: Crux.Core.Input.IsActionPressed(String)
+  nameWithType: Input.IsActionPressed(string)
+  nameWithType.vb: Input.IsActionPressed(String)
+- uid: Crux.Core.Input.IsActionPressed*
+  name: IsActionPressed
+  href: api/Crux.Core.Input.html#Crux_Core_Input_IsActionPressed_
+  commentId: Overload:Crux.Core.Input.IsActionPressed
+  isSpec: "True"
+  fullName: Crux.Core.Input.IsActionPressed
+  nameWithType: Input.IsActionPressed
+- uid: Crux.Core.Input.IsActionReleased(System.String)
+  name: IsActionReleased(string)
+  href: api/Crux.Core.Input.html#Crux_Core_Input_IsActionReleased_System_String_
+  commentId: M:Crux.Core.Input.IsActionReleased(System.String)
+  name.vb: IsActionReleased(String)
+  fullName: Crux.Core.Input.IsActionReleased(string)
+  fullName.vb: Crux.Core.Input.IsActionReleased(String)
+  nameWithType: Input.IsActionReleased(string)
+  nameWithType.vb: Input.IsActionReleased(String)
+- uid: Crux.Core.Input.IsActionReleased*
+  name: IsActionReleased
+  href: api/Crux.Core.Input.html#Crux_Core_Input_IsActionReleased_
+  commentId: Overload:Crux.Core.Input.IsActionReleased
+  isSpec: "True"
+  fullName: Crux.Core.Input.IsActionReleased
+  nameWithType: Input.IsActionReleased
+- uid: Crux.Core.Input.OutputKeyBindings
+  name: OutputKeyBindings()
+  href: api/Crux.Core.Input.html#Crux_Core_Input_OutputKeyBindings
+  commentId: M:Crux.Core.Input.OutputKeyBindings
+  fullName: Crux.Core.Input.OutputKeyBindings()
+  nameWithType: Input.OutputKeyBindings()
+- uid: Crux.Core.Input.OutputKeyBindings*
+  name: OutputKeyBindings
+  href: api/Crux.Core.Input.html#Crux_Core_Input_OutputKeyBindings_
+  commentId: Overload:Crux.Core.Input.OutputKeyBindings
+  isSpec: "True"
+  fullName: Crux.Core.Input.OutputKeyBindings
+  nameWithType: Input.OutputKeyBindings
 - uid: Crux.Core.LogSource
   name: LogSource
   href: api/Crux.Core.LogSource.html
   commentId: T:Crux.Core.LogSource
   fullName: Crux.Core.LogSource
   nameWithType: LogSource
+- uid: Crux.Core.LogSource.Context
+  name: Context
+  href: api/Crux.Core.LogSource.html#Crux_Core_LogSource_Context
+  commentId: F:Crux.Core.LogSource.Context
+  fullName: Crux.Core.LogSource.Context
+  nameWithType: LogSource.Context
 - uid: Crux.Core.LogSource.Error
   name: Error
   href: api/Crux.Core.LogSource.html#Crux_Core_LogSource_Error
@@ -2536,12 +3105,15 @@ references:
   isSpec: "True"
   fullName: Crux.Core.Logger.Log
   nameWithType: Logger.Log
-- uid: Crux.Core.Logger.LogError(System.Exception)
-  name: LogError(Exception)
-  href: api/Crux.Core.Logger.html#Crux_Core_Logger_LogError_System_Exception_
-  commentId: M:Crux.Core.Logger.LogError(System.Exception)
-  fullName: Crux.Core.Logger.LogError(System.Exception)
-  nameWithType: Logger.LogError(Exception)
+- uid: Crux.Core.Logger.LogError(System.Exception,System.String,System.Int32,System.String)
+  name: LogError(Exception, string, int, string)
+  href: api/Crux.Core.Logger.html#Crux_Core_Logger_LogError_System_Exception_System_String_System_Int32_System_String_
+  commentId: M:Crux.Core.Logger.LogError(System.Exception,System.String,System.Int32,System.String)
+  name.vb: LogError(Exception, String, Integer, String)
+  fullName: Crux.Core.Logger.LogError(System.Exception, string, int, string)
+  fullName.vb: Crux.Core.Logger.LogError(System.Exception, String, Integer, String)
+  nameWithType: Logger.LogError(Exception, string, int, string)
+  nameWithType.vb: Logger.LogError(Exception, String, Integer, String)
 - uid: Crux.Core.Logger.LogError*
   name: LogError
   href: api/Crux.Core.Logger.html#Crux_Core_Logger_LogError_
@@ -2549,15 +3121,21 @@ references:
   isSpec: "True"
   fullName: Crux.Core.Logger.LogError
   nameWithType: Logger.LogError
-- uid: Crux.Core.Logger.LogWarning(System.String)
-  name: LogWarning(string)
-  href: api/Crux.Core.Logger.html#Crux_Core_Logger_LogWarning_System_String_
-  commentId: M:Crux.Core.Logger.LogWarning(System.String)
-  name.vb: LogWarning(String)
-  fullName: Crux.Core.Logger.LogWarning(string)
-  fullName.vb: Crux.Core.Logger.LogWarning(String)
-  nameWithType: Logger.LogWarning(string)
-  nameWithType.vb: Logger.LogWarning(String)
+- uid: Crux.Core.Logger.LogPath
+  name: LogPath
+  href: api/Crux.Core.Logger.html#Crux_Core_Logger_LogPath
+  commentId: F:Crux.Core.Logger.LogPath
+  fullName: Crux.Core.Logger.LogPath
+  nameWithType: Logger.LogPath
+- uid: Crux.Core.Logger.LogWarning(System.String,System.String,System.Int32,System.String)
+  name: LogWarning(string, string, int, string)
+  href: api/Crux.Core.Logger.html#Crux_Core_Logger_LogWarning_System_String_System_String_System_Int32_System_String_
+  commentId: M:Crux.Core.Logger.LogWarning(System.String,System.String,System.Int32,System.String)
+  name.vb: LogWarning(String, String, Integer, String)
+  fullName: Crux.Core.Logger.LogWarning(string, string, int, string)
+  fullName.vb: Crux.Core.Logger.LogWarning(String, String, Integer, String)
+  nameWithType: Logger.LogWarning(string, string, int, string)
+  nameWithType.vb: Logger.LogWarning(String, String, Integer, String)
 - uid: Crux.Core.Logger.LogWarning*
   name: LogWarning
   href: api/Crux.Core.Logger.html#Crux_Core_Logger_LogWarning_
@@ -2565,6 +3143,15 @@ references:
   isSpec: "True"
   fullName: Crux.Core.Logger.LogWarning
   nameWithType: Logger.LogWarning
+- uid: Crux.Core.Logger.LogWarning``1(``0,System.String,System.Int32,System.String)
+  name: LogWarning<T>(T, string, int, string)
+  href: api/Crux.Core.Logger.html#Crux_Core_Logger_LogWarning__1___0_System_String_System_Int32_System_String_
+  commentId: M:Crux.Core.Logger.LogWarning``1(``0,System.String,System.Int32,System.String)
+  name.vb: LogWarning(Of T)(T, String, Integer, String)
+  fullName: Crux.Core.Logger.LogWarning<T>(T, string, int, string)
+  fullName.vb: Crux.Core.Logger.LogWarning(Of T)(T, String, Integer, String)
+  nameWithType: Logger.LogWarning<T>(T, string, int, string)
+  nameWithType.vb: Logger.LogWarning(Of T)(T, String, Integer, String)
 - uid: Crux.Core.Logger.Log``1(``0,Crux.Core.LogSource)
   name: Log<T>(T, LogSource)
   href: api/Crux.Core.Logger.html#Crux_Core_Logger_Log__1___0_Crux_Core_LogSource_
@@ -2580,6 +3167,35 @@ references:
   commentId: F:Crux.Core.Logger.StartTime
   fullName: Crux.Core.Logger.StartTime
   nameWithType: Logger.StartTime
+- uid: Crux.Core.Logger.TrimPath(System.String)
+  name: TrimPath(string)
+  href: api/Crux.Core.Logger.html#Crux_Core_Logger_TrimPath_System_String_
+  commentId: M:Crux.Core.Logger.TrimPath(System.String)
+  name.vb: TrimPath(String)
+  fullName: Crux.Core.Logger.TrimPath(string)
+  fullName.vb: Crux.Core.Logger.TrimPath(String)
+  nameWithType: Logger.TrimPath(string)
+  nameWithType.vb: Logger.TrimPath(String)
+- uid: Crux.Core.Logger.TrimPath*
+  name: TrimPath
+  href: api/Crux.Core.Logger.html#Crux_Core_Logger_TrimPath_
+  commentId: Overload:Crux.Core.Logger.TrimPath
+  isSpec: "True"
+  fullName: Crux.Core.Logger.TrimPath
+  nameWithType: Logger.TrimPath
+- uid: Crux.Core.Logger.WritePendingLogsToFile
+  name: WritePendingLogsToFile()
+  href: api/Crux.Core.Logger.html#Crux_Core_Logger_WritePendingLogsToFile
+  commentId: M:Crux.Core.Logger.WritePendingLogsToFile
+  fullName: Crux.Core.Logger.WritePendingLogsToFile()
+  nameWithType: Logger.WritePendingLogsToFile()
+- uid: Crux.Core.Logger.WritePendingLogsToFile*
+  name: WritePendingLogsToFile
+  href: api/Crux.Core.Logger.html#Crux_Core_Logger_WritePendingLogsToFile_
+  commentId: Overload:Crux.Core.Logger.WritePendingLogsToFile
+  isSpec: "True"
+  fullName: Crux.Core.Logger.WritePendingLogsToFile
+  nameWithType: Logger.WritePendingLogsToFile
 - uid: Crux.Core.Presets
   name: Presets
   href: api/Crux.Core.Presets.html
@@ -3037,6 +3653,12 @@ references:
   commentId: T:Crux.Graphics.GraphicsCache
   fullName: Crux.Graphics.GraphicsCache
   nameWithType: GraphicsCache
+- uid: Crux.Graphics.GraphicsCache.DrawCallsLastFrame
+  name: DrawCallsLastFrame
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_DrawCallsLastFrame
+  commentId: F:Crux.Graphics.GraphicsCache.DrawCallsLastFrame
+  fullName: Crux.Graphics.GraphicsCache.DrawCallsLastFrame
+  nameWithType: GraphicsCache.DrawCallsLastFrame
 - uid: Crux.Graphics.GraphicsCache.DrawCallsThisFrame
   name: DrawCallsThisFrame
   href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_DrawCallsThisFrame
@@ -3049,15 +3671,15 @@ references:
   commentId: F:Crux.Graphics.GraphicsCache.FramesPerSecond
   fullName: Crux.Graphics.GraphicsCache.FramesPerSecond
   nameWithType: GraphicsCache.FramesPerSecond
-- uid: Crux.Graphics.GraphicsCache.GetFragmentShader(System.String)
-  name: GetFragmentShader(string)
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetFragmentShader_System_String_
-  commentId: M:Crux.Graphics.GraphicsCache.GetFragmentShader(System.String)
-  name.vb: GetFragmentShader(String)
-  fullName: Crux.Graphics.GraphicsCache.GetFragmentShader(string)
-  fullName.vb: Crux.Graphics.GraphicsCache.GetFragmentShader(String)
-  nameWithType: GraphicsCache.GetFragmentShader(string)
-  nameWithType.vb: GraphicsCache.GetFragmentShader(String)
+- uid: Crux.Graphics.GraphicsCache.GetFragmentShader(System.String,System.Boolean)
+  name: GetFragmentShader(string, bool)
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetFragmentShader_System_String_System_Boolean_
+  commentId: M:Crux.Graphics.GraphicsCache.GetFragmentShader(System.String,System.Boolean)
+  name.vb: GetFragmentShader(String, Boolean)
+  fullName: Crux.Graphics.GraphicsCache.GetFragmentShader(string, bool)
+  fullName.vb: Crux.Graphics.GraphicsCache.GetFragmentShader(String, Boolean)
+  nameWithType: GraphicsCache.GetFragmentShader(string, bool)
+  nameWithType.vb: GraphicsCache.GetFragmentShader(String, Boolean)
 - uid: Crux.Graphics.GraphicsCache.GetFragmentShader*
   name: GetFragmentShader
   href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetFragmentShader_
@@ -3078,67 +3700,86 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.GraphicsCache.GetFullInfo
   nameWithType: GraphicsCache.GetFullInfo
-- uid: Crux.Graphics.GraphicsCache.GetInstancedMeshVAO(System.String,Crux.Graphics.Mesh)
-  name: GetInstancedMeshVAO(string, Mesh)
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedMeshVAO_System_String_Crux_Graphics_Mesh_
-  commentId: M:Crux.Graphics.GraphicsCache.GetInstancedMeshVAO(System.String,Crux.Graphics.Mesh)
-  name.vb: GetInstancedMeshVAO(String, Mesh)
-  fullName: Crux.Graphics.GraphicsCache.GetInstancedMeshVAO(string, Crux.Graphics.Mesh)
-  fullName.vb: Crux.Graphics.GraphicsCache.GetInstancedMeshVAO(String, Crux.Graphics.Mesh)
-  nameWithType: GraphicsCache.GetInstancedMeshVAO(string, Mesh)
-  nameWithType.vb: GraphicsCache.GetInstancedMeshVAO(String, Mesh)
-- uid: Crux.Graphics.GraphicsCache.GetInstancedMeshVAO*
-  name: GetInstancedMeshVAO
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedMeshVAO_
-  commentId: Overload:Crux.Graphics.GraphicsCache.GetInstancedMeshVAO
+- uid: Crux.Graphics.GraphicsCache.GetInstancedLineBuffer(System.String,OpenTK.Mathematics.Vector3[])
+  name: GetInstancedLineBuffer(string, Vector3[])
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedLineBuffer_System_String_OpenTK_Mathematics_Vector3___
+  commentId: M:Crux.Graphics.GraphicsCache.GetInstancedLineBuffer(System.String,OpenTK.Mathematics.Vector3[])
+  name.vb: GetInstancedLineBuffer(String, Vector3())
+  fullName: Crux.Graphics.GraphicsCache.GetInstancedLineBuffer(string, OpenTK.Mathematics.Vector3[])
+  fullName.vb: Crux.Graphics.GraphicsCache.GetInstancedLineBuffer(String, OpenTK.Mathematics.Vector3())
+  nameWithType: GraphicsCache.GetInstancedLineBuffer(string, Vector3[])
+  nameWithType.vb: GraphicsCache.GetInstancedLineBuffer(String, Vector3())
+- uid: Crux.Graphics.GraphicsCache.GetInstancedLineBuffer*
+  name: GetInstancedLineBuffer
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedLineBuffer_
+  commentId: Overload:Crux.Graphics.GraphicsCache.GetInstancedLineBuffer
   isSpec: "True"
-  fullName: Crux.Graphics.GraphicsCache.GetInstancedMeshVAO
-  nameWithType: GraphicsCache.GetInstancedMeshVAO
-- uid: Crux.Graphics.GraphicsCache.GetInstancedUIVAO
-  name: GetInstancedUIVAO()
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedUIVAO
-  commentId: M:Crux.Graphics.GraphicsCache.GetInstancedUIVAO
-  fullName: Crux.Graphics.GraphicsCache.GetInstancedUIVAO()
-  nameWithType: GraphicsCache.GetInstancedUIVAO()
-- uid: Crux.Graphics.GraphicsCache.GetInstancedUIVAO*
-  name: GetInstancedUIVAO
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedUIVAO_
-  commentId: Overload:Crux.Graphics.GraphicsCache.GetInstancedUIVAO
+  fullName: Crux.Graphics.GraphicsCache.GetInstancedLineBuffer
+  nameWithType: GraphicsCache.GetInstancedLineBuffer
+- uid: Crux.Graphics.GraphicsCache.GetInstancedMeshBuffer(System.String,Crux.Graphics.Mesh)
+  name: GetInstancedMeshBuffer(string, Mesh)
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedMeshBuffer_System_String_Crux_Graphics_Mesh_
+  commentId: M:Crux.Graphics.GraphicsCache.GetInstancedMeshBuffer(System.String,Crux.Graphics.Mesh)
+  name.vb: GetInstancedMeshBuffer(String, Mesh)
+  fullName: Crux.Graphics.GraphicsCache.GetInstancedMeshBuffer(string, Crux.Graphics.Mesh)
+  fullName.vb: Crux.Graphics.GraphicsCache.GetInstancedMeshBuffer(String, Crux.Graphics.Mesh)
+  nameWithType: GraphicsCache.GetInstancedMeshBuffer(string, Mesh)
+  nameWithType.vb: GraphicsCache.GetInstancedMeshBuffer(String, Mesh)
+- uid: Crux.Graphics.GraphicsCache.GetInstancedMeshBuffer*
+  name: GetInstancedMeshBuffer
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedMeshBuffer_
+  commentId: Overload:Crux.Graphics.GraphicsCache.GetInstancedMeshBuffer
   isSpec: "True"
-  fullName: Crux.Graphics.GraphicsCache.GetInstancedUIVAO
-  nameWithType: GraphicsCache.GetInstancedUIVAO
-- uid: Crux.Graphics.GraphicsCache.GetLineVAO(System.String,System.Collections.Generic.List{OpenTK.Mathematics.Vector3})
-  name: GetLineVAO(string, List<Vector3>)
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetLineVAO_System_String_System_Collections_Generic_List_OpenTK_Mathematics_Vector3__
-  commentId: M:Crux.Graphics.GraphicsCache.GetLineVAO(System.String,System.Collections.Generic.List{OpenTK.Mathematics.Vector3})
-  name.vb: GetLineVAO(String, List(Of Vector3))
-  fullName: Crux.Graphics.GraphicsCache.GetLineVAO(string, System.Collections.Generic.List<OpenTK.Mathematics.Vector3>)
-  fullName.vb: Crux.Graphics.GraphicsCache.GetLineVAO(String, System.Collections.Generic.List(Of OpenTK.Mathematics.Vector3))
-  nameWithType: GraphicsCache.GetLineVAO(string, List<Vector3>)
-  nameWithType.vb: GraphicsCache.GetLineVAO(String, List(Of Vector3))
-- uid: Crux.Graphics.GraphicsCache.GetLineVAO*
-  name: GetLineVAO
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetLineVAO_
-  commentId: Overload:Crux.Graphics.GraphicsCache.GetLineVAO
+  fullName: Crux.Graphics.GraphicsCache.GetInstancedMeshBuffer
+  nameWithType: GraphicsCache.GetInstancedMeshBuffer
+- uid: Crux.Graphics.GraphicsCache.GetInstancedQuadBuffer(System.String)
+  name: GetInstancedQuadBuffer(string)
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedQuadBuffer_System_String_
+  commentId: M:Crux.Graphics.GraphicsCache.GetInstancedQuadBuffer(System.String)
+  name.vb: GetInstancedQuadBuffer(String)
+  fullName: Crux.Graphics.GraphicsCache.GetInstancedQuadBuffer(string)
+  fullName.vb: Crux.Graphics.GraphicsCache.GetInstancedQuadBuffer(String)
+  nameWithType: GraphicsCache.GetInstancedQuadBuffer(string)
+  nameWithType.vb: GraphicsCache.GetInstancedQuadBuffer(String)
+- uid: Crux.Graphics.GraphicsCache.GetInstancedQuadBuffer*
+  name: GetInstancedQuadBuffer
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetInstancedQuadBuffer_
+  commentId: Overload:Crux.Graphics.GraphicsCache.GetInstancedQuadBuffer
   isSpec: "True"
-  fullName: Crux.Graphics.GraphicsCache.GetLineVAO
-  nameWithType: GraphicsCache.GetLineVAO
-- uid: Crux.Graphics.GraphicsCache.GetMeshVAO(System.String,Crux.Graphics.Mesh)
-  name: GetMeshVAO(string, Mesh)
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetMeshVAO_System_String_Crux_Graphics_Mesh_
-  commentId: M:Crux.Graphics.GraphicsCache.GetMeshVAO(System.String,Crux.Graphics.Mesh)
-  name.vb: GetMeshVAO(String, Mesh)
-  fullName: Crux.Graphics.GraphicsCache.GetMeshVAO(string, Crux.Graphics.Mesh)
-  fullName.vb: Crux.Graphics.GraphicsCache.GetMeshVAO(String, Crux.Graphics.Mesh)
-  nameWithType: GraphicsCache.GetMeshVAO(string, Mesh)
-  nameWithType.vb: GraphicsCache.GetMeshVAO(String, Mesh)
-- uid: Crux.Graphics.GraphicsCache.GetMeshVAO*
-  name: GetMeshVAO
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetMeshVAO_
-  commentId: Overload:Crux.Graphics.GraphicsCache.GetMeshVAO
+  fullName: Crux.Graphics.GraphicsCache.GetInstancedQuadBuffer
+  nameWithType: GraphicsCache.GetInstancedQuadBuffer
+- uid: Crux.Graphics.GraphicsCache.GetLineBuffer(System.String,OpenTK.Mathematics.Vector3[])
+  name: GetLineBuffer(string, Vector3[])
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetLineBuffer_System_String_OpenTK_Mathematics_Vector3___
+  commentId: M:Crux.Graphics.GraphicsCache.GetLineBuffer(System.String,OpenTK.Mathematics.Vector3[])
+  name.vb: GetLineBuffer(String, Vector3())
+  fullName: Crux.Graphics.GraphicsCache.GetLineBuffer(string, OpenTK.Mathematics.Vector3[])
+  fullName.vb: Crux.Graphics.GraphicsCache.GetLineBuffer(String, OpenTK.Mathematics.Vector3())
+  nameWithType: GraphicsCache.GetLineBuffer(string, Vector3[])
+  nameWithType.vb: GraphicsCache.GetLineBuffer(String, Vector3())
+- uid: Crux.Graphics.GraphicsCache.GetLineBuffer*
+  name: GetLineBuffer
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetLineBuffer_
+  commentId: Overload:Crux.Graphics.GraphicsCache.GetLineBuffer
   isSpec: "True"
-  fullName: Crux.Graphics.GraphicsCache.GetMeshVAO
-  nameWithType: GraphicsCache.GetMeshVAO
+  fullName: Crux.Graphics.GraphicsCache.GetLineBuffer
+  nameWithType: GraphicsCache.GetLineBuffer
+- uid: Crux.Graphics.GraphicsCache.GetMeshBuffer(System.String,Crux.Graphics.Mesh)
+  name: GetMeshBuffer(string, Mesh)
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetMeshBuffer_System_String_Crux_Graphics_Mesh_
+  commentId: M:Crux.Graphics.GraphicsCache.GetMeshBuffer(System.String,Crux.Graphics.Mesh)
+  name.vb: GetMeshBuffer(String, Mesh)
+  fullName: Crux.Graphics.GraphicsCache.GetMeshBuffer(string, Crux.Graphics.Mesh)
+  fullName.vb: Crux.Graphics.GraphicsCache.GetMeshBuffer(String, Crux.Graphics.Mesh)
+  nameWithType: GraphicsCache.GetMeshBuffer(string, Mesh)
+  nameWithType.vb: GraphicsCache.GetMeshBuffer(String, Mesh)
+- uid: Crux.Graphics.GraphicsCache.GetMeshBuffer*
+  name: GetMeshBuffer
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetMeshBuffer_
+  commentId: Overload:Crux.Graphics.GraphicsCache.GetMeshBuffer
+  isSpec: "True"
+  fullName: Crux.Graphics.GraphicsCache.GetMeshBuffer
+  nameWithType: GraphicsCache.GetMeshBuffer
 - uid: Crux.Graphics.GraphicsCache.GetProgram(System.ValueTuple{System.Int32,System.Int32})
   name: GetProgram((int vert, int frag))
   href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetProgram_System_ValueTuple_System_Int32_System_Int32__
@@ -3168,19 +3809,19 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.GraphicsCache.GetShortInfo
   nameWithType: GraphicsCache.GetShortInfo
-- uid: Crux.Graphics.GraphicsCache.GetSkyboxVAO
-  name: GetSkyboxVAO()
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetSkyboxVAO
-  commentId: M:Crux.Graphics.GraphicsCache.GetSkyboxVAO
-  fullName: Crux.Graphics.GraphicsCache.GetSkyboxVAO()
-  nameWithType: GraphicsCache.GetSkyboxVAO()
-- uid: Crux.Graphics.GraphicsCache.GetSkyboxVAO*
-  name: GetSkyboxVAO
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetSkyboxVAO_
-  commentId: Overload:Crux.Graphics.GraphicsCache.GetSkyboxVAO
+- uid: Crux.Graphics.GraphicsCache.GetSkyboxBuffer
+  name: GetSkyboxBuffer()
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetSkyboxBuffer
+  commentId: M:Crux.Graphics.GraphicsCache.GetSkyboxBuffer
+  fullName: Crux.Graphics.GraphicsCache.GetSkyboxBuffer()
+  nameWithType: GraphicsCache.GetSkyboxBuffer()
+- uid: Crux.Graphics.GraphicsCache.GetSkyboxBuffer*
+  name: GetSkyboxBuffer
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetSkyboxBuffer_
+  commentId: Overload:Crux.Graphics.GraphicsCache.GetSkyboxBuffer
   isSpec: "True"
-  fullName: Crux.Graphics.GraphicsCache.GetSkyboxVAO
-  nameWithType: GraphicsCache.GetSkyboxVAO
+  fullName: Crux.Graphics.GraphicsCache.GetSkyboxBuffer
+  nameWithType: GraphicsCache.GetSkyboxBuffer
 - uid: Crux.Graphics.GraphicsCache.GetTexture(System.String)
   name: GetTexture(string)
   href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetTexture_System_String_
@@ -3197,28 +3838,28 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.GraphicsCache.GetTexture
   nameWithType: GraphicsCache.GetTexture
-- uid: Crux.Graphics.GraphicsCache.GetUIVAO
-  name: GetUIVAO()
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetUIVAO
-  commentId: M:Crux.Graphics.GraphicsCache.GetUIVAO
-  fullName: Crux.Graphics.GraphicsCache.GetUIVAO()
-  nameWithType: GraphicsCache.GetUIVAO()
-- uid: Crux.Graphics.GraphicsCache.GetUIVAO*
-  name: GetUIVAO
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetUIVAO_
-  commentId: Overload:Crux.Graphics.GraphicsCache.GetUIVAO
+- uid: Crux.Graphics.GraphicsCache.GetUIBuffer
+  name: GetUIBuffer()
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetUIBuffer
+  commentId: M:Crux.Graphics.GraphicsCache.GetUIBuffer
+  fullName: Crux.Graphics.GraphicsCache.GetUIBuffer()
+  nameWithType: GraphicsCache.GetUIBuffer()
+- uid: Crux.Graphics.GraphicsCache.GetUIBuffer*
+  name: GetUIBuffer
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetUIBuffer_
+  commentId: Overload:Crux.Graphics.GraphicsCache.GetUIBuffer
   isSpec: "True"
-  fullName: Crux.Graphics.GraphicsCache.GetUIVAO
-  nameWithType: GraphicsCache.GetUIVAO
-- uid: Crux.Graphics.GraphicsCache.GetVertexShader(System.String)
-  name: GetVertexShader(string)
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetVertexShader_System_String_
-  commentId: M:Crux.Graphics.GraphicsCache.GetVertexShader(System.String)
-  name.vb: GetVertexShader(String)
-  fullName: Crux.Graphics.GraphicsCache.GetVertexShader(string)
-  fullName.vb: Crux.Graphics.GraphicsCache.GetVertexShader(String)
-  nameWithType: GraphicsCache.GetVertexShader(string)
-  nameWithType.vb: GraphicsCache.GetVertexShader(String)
+  fullName: Crux.Graphics.GraphicsCache.GetUIBuffer
+  nameWithType: GraphicsCache.GetUIBuffer
+- uid: Crux.Graphics.GraphicsCache.GetVertexShader(System.String,System.Boolean)
+  name: GetVertexShader(string, bool)
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetVertexShader_System_String_System_Boolean_
+  commentId: M:Crux.Graphics.GraphicsCache.GetVertexShader(System.String,System.Boolean)
+  name.vb: GetVertexShader(String, Boolean)
+  fullName: Crux.Graphics.GraphicsCache.GetVertexShader(string, bool)
+  fullName.vb: Crux.Graphics.GraphicsCache.GetVertexShader(String, Boolean)
+  nameWithType: GraphicsCache.GetVertexShader(string, bool)
+  nameWithType.vb: GraphicsCache.GetVertexShader(String, Boolean)
 - uid: Crux.Graphics.GraphicsCache.GetVertexShader*
   name: GetVertexShader
   href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_GetVertexShader_
@@ -3226,21 +3867,43 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.GraphicsCache.GetVertexShader
   nameWithType: GraphicsCache.GetVertexShader
-- uid: Crux.Graphics.GraphicsCache.MeshDrawCallsThisFrame
-  name: MeshDrawCallsThisFrame
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_MeshDrawCallsThisFrame
-  commentId: F:Crux.Graphics.GraphicsCache.MeshDrawCallsThisFrame
-  fullName: Crux.Graphics.GraphicsCache.MeshDrawCallsThisFrame
-  nameWithType: GraphicsCache.MeshDrawCallsThisFrame
-- uid: Crux.Graphics.GraphicsCache.RemoveFragmentUser(System.String)
-  name: RemoveFragmentUser(string)
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveFragmentUser_System_String_
-  commentId: M:Crux.Graphics.GraphicsCache.RemoveFragmentUser(System.String)
-  name.vb: RemoveFragmentUser(String)
-  fullName: Crux.Graphics.GraphicsCache.RemoveFragmentUser(string)
-  fullName.vb: Crux.Graphics.GraphicsCache.RemoveFragmentUser(String)
-  nameWithType: GraphicsCache.RemoveFragmentUser(string)
-  nameWithType.vb: GraphicsCache.RemoveFragmentUser(String)
+- uid: Crux.Graphics.GraphicsCache.LinesLastFrame
+  name: LinesLastFrame
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_LinesLastFrame
+  commentId: F:Crux.Graphics.GraphicsCache.LinesLastFrame
+  fullName: Crux.Graphics.GraphicsCache.LinesLastFrame
+  nameWithType: GraphicsCache.LinesLastFrame
+- uid: Crux.Graphics.GraphicsCache.LinesThisFrame
+  name: LinesThisFrame
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_LinesThisFrame
+  commentId: F:Crux.Graphics.GraphicsCache.LinesThisFrame
+  fullName: Crux.Graphics.GraphicsCache.LinesThisFrame
+  nameWithType: GraphicsCache.LinesThisFrame
+- uid: Crux.Graphics.GraphicsCache.RemoveBuffer(System.String)
+  name: RemoveBuffer(string)
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveBuffer_System_String_
+  commentId: M:Crux.Graphics.GraphicsCache.RemoveBuffer(System.String)
+  name.vb: RemoveBuffer(String)
+  fullName: Crux.Graphics.GraphicsCache.RemoveBuffer(string)
+  fullName.vb: Crux.Graphics.GraphicsCache.RemoveBuffer(String)
+  nameWithType: GraphicsCache.RemoveBuffer(string)
+  nameWithType.vb: GraphicsCache.RemoveBuffer(String)
+- uid: Crux.Graphics.GraphicsCache.RemoveBuffer*
+  name: RemoveBuffer
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveBuffer_
+  commentId: Overload:Crux.Graphics.GraphicsCache.RemoveBuffer
+  isSpec: "True"
+  fullName: Crux.Graphics.GraphicsCache.RemoveBuffer
+  nameWithType: GraphicsCache.RemoveBuffer
+- uid: Crux.Graphics.GraphicsCache.RemoveFragmentUser(System.String,System.Boolean)
+  name: RemoveFragmentUser(string, bool)
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveFragmentUser_System_String_System_Boolean_
+  commentId: M:Crux.Graphics.GraphicsCache.RemoveFragmentUser(System.String,System.Boolean)
+  name.vb: RemoveFragmentUser(String, Boolean)
+  fullName: Crux.Graphics.GraphicsCache.RemoveFragmentUser(string, bool)
+  fullName.vb: Crux.Graphics.GraphicsCache.RemoveFragmentUser(String, Boolean)
+  nameWithType: GraphicsCache.RemoveFragmentUser(string, bool)
+  nameWithType.vb: GraphicsCache.RemoveFragmentUser(String, Boolean)
 - uid: Crux.Graphics.GraphicsCache.RemoveFragmentUser*
   name: RemoveFragmentUser
   href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveFragmentUser_
@@ -3248,22 +3911,6 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.GraphicsCache.RemoveFragmentUser
   nameWithType: GraphicsCache.RemoveFragmentUser
-- uid: Crux.Graphics.GraphicsCache.RemoveInstancedVAO(System.String)
-  name: RemoveInstancedVAO(string)
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveInstancedVAO_System_String_
-  commentId: M:Crux.Graphics.GraphicsCache.RemoveInstancedVAO(System.String)
-  name.vb: RemoveInstancedVAO(String)
-  fullName: Crux.Graphics.GraphicsCache.RemoveInstancedVAO(string)
-  fullName.vb: Crux.Graphics.GraphicsCache.RemoveInstancedVAO(String)
-  nameWithType: GraphicsCache.RemoveInstancedVAO(string)
-  nameWithType.vb: GraphicsCache.RemoveInstancedVAO(String)
-- uid: Crux.Graphics.GraphicsCache.RemoveInstancedVAO*
-  name: RemoveInstancedVAO
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveInstancedVAO_
-  commentId: Overload:Crux.Graphics.GraphicsCache.RemoveInstancedVAO
-  isSpec: "True"
-  fullName: Crux.Graphics.GraphicsCache.RemoveInstancedVAO
-  nameWithType: GraphicsCache.RemoveInstancedVAO
 - uid: Crux.Graphics.GraphicsCache.RemoveProgramUser(System.ValueTuple{System.Int32,System.Int32})
   name: RemoveProgramUser((int vert, int frag))
   href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveProgramUser_System_ValueTuple_System_Int32_System_Int32__
@@ -3296,31 +3943,15 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.GraphicsCache.RemoveTextureUser
   nameWithType: GraphicsCache.RemoveTextureUser
-- uid: Crux.Graphics.GraphicsCache.RemoveVAO(System.String)
-  name: RemoveVAO(string)
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveVAO_System_String_
-  commentId: M:Crux.Graphics.GraphicsCache.RemoveVAO(System.String)
-  name.vb: RemoveVAO(String)
-  fullName: Crux.Graphics.GraphicsCache.RemoveVAO(string)
-  fullName.vb: Crux.Graphics.GraphicsCache.RemoveVAO(String)
-  nameWithType: GraphicsCache.RemoveVAO(string)
-  nameWithType.vb: GraphicsCache.RemoveVAO(String)
-- uid: Crux.Graphics.GraphicsCache.RemoveVAO*
-  name: RemoveVAO
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveVAO_
-  commentId: Overload:Crux.Graphics.GraphicsCache.RemoveVAO
-  isSpec: "True"
-  fullName: Crux.Graphics.GraphicsCache.RemoveVAO
-  nameWithType: GraphicsCache.RemoveVAO
-- uid: Crux.Graphics.GraphicsCache.RemoveVertexUser(System.String)
-  name: RemoveVertexUser(string)
-  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveVertexUser_System_String_
-  commentId: M:Crux.Graphics.GraphicsCache.RemoveVertexUser(System.String)
-  name.vb: RemoveVertexUser(String)
-  fullName: Crux.Graphics.GraphicsCache.RemoveVertexUser(string)
-  fullName.vb: Crux.Graphics.GraphicsCache.RemoveVertexUser(String)
-  nameWithType: GraphicsCache.RemoveVertexUser(string)
-  nameWithType.vb: GraphicsCache.RemoveVertexUser(String)
+- uid: Crux.Graphics.GraphicsCache.RemoveVertexUser(System.String,System.Boolean)
+  name: RemoveVertexUser(string, bool)
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveVertexUser_System_String_System_Boolean_
+  commentId: M:Crux.Graphics.GraphicsCache.RemoveVertexUser(System.String,System.Boolean)
+  name.vb: RemoveVertexUser(String, Boolean)
+  fullName: Crux.Graphics.GraphicsCache.RemoveVertexUser(string, bool)
+  fullName.vb: Crux.Graphics.GraphicsCache.RemoveVertexUser(String, Boolean)
+  nameWithType: GraphicsCache.RemoveVertexUser(string, bool)
+  nameWithType.vb: GraphicsCache.RemoveVertexUser(String, Boolean)
 - uid: Crux.Graphics.GraphicsCache.RemoveVertexUser*
   name: RemoveVertexUser
   href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_RemoveVertexUser_
@@ -3328,12 +3959,48 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.GraphicsCache.RemoveVertexUser
   nameWithType: GraphicsCache.RemoveVertexUser
+- uid: Crux.Graphics.GraphicsCache.Textures
+  name: Textures
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_Textures
+  commentId: F:Crux.Graphics.GraphicsCache.Textures
+  fullName: Crux.Graphics.GraphicsCache.Textures
+  nameWithType: GraphicsCache.Textures
 - uid: Crux.Graphics.GraphicsCache.Tree
   name: Tree
   href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_Tree
   commentId: F:Crux.Graphics.GraphicsCache.Tree
   fullName: Crux.Graphics.GraphicsCache.Tree
   nameWithType: GraphicsCache.Tree
+- uid: Crux.Graphics.GraphicsCache.TrianglesLastFrame
+  name: TrianglesLastFrame
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_TrianglesLastFrame
+  commentId: F:Crux.Graphics.GraphicsCache.TrianglesLastFrame
+  fullName: Crux.Graphics.GraphicsCache.TrianglesLastFrame
+  nameWithType: GraphicsCache.TrianglesLastFrame
+- uid: Crux.Graphics.GraphicsCache.TrianglesThisFrame
+  name: TrianglesThisFrame
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_TrianglesThisFrame
+  commentId: F:Crux.Graphics.GraphicsCache.TrianglesThisFrame
+  fullName: Crux.Graphics.GraphicsCache.TrianglesThisFrame
+  nameWithType: GraphicsCache.TrianglesThisFrame
+- uid: Crux.Graphics.GraphicsCache.VAOs
+  name: VAOs
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_VAOs
+  commentId: F:Crux.Graphics.GraphicsCache.VAOs
+  fullName: Crux.Graphics.GraphicsCache.VAOs
+  nameWithType: GraphicsCache.VAOs
+- uid: Crux.Graphics.GraphicsCache.common_frag
+  name: common_frag
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_common_frag
+  commentId: F:Crux.Graphics.GraphicsCache.common_frag
+  fullName: Crux.Graphics.GraphicsCache.common_frag
+  nameWithType: GraphicsCache.common_frag
+- uid: Crux.Graphics.GraphicsCache.common_vert
+  name: common_vert
+  href: api/Crux.Graphics.GraphicsCache.html#Crux_Graphics_GraphicsCache_common_vert
+  commentId: F:Crux.Graphics.GraphicsCache.common_vert
+  fullName: Crux.Graphics.GraphicsCache.common_vert
+  nameWithType: GraphicsCache.common_vert
 - uid: Crux.Graphics.Mesh
   name: Mesh
   href: api/Crux.Graphics.Mesh.html
@@ -3411,6 +4078,19 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.Mesh.GetRandomPositionOnMesh
   nameWithType: Mesh.GetRandomPositionOnMesh
+- uid: Crux.Graphics.Mesh.GetSeparatedData
+  name: GetSeparatedData()
+  href: api/Crux.Graphics.Mesh.html#Crux_Graphics_Mesh_GetSeparatedData
+  commentId: M:Crux.Graphics.Mesh.GetSeparatedData
+  fullName: Crux.Graphics.Mesh.GetSeparatedData()
+  nameWithType: Mesh.GetSeparatedData()
+- uid: Crux.Graphics.Mesh.GetSeparatedData*
+  name: GetSeparatedData
+  href: api/Crux.Graphics.Mesh.html#Crux_Graphics_Mesh_GetSeparatedData_
+  commentId: Overload:Crux.Graphics.Mesh.GetSeparatedData
+  isSpec: "True"
+  fullName: Crux.Graphics.Mesh.GetSeparatedData
+  nameWithType: Mesh.GetSeparatedData
 - uid: Crux.Graphics.Mesh.GetWorldSpaceAABB(OpenTK.Mathematics.Matrix4)
   name: GetWorldSpaceAABB(Matrix4)
   href: api/Crux.Graphics.Mesh.html#Crux_Graphics_Mesh_GetWorldSpaceAABB_OpenTK_Mathematics_Matrix4_
@@ -3508,6 +4188,217 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.Mesh.Vertices
   nameWithType: Mesh.Vertices
+- uid: Crux.Graphics.MeshBuffer
+  name: MeshBuffer
+  href: api/Crux.Graphics.MeshBuffer.html
+  commentId: T:Crux.Graphics.MeshBuffer
+  fullName: Crux.Graphics.MeshBuffer
+  nameWithType: MeshBuffer
+- uid: Crux.Graphics.MeshBuffer.#ctor
+  name: MeshBuffer()
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer__ctor
+  commentId: M:Crux.Graphics.MeshBuffer.#ctor
+  name.vb: New()
+  fullName: Crux.Graphics.MeshBuffer.MeshBuffer()
+  fullName.vb: Crux.Graphics.MeshBuffer.New()
+  nameWithType: MeshBuffer.MeshBuffer()
+  nameWithType.vb: MeshBuffer.New()
+- uid: Crux.Graphics.MeshBuffer.#ctor*
+  name: MeshBuffer
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer__ctor_
+  commentId: Overload:Crux.Graphics.MeshBuffer.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.Graphics.MeshBuffer.MeshBuffer
+  fullName.vb: Crux.Graphics.MeshBuffer.New
+  nameWithType: MeshBuffer.MeshBuffer
+  nameWithType.vb: MeshBuffer.New
+- uid: Crux.Graphics.MeshBuffer.Draw(System.Int32)
+  name: Draw(int)
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_Draw_System_Int32_
+  commentId: M:Crux.Graphics.MeshBuffer.Draw(System.Int32)
+  name.vb: Draw(Integer)
+  fullName: Crux.Graphics.MeshBuffer.Draw(int)
+  fullName.vb: Crux.Graphics.MeshBuffer.Draw(Integer)
+  nameWithType: MeshBuffer.Draw(int)
+  nameWithType.vb: MeshBuffer.Draw(Integer)
+- uid: Crux.Graphics.MeshBuffer.Draw*
+  name: Draw
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_Draw_
+  commentId: Overload:Crux.Graphics.MeshBuffer.Draw
+  isSpec: "True"
+  fullName: Crux.Graphics.MeshBuffer.Draw
+  nameWithType: MeshBuffer.Draw
+- uid: Crux.Graphics.MeshBuffer.DrawInstanced(System.Int32,System.Int32)
+  name: DrawInstanced(int, int)
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DrawInstanced_System_Int32_System_Int32_
+  commentId: M:Crux.Graphics.MeshBuffer.DrawInstanced(System.Int32,System.Int32)
+  name.vb: DrawInstanced(Integer, Integer)
+  fullName: Crux.Graphics.MeshBuffer.DrawInstanced(int, int)
+  fullName.vb: Crux.Graphics.MeshBuffer.DrawInstanced(Integer, Integer)
+  nameWithType: MeshBuffer.DrawInstanced(int, int)
+  nameWithType.vb: MeshBuffer.DrawInstanced(Integer, Integer)
+- uid: Crux.Graphics.MeshBuffer.DrawInstanced*
+  name: DrawInstanced
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DrawInstanced_
+  commentId: Overload:Crux.Graphics.MeshBuffer.DrawInstanced
+  isSpec: "True"
+  fullName: Crux.Graphics.MeshBuffer.DrawInstanced
+  nameWithType: MeshBuffer.DrawInstanced
+- uid: Crux.Graphics.MeshBuffer.DrawInstancedWithoutIndices(System.Int32,System.Int32,System.Boolean)
+  name: DrawInstancedWithoutIndices(int, int, bool)
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DrawInstancedWithoutIndices_System_Int32_System_Int32_System_Boolean_
+  commentId: M:Crux.Graphics.MeshBuffer.DrawInstancedWithoutIndices(System.Int32,System.Int32,System.Boolean)
+  name.vb: DrawInstancedWithoutIndices(Integer, Integer, Boolean)
+  fullName: Crux.Graphics.MeshBuffer.DrawInstancedWithoutIndices(int, int, bool)
+  fullName.vb: Crux.Graphics.MeshBuffer.DrawInstancedWithoutIndices(Integer, Integer, Boolean)
+  nameWithType: MeshBuffer.DrawInstancedWithoutIndices(int, int, bool)
+  nameWithType.vb: MeshBuffer.DrawInstancedWithoutIndices(Integer, Integer, Boolean)
+- uid: Crux.Graphics.MeshBuffer.DrawInstancedWithoutIndices*
+  name: DrawInstancedWithoutIndices
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DrawInstancedWithoutIndices_
+  commentId: Overload:Crux.Graphics.MeshBuffer.DrawInstancedWithoutIndices
+  isSpec: "True"
+  fullName: Crux.Graphics.MeshBuffer.DrawInstancedWithoutIndices
+  nameWithType: MeshBuffer.DrawInstancedWithoutIndices
+- uid: Crux.Graphics.MeshBuffer.DrawLines(System.Int32)
+  name: DrawLines(int)
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DrawLines_System_Int32_
+  commentId: M:Crux.Graphics.MeshBuffer.DrawLines(System.Int32)
+  name.vb: DrawLines(Integer)
+  fullName: Crux.Graphics.MeshBuffer.DrawLines(int)
+  fullName.vb: Crux.Graphics.MeshBuffer.DrawLines(Integer)
+  nameWithType: MeshBuffer.DrawLines(int)
+  nameWithType.vb: MeshBuffer.DrawLines(Integer)
+- uid: Crux.Graphics.MeshBuffer.DrawLines*
+  name: DrawLines
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DrawLines_
+  commentId: Overload:Crux.Graphics.MeshBuffer.DrawLines
+  isSpec: "True"
+  fullName: Crux.Graphics.MeshBuffer.DrawLines
+  nameWithType: MeshBuffer.DrawLines
+- uid: Crux.Graphics.MeshBuffer.DrawLinesInstanced(System.Int32,System.Int32)
+  name: DrawLinesInstanced(int, int)
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DrawLinesInstanced_System_Int32_System_Int32_
+  commentId: M:Crux.Graphics.MeshBuffer.DrawLinesInstanced(System.Int32,System.Int32)
+  name.vb: DrawLinesInstanced(Integer, Integer)
+  fullName: Crux.Graphics.MeshBuffer.DrawLinesInstanced(int, int)
+  fullName.vb: Crux.Graphics.MeshBuffer.DrawLinesInstanced(Integer, Integer)
+  nameWithType: MeshBuffer.DrawLinesInstanced(int, int)
+  nameWithType.vb: MeshBuffer.DrawLinesInstanced(Integer, Integer)
+- uid: Crux.Graphics.MeshBuffer.DrawLinesInstanced*
+  name: DrawLinesInstanced
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DrawLinesInstanced_
+  commentId: Overload:Crux.Graphics.MeshBuffer.DrawLinesInstanced
+  isSpec: "True"
+  fullName: Crux.Graphics.MeshBuffer.DrawLinesInstanced
+  nameWithType: MeshBuffer.DrawLinesInstanced
+- uid: Crux.Graphics.MeshBuffer.DrawnThisFrame
+  name: DrawnThisFrame
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DrawnThisFrame
+  commentId: F:Crux.Graphics.MeshBuffer.DrawnThisFrame
+  fullName: Crux.Graphics.MeshBuffer.DrawnThisFrame
+  nameWithType: MeshBuffer.DrawnThisFrame
+- uid: Crux.Graphics.MeshBuffer.DynamicVBO
+  name: DynamicVBO
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DynamicVBO
+  commentId: F:Crux.Graphics.MeshBuffer.DynamicVBO
+  fullName: Crux.Graphics.MeshBuffer.DynamicVBO
+  nameWithType: MeshBuffer.DynamicVBO
+- uid: Crux.Graphics.MeshBuffer.DynamicVBOBufferLength
+  name: DynamicVBOBufferLength
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DynamicVBOBufferLength
+  commentId: F:Crux.Graphics.MeshBuffer.DynamicVBOBufferLength
+  fullName: Crux.Graphics.MeshBuffer.DynamicVBOBufferLength
+  nameWithType: MeshBuffer.DynamicVBOBufferLength
+- uid: Crux.Graphics.MeshBuffer.DynamicVBOTypesByteSize
+  name: DynamicVBOTypesByteSize
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_DynamicVBOTypesByteSize
+  commentId: F:Crux.Graphics.MeshBuffer.DynamicVBOTypesByteSize
+  fullName: Crux.Graphics.MeshBuffer.DynamicVBOTypesByteSize
+  nameWithType: MeshBuffer.DynamicVBOTypesByteSize
+- uid: Crux.Graphics.MeshBuffer.EBO
+  name: EBO
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_EBO
+  commentId: F:Crux.Graphics.MeshBuffer.EBO
+  fullName: Crux.Graphics.MeshBuffer.EBO
+  nameWithType: MeshBuffer.EBO
+- uid: Crux.Graphics.MeshBuffer.GenDynamicVBO(System.ValueTuple{System.Int32,System.Type}[])
+  name: GenDynamicVBO((int locations, Type types)[])
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_GenDynamicVBO_System_ValueTuple_System_Int32_System_Type____
+  commentId: M:Crux.Graphics.MeshBuffer.GenDynamicVBO(System.ValueTuple{System.Int32,System.Type}[])
+  name.vb: GenDynamicVBO((locations As Integer, types As Type)())
+  fullName: Crux.Graphics.MeshBuffer.GenDynamicVBO((int locations, System.Type types)[])
+  fullName.vb: Crux.Graphics.MeshBuffer.GenDynamicVBO((locations As Integer, types As System.Type)())
+  nameWithType: MeshBuffer.GenDynamicVBO((int locations, Type types)[])
+  nameWithType.vb: MeshBuffer.GenDynamicVBO((locations As Integer, types As Type)())
+- uid: Crux.Graphics.MeshBuffer.GenDynamicVBO*
+  name: GenDynamicVBO
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_GenDynamicVBO_
+  commentId: Overload:Crux.Graphics.MeshBuffer.GenDynamicVBO
+  isSpec: "True"
+  fullName: Crux.Graphics.MeshBuffer.GenDynamicVBO
+  nameWithType: MeshBuffer.GenDynamicVBO
+- uid: Crux.Graphics.MeshBuffer.GenEBO(System.UInt32[])
+  name: GenEBO(uint[])
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_GenEBO_System_UInt32___
+  commentId: M:Crux.Graphics.MeshBuffer.GenEBO(System.UInt32[])
+  name.vb: GenEBO(UInteger())
+  fullName: Crux.Graphics.MeshBuffer.GenEBO(uint[])
+  fullName.vb: Crux.Graphics.MeshBuffer.GenEBO(UInteger())
+  nameWithType: MeshBuffer.GenEBO(uint[])
+  nameWithType.vb: MeshBuffer.GenEBO(UInteger())
+- uid: Crux.Graphics.MeshBuffer.GenEBO*
+  name: GenEBO
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_GenEBO_
+  commentId: Overload:Crux.Graphics.MeshBuffer.GenEBO
+  isSpec: "True"
+  fullName: Crux.Graphics.MeshBuffer.GenEBO
+  nameWithType: MeshBuffer.GenEBO
+- uid: Crux.Graphics.MeshBuffer.GenStaticVBO(Crux.Graphics.VertexAttribute[])
+  name: GenStaticVBO(VertexAttribute[])
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_GenStaticVBO_Crux_Graphics_VertexAttribute___
+  commentId: M:Crux.Graphics.MeshBuffer.GenStaticVBO(Crux.Graphics.VertexAttribute[])
+  name.vb: GenStaticVBO(VertexAttribute())
+  fullName: Crux.Graphics.MeshBuffer.GenStaticVBO(Crux.Graphics.VertexAttribute[])
+  fullName.vb: Crux.Graphics.MeshBuffer.GenStaticVBO(Crux.Graphics.VertexAttribute())
+  nameWithType: MeshBuffer.GenStaticVBO(VertexAttribute[])
+  nameWithType.vb: MeshBuffer.GenStaticVBO(VertexAttribute())
+- uid: Crux.Graphics.MeshBuffer.GenStaticVBO*
+  name: GenStaticVBO
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_GenStaticVBO_
+  commentId: Overload:Crux.Graphics.MeshBuffer.GenStaticVBO
+  isSpec: "True"
+  fullName: Crux.Graphics.MeshBuffer.GenStaticVBO
+  nameWithType: MeshBuffer.GenStaticVBO
+- uid: Crux.Graphics.MeshBuffer.SetDynamicVBOData(System.Single[],System.Int32)
+  name: SetDynamicVBOData(float[], int)
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_SetDynamicVBOData_System_Single___System_Int32_
+  commentId: M:Crux.Graphics.MeshBuffer.SetDynamicVBOData(System.Single[],System.Int32)
+  name.vb: SetDynamicVBOData(Single(), Integer)
+  fullName: Crux.Graphics.MeshBuffer.SetDynamicVBOData(float[], int)
+  fullName.vb: Crux.Graphics.MeshBuffer.SetDynamicVBOData(Single(), Integer)
+  nameWithType: MeshBuffer.SetDynamicVBOData(float[], int)
+  nameWithType.vb: MeshBuffer.SetDynamicVBOData(Single(), Integer)
+- uid: Crux.Graphics.MeshBuffer.SetDynamicVBOData*
+  name: SetDynamicVBOData
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_SetDynamicVBOData_
+  commentId: Overload:Crux.Graphics.MeshBuffer.SetDynamicVBOData
+  isSpec: "True"
+  fullName: Crux.Graphics.MeshBuffer.SetDynamicVBOData
+  nameWithType: MeshBuffer.SetDynamicVBOData
+- uid: Crux.Graphics.MeshBuffer.StaticVBO
+  name: StaticVBO
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_StaticVBO
+  commentId: F:Crux.Graphics.MeshBuffer.StaticVBO
+  fullName: Crux.Graphics.MeshBuffer.StaticVBO
+  nameWithType: MeshBuffer.StaticVBO
+- uid: Crux.Graphics.MeshBuffer.VAO
+  name: VAO
+  href: api/Crux.Graphics.MeshBuffer.html#Crux_Graphics_MeshBuffer_VAO
+  commentId: F:Crux.Graphics.MeshBuffer.VAO
+  fullName: Crux.Graphics.MeshBuffer.VAO
+  nameWithType: MeshBuffer.VAO
 - uid: Crux.Graphics.Plane
   name: Plane
   href: api/Crux.Graphics.Plane.html
@@ -3600,15 +4491,15 @@ references:
   commentId: T:Crux.Graphics.Shader
   fullName: Crux.Graphics.Shader
   nameWithType: Shader
-- uid: Crux.Graphics.Shader.#ctor(System.String,System.String,System.String)
-  name: Shader(string, string, string)
-  href: api/Crux.Graphics.Shader.html#Crux_Graphics_Shader__ctor_System_String_System_String_System_String_
-  commentId: M:Crux.Graphics.Shader.#ctor(System.String,System.String,System.String)
-  name.vb: New(String, String, String)
-  fullName: Crux.Graphics.Shader.Shader(string, string, string)
-  fullName.vb: Crux.Graphics.Shader.New(String, String, String)
-  nameWithType: Shader.Shader(string, string, string)
-  nameWithType.vb: Shader.New(String, String, String)
+- uid: Crux.Graphics.Shader.#ctor(System.String,System.String,System.String,System.Boolean)
+  name: Shader(string, string, string, bool)
+  href: api/Crux.Graphics.Shader.html#Crux_Graphics_Shader__ctor_System_String_System_String_System_String_System_Boolean_
+  commentId: M:Crux.Graphics.Shader.#ctor(System.String,System.String,System.String,System.Boolean)
+  name.vb: New(String, String, String, Boolean)
+  fullName: Crux.Graphics.Shader.Shader(string, string, string, bool)
+  fullName.vb: Crux.Graphics.Shader.New(String, String, String, Boolean)
+  nameWithType: Shader.Shader(string, string, string, bool)
+  nameWithType.vb: Shader.New(String, String, String, Boolean)
 - uid: Crux.Graphics.Shader.#ctor*
   name: Shader
   href: api/Crux.Graphics.Shader.html#Crux_Graphics_Shader__ctor_
@@ -3726,6 +4617,12 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.Shader.Unbind
   nameWithType: Shader.Unbind
+- uid: Crux.Graphics.Shader.UseInstancing
+  name: UseInstancing
+  href: api/Crux.Graphics.Shader.html#Crux_Graphics_Shader_UseInstancing
+  commentId: F:Crux.Graphics.Shader.UseInstancing
+  fullName: Crux.Graphics.Shader.UseInstancing
+  nameWithType: Shader.UseInstancing
 - uid: Crux.Graphics.Shader.VertexShaderPath
   name: VertexShaderPath
   href: api/Crux.Graphics.Shader.html#Crux_Graphics_Shader_VertexShaderPath
@@ -3757,6 +4654,18 @@ references:
   commentId: F:Crux.Graphics.Shapes.LineBounds
   fullName: Crux.Graphics.Shapes.LineBounds
   nameWithType: Shapes.LineBounds
+- uid: Crux.Graphics.Shapes.QuadUVs
+  name: QuadUVs
+  href: api/Crux.Graphics.Shapes.html#Crux_Graphics_Shapes_QuadUVs
+  commentId: F:Crux.Graphics.Shapes.QuadUVs
+  fullName: Crux.Graphics.Shapes.QuadUVs
+  nameWithType: Shapes.QuadUVs
+- uid: Crux.Graphics.Shapes.QuadVertices
+  name: QuadVertices
+  href: api/Crux.Graphics.Shapes.html#Crux_Graphics_Shapes_QuadVertices
+  commentId: F:Crux.Graphics.Shapes.QuadVertices
+  fullName: Crux.Graphics.Shapes.QuadVertices
+  nameWithType: Shapes.QuadVertices
 - uid: Crux.Graphics.Vertex
   name: Vertex
   href: api/Crux.Graphics.Vertex.html
@@ -3834,6 +4743,83 @@ references:
   isSpec: "True"
   fullName: Crux.Graphics.Vertex.UV
   nameWithType: Vertex.UV
+- uid: Crux.Graphics.VertexAttribute
+  name: VertexAttribute
+  href: api/Crux.Graphics.VertexAttribute.html
+  commentId: T:Crux.Graphics.VertexAttribute
+  fullName: Crux.Graphics.VertexAttribute
+  nameWithType: VertexAttribute
+- uid: Crux.Graphics.VertexAttribute.#ctor(System.Int32,System.String,System.Int32,System.Single[])
+  name: VertexAttribute(int, string, int, float[])
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute__ctor_System_Int32_System_String_System_Int32_System_Single___
+  commentId: M:Crux.Graphics.VertexAttribute.#ctor(System.Int32,System.String,System.Int32,System.Single[])
+  name.vb: New(Integer, String, Integer, Single())
+  fullName: Crux.Graphics.VertexAttribute.VertexAttribute(int, string, int, float[])
+  fullName.vb: Crux.Graphics.VertexAttribute.New(Integer, String, Integer, Single())
+  nameWithType: VertexAttribute.VertexAttribute(int, string, int, float[])
+  nameWithType.vb: VertexAttribute.New(Integer, String, Integer, Single())
+- uid: Crux.Graphics.VertexAttribute.#ctor*
+  name: VertexAttribute
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute__ctor_
+  commentId: Overload:Crux.Graphics.VertexAttribute.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Crux.Graphics.VertexAttribute.VertexAttribute
+  fullName.vb: Crux.Graphics.VertexAttribute.New
+  nameWithType: VertexAttribute.VertexAttribute
+  nameWithType.vb: VertexAttribute.New
+- uid: Crux.Graphics.VertexAttribute.Data
+  name: Data
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute_Data
+  commentId: P:Crux.Graphics.VertexAttribute.Data
+  fullName: Crux.Graphics.VertexAttribute.Data
+  nameWithType: VertexAttribute.Data
+- uid: Crux.Graphics.VertexAttribute.Data*
+  name: Data
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute_Data_
+  commentId: Overload:Crux.Graphics.VertexAttribute.Data
+  isSpec: "True"
+  fullName: Crux.Graphics.VertexAttribute.Data
+  nameWithType: VertexAttribute.Data
+- uid: Crux.Graphics.VertexAttribute.LayoutLocation
+  name: LayoutLocation
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute_LayoutLocation
+  commentId: P:Crux.Graphics.VertexAttribute.LayoutLocation
+  fullName: Crux.Graphics.VertexAttribute.LayoutLocation
+  nameWithType: VertexAttribute.LayoutLocation
+- uid: Crux.Graphics.VertexAttribute.LayoutLocation*
+  name: LayoutLocation
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute_LayoutLocation_
+  commentId: Overload:Crux.Graphics.VertexAttribute.LayoutLocation
+  isSpec: "True"
+  fullName: Crux.Graphics.VertexAttribute.LayoutLocation
+  nameWithType: VertexAttribute.LayoutLocation
+- uid: Crux.Graphics.VertexAttribute.LayoutName
+  name: LayoutName
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute_LayoutName
+  commentId: P:Crux.Graphics.VertexAttribute.LayoutName
+  fullName: Crux.Graphics.VertexAttribute.LayoutName
+  nameWithType: VertexAttribute.LayoutName
+- uid: Crux.Graphics.VertexAttribute.LayoutName*
+  name: LayoutName
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute_LayoutName_
+  commentId: Overload:Crux.Graphics.VertexAttribute.LayoutName
+  isSpec: "True"
+  fullName: Crux.Graphics.VertexAttribute.LayoutName
+  nameWithType: VertexAttribute.LayoutName
+- uid: Crux.Graphics.VertexAttribute.TypeSize
+  name: TypeSize
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute_TypeSize
+  commentId: P:Crux.Graphics.VertexAttribute.TypeSize
+  fullName: Crux.Graphics.VertexAttribute.TypeSize
+  nameWithType: VertexAttribute.TypeSize
+- uid: Crux.Graphics.VertexAttribute.TypeSize*
+  name: TypeSize
+  href: api/Crux.Graphics.VertexAttribute.html#Crux_Graphics_VertexAttribute_TypeSize_
+  commentId: Overload:Crux.Graphics.VertexAttribute.TypeSize
+  isSpec: "True"
+  fullName: Crux.Graphics.VertexAttribute.TypeSize
+  nameWithType: VertexAttribute.TypeSize
 - uid: Crux.Physics
   name: Crux.Physics
   href: api/Crux.Physics.html
@@ -4095,12 +5081,6 @@ references:
   commentId: F:Crux.Physics.PhysicsSystem.Gravity
   fullName: Crux.Physics.PhysicsSystem.Gravity
   nameWithType: PhysicsSystem.Gravity
-- uid: Crux.Physics.PhysicsSystem.IntegratingAndComputing
-  name: IntegratingAndComputing
-  href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_IntegratingAndComputing
-  commentId: F:Crux.Physics.PhysicsSystem.IntegratingAndComputing
-  fullName: Crux.Physics.PhysicsSystem.IntegratingAndComputing
-  nameWithType: PhysicsSystem.IntegratingAndComputing
 - uid: Crux.Physics.PhysicsSystem.MergeDictionaries
   name: MergeDictionaries()
   href: api/Crux.Physics.PhysicsSystem.html#Crux_Physics_PhysicsSystem_MergeDictionaries
@@ -4415,6 +5395,22 @@ references:
   isSpec: "True"
   fullName: Crux.Utilities.Helpers.ColorHelper.HexToColor4
   nameWithType: ColorHelper.HexToColor4
+- uid: Crux.Utilities.Helpers.ColorHelper.RGBAStringToColor4(System.String)
+  name: RGBAStringToColor4(string)
+  href: api/Crux.Utilities.Helpers.ColorHelper.html#Crux_Utilities_Helpers_ColorHelper_RGBAStringToColor4_System_String_
+  commentId: M:Crux.Utilities.Helpers.ColorHelper.RGBAStringToColor4(System.String)
+  name.vb: RGBAStringToColor4(String)
+  fullName: Crux.Utilities.Helpers.ColorHelper.RGBAStringToColor4(string)
+  fullName.vb: Crux.Utilities.Helpers.ColorHelper.RGBAStringToColor4(String)
+  nameWithType: ColorHelper.RGBAStringToColor4(string)
+  nameWithType.vb: ColorHelper.RGBAStringToColor4(String)
+- uid: Crux.Utilities.Helpers.ColorHelper.RGBAStringToColor4*
+  name: RGBAStringToColor4
+  href: api/Crux.Utilities.Helpers.ColorHelper.html#Crux_Utilities_Helpers_ColorHelper_RGBAStringToColor4_
+  commentId: Overload:Crux.Utilities.Helpers.ColorHelper.RGBAStringToColor4
+  isSpec: "True"
+  fullName: Crux.Utilities.Helpers.ColorHelper.RGBAStringToColor4
+  nameWithType: ColorHelper.RGBAStringToColor4
 - uid: Crux.Utilities.Helpers.MatrixHelper
   name: MatrixHelper
   href: api/Crux.Utilities.Helpers.MatrixHelper.html
@@ -4498,6 +5494,15 @@ references:
   commentId: M:Crux.Utilities.Helpers.MatrixHelper.Matrix4ToArray(OpenTK.Mathematics.Matrix4)
   fullName: Crux.Utilities.Helpers.MatrixHelper.Matrix4ToArray(OpenTK.Mathematics.Matrix4)
   nameWithType: MatrixHelper.Matrix4ToArray(Matrix4)
+- uid: Crux.Utilities.Helpers.MatrixHelper.Matrix4ToArray(OpenTK.Mathematics.Matrix4,System.Single[]@)
+  name: Matrix4ToArray(Matrix4, out float[])
+  href: api/Crux.Utilities.Helpers.MatrixHelper.html#Crux_Utilities_Helpers_MatrixHelper_Matrix4ToArray_OpenTK_Mathematics_Matrix4_System_Single____
+  commentId: M:Crux.Utilities.Helpers.MatrixHelper.Matrix4ToArray(OpenTK.Mathematics.Matrix4,System.Single[]@)
+  name.vb: Matrix4ToArray(Matrix4, Single())
+  fullName: Crux.Utilities.Helpers.MatrixHelper.Matrix4ToArray(OpenTK.Mathematics.Matrix4, out float[])
+  fullName.vb: Crux.Utilities.Helpers.MatrixHelper.Matrix4ToArray(OpenTK.Mathematics.Matrix4, Single())
+  nameWithType: MatrixHelper.Matrix4ToArray(Matrix4, out float[])
+  nameWithType.vb: MatrixHelper.Matrix4ToArray(Matrix4, Single())
 - uid: Crux.Utilities.Helpers.MatrixHelper.Matrix4ToArray*
   name: Matrix4ToArray
   href: api/Crux.Utilities.Helpers.MatrixHelper.html#Crux_Utilities_Helpers_MatrixHelper_Matrix4ToArray_
@@ -4621,6 +5626,54 @@ references:
   isSpec: "True"
   fullName: Crux.Utilities.Helpers.VectorHelper.Vector3Min
   nameWithType: VectorHelper.Vector3Min
+- uid: Crux.Utilities.Helpers.VertexAttributeHelper
+  name: VertexAttributeHelper
+  href: api/Crux.Utilities.Helpers.VertexAttributeHelper.html
+  commentId: T:Crux.Utilities.Helpers.VertexAttributeHelper
+  fullName: Crux.Utilities.Helpers.VertexAttributeHelper
+  nameWithType: VertexAttributeHelper
+- uid: Crux.Utilities.Helpers.VertexAttributeHelper.ConvertToAttribute*
+  name: ConvertToAttribute
+  href: api/Crux.Utilities.Helpers.VertexAttributeHelper.html#Crux_Utilities_Helpers_VertexAttributeHelper_ConvertToAttribute_
+  commentId: Overload:Crux.Utilities.Helpers.VertexAttributeHelper.ConvertToAttribute
+  isSpec: "True"
+  fullName: Crux.Utilities.Helpers.VertexAttributeHelper.ConvertToAttribute
+  nameWithType: VertexAttributeHelper.ConvertToAttribute
+- uid: Crux.Utilities.Helpers.VertexAttributeHelper.ConvertToAttribute``1(System.Int32,System.String,``0[])
+  name: ConvertToAttribute<T>(int, string, T[])
+  href: api/Crux.Utilities.Helpers.VertexAttributeHelper.html#Crux_Utilities_Helpers_VertexAttributeHelper_ConvertToAttribute__1_System_Int32_System_String___0___
+  commentId: M:Crux.Utilities.Helpers.VertexAttributeHelper.ConvertToAttribute``1(System.Int32,System.String,``0[])
+  name.vb: ConvertToAttribute(Of T)(Integer, String, T())
+  fullName: Crux.Utilities.Helpers.VertexAttributeHelper.ConvertToAttribute<T>(int, string, T[])
+  fullName.vb: Crux.Utilities.Helpers.VertexAttributeHelper.ConvertToAttribute(Of T)(Integer, String, T())
+  nameWithType: VertexAttributeHelper.ConvertToAttribute<T>(int, string, T[])
+  nameWithType.vb: VertexAttributeHelper.ConvertToAttribute(Of T)(Integer, String, T())
+- uid: Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeByteSize(System.Type)
+  name: GetTypeByteSize(Type)
+  href: api/Crux.Utilities.Helpers.VertexAttributeHelper.html#Crux_Utilities_Helpers_VertexAttributeHelper_GetTypeByteSize_System_Type_
+  commentId: M:Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeByteSize(System.Type)
+  fullName: Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeByteSize(System.Type)
+  nameWithType: VertexAttributeHelper.GetTypeByteSize(Type)
+- uid: Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeByteSize*
+  name: GetTypeByteSize
+  href: api/Crux.Utilities.Helpers.VertexAttributeHelper.html#Crux_Utilities_Helpers_VertexAttributeHelper_GetTypeByteSize_
+  commentId: Overload:Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeByteSize
+  isSpec: "True"
+  fullName: Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeByteSize
+  nameWithType: VertexAttributeHelper.GetTypeByteSize
+- uid: Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeWidth(System.Type)
+  name: GetTypeWidth(Type)
+  href: api/Crux.Utilities.Helpers.VertexAttributeHelper.html#Crux_Utilities_Helpers_VertexAttributeHelper_GetTypeWidth_System_Type_
+  commentId: M:Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeWidth(System.Type)
+  fullName: Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeWidth(System.Type)
+  nameWithType: VertexAttributeHelper.GetTypeWidth(Type)
+- uid: Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeWidth*
+  name: GetTypeWidth
+  href: api/Crux.Utilities.Helpers.VertexAttributeHelper.html#Crux_Utilities_Helpers_VertexAttributeHelper_GetTypeWidth_
+  commentId: Overload:Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeWidth
+  isSpec: "True"
+  fullName: Crux.Utilities.Helpers.VertexAttributeHelper.GetTypeWidth
+  nameWithType: VertexAttributeHelper.GetTypeWidth
 - uid: Crux.Utilities.IO
   name: Crux.Utilities.IO
   href: api/Crux.Utilities.IO.html
@@ -4729,15 +5782,15 @@ references:
   isSpec: "True"
   fullName: Crux.Utilities.IO.AssetHandler.LoadIcon
   nameWithType: AssetHandler.LoadIcon
-- uid: Crux.Utilities.IO.AssetHandler.LoadPresetShader(Crux.Utilities.IO.AssetHandler.ShaderPresets,System.String)
-  name: LoadPresetShader(ShaderPresets, string)
-  href: api/Crux.Utilities.IO.AssetHandler.html#Crux_Utilities_IO_AssetHandler_LoadPresetShader_Crux_Utilities_IO_AssetHandler_ShaderPresets_System_String_
-  commentId: M:Crux.Utilities.IO.AssetHandler.LoadPresetShader(Crux.Utilities.IO.AssetHandler.ShaderPresets,System.String)
-  name.vb: LoadPresetShader(ShaderPresets, String)
-  fullName: Crux.Utilities.IO.AssetHandler.LoadPresetShader(Crux.Utilities.IO.AssetHandler.ShaderPresets, string)
-  fullName.vb: Crux.Utilities.IO.AssetHandler.LoadPresetShader(Crux.Utilities.IO.AssetHandler.ShaderPresets, String)
-  nameWithType: AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets, string)
-  nameWithType.vb: AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets, String)
+- uid: Crux.Utilities.IO.AssetHandler.LoadPresetShader(Crux.Utilities.IO.AssetHandler.ShaderPresets,System.Boolean,System.String)
+  name: LoadPresetShader(ShaderPresets, bool, string)
+  href: api/Crux.Utilities.IO.AssetHandler.html#Crux_Utilities_IO_AssetHandler_LoadPresetShader_Crux_Utilities_IO_AssetHandler_ShaderPresets_System_Boolean_System_String_
+  commentId: M:Crux.Utilities.IO.AssetHandler.LoadPresetShader(Crux.Utilities.IO.AssetHandler.ShaderPresets,System.Boolean,System.String)
+  name.vb: LoadPresetShader(ShaderPresets, Boolean, String)
+  fullName: Crux.Utilities.IO.AssetHandler.LoadPresetShader(Crux.Utilities.IO.AssetHandler.ShaderPresets, bool, string)
+  fullName.vb: Crux.Utilities.IO.AssetHandler.LoadPresetShader(Crux.Utilities.IO.AssetHandler.ShaderPresets, Boolean, String)
+  nameWithType: AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets, bool, string)
+  nameWithType.vb: AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets, Boolean, String)
 - uid: Crux.Utilities.IO.AssetHandler.LoadPresetShader*
   name: LoadPresetShader
   href: api/Crux.Utilities.IO.AssetHandler.html#Crux_Utilities_IO_AssetHandler_LoadPresetShader_
@@ -4745,6 +5798,12 @@ references:
   isSpec: "True"
   fullName: Crux.Utilities.IO.AssetHandler.LoadPresetShader
   nameWithType: AssetHandler.LoadPresetShader
+- uid: Crux.Utilities.IO.AssetHandler.MissingTexturePath
+  name: MissingTexturePath
+  href: api/Crux.Utilities.IO.AssetHandler.html#Crux_Utilities_IO_AssetHandler_MissingTexturePath
+  commentId: F:Crux.Utilities.IO.AssetHandler.MissingTexturePath
+  fullName: Crux.Utilities.IO.AssetHandler.MissingTexturePath
+  nameWithType: AssetHandler.MissingTexturePath
 - uid: Crux.Utilities.IO.AssetHandler.ReadAssetInFull(System.String)
   name: ReadAssetInFull(string)
   href: api/Crux.Utilities.IO.AssetHandler.html#Crux_Utilities_IO_AssetHandler_ReadAssetInFull_System_String_
@@ -4767,36 +5826,36 @@ references:
   commentId: T:Crux.Utilities.IO.AssetHandler.ShaderPresets
   fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets
   nameWithType: AssetHandler.ShaderPresets
-- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Font
-  name: Font
-  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Font
-  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Font
-  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Font
-  nameWithType: AssetHandler.ShaderPresets.Font
-- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Instance_Lit
-  name: Instance_Lit
-  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Instance_Lit
-  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Instance_Lit
-  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Instance_Lit
-  nameWithType: AssetHandler.ShaderPresets.Instance_Lit
-- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Lit
-  name: Lit
-  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Lit
-  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Lit
-  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Lit
-  nameWithType: AssetHandler.ShaderPresets.Lit
-- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Outline
-  name: Outline
-  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Outline
-  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Outline
-  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Outline
-  nameWithType: AssetHandler.ShaderPresets.Outline
-- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Skybox
-  name: Skybox
-  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Skybox
-  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Skybox
-  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Skybox
-  nameWithType: AssetHandler.ShaderPresets.Skybox
+- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Lit_3D
+  name: Lit_3D
+  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Lit_3D
+  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Lit_3D
+  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Lit_3D
+  nameWithType: AssetHandler.ShaderPresets.Lit_3D
+- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_2D
+  name: Unlit_2D
+  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Unlit_2D
+  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_2D
+  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_2D
+  nameWithType: AssetHandler.ShaderPresets.Unlit_2D
+- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_2D_Font
+  name: Unlit_2D_Font
+  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Unlit_2D_Font
+  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_2D_Font
+  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_2D_Font
+  nameWithType: AssetHandler.ShaderPresets.Unlit_2D_Font
+- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_2D_Skybox
+  name: Unlit_2D_Skybox
+  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Unlit_2D_Skybox
+  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_2D_Skybox
+  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_2D_Skybox
+  nameWithType: AssetHandler.ShaderPresets.Unlit_2D_Skybox
+- uid: Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_3D
+  name: Unlit_3D
+  href: api/Crux.Utilities.IO.AssetHandler.ShaderPresets.html#Crux_Utilities_IO_AssetHandler_ShaderPresets_Unlit_3D
+  commentId: F:Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_3D
+  fullName: Crux.Utilities.IO.AssetHandler.ShaderPresets.Unlit_3D
+  nameWithType: AssetHandler.ShaderPresets.Unlit_3D
 - uid: Crux.Utilities.IO.GltfHandler
   name: GltfHandler
   href: api/Crux.Utilities.IO.GltfHandler.html

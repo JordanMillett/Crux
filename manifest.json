@@ -54,6 +54,118 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Crux.CUI.CUIBounds.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.CUI.CUIBounds.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.CUI.CUIBounds",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.CUI.CUIEmpty.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.CUI.CUIEmpty.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.CUI.CUIEmpty",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.CUI.CUINode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.CUI.CUINode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.CUI.CUINode",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.CUI.CUIPanel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.CUI.CUIPanel.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.CUI.CUIPanel",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.CUI.CUIParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.CUI.CUIParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.CUI.CUIParser",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.CUI.CUIText.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.CUI.CUIText.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.CUI.CUIText",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.CUI.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.CUI.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.CUI",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.BoundsRenderComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.BoundsRenderComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.BoundsRenderComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Crux.Components.CameraComponent.yml",
       "output": {
         ".html": {
@@ -64,6 +176,20 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Crux.Components.CameraComponent",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Components.CanvasComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Components.CanvasComponent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Components.CanvasComponent",
       "Summary": null
     },
     {
@@ -208,34 +334,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Crux.Components.TextRenderComponent.PerInstanceData.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Crux.Components.TextRenderComponent.PerInstanceData.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Crux.Components.TextRenderComponent.PerInstanceData",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Crux.Components.TextRenderComponent.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Crux.Components.TextRenderComponent.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Crux.Components.TextRenderComponent",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Crux.Components.TransformComponent.yml",
       "output": {
         ".html": {
@@ -316,6 +414,20 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Crux.Core.GameObject",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Core.Input.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Core.Input.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Core.Input",
       "Summary": null
     },
     {
@@ -446,6 +558,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Graphics.MeshBuffer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Graphics.MeshBuffer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Graphics.MeshBuffer",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Crux.Graphics.Plane.yml",
       "output": {
         ".html": {
@@ -498,6 +624,20 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Crux.Graphics.Vertex",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Graphics.VertexAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Graphics.VertexAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Graphics.VertexAttribute",
       "Summary": null
     },
     {
@@ -652,6 +792,20 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Crux.Utilities.Helpers.VectorHelper",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Crux.Utilities.Helpers.VertexAttributeHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Crux.Utilities.Helpers.VertexAttributeHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Crux.Utilities.Helpers.VertexAttributeHelper",
       "Summary": null
     },
     {
@@ -812,11 +966,21 @@
       "type": "Toc",
       "source_relative_path": "api/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "api/toc.json"
-        },
         ".html": {
           "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/graphics-flow.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/graphics-flow.html"
         }
       },
       "version": ""
@@ -832,14 +996,24 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "docs/shader-presets.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/shader-presets.html"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Toc",
       "source_relative_path": "docs/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "docs/toc.json"
-        },
         ".html": {
           "relative_path": "docs/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/toc.json"
         }
       },
       "version": ""
@@ -878,11 +1052,11 @@
       "type": "Toc",
       "source_relative_path": "toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "toc.json"
-        },
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""

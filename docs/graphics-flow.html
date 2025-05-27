@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Enum LogSource | CruxDocs </title>
+      <title>Graphics Flow | CruxDocs </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Enum LogSource | CruxDocs ">
+      <meta name="title" content="Graphics Flow | CruxDocs ">
       
       
       <link rel="icon" href="../logo.png">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/JordanMillett/Crux/new/main/apiSpec/new?filename=Crux_Core_LogSource.md&amp;value=---%0Auid%3A%20Crux.Core.LogSource%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/JordanMillett/Crux/blob/main/CruxDocs/docs/graphics-flow.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -39,7 +39,7 @@
 
   </head>
 
-  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
@@ -84,63 +84,71 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Crux.Core.LogSource">
+        <article data-uid="">
+<h1 id="graphics-flow">Graphics Flow</h1>
 
+<p>The graphic below shows how the initialization of a new graphics object. Most things revolve around <a class="xref" href="../api/Crux.Graphics.GraphicsCache.html">the Graphics Cache</a></p>
+<pre><code class="lang-mermaid">classDiagram
+    class GameObject {
+         Dictionary~Type, Component~ components
+         Update()
+         AddComponent~T~()
+    }
+    class Component {
+	     Update()
+    }
+    class RenderComponent {
+	     Update()
+	     Render()
+    }
+    class MeshRenderComponent {
+	     List~Shader~ Shaders
+	     List~MeshBuffer~ MeshBuffers
+	     Update()
+	     Render()
+    }
+    class GraphicsCache {
+	     GetMeshBuffer()
+	     GetProgram()
+    }
+    class AssetHandler {
+	     LoadPresetShader()
+    }
+    class MeshBuffer {
+	     int VAO
+	     int StaticVBO
+	     int DynamicVBO
+	     GenStaticVBO()
+	     GenDynamicVBO()
+    }
+    class Shader {
+	     int _programId
+    }
 
+    GameObject ..&gt; MeshRenderComponent : stores via AddComponent()
 
+    MeshRenderComponent --|&gt; RenderComponent : inherits
+    RenderComponent --|&gt; Component :  inherits
 
-  <h1 id="Crux_Core_LogSource" data-uid="Crux.Core.LogSource" class="text-break">
-Enum LogSource  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L6"><i class="bi bi-code-slash"></i></a>
-  </h1>
+    MeshRenderComponent ..&gt; GraphicsCache : uses GetMeshBuffer()
+    MeshRenderComponent ..&gt; AssetHandler : uses LoadPresetShader()
 
-  <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.Core.html">Core</a></dd></dl>
-  <dl><dt>Assembly</dt><dd>Crux.dll</dd></dl>
-  </div>
+    MeshRenderComponent --&gt; Shader : contains multiple
+    MeshRenderComponent --&gt; MeshBuffer : contains multiple
 
-  <div class="markdown summary"></div>
-  <div class="markdown conceptual"></div>
+    AssetHandler --&gt; Shader : constructs
+    GraphicsCache --&gt; MeshBuffer : constructs
 
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum LogSource</code></pre>
-  </div>
-
-
-
-
-
-
-
-
-
-  <h2 id="fields">Fields
-</h2>
-  <dl class="parameters">
-    <dt id="Crux_Core_LogSource_Context"><code>Context = 4</code></dt>
-  
-  <dd></dd>
-    <dt id="Crux_Core_LogSource_Error"><code>Error = 3</code></dt>
-  
-  <dd></dd>
-    <dt id="Crux_Core_LogSource_System"><code>System = 1</code></dt>
-  
-  <dd></dd>
-    <dt id="Crux_Core_LogSource_User"><code>User = 0</code></dt>
-  
-  <dd></dd>
-    <dt id="Crux_Core_LogSource_Warning"><code>Warning = 2</code></dt>
-  
-  <dd></dd>
-  </dl>
-
-
+    Shader ..&gt; GraphicsCache : retrieves program id
+</code></pre>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L6" class="edit-link">Edit this page</a>
+          <a href="https://github.com/JordanMillett/Crux/blob/main/CruxDocs/docs/graphics-flow.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
 
       </div>
 

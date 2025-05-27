@@ -89,7 +89,7 @@
 
 
   <h1 id="Crux_Core_Logger" data-uid="Crux.Core.Logger" class="text-break">
-Class Logger  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L11"><i class="bi bi-code-slash"></i></a>
+Class Logger  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L15"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -153,9 +153,39 @@ Class Logger  <a class="header-action link-secondary" title="View source" href="
 
 
 
+  <h3 id="Crux_Core_Logger_LogPath" data-uid="Crux.Core.Logger.LogPath">
+  LogPath
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static readonly string LogPath</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Crux_Core_Logger_StartTime" data-uid="Crux.Core.Logger.StartTime">
   StartTime
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -190,7 +220,7 @@ Class Logger  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Core_Logger_Log_System_String_Crux_Core_LogSource_" data-uid="Crux.Core.Logger.Log(System.String,Crux.Core.LogSource)">
   Log(string, LogSource)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L79"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -221,21 +251,27 @@ Class Logger  <a class="header-action link-secondary" title="View source" href="
 
   <a id="Crux_Core_Logger_LogError_" data-uid="Crux.Core.Logger.LogError*"></a>
 
-  <h3 id="Crux_Core_Logger_LogError_System_Exception_" data-uid="Crux.Core.Logger.LogError(System.Exception)">
-  LogError(Exception)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Core_Logger_LogError_System_Exception_System_String_System_Int32_System_String_" data-uid="Crux.Core.Logger.LogError(System.Exception,System.String,System.Int32,System.String)">
+  LogError(Exception, string, int, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L119"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void LogError(Exception ex)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void LogError(Exception ex, string file = &quot;&quot;, int line = 0, string function = &quot;&quot;)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>ex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.exception">Exception</a></dt>
+    <dd></dd>
+    <dt><code>file</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>line</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>function</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -252,21 +288,27 @@ Class Logger  <a class="header-action link-secondary" title="View source" href="
 
   <a id="Crux_Core_Logger_LogWarning_" data-uid="Crux.Core.Logger.LogWarning*"></a>
 
-  <h3 id="Crux_Core_Logger_LogWarning_System_String_" data-uid="Crux.Core.Logger.LogWarning(System.String)">
-  LogWarning(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Core_Logger_LogWarning_System_String_System_String_System_Int32_System_String_" data-uid="Crux.Core.Logger.LogWarning(System.String,System.String,System.Int32,System.String)">
+  LogWarning(string, string, int, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L109"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void LogWarning(string message)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void LogWarning(string message, string file = &quot;&quot;, int line = 0, string function = &quot;&quot;)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>file</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>line</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>function</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -281,11 +323,53 @@ Class Logger  <a class="header-action link-secondary" title="View source" href="
 
 
 
+  <a id="Crux_Core_Logger_LogWarning_" data-uid="Crux.Core.Logger.LogWarning*"></a>
+
+  <h3 id="Crux_Core_Logger_LogWarning__1___0_System_String_System_Int32_System_String_" data-uid="Crux.Core.Logger.LogWarning``1(``0,System.String,System.Int32,System.String)">
+  LogWarning&lt;T&gt;(T, string, int, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void LogWarning&lt;T&gt;(T obj, string file = &quot;&quot;, int line = 0, string function = &quot;&quot;)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <span class="xref">T</span></dt>
+    <dd></dd>
+    <dt><code>file</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>line</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>function</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="Crux_Core_Logger_Log_" data-uid="Crux.Core.Logger.Log*"></a>
 
   <h3 id="Crux_Core_Logger_Log__1___0_Crux_Core_LogSource_" data-uid="Crux.Core.Logger.Log``1(``0,Crux.Core.LogSource)">
   Log&lt;T&gt;(T, LogSource)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L54"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -319,11 +403,73 @@ Class Logger  <a class="header-action link-secondary" title="View source" href="
 
 
 
+  <a id="Crux_Core_Logger_TrimPath_" data-uid="Crux.Core.Logger.TrimPath*"></a>
+
+  <h3 id="Crux_Core_Logger_TrimPath_System_String_" data-uid="Crux.Core.Logger.TrimPath(System.String)">
+  TrimPath(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string TrimPath(string absolute)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>absolute</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_Core_Logger_WritePendingLogsToFile_" data-uid="Crux.Core.Logger.WritePendingLogsToFile*"></a>
+
+  <h3 id="Crux_Core_Logger_WritePendingLogsToFile" data-uid="Crux.Core.Logger.WritePendingLogsToFile">
+  WritePendingLogsToFile()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void WritePendingLogsToFile()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/JordanMillett/Crux/blob/main/Crux/Core/Logger.cs/#L15" class="edit-link">Edit this page</a>
         </div>
 
 

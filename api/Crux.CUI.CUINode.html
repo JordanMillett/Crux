@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Shapes | CruxDocs </title>
+      <title>Class CUINode | CruxDocs </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Shapes | CruxDocs ">
+      <meta name="title" content="Class CUINode | CruxDocs ">
       
       
       <link rel="icon" href="../logo.png">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/JordanMillett/Crux/new/main/apiSpec/new?filename=Crux_Graphics_Shapes.md&amp;value=---%0Auid%3A%20Crux.Graphics.Shapes%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/JordanMillett/Crux/new/main/apiSpec/new?filename=Crux_CUI_CUINode.md&amp;value=---%0Auid%3A%20Crux.CUI.CUINode%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,16 +84,16 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Crux.Graphics.Shapes">
+        <article data-uid="Crux.CUI.CUINode">
 
 
 
-  <h1 id="Crux_Graphics_Shapes" data-uid="Crux.Graphics.Shapes" class="text-break">
-Class Shapes  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L3"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Crux_CUI_CUINode" data-uid="Crux.CUI.CUINode" class="text-break">
+Class CUINode  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.Graphics.html">Graphics</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.CUI.html">CUI</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Crux.dll</dd></dl>
   </div>
 
@@ -101,7 +101,7 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Shapes</code></pre>
+    <pre><code class="lang-csharp hljs">public abstract class CUINode</code></pre>
   </div>
 
 
@@ -111,11 +111,19 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">Shapes</span></div>
+      <div><span class="xref">CUINode</span></div>
     </dd>
   </dl>
 
 
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="Crux.CUI.CUIEmpty.html">CUIEmpty</a></div>
+      <div><a class="xref" href="Crux.CUI.CUIPanel.html">CUIPanel</a></div>
+      <div><a class="xref" href="Crux.CUI.CUIText.html">CUIText</a></div>
+    </dd>
+  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
@@ -148,21 +156,56 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
 
 
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Crux_CUI_CUINode__ctor_" data-uid="Crux.CUI.CUINode.#ctor*"></a>
+
+  <h3 id="Crux_CUI_CUINode__ctor_Crux_Components_CanvasComponent_" data-uid="Crux.CUI.CUINode.#ctor(Crux.Components.CanvasComponent)">
+  CUINode(CanvasComponent)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CUINode(CanvasComponent canvas)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>canvas</code> <a class="xref" href="Crux.Components.CanvasComponent.html">CanvasComponent</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="fields">Fields
 </h2>
 
 
 
-  <h3 id="Crux_Graphics_Shapes_LineAnchor" data-uid="Crux.Graphics.Shapes.LineAnchor">
-  LineAnchor
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_CUI_CUINode_Bounds" data-uid="Crux.CUI.CUINode.Bounds">
+  Bounds
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector3[] LineAnchor</code></pre>
+    <pre><code class="lang-csharp hljs">public CUIBounds Bounds</code></pre>
   </div>
 
 
@@ -170,7 +213,7 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><span class="xref">Vector3</span>[]</dt>
+    <dt><a class="xref" href="Crux.CUI.CUIBounds.html">CUIBounds</a></dt>
     <dd></dd>
   </dl>
 
@@ -183,16 +226,16 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
 
 
-  <h3 id="Crux_Graphics_Shapes_LineBounds" data-uid="Crux.Graphics.Shapes.LineBounds">
-  LineBounds
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_CUI_CUINode_Children" data-uid="Crux.CUI.CUINode.Children">
+  Children
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector3[] LineBounds</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;CUINode&gt; Children</code></pre>
   </div>
 
 
@@ -200,7 +243,74 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><span class="xref">Vector3</span>[]</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Crux.CUI.CUINode.html">CUINode</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Crux_CUI_CUINode_Canvas_" data-uid="Crux.CUI.CUINode.Canvas*"></a>
+
+  <h3 id="Crux_CUI_CUINode_Canvas" data-uid="Crux.CUI.CUINode.Canvas">
+  Canvas
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CanvasComponent Canvas { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Crux.Components.CanvasComponent.html">CanvasComponent</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Crux_CUI_CUINode_Arrange_" data-uid="Crux.CUI.CUINode.Arrange*"></a>
+
+  <h3 id="Crux_CUI_CUINode_Arrange_OpenTK_Mathematics_Vector2_" data-uid="Crux.CUI.CUINode.Arrange(OpenTK.Mathematics.Vector2)">
+  Arrange(Vector2)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Arrange(Vector2 parentPosition)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parentPosition</code> <span class="xref">Vector2</span></dt>
     <dd></dd>
   </dl>
 
@@ -213,26 +323,25 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
 
 
-  <h3 id="Crux_Graphics_Shapes_QuadUVs" data-uid="Crux.Graphics.Shapes.QuadUVs">
-  QuadUVs
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L15"><i class="bi bi-code-slash"></i></a>
+
+
+  <a id="Crux_CUI_CUINode_Measure_" data-uid="Crux.CUI.CUINode.Measure*"></a>
+
+  <h3 id="Crux_CUI_CUINode_Measure" data-uid="Crux.CUI.CUINode.Measure">
+  Measure()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L28"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector2[] QuadUVs</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void Measure()</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><span class="xref">Vector2</span>[]</dt>
-    <dd></dd>
-  </dl>
 
 
 
@@ -242,27 +351,49 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
 
 
+  <a id="Crux_CUI_CUINode_Render_" data-uid="Crux.CUI.CUINode.Render*"></a>
 
-  <h3 id="Crux_Graphics_Shapes_QuadVertices" data-uid="Crux.Graphics.Shapes.QuadVertices">
-  QuadVertices
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L5"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_CUI_CUINode_Render" data-uid="Crux.CUI.CUINode.Render">
+  Render()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector2[] QuadVertices</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void Render()</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><span class="xref">Vector2</span>[]</dt>
-    <dd></dd>
-  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Crux_CUI_CUINode_Update_" data-uid="Crux.CUI.CUINode.Update*"></a>
+
+  <h3 id="Crux_CUI_CUINode_Update" data-uid="Crux.CUI.CUINode.Update">
+  Update()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Update()</code></pre>
+  </div>
+
+
+
+
 
 
 
@@ -276,7 +407,7 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L3" class="edit-link">Edit this page</a>
+          <a href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUINode.cs/#L17" class="edit-link">Edit this page</a>
         </div>
 
 

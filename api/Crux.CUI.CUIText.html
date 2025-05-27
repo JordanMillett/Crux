@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Shapes | CruxDocs </title>
+      <title>Class CUIText | CruxDocs </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Shapes | CruxDocs ">
+      <meta name="title" content="Class CUIText | CruxDocs ">
       
       
       <link rel="icon" href="../logo.png">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/JordanMillett/Crux/new/main/apiSpec/new?filename=Crux_Graphics_Shapes.md&amp;value=---%0Auid%3A%20Crux.Graphics.Shapes%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/JordanMillett/Crux/new/main/apiSpec/new?filename=Crux_CUI_CUIText.md&amp;value=---%0Auid%3A%20Crux.CUI.CUIText%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,16 +84,16 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Crux.Graphics.Shapes">
+        <article data-uid="Crux.CUI.CUIText">
 
 
 
-  <h1 id="Crux_Graphics_Shapes" data-uid="Crux.Graphics.Shapes" class="text-break">
-Class Shapes  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L3"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Crux_CUI_CUIText" data-uid="Crux.CUI.CUIText" class="text-break">
+Class CUIText  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L10"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.Graphics.html">Graphics</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Crux.html">Crux</a>.<a class="xref" href="Crux.CUI.html">CUI</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Crux.dll</dd></dl>
   </div>
 
@@ -101,7 +101,7 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Shapes</code></pre>
+    <pre><code class="lang-csharp hljs">public class CUIText : CUINode</code></pre>
   </div>
 
 
@@ -111,7 +111,8 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">Shapes</span></div>
+      <div><a class="xref" href="Crux.CUI.CUINode.html">CUINode</a></div>
+      <div><span class="xref">CUIText</span></div>
     </dd>
   </dl>
 
@@ -120,6 +121,21 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="Crux.CUI.CUINode.html#Crux_CUI_CUINode_Canvas">CUINode.Canvas</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.CUI.CUINode.html#Crux_CUI_CUINode_Bounds">CUINode.Bounds</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.CUI.CUINode.html#Crux_CUI_CUINode_Children">CUINode.Children</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.CUI.CUINode.html#Crux_CUI_CUINode_Arrange_OpenTK_Mathematics_Vector2_">CUINode.Arrange(Vector2)</a>
+    </div>
+    <div>
+      <a class="xref" href="Crux.CUI.CUINode.html#Crux_CUI_CUINode_Update">CUINode.Update()</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -148,21 +164,56 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
 
 
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Crux_CUI_CUIText__ctor_" data-uid="Crux.CUI.CUIText.#ctor*"></a>
+
+  <h3 id="Crux_CUI_CUIText__ctor_Crux_Components_CanvasComponent_" data-uid="Crux.CUI.CUIText.#ctor(Crux.Components.CanvasComponent)">
+  CUIText(CanvasComponent)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CUIText(CanvasComponent canvas)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>canvas</code> <a class="xref" href="Crux.Components.CanvasComponent.html">CanvasComponent</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="fields">Fields
 </h2>
 
 
 
-  <h3 id="Crux_Graphics_Shapes_LineAnchor" data-uid="Crux.Graphics.Shapes.LineAnchor">
-  LineAnchor
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_CUI_CUIText_FontColor" data-uid="Crux.CUI.CUIText.FontColor">
+  FontColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector3[] LineAnchor</code></pre>
+    <pre><code class="lang-csharp hljs">public Color4 FontColor</code></pre>
   </div>
 
 
@@ -170,7 +221,7 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><span class="xref">Vector3</span>[]</dt>
+    <dt><span class="xref">Color4</span></dt>
     <dd></dd>
   </dl>
 
@@ -183,16 +234,16 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
 
 
-  <h3 id="Crux_Graphics_Shapes_LineBounds" data-uid="Crux.Graphics.Shapes.LineBounds">
-  LineBounds
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_CUI_CUIText_InstanceID" data-uid="Crux.CUI.CUIText.InstanceID">
+  InstanceID
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector3[] LineBounds</code></pre>
+    <pre><code class="lang-csharp hljs">public static int InstanceID</code></pre>
   </div>
 
 
@@ -200,7 +251,7 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><span class="xref">Vector3</span>[]</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
   </dl>
 
@@ -213,16 +264,16 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
 
 
-  <h3 id="Crux_Graphics_Shapes_QuadUVs" data-uid="Crux.Graphics.Shapes.QuadUVs">
-  QuadUVs
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_CUI_CUIText_VirtualFontSize" data-uid="Crux.CUI.CUIText.VirtualFontSize">
+  VirtualFontSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector2[] QuadUVs</code></pre>
+    <pre><code class="lang-csharp hljs">public float VirtualFontSize</code></pre>
   </div>
 
 
@@ -230,7 +281,7 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><span class="xref">Vector2</span>[]</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd></dd>
   </dl>
 
@@ -242,27 +293,119 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
 
-  <h3 id="Crux_Graphics_Shapes_QuadVertices" data-uid="Crux.Graphics.Shapes.QuadVertices">
-  QuadVertices
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L5"><i class="bi bi-code-slash"></i></a>
+
+  <a id="Crux_CUI_CUIText_RenderText_" data-uid="Crux.CUI.CUIText.RenderText*"></a>
+
+  <h3 id="Crux_CUI_CUIText_RenderText" data-uid="Crux.CUI.CUIText.RenderText">
+  RenderText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vector2[] QuadVertices</code></pre>
+    <pre><code class="lang-csharp hljs">public string RenderText { get; set; }</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><span class="xref">Vector2</span>[]</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+  <a id="Crux_CUI_CUIText_TextData_" data-uid="Crux.CUI.CUIText.TextData*"></a>
+
+  <h3 id="Crux_CUI_CUIText_TextData" data-uid="Crux.CUI.CUIText.TextData">
+  TextData
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TextData { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Crux_CUI_CUIText_Measure_" data-uid="Crux.CUI.CUIText.Measure*"></a>
+
+  <h3 id="Crux_CUI_CUIText_Measure" data-uid="Crux.CUI.CUIText.Measure">
+  Measure()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Measure()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Crux_CUI_CUIText_Render_" data-uid="Crux.CUI.CUIText.Render*"></a>
+
+  <h3 id="Crux_CUI_CUIText_Render" data-uid="Crux.CUI.CUIText.Render">
+  Render()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Render()</code></pre>
+  </div>
+
+
+
+
 
 
 
@@ -276,7 +419,7 @@ Class Shapes  <a class="header-action link-secondary" title="View source" href="
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shapes.cs/#L3" class="edit-link">Edit this page</a>
+          <a href="https://github.com/JordanMillett/Crux/blob/main/Crux/CUI/CUIText.cs/#L10" class="edit-link">Edit this page</a>
         </div>
 
 

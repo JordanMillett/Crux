@@ -154,16 +154,16 @@ Class Shader  <a class="header-action link-secondary" title="View source" href="
 
   <a id="Crux_Graphics_Shader__ctor_" data-uid="Crux.Graphics.Shader.#ctor*"></a>
 
-  <h3 id="Crux_Graphics_Shader__ctor_System_String_System_String_System_String_" data-uid="Crux.Graphics.Shader.#ctor(System.String,System.String,System.String)">
-  Shader(string, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Crux_Graphics_Shader__ctor_System_String_System_String_System_String_System_Boolean_" data-uid="Crux.Graphics.Shader.#ctor(System.String,System.String,System.String,System.Boolean)">
+  Shader(string, string, string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Shader(string vertexShaderPath, string fragmentShaderPath, string colorTexturePath)</code></pre>
+    <pre><code class="lang-csharp hljs">public Shader(string vertexShaderPath, string fragmentShaderPath, string colorTexturePath, bool useInstancing)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -174,10 +174,46 @@ Class Shader  <a class="header-action link-secondary" title="View source" href="
     <dd></dd>
     <dt><code>colorTexturePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
+    <dt><code>useInstancing</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
   </dl>
 
 
 
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Crux_Graphics_Shader_UseInstancing" data-uid="Crux.Graphics.Shader.UseInstancing">
+  UseInstancing
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseInstancing</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -323,7 +359,7 @@ Class Shader  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Graphics_Shader_Bind" data-uid="Crux.Graphics.Shader.Bind">
   Bind()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -349,7 +385,7 @@ Class Shader  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Graphics_Shader_Clone" data-uid="Crux.Graphics.Shader.Clone">
   Clone()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -380,7 +416,7 @@ Class Shader  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Graphics_Shader_Delete" data-uid="Crux.Graphics.Shader.Delete">
   Delete()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L82"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -406,7 +442,7 @@ Class Shader  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Graphics_Shader_SetUniform_System_String_System_Object_" data-uid="Crux.Graphics.Shader.SetUniform(System.String,System.Object)">
   SetUniform(string, object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L90"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -439,7 +475,7 @@ Class Shader  <a class="header-action link-secondary" title="View source" href="
 
   <h3 id="Crux_Graphics_Shader_Unbind" data-uid="Crux.Graphics.Shader.Unbind">
   Unbind()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Graphics/Shader.cs/#L76"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>

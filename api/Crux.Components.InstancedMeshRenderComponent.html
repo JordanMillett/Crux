@@ -192,7 +192,8 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public InstancedMeshRenderComponent(GameObject gameObject)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Feature not maintained&quot;)]
+public InstancedMeshRenderComponent(GameObject gameObject)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -286,7 +287,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Dictionary&lt;(int vao, int vbo), InstancedMeshRenderComponent.PerInstanceData&gt; InstanceData</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly Dictionary&lt;MeshBuffer, InstancedMeshRenderComponent.PerInstanceData&gt; InstanceData</code></pre>
   </div>
 
 
@@ -294,7 +295,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,system.int32-.vao">vao</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,system.int32-.vbo">vbo</a>), <a class="xref" href="Crux.Components.InstancedMeshRenderComponent.html">InstancedMeshRenderComponent</a>.<a class="xref" href="Crux.Components.InstancedMeshRenderComponent.PerInstanceData.html">PerInstanceData</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="Crux.Graphics.MeshBuffer.html">MeshBuffer</a>, <a class="xref" href="Crux.Components.InstancedMeshRenderComponent.html">InstancedMeshRenderComponent</a>.<a class="xref" href="Crux.Components.InstancedMeshRenderComponent.PerInstanceData.html">PerInstanceData</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -316,7 +317,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Dictionary&lt;(int vao, int vbo), bool&gt; Rendered</code></pre>
+    <pre><code class="lang-csharp hljs">public static readonly Dictionary&lt;MeshBuffer, bool&gt; Rendered</code></pre>
   </div>
 
 
@@ -324,7 +325,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,system.int32-.vao">vao</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,system.int32-.vbo">vbo</a>), <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="Crux.Graphics.MeshBuffer.html">MeshBuffer</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -340,10 +341,10 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 </h2>
 
 
-  <a id="Crux_Components_InstancedMeshRenderComponent_MeshVAOs_" data-uid="Crux.Components.InstancedMeshRenderComponent.MeshVAOs*"></a>
+  <a id="Crux_Components_InstancedMeshRenderComponent_MeshBuffers_" data-uid="Crux.Components.InstancedMeshRenderComponent.MeshBuffers*"></a>
 
-  <h3 id="Crux_Components_InstancedMeshRenderComponent_MeshVAOs" data-uid="Crux.Components.InstancedMeshRenderComponent.MeshVAOs">
-  MeshVAOs
+  <h3 id="Crux_Components_InstancedMeshRenderComponent_MeshBuffers" data-uid="Crux.Components.InstancedMeshRenderComponent.MeshBuffers">
+  MeshBuffers
   <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h3>
 
@@ -351,7 +352,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;(int vao, int vbo)&gt; MeshVAOs { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;MeshBuffer&gt; MeshBuffers { get; set; }</code></pre>
   </div>
 
 
@@ -360,7 +361,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,system.int32-.vao">vao</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.int32,system.int32-.vbo">vbo</a>)&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Crux.Graphics.MeshBuffer.html">MeshBuffer</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -379,7 +380,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h3 id="Crux_Components_InstancedMeshRenderComponent_Clone_Crux_Core_GameObject_" data-uid="Crux.Components.InstancedMeshRenderComponent.Clone(Crux.Core.GameObject)">
   Clone(GameObject)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L100"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -415,7 +416,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h3 id="Crux_Components_InstancedMeshRenderComponent_Delete" data-uid="Crux.Components.InstancedMeshRenderComponent.Delete">
   Delete()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L68"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -441,7 +442,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h3 id="Crux_Components_InstancedMeshRenderComponent_HandleFrozenStateChanged_System_Boolean_" data-uid="Crux.Components.InstancedMeshRenderComponent.HandleFrozenStateChanged(System.Boolean)">
   HandleFrozenStateChanged(bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L106"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -472,7 +473,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h3 id="Crux_Components_InstancedMeshRenderComponent_Render" data-uid="Crux.Components.InstancedMeshRenderComponent.Render">
   Render()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L147"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L148"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -498,7 +499,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h3 id="Crux_Components_InstancedMeshRenderComponent_SetMaterial_Crux_Graphics_Shader_System_Int32_" data-uid="Crux.Components.InstancedMeshRenderComponent.SetMaterial(Crux.Graphics.Shader,System.Int32)">
   SetMaterial(Shader, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L113"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L114"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -531,7 +532,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h3 id="Crux_Components_InstancedMeshRenderComponent_SetMaterials_System_Collections_Generic_List_Crux_Graphics_Shader__" data-uid="Crux.Components.InstancedMeshRenderComponent.SetMaterials(System.Collections.Generic.List{Crux.Graphics.Shader})">
   SetMaterials(List&lt;Shader&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L129"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L130"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -562,7 +563,7 @@ Class InstancedMeshRenderComponent  <a class="header-action link-secondary" titl
 
   <h3 id="Crux_Components_InstancedMeshRenderComponent_ToString" data-uid="Crux.Components.InstancedMeshRenderComponent.ToString">
   ToString()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L90"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/JordanMillett/Crux/blob/main/Crux/Components/InstancedMeshRenderComponent.cs/#L91"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a string that represents the current object.</p>
