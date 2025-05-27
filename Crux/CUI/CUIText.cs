@@ -17,7 +17,7 @@ public class CUIText : CUINode
     public string RenderText { get; set; } = "";
     public static int InstanceID = 0;
 
-    public float VirtualFontSize = 32f;
+    public float VirtualFontSize = 16f;
     public Color4 FontColor = Color4.White;
 
     public CUIText(CanvasComponent canvas): base(canvas)

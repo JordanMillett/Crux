@@ -5,8 +5,8 @@ namespace Crux.Physics;
 
 public static class PhysicsSystem
 {
-    private static int TotalColliders = 0;
-    private static int TotalPhysicsObjects = 0;
+    public static int TotalColliders = 0;
+    public static int TotalPhysicsObjects = 0;
 
     private static bool IntegratingAndComputing = false;
 

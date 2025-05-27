@@ -81,14 +81,18 @@ public class MeshBuffer
         GraphicsCache.TrianglesThisFrame += (vertices / 3) * instances;
     }
 
-    public void DrawInstancedWithoutIndices(int vertices, int instances)
+    //This set up sucks, but I use it to show draw calls on the ui itself
+    public void DrawInstancedWithoutIndices(int vertices, int instances, bool ignoreTabulation = false)
     {
         GL.BindVertexArray(VAO);
         GL.DrawArraysInstanced(PrimitiveType.Triangles, 0, vertices, instances);
         GL.BindVertexArray(0);
 
-        GraphicsCache.DrawCallsThisFrame++;
-        GraphicsCache.TrianglesThisFrame += (vertices / 3) * instances;
+        if(!ignoreTabulation)
+        {
+            GraphicsCache.DrawCallsThisFrame++;
+            GraphicsCache.TrianglesThisFrame += (vertices / 3) * instances;
+        }
     }
 
     public void GenEBO(uint[] indices)

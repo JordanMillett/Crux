@@ -8,7 +8,7 @@ namespace Crux.Graphics;
 
 public static class GraphicsCache
 {
-    static Dictionary<string, (int id, int users)> Textures = new();
+    public static Dictionary<string, (int id, int users)> Textures = new();
     
     static Dictionary<(string cacheKey, bool instanced), (int id, int users)> Vertex = new();
     static Dictionary<(string cacheKey, bool instanced), (int id, int users)> Fragment = new();
@@ -19,6 +19,11 @@ public static class GraphicsCache
     public static int DrawCallsThisFrame = 0;
     public static int TrianglesThisFrame = 0;
     public static int LinesThisFrame = 0;
+
+    public static int DrawCallsLastFrame = 0;
+    public static int TrianglesLastFrame = 0;
+    public static int LinesLastFrame = 0;
+
     public static float FramesPerSecond = 0f;
 
     public static Octree Tree;

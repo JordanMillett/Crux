@@ -13,12 +13,12 @@ public class CanvasComponent : RenderComponent
 
     public CanvasComponent(GameObject gameObject) : base(gameObject)
     {
-        ParseMarkup();
+        
     }
     
-    public void ParseMarkup()
+    public void ParseMarkup(string src)
     {
-        var parser = new CUIParser(AssetHandler.ReadAssetInFull("Game/Assets/CUI/main.html"));
+        var parser = new CUIParser(AssetHandler.ReadAssetInFull(src));
         Root = parser.Parse(this)!;
     }
 
@@ -42,6 +42,11 @@ public class CanvasComponent : RenderComponent
     }
 
     public override void Render()
+    {
+        
+    }
+
+    public void AfterRender()
     {
         Root?.Measure();
         Root?.Arrange(Vector2.Zero);

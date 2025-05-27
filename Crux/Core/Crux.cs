@@ -52,7 +52,6 @@ public class GameEngine : GameWindow
     public Vector2i Resolution = new Vector2i(1280, 720);
 
     public CameraComponent? Camera;
-    public TextRenderComponent? DebugHUD;
 
     public List<Vector3> DebugDisplayPositions = new List<Vector3>();
 
@@ -130,12 +129,12 @@ public class GameEngine : GameWindow
 
     public static string GetSystemInformation()
     {
-        return $"Sys {GetArchitecture()} {GetOperatingSystem()}\n";
+        return $"Sys {GetArchitecture()} {GetOperatingSystem()}";
     }
 
     public static string GetApplicationInformation()
     {
-        return $"App {(Environment.Is64BitProcess ? "x64" : "x86")} {GetOperatingSystem()}\n{GetGameShortName()}\n{GetEngineShortName()}\n";
+        return $"App {(Environment.Is64BitProcess ? "x64" : "x86")} {GetOperatingSystem()}";
     }
 
     public static string GetOperatingSystem()
@@ -195,10 +194,6 @@ public class GameEngine : GameWindow
         //Required Objects INIT
         GameObject cam = InstantiateGameObject("Camera");
         cam.AddComponent<CameraComponent>();
-
-        DebugHUD = InstantiateGameObject("HUD").AddComponent<TextRenderComponent>()!;
-        DebugHUD.FontScale = 0.3f;
-        DebugHUD.StartPosition = new Vector2(-1f, 0.95f);
         
         //Scene Begin
         OnEngineReadyCallback?.Invoke();
@@ -267,6 +262,10 @@ public class GameEngine : GameWindow
         //Reset
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
+        GraphicsCache.DrawCallsLastFrame = GraphicsCache.DrawCallsThisFrame;
+        GraphicsCache.TrianglesLastFrame = GraphicsCache.TrianglesThisFrame;
+        GraphicsCache.LinesLastFrame = GraphicsCache.LinesThisFrame;
+
         GraphicsCache.DrawCallsThisFrame = 0;
         GraphicsCache.TrianglesThisFrame = 0;
         GraphicsCache.LinesThisFrame = 0;
@@ -287,7 +286,6 @@ public class GameEngine : GameWindow
             {
                 if(E.HasComponent<RenderComponent>())
                     E.GetComponent<RenderComponent>()!.Render();
-                //E.GetComponents<RenderComponent>().ForEach(renderComponent => renderComponent.Render());
             }
         }catch
         {
@@ -303,28 +301,17 @@ public class GameEngine : GameWindow
             frameTimer = 0f;
         }
 
-        if(DebugHUD != null)
+        try
         {
-            DebugHUD.Text = GraphicsCache.GetShortInfo();
-            DebugHUD.Text += AssetHandler.GetShortInfo();
-            DebugHUD.Text += PhysicsSystem.GetShortInfo();
-            DebugHUD.Text += GetSystemInformation();
-            DebugHUD.Text += GetApplicationInformation();
+            foreach(GameObject E in Instantiated)
+            {
+                if(E.HasComponent<CanvasComponent>())
+                    E.GetComponent<CanvasComponent>()!.AfterRender();
+            }
+        }catch
+        {
+            Logger.LogWarning("Failed to render after frame, Instantiated objects was modified in runtime.");
         }
-
-        //Logger.Log(GraphicsCache.GetFullInfo());
-        /*
-        foreach (var entry in InstancedMeshRenderComponent.InstanceData)
-        {
-            var pair = entry.Key; // (int vao, int vbo)
-            var transforms = entry.Value.Transforms;
-            var gpuBufferLength = entry.Value.GPUBufferLength;
-
-            Logger.Log($"VAO: {pair.vao}, VBO: {pair.vbo}");
-            Logger.Log($"Number of Transforms: {transforms.Count}");
-            Logger.Log($"GPU Buffer Length: {gpuBufferLength}");
-            Logger.Log("--------------------------------------------------");
-        }*/
 
         SwapBuffers();
     }
@@ -360,5 +347,29 @@ public class GameEngine : GameWindow
         }
         
         Logger.Log($"Screenshot taken '{filePath}'", LogSource.System);
+    }
+
+    public CanvasComponent SetupDebugCanvas()
+    {
+        CanvasComponent Canvas = GameEngine.Link.InstantiateGameObject("Canvas").AddComponent<CanvasComponent>()!;
+        Canvas.ParseMarkup("Crux/Assets/CUI/debug.html");
+        Canvas.BindPoints.Add("FPS", () => GraphicsCache.FramesPerSecond.ToString("F2"));
+        Canvas.BindPoints.Add("DrawCalls", () => GraphicsCache.DrawCallsLastFrame.ToString());
+        Canvas.BindPoints.Add("Triangles", () => GraphicsCache.TrianglesLastFrame.ToString());
+        Canvas.BindPoints.Add("Lines", () => GraphicsCache.LinesLastFrame.ToString());
+        Canvas.BindPoints.Add("VAOs", () => GraphicsCache.VAOs.Count.ToString());
+        Canvas.BindPoints.Add("Textures", () => GraphicsCache.Textures.Count.ToString());
+        Canvas.BindPoints.Add("PhyFPS", () => PhysicsSystem.FramesPerSecond.ToString());
+        Canvas.BindPoints.Add("Colliders", () => PhysicsSystem.TotalColliders.ToString());
+        Canvas.BindPoints.Add("Objects", () => PhysicsSystem.TotalPhysicsObjects.ToString());
+        Canvas.BindPoints.Add("Spheres", () => PhysicsSystem.SphereChecks.ToString());
+        Canvas.BindPoints.Add("AABBs", () => PhysicsSystem.AABBChecks.ToString());
+        Canvas.BindPoints.Add("OBBs", () => PhysicsSystem.OBBChecks.ToString());
+        Canvas.BindPoints.Add("Sys", () => GameEngine.GetSystemInformation());
+        Canvas.BindPoints.Add("App", () => GameEngine.GetApplicationInformation());
+        Canvas.BindPoints.Add("Game", () => GameEngine.GetGameShortName());
+        Canvas.BindPoints.Add("Engine", () => GameEngine.GetEngineShortName());
+
+        return Canvas;
     }
 }

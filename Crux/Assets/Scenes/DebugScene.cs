@@ -1,11 +1,14 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using Crux.Components;
 using Crux.Physics;
+using Crux.Graphics;
 
 namespace Crux.Assets.Scenes;
 
 public class DebugScene : Scene
 {
+    public CanvasComponent? Canvas;
+
     public override void Start()
     {
         //Skybox
@@ -54,7 +57,6 @@ public class DebugScene : Scene
 
         selected = GameEngine.Link.InstantiateGameObject();
         selected.Transform.WorldPosition = new Vector3(2f, 3f, 4f);
-        //selected.AddComponent<LineRenderComponent>();
         
         selected = Presets.MakePrimitive(Primitives.Cube, debugTexture);
         selected.AddComponent<MeshBoundsColliderComponent>();
@@ -78,8 +80,9 @@ public class DebugScene : Scene
 
         Input.CreateAction("Spawn Cube", Keys.Q);
         Input.CreateAction("Cast Ray", Keys.E);
-
         Input.OutputKeyBindings();
+
+        Canvas = GameEngine.Link.SetupDebugCanvas();
     }
 
     public override void Update()
@@ -97,20 +100,11 @@ public class DebugScene : Scene
             Ray ray = new Ray(GameEngine.Link.Camera!.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
             if(PhysicsSystem.Raycast(ray, out RayHit hit))
             {
-                //Logger.Log(hit.Collider.GameObject.Name);
-
-                //if(hit.Collider.HasComponent<RenderComponent>())
-                    //hit.Collider.GameObject.RemoveComponent<ColliderComponent>();
-                    //hit.Collider.GameObject.RemoveComponent<MeshRenderComponent>();
-                    //hit.Collider.GetComponent<RenderComponent>().Hide();
-
-                //hit.Collider.Transform.GameObject.Delete();
+                Logger.LogWarning(hit.Collider.GameObject.Name);
 
                 GameObject LineObject = GameEngine.Link.InstantiateGameObject();
                 LineObject.Transform.WorldPosition = hit.Point;
                 LineObject.AddComponent<LineRenderComponent>();
-
-                Logger.LogWarning("CAST RAY");
             }
         }
     }
