@@ -55,7 +55,7 @@ public class GameEngine : GameWindow
 
     public List<Vector3> DebugDisplayPositions = new List<Vector3>();
 
-    public static readonly VersionData Version = new(0, 0, 1);
+    public static readonly VersionData Version = new(0, 0, 2);
 
     public static int BuildNumber = 0;
     
