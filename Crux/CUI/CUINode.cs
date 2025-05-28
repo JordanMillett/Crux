@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using Crux.Components;
 
 namespace Crux.CUI;
@@ -28,9 +27,12 @@ public abstract class CUINode
 
     public virtual void Measure() 
     {
-        float parentWidth = Parent?.Bounds.Width.Resolved ?? GameEngine.Link.Resolution.X;
-        float parentHeight = Parent?.Bounds.Height.Resolved ?? GameEngine.Link.Resolution.Y;
+        float parentWidth = Parent == null ? GameEngine.Link.Resolution.X
+            : (Parent.Bounds.Width.Resolved - Parent.Bounds.Padding.Horizontal);
 
+        float parentHeight = Parent == null ? GameEngine.Link.Resolution.Y
+            : (Parent.Bounds.Height.Resolved - Parent.Bounds.Padding.Vertical);
+        
         Bounds.Padding.Resolve(parentWidth, parentHeight);
 
         float rightExtents = 0;
@@ -41,16 +43,18 @@ public abstract class CUINode
             child.Measure();
 
             //Stack
-            child.Bounds.RelativePosition = new Vector2(0, bottomExtents);
-            child.Bounds.RelativePosition += new Vector2(Bounds.Padding.Left.Resolved, Bounds.Padding.Top.Resolved);
+            child.Bounds.RelativePosition = new Vector2(Bounds.Padding.Left.Resolved, Bounds.Padding.Top.Resolved + bottomExtents);
             bottomExtents += child.Bounds.Height.Resolved;
 
             //Expand
-            rightExtents = Math.Max(rightExtents, child.Bounds.Width.Resolved);
+            rightExtents = Math.Max(child.Bounds.RelativePosition.X + child.Bounds.Width.Resolved, rightExtents);
         }
 
+        float totalContentWidth = rightExtents;
+        float maxAllowedWidth = parentWidth;
+
         //Resolve
-        Bounds.Width.Resolve(parentWidth, rightExtents + Bounds.Padding.Horizontal, true);
+        Bounds.Width.Resolve(maxAllowedWidth, totalContentWidth, true);
         Bounds.Height.Resolve(parentHeight, bottomExtents + Bounds.Padding.Vertical);
     }
 

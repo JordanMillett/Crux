@@ -7,6 +7,14 @@ using System.Diagnostics;
 
 namespace Crux.CUI;
 
+public struct CUILetter
+{
+    public char Character;
+    public Vector2 RelativePosition;
+    public float ResolvedWidth;
+    public Vector2 AtlasOffset;
+}
+
 public class CUIText : CUINode
 {
     private static Shader? ShaderSingleton;
@@ -19,6 +27,8 @@ public class CUIText : CUINode
 
     public CUIUnit FontSize = CUIUnit.DefaultFontSize;
     public Color4 FontColor = Color4.White;
+
+    List<CUILetter> CalculatedLetters = [];
 
     public CUIText(CanvasComponent canvas): base(canvas)
     {
@@ -68,24 +78,73 @@ public class CUIText : CUINode
         float availableHeight = Parent?.Bounds.Height.Resolved ?? GameEngine.Link.Resolution.Y;
         FontSize.Resolve(CUIUnit.DefaultFontSizePixels); //BASE FONT SIZE
 
-        float lineWidth = 0;
-        float widestLine = 0;
-        float totalHeight = FontSize.Resolved;
-        foreach (char c in RenderText)
-        {
-            if (c == '\n')
-            {
-                totalHeight += FontSize.Resolved;
-                widestLine = float.Max(widestLine, lineWidth);
-                lineWidth = 0;
-            }else
-            {
-                float charWidth = FontSize.Resolved * GetCharWidth(c) / 2f;
-                lineWidth += charWidth;
-            }
-        }
+        CalculatedLetters.Clear();
 
-        widestLine = float.Max(widestLine, lineWidth);
+        float cursorX = 0;
+        float cursorY = 0;
+
+        float lineHeight = FontSize.Resolved;
+        float totalHeight = lineHeight;
+        float widestLine = 0;
+
+        int index = 0;
+        while (index < RenderText.Length)
+        {
+            if (RenderText[index] == '\n')
+            {
+                cursorX = 0;
+                cursorY += lineHeight;
+                totalHeight += lineHeight;
+                index++;
+                continue;
+            }
+
+            int wordStart = index;
+            while (index < RenderText.Length && RenderText[index] != ' ' && RenderText[index] != '\n')
+                index++;
+            while (index < RenderText.Length && RenderText[index] == ' ')
+                index++;
+            int wordEnd = index;
+
+            string word = RenderText[wordStart..wordEnd];
+
+            float wordWidth = 0;
+            foreach (char c in word)
+            {
+                if (c == '\n') break;
+                float charWidth = FontSize.Resolved * GetCharWidth(c) / 2f;
+                wordWidth += charWidth;
+            }
+
+            if (cursorX + wordWidth > availableWidth && cursorX > 0)
+            {
+                cursorX = 0;
+                cursorY += lineHeight;
+                totalHeight += lineHeight;
+            }
+
+            foreach (char c in word)
+            {
+                if (c == '\n')
+                    break;
+                
+                float charWidth = FontSize.Resolved * GetCharWidth(c) / 2f;
+                if (!TryGetCharacterAtlasOffset(c, out Vector2 atlasOffset))
+                    atlasOffset = Vector2.Zero;
+
+                CalculatedLetters.Add(new CUILetter
+                {
+                    Character = c,
+                    RelativePosition = new Vector2(cursorX, cursorY),
+                    ResolvedWidth = charWidth,
+                    AtlasOffset = atlasOffset
+                });
+
+                cursorX += charWidth;
+            }
+
+            widestLine = Math.Max(widestLine, cursorX);            
+        }
 
         //Resolve
         Bounds.Width.Resolve(availableWidth, widestLine, FontSize.Resolved);
@@ -96,10 +155,7 @@ public class CUIText : CUINode
     {
         if (!meshBuffer.DrawnThisFrame)
         {
-            float cursorX = -FontSize.Resolved/7f;
-            float cursorY = 0;
-
-            float[] flatpack = new float[RenderText.Length *
+            float[] flatpack = new float[CalculatedLetters.Count *
             (
             VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
             VertexAttributeHelper.GetTypeByteSize(typeof(Vector4)) +
@@ -107,27 +163,14 @@ public class CUIText : CUINode
             )];
 
             int packIndex = 0;
-            for (int i = 0; i < RenderText.Length; i++)
+            foreach (CUILetter letter in CalculatedLetters)
             {
-                char c = RenderText[i];
-
-                if (c == '\n')
-                {
-                    cursorX = -FontSize.Resolved/7f;
-                    cursorY += FontSize.Resolved; 
-                    continue;
-                }
-
-                // Get character width scaled
-                float charWidth = FontSize.Resolved * GetCharWidth(c) / 2f;
-
-                // Get model matrix for this character
                 Matrix4 modelMatrix = Canvas.GetModelMatrix
                 (
                     FontSize.Resolved,
                     FontSize.Resolved,
-                    Bounds.AbsolutePosition.X + cursorX,
-                    Bounds.AbsolutePosition.Y + cursorY
+                    Bounds.AbsolutePosition.X + letter.RelativePosition.X - FontSize.Resolved/7f,
+                    Bounds.AbsolutePosition.Y + letter.RelativePosition.Y
                 );
 
                 // Convert modelMatrix to float array
@@ -137,28 +180,20 @@ public class CUIText : CUINode
                 for (int j = 0; j < values.Length; j++)
                     flatpack[packIndex++] = values[j];
 
-                // Get atlas offset for this character
-                if (!TryGetCharacterAtlasOffset(c, out Vector2 atlasOffset))
-                {
-                    atlasOffset = Vector2.Zero; // fallback if char not found
-                }
-
                 flatpack[packIndex++] = FontColor.R;
                 flatpack[packIndex++] = FontColor.G;
                 flatpack[packIndex++] = FontColor.B;
                 flatpack[packIndex++] = FontColor.A;
 
-                flatpack[packIndex++] = atlasOffset.X;
-                flatpack[packIndex++] = atlasOffset.Y;
-
-                cursorX += charWidth;
+                flatpack[packIndex++] = letter.AtlasOffset.X;
+                flatpack[packIndex++] = letter.AtlasOffset.Y;
             }
 
-            meshBuffer.SetDynamicVBOData(flatpack, RenderText.Length);
+            meshBuffer.SetDynamicVBOData(flatpack, CalculatedLetters.Count);
 
             ShaderSingleton?.Bind();
 
-            meshBuffer.DrawInstancedWithoutIndices(Shapes.QuadVertices.Length, RenderText.Length);
+            meshBuffer.DrawInstancedWithoutIndices(Shapes.QuadVertices.Length, CalculatedLetters.Count);
 
             ShaderSingleton?.Unbind();
 
@@ -198,12 +233,12 @@ public class CUIText : CUINode
 
     private readonly Dictionary<char, float> charWidths = new Dictionary<char, float>
     {
-        { 'i', 1.1f }, { 'j', 1.1f }, { 'l', 1.1f }, { '!', 1.1f }, { '|', 1.1f }, { '\'', 1.1f }, { '`', 1.1f }, 
+        { 'i', 1.1f }, { 'j', 1.1f }, { 'l', 1.1f }, { 'r', 1.1f }, { '!', 2.0f }, { '|', 1.1f }, { '\'', 1.1f }, { '`', 1.1f }, 
         { ':', 1.1f }, { ';', 1.1f },
 
-        { 'm', 1.9f }, { 'w', 1.9f }, { 'M', 1.9f }, { 'W', 1.9f }, { '@', 1.9f },
+        { 'm', 1.9f }, { 'w', 1.5f }, { 'M', 1.9f }, { 'W', 1.9f }, { '@', 1.9f },
 
-        { ' ', 1.5f }, { '.', 1.3f }, { ',', 1.3f }, { '-', 1.3f }, { '_', 1.9f }, { '=', 1.9f }, { '(', 1.3f }, 
+        { ' ', 1.25f }, { '.', 1.3f }, { ',', 1.3f }, { '-', 1.3f }, { '_', 1.9f }, { '=', 1.9f }, { '(', 1.3f }, 
         { ')', 1.3f }, { '[', 1.3f }, { ']', 1.3f }, { '{', 1.3f }, { '}', 1.3f }, { '<', 1.3f }, { '>', 1.3f },
     };
 }
