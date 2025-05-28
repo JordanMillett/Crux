@@ -22,4 +22,15 @@ public struct CUISpacing
         Bottom = bottom;
         Left = left;
     }
+
+    public void Resolve(float parentWidth, float parentHeight)
+    {
+        Top.Resolve(parentHeight);
+        Right.Resolve(parentWidth);
+        Bottom.Resolve(parentHeight);
+        Left.Resolve(parentWidth);
+    }
+
+    public float Horizontal => Left.Resolved + Right.Resolved;
+    public float Vertical => Top.Resolved + Bottom.Resolved;
 } 

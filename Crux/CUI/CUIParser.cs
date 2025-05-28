@@ -90,16 +90,32 @@ public class CUIParser
                 break;
             }
 
-            if(cruxNode != null) //need to parse padding and margin
-            {
-                string width = styleData.GetPropertyValue("width");
-                if(!string.IsNullOrEmpty(width))
-                    cruxNode.Bounds.Width = CUIUnit.Parse(width);
+            if(cruxNode == null)
+                cruxNode = new CUIEmpty(canvas);
 
-                string height = styleData.GetPropertyValue("height");
-                if(!string.IsNullOrEmpty(height))
-                    cruxNode.Bounds.Height = CUIUnit.Parse(height);
-            }
+            string width = styleData.GetPropertyValue("width");
+            if(!string.IsNullOrEmpty(width))
+                cruxNode.Bounds.Width = CUIUnit.Parse(width);
+
+            string height = styleData.GetPropertyValue("height");
+            if(!string.IsNullOrEmpty(height))
+                cruxNode.Bounds.Height = CUIUnit.Parse(height);
+
+            string padding_top = styleData.GetPropertyValue("padding-top");
+            if(!string.IsNullOrEmpty(padding_top))
+                cruxNode.Bounds.Padding.Top = CUIUnit.Parse(padding_top);
+
+            string padding_right = styleData.GetPropertyValue("padding-right");
+            if(!string.IsNullOrEmpty(padding_right))
+                cruxNode.Bounds.Padding.Right = CUIUnit.Parse(padding_right);
+
+            string padding_bottom = styleData.GetPropertyValue("padding-bottom");
+            if(!string.IsNullOrEmpty(padding_bottom))
+                cruxNode.Bounds.Padding.Bottom = CUIUnit.Parse(padding_bottom);
+
+            string padding_left = styleData.GetPropertyValue("padding-left");
+            if(!string.IsNullOrEmpty(padding_left))
+                cruxNode.Bounds.Padding.Left = CUIUnit.Parse(padding_left);
         }
 
         if(cruxNode == null)
