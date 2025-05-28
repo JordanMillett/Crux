@@ -50,6 +50,7 @@ public class GameEngine : GameWindow
     int frameCount = 0;
 
     public Vector2i Resolution = new Vector2i(1280, 720);
+    public float DpiMultiplier = 1.0f;
 
     public CameraComponent? Camera;
 
@@ -74,7 +75,9 @@ public class GameEngine : GameWindow
         base.OnResize(e);
         
         GL.Viewport(0, 0, e.Width, e.Height);
-        
+
+        this.TryGetCurrentMonitorScale(out float horizontalDpi, out float verticalDpi);
+        DpiMultiplier = Math.Max(horizontalDpi, verticalDpi);
         Resolution = new Vector2i(e.Width, e.Height);
         
         Camera?.Recalculate();

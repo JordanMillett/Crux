@@ -51,13 +51,27 @@ public class CUIParser
 
             switch (tagName)
             {
+                case "body": 
+                    string bodyColor = styleData.GetPropertyValue("background-color");
+            
+                    if(!string.IsNullOrEmpty(bodyColor))
+                    {
+                        cruxNode = new CUIPanel(canvas);
+                        (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(bodyColor);
+                    }else
+                    {
+                        cruxNode = new CUIEmpty(canvas);
+                    }
+
+                    cruxNode.Bounds.Width = new CUIUnit(CUIUnitType.ViewportWidth, 100);
+                    cruxNode.Bounds.Height = new CUIUnit(CUIUnitType.ViewportHeight, 100);
+                break;
                 case "div": 
                     string backgroundColor = styleData.GetPropertyValue("background-color");
             
                     if(!string.IsNullOrEmpty(backgroundColor))
                     {
                         cruxNode = new CUIPanel(canvas);
-                        
                         (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(backgroundColor);
                     }
                 break;

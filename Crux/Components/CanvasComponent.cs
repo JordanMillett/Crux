@@ -59,6 +59,7 @@ public class CanvasComponent : RenderComponent
 
     public Matrix4 GetModelMatrix(CUIBounds bounds)
     {
+        /*
         return GetModelMatrix
         (
             bounds.Width.Resolved,
@@ -66,20 +67,39 @@ public class CanvasComponent : RenderComponent
             bounds.AbsolutePosition.X,
             bounds.AbsolutePosition.Y
         );
+        */
+        
+        return GetModelMatrix
+        (
+            bounds.Width.Resolved,
+            bounds.Height.Resolved,
+            bounds.AbsolutePosition.X,
+            bounds.AbsolutePosition.Y
+        );
+
+        /*
+        return GetModelMatrix
+        (
+            bounds.Width.Resolved - bounds.Padding.Horizontal,
+            bounds.Height.Resolved - bounds.Padding.Vertical,
+            bounds.AbsolutePosition.X + bounds.Padding.Left.Resolved,
+            bounds.AbsolutePosition.Y + bounds.Padding.Top.Resolved
+        );
+        */
     }
 
     public Matrix4 GetModelMatrix(float width, float height, float xpos, float ypos)
     {
-        float scaleX = width / GameEngine.Link.Resolution.X;
-        float scaleY = height / GameEngine.Link.Resolution.Y;
+        float screenWidth = GameEngine.Link.Resolution.X;
+        float screenHeight = GameEngine.Link.Resolution.Y;
+        float scaleX = width / screenWidth;
+        float scaleY = height / screenHeight;
 
         Matrix4 scale = Matrix4.CreateScale(scaleX, scaleY, 1f);
 
-        // Convert top-left corner to normalized device coordinates
         float ndcX = (xpos / GameEngine.Link.Resolution.X) * 2f - 1f;
         float ndcY = -((ypos / GameEngine.Link.Resolution.Y) * 2f - 1f);
 
-        // Offset the quad by half its size to align top-left corner instead of center
         float offsetX = scaleX;
         float offsetY = -scaleY;
 

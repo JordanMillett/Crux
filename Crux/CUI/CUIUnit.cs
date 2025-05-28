@@ -62,12 +62,12 @@ public struct CUIUnit
     {
         Resolved = Type switch 
         {
-            CUIUnitType.Pixel => Value,
+            CUIUnitType.Pixel => Value * GameEngine.Link.DpiMultiplier,                     //Pixel based, must be scaled
             CUIUnitType.Percentage => parentSize * (Value / 100f),
             CUIUnitType.Auto => Expands ? parentSize : contentSize,
             CUIUnitType.ViewportWidth => GameEngine.Link.Resolution.X * (Value / 100f),
             CUIUnitType.ViewportHeight => GameEngine.Link.Resolution.Y * (Value / 100f),
-            CUIUnitType.Em => fontSize * Value,
+            CUIUnitType.Em => fontSize * Value * GameEngine.Link.DpiMultiplier,             //Pixel based, must be scaled
             _ => 0
         };
     }
