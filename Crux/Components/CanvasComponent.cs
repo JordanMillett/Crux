@@ -57,17 +57,32 @@ public class CanvasComponent : RenderComponent
 
     public Matrix4 GetModelMatrix(CUIBounds bounds)
     {
-        float scaleX = bounds.Width / GameEngine.Link.Resolution.X;
-        float scaleY = bounds.Height / GameEngine.Link.Resolution.Y;
+        return GetModelMatrix
+        (
+            bounds.Width.Resolved,
+            bounds.Height.Resolved,
+            bounds.AbsolutePosition.X,
+            bounds.AbsolutePosition.Y
+        );
+    }
+
+    public Matrix4 GetModelMatrix(float width, float height, float xpos, float ypos)
+    {
+        float scaleX = width / GameEngine.Link.Resolution.X;
+        float scaleY = height / GameEngine.Link.Resolution.Y;
 
         Matrix4 scale = Matrix4.CreateScale(scaleX, scaleY, 1f);
 
-        float posX = (bounds.AbsolutePosition.X / GameEngine.Link.Resolution.X) * 2f - 1f;
-        float posY = -((bounds.AbsolutePosition.Y / GameEngine.Link.Resolution.Y) * 2f - 1f);
+        // Convert top-left corner to normalized device coordinates
+        float ndcX = (xpos / GameEngine.Link.Resolution.X) * 2f - 1f;
+        float ndcY = -((ypos / GameEngine.Link.Resolution.Y) * 2f - 1f);
 
-        Matrix4 translation = Matrix4.CreateTranslation(posX, posY, 0f);
+        // Offset the quad by half its size to align top-left corner instead of center
+        float offsetX = scaleX;
+        float offsetY = -scaleY;
+
+        Matrix4 translation = Matrix4.CreateTranslation(ndcX + offsetX, ndcY + offsetY, 0f);
 
         return scale * translation;
     }
-
 }

@@ -17,7 +17,7 @@ public class CUIText : CUINode
     public string RenderText { get; set; } = "";
     public static int InstanceID = 0;
 
-    public float VirtualFontSize = 32f;
+    public CUIUnit FontSize = new CUIUnit(CUIUnitType.Pixel, 16);
     public Color4 FontColor = Color4.White;
 
     public CUIText(CanvasComponent canvas): base(canvas)
@@ -34,46 +34,70 @@ public class CUIText : CUINode
 
     public override void Measure()
     {
-        RenderText = "";
-        string[] parts = TextData.SplitSpaces();
-        foreach (string part in parts)
+        StringBuilder builder = new StringBuilder();
+        int i = 0;
+        while (i < TextData.Length)
         {
-            if(!part.StartsWith('@'))
+            char c = TextData[i];
+
+            if(c == '@')
             {
-                RenderText += part + " ";
+                int start = i + 1;
+                int end = start;
+                while (end < TextData.Length && !char.IsWhiteSpace(TextData[end]))
+                    end++;
+
+                string key = TextData[start..end];
+                if (Canvas.BindPoints.TryGetValue(key, out Func<string>? maker))
+                    builder.Append(maker());
+                else
+                    Logger.LogWarning($"CUICanvas bind point {key} not found.");
+
+                i = end;
             }else
             {
-                if(Canvas.BindPoints.ContainsKey(part[1..]))
-                    RenderText += Canvas.BindPoints[part[1..]]() + " ";
-                else
-                    Logger.LogWarning($"CUICanvas bind point {part} not found.");
+                builder.Append(c);
+                i++;
             }
         }
 
-        /*
-        foreach (var pair in Canvas.BindPoints)
-        {
-            renderedText = renderedText.Replace("@" + pair.Key, pair.Value);
-        }
-        */
+        RenderText = builder.ToString();
 
-        float totalWidth = 0;
+        //CALC
+        float availableWidth = Parent?.Bounds.Width.Resolved ?? GameEngine.Link.Resolution.X;
+        float availableHeight = Parent?.Bounds.Height.Resolved ?? GameEngine.Link.Resolution.Y;
+        FontSize.Resolve(16f); //BASE FONT SIZE
+
+        float lineWidth = 0;
+        float widestLine = 0;
+        float totalHeight = FontSize.Resolved;
         foreach (char c in RenderText)
         {
-            float charWidth = VirtualFontSize * GetCharWidth(c) / 2f;
-            totalWidth += charWidth;
+            if (c == '\n')
+            {
+                totalHeight += FontSize.Resolved;
+                widestLine = float.Max(widestLine, lineWidth);
+                lineWidth = 0;
+            }else
+            {
+                float charWidth = FontSize.Resolved * GetCharWidth(c) / 2f;
+                lineWidth += charWidth;
+            }
         }
 
-        Bounds.Width = totalWidth;
-        Bounds.Height = VirtualFontSize;
+        widestLine = float.Max(widestLine, lineWidth);
+
+        //Resolve
+        Bounds.Width.Resolve(availableWidth, widestLine);
+        Bounds.Height.Resolve(availableHeight, totalHeight);
     }
 
     public override void Render()
     {
         if (!meshBuffer.DrawnThisFrame)
         {
-            float cursorX = VirtualFontSize/2f;
-            float cursorY = VirtualFontSize/2f;
+            float cursorX = -FontSize.Resolved/7f;
+            float cursorY = 0;
 
             float[] flatpack = new float[RenderText.Length *
             (
@@ -89,25 +113,22 @@ public class CUIText : CUINode
 
                 if (c == '\n')
                 {
-                    cursorX = 0f;
-                    cursorY -= VirtualFontSize; 
+                    cursorX = -FontSize.Resolved/7f;
+                    cursorY += FontSize.Resolved; 
                     continue;
                 }
 
-                // Get character width scaled by VirtualFontSize
-                float charWidth = VirtualFontSize * GetCharWidth(c) / 2f;
-
-                // Calculate character bounds in virtual resolution space
-                CUIBounds charBounds = new CUIBounds
-                {
-                    Width = VirtualFontSize,
-                    Height = VirtualFontSize,
-                    AbsolutePosition = Bounds.AbsolutePosition + new Vector2(cursorX, cursorY),
-                    RelativePosition = Vector2.Zero,
-                };
+                // Get character width scaled
+                float charWidth = FontSize.Resolved * GetCharWidth(c) / 2f;
 
                 // Get model matrix for this character
-                Matrix4 modelMatrix = Canvas.GetModelMatrix(charBounds);
+                Matrix4 modelMatrix = Canvas.GetModelMatrix
+                (
+                    FontSize.Resolved,
+                    FontSize.Resolved,
+                    Bounds.AbsolutePosition.X + cursorX,
+                    Bounds.AbsolutePosition.Y + cursorY
+                );
 
                 // Convert modelMatrix to float array
                 MatrixHelper.Matrix4ToArray(modelMatrix, out float[] values);
