@@ -17,7 +17,7 @@ public class CUIText : CUINode
     public string RenderText { get; set; } = "";
     public static int InstanceID = 0;
 
-    public CUIUnit FontSize = new CUIUnit(CUIUnitType.Pixel, 16);
+    public CUIUnit FontSize = CUIUnit.DefaultFontSize;
     public Color4 FontColor = Color4.White;
 
     public CUIText(CanvasComponent canvas): base(canvas)
@@ -66,7 +66,7 @@ public class CUIText : CUINode
         //CALC
         float availableWidth = Parent?.Bounds.Width.Resolved ?? GameEngine.Link.Resolution.X;
         float availableHeight = Parent?.Bounds.Height.Resolved ?? GameEngine.Link.Resolution.Y;
-        FontSize.Resolve(16f); //BASE FONT SIZE
+        FontSize.Resolve(CUIUnit.DefaultFontSizePixels); //BASE FONT SIZE
 
         float lineWidth = 0;
         float widestLine = 0;
@@ -88,8 +88,8 @@ public class CUIText : CUINode
         widestLine = float.Max(widestLine, lineWidth);
 
         //Resolve
-        Bounds.Width.Resolve(availableWidth, widestLine);
-        Bounds.Height.Resolve(availableHeight, totalHeight);
+        Bounds.Width.Resolve(availableWidth, widestLine, FontSize.Resolved);
+        Bounds.Height.Resolve(availableHeight, totalHeight, FontSize.Resolved);
     }
 
     public override void Render()

@@ -50,9 +50,11 @@ public class CanvasComponent : RenderComponent
         Root?.Measure();
         Root?.Arrange(Vector2.Zero);
 
+        GL.Disable(EnableCap.DepthTest);
         GL.DepthMask(false);
         Root?.Render();
         GL.DepthMask(true);
+        GL.Enable(EnableCap.DepthTest);
     }
 
     public Matrix4 GetModelMatrix(CUIBounds bounds)
