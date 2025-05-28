@@ -90,28 +90,20 @@ public class CUIParser
                 break;
             }
 
-            if(cruxNode != null)
+            if(cruxNode != null) //need to parse padding and margin
             {
                 string width = styleData.GetPropertyValue("width");
                 if(!string.IsNullOrEmpty(width))
                     cruxNode.Bounds.Width = CUIUnit.Parse(width);
-                else
-                    cruxNode.Bounds.Width = new CUIUnit(CUIUnitType.Auto);
 
                 string height = styleData.GetPropertyValue("height");
                 if(!string.IsNullOrEmpty(height))
                     cruxNode.Bounds.Height = CUIUnit.Parse(height);
-                else
-                    cruxNode.Bounds.Height = new CUIUnit(CUIUnitType.Auto);
             }
         }
 
         if(cruxNode == null)
-        {
             cruxNode = new CUIEmpty(canvas);
-            cruxNode.Bounds.Width = new CUIUnit(CUIUnitType.Auto);
-            cruxNode.Bounds.Height = new CUIUnit(CUIUnitType.Auto);
-        }
 
         foreach (INode child in angleSharpNode.ChildNodes)
         {
