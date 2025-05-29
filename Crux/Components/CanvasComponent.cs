@@ -8,6 +8,7 @@ public class CanvasComponent : RenderComponent
 {          
     private CUINode? Root;
     
+    public Dictionary<string, CUINode> NodesRefs = [];
     public Dictionary<string, Func<string>> BindPoints = [];
 
     public CanvasComponent(GameObject gameObject) : base(gameObject)
@@ -17,6 +18,9 @@ public class CanvasComponent : RenderComponent
     
     public void ParseMarkup(string src)
     {
+        NodesRefs.Clear();
+        BindPoints.Clear();
+
         var parser = new CUIParser(AssetHandler.ReadAssetInFull(src));
         Root = parser.Parse(this)!;
     }
@@ -59,7 +63,6 @@ public class CanvasComponent : RenderComponent
 
     public Matrix4 GetModelMatrix(CUIBounds bounds)
     {
-        /*
         return GetModelMatrix
         (
             bounds.Width.Resolved,
@@ -67,25 +70,6 @@ public class CanvasComponent : RenderComponent
             bounds.AbsolutePosition.X,
             bounds.AbsolutePosition.Y
         );
-        */
-        
-        return GetModelMatrix
-        (
-            bounds.Width.Resolved,
-            bounds.Height.Resolved,
-            bounds.AbsolutePosition.X,
-            bounds.AbsolutePosition.Y
-        );
-
-        /*
-        return GetModelMatrix
-        (
-            bounds.Width.Resolved - bounds.Padding.Horizontal,
-            bounds.Height.Resolved - bounds.Padding.Vertical,
-            bounds.AbsolutePosition.X + bounds.Padding.Left.Resolved,
-            bounds.AbsolutePosition.Y + bounds.Padding.Top.Resolved
-        );
-        */
     }
 
     public Matrix4 GetModelMatrix(float width, float height, float xpos, float ypos)

@@ -106,6 +106,9 @@ public class CUIParser
 
             if(cruxNode == null)
                 cruxNode = new CUIEmpty(canvas);
+            
+            if(!string.IsNullOrEmpty(angleSharpElement.Id))
+                canvas.NodesRefs.Add(angleSharpElement.Id, cruxNode);
 
             string width = styleData.GetPropertyValue("width");
             if(!string.IsNullOrEmpty(width))

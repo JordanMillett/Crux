@@ -10,9 +10,10 @@ namespace Crux.CUI;
 public struct CUILetter
 {
     public char Character;
-    public Vector2 RelativePosition;
-    public float ResolvedWidth;
+    public Vector2 CalculatedPosition;
+    public float ResolvedFontSize;
     public Vector2 AtlasOffset;
+    public Color4 Hue;
 }
 
 public class CUIText : CUINode
@@ -28,7 +29,7 @@ public class CUIText : CUINode
     public CUIUnit FontSize = CUIUnit.DefaultFontSize;
     public Color4 FontColor = Color4.White;
 
-    List<CUILetter> CalculatedLetters = [];
+    static readonly List<CUILetter> CalculatedLetters = [];
 
     public CUIText(CanvasComponent canvas): base(canvas)
     {
@@ -38,7 +39,7 @@ public class CUIText : CUINode
             ShaderSingleton.SetUniform("atlasScale", new Vector2(10, 10));
         }
 
-        meshBuffer = GraphicsCache.GetInstancedQuadBuffer($"CUIText_{InstanceID}");
+        meshBuffer = GraphicsCache.GetInstancedQuadBuffer($"CUIText");
         InstanceID++;
     }
 
@@ -61,7 +62,7 @@ public class CUIText : CUINode
                 if (Canvas.BindPoints.TryGetValue(key, out Func<string>? maker))
                     builder.Append(maker());
                 else
-                    Logger.LogWarning($"CUICanvas bind point {key} not found.");
+                    Logger.LogWarning($"CUICanvas bind point {key} not assigned.");
 
                 i = end;
             }else
@@ -77,8 +78,6 @@ public class CUIText : CUINode
         float availableWidth = Parent?.Bounds.Width.Resolved ?? GameEngine.Link.Resolution.X;
         float availableHeight = Parent?.Bounds.Height.Resolved ?? GameEngine.Link.Resolution.Y;
         FontSize.Resolve(CUIUnit.DefaultFontSizePixels); //BASE FONT SIZE
-
-        CalculatedLetters.Clear();
 
         float cursorX = 0;
         float cursorY = 0;
@@ -135,9 +134,10 @@ public class CUIText : CUINode
                 CalculatedLetters.Add(new CUILetter
                 {
                     Character = c,
-                    RelativePosition = new Vector2(cursorX, cursorY),
-                    ResolvedWidth = charWidth,
-                    AtlasOffset = atlasOffset
+                    CalculatedPosition = new Vector2(Bounds.AbsolutePosition.X + cursorX, Bounds.AbsolutePosition.Y + cursorY),
+                    ResolvedFontSize = FontSize.Resolved,
+                    AtlasOffset = atlasOffset,
+                    Hue = FontColor
                 });
 
                 cursorX += charWidth;
@@ -167,10 +167,10 @@ public class CUIText : CUINode
             {
                 Matrix4 modelMatrix = Canvas.GetModelMatrix
                 (
-                    FontSize.Resolved,
-                    FontSize.Resolved,
-                    Bounds.AbsolutePosition.X + letter.RelativePosition.X - FontSize.Resolved/7f,
-                    Bounds.AbsolutePosition.Y + letter.RelativePosition.Y
+                    letter.ResolvedFontSize,
+                    letter.ResolvedFontSize,
+                    letter.CalculatedPosition.X - letter.ResolvedFontSize/7f,
+                    letter.CalculatedPosition.Y
                 );
 
                 // Convert modelMatrix to float array
@@ -180,10 +180,10 @@ public class CUIText : CUINode
                 for (int j = 0; j < values.Length; j++)
                     flatpack[packIndex++] = values[j];
 
-                flatpack[packIndex++] = FontColor.R;
-                flatpack[packIndex++] = FontColor.G;
-                flatpack[packIndex++] = FontColor.B;
-                flatpack[packIndex++] = FontColor.A;
+                flatpack[packIndex++] = letter.Hue.R;
+                flatpack[packIndex++] = letter.Hue.G;
+                flatpack[packIndex++] = letter.Hue.B;
+                flatpack[packIndex++] = letter.Hue.A;
 
                 flatpack[packIndex++] = letter.AtlasOffset.X;
                 flatpack[packIndex++] = letter.AtlasOffset.Y;
@@ -198,6 +198,8 @@ public class CUIText : CUINode
             ShaderSingleton?.Unbind();
 
             meshBuffer.DrawnThisFrame = true;
+
+            CalculatedLetters.Clear();
         }
     }
 
