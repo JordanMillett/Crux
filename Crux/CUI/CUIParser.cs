@@ -74,6 +74,17 @@ public class CUIParser
                         cruxNode = new CUIPanel(canvas);
                         (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(backgroundColor);
                     }
+
+                    string layout = styleData.GetPropertyValue("display");
+                    if(!string.IsNullOrEmpty(layout))
+                    {
+                        cruxNode.Bounds.LayoutMode = layout switch
+                        {
+                            "inline-block" => CUILayoutMode.InlineBlock,
+                            "block" => CUILayoutMode.Block,
+                            _ => CUILayoutMode.Block
+                        };
+                    }   
                 break;
                 case "p": 
                     cruxNode = new CUIText(canvas);

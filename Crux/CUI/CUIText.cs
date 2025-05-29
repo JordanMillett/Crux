@@ -43,7 +43,7 @@ public class CUIText : CUINode
         InstanceID++;
     }
 
-    public override void Measure()
+    public override void Measure() //NEED TO SUPPORT PADDING!!!!!
     {
         StringBuilder builder = new StringBuilder();
         int i = 0;
@@ -75,7 +75,10 @@ public class CUIText : CUINode
         RenderText = builder.ToString();
 
         //CALC
-        float availableWidth = Parent?.Bounds.Width.Resolved ?? GameEngine.Link.Resolution.X;
+        //float availableWidth = Parent?.Bounds.Width.Resolved ?? GameEngine.Link.Resolution.X;
+        float availableWidth = (Parent?.Bounds.LayoutMode == CUILayoutMode.Block)
+            ? Parent.Bounds.Width.Resolved
+            : GameEngine.Link.Resolution.X;
         float availableHeight = Parent?.Bounds.Height.Resolved ?? GameEngine.Link.Resolution.Y;
         FontSize.Resolve(CUIUnit.DefaultFontSizePixels); //BASE FONT SIZE
 

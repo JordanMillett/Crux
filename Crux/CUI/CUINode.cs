@@ -11,6 +11,14 @@ public struct CUIBounds
 
     public Vector2 RelativePosition;
     public Vector2 AbsolutePosition;
+
+    public CUILayoutMode LayoutMode;
+}
+
+public enum CUILayoutMode
+{
+    Block,
+    InlineBlock
 }
 
 public abstract class CUINode
@@ -54,7 +62,7 @@ public abstract class CUINode
         float maxAllowedWidth = parentWidth;
 
         //Resolve
-        Bounds.Width.Resolve(maxAllowedWidth, totalContentWidth, true);
+        Bounds.Width.Resolve(maxAllowedWidth, totalContentWidth, Bounds.LayoutMode == CUILayoutMode.Block);
         Bounds.Height.Resolve(parentHeight, bottomExtents + Bounds.Padding.Vertical);
     }
 
