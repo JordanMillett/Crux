@@ -10,6 +10,8 @@ layout(location = 1) in vec2 inUV;
 #ifdef INSTANCED
 layout(location = 3) in mat4 inInstanceModel;
 layout(location = 7) in vec4 inInstanceHue;
+layout(location = 8) in vec2 inUVOffset;
+layout(location = 9) in vec2 inUVScale;
 #endif
 
 //Non-Instanced Uniforms
@@ -22,6 +24,8 @@ out vec3 passViewDirection;
 //Pass To Fragment - Per Instance
 #ifdef INSTANCED
 flat out vec4 instHue;
+flat out vec2 instUVOffset;
+flat out vec2 instUVScale;
 #endif
 
 void main()
@@ -36,6 +40,8 @@ void main()
     #ifdef INSTANCED
         gl_Position = inInstanceModel * localPos;
         instHue = inInstanceHue;
+        instUVOffset = inUVOffset;
+        instUVScale = inUVScale;
     #else
         gl_Position = model * localPos;
     #endif

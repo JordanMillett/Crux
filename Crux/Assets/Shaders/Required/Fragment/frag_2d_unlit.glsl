@@ -9,29 +9,28 @@ in vec3 passViewDirection;
 //Take From Vertex - Per Instance
 #ifdef INSTANCED
 flat in vec4 instHue;
+flat in vec2 instUVOffset;
+flat in vec2 instUVScale;
 #endif
 
 //Non-Instanced Uniforms
 uniform sampler2D albedoTexture; //TextureUnit.Texture0
-uniform vec4 albedoHue = vec4(1.0, 1.0, 1.0, 1.0);
-uniform vec2 tiling = vec2(1.0, 1.0);
+uniform vec4 albedoHue = vec4(1.0);
 
 out vec4 outColor;
 
 void main()
 {
-    //vec4 computedColor = texture(albedoTexture, passUV * tiling);
-    vec4 computedColor = vec4(1.0);
+    vec2 uv;
+    vec4 computedColor;
 
     #ifdef INSTANCED
-        computedColor = computedColor * instHue;
+        uv = passUV * instUVScale + instUVOffset;
+        computedColor = texture(albedoTexture, uv) * instHue;
     #else
-        computedColor = computedColor * albedoHue;
+        uv = passUV;
+        computedColor = texture(albedoTexture, uv) * albedoHue;
     #endif
-
-    //if (computedColor.a < 0.9)
-        //discard;
 
     outColor = computedColor;
 }
-

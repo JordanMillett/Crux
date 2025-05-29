@@ -34,10 +34,7 @@ public class CUIText : CUINode
     public CUIText(CanvasComponent canvas): base(canvas)
     {
         if (ShaderSingleton == null)
-        {
-            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Font, true);
-            ShaderSingleton.SetUniform("atlasScale", new Vector2(10, 10));
-        }
+            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "Crux/Assets/Fonts/PublicSans.png");
 
         meshBuffer = GraphicsCache.GetInstancedQuadBuffer($"CUIText");
         InstanceID++;
@@ -162,6 +159,7 @@ public class CUIText : CUINode
             (
             VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
             VertexAttributeHelper.GetTypeByteSize(typeof(Vector4)) +
+            VertexAttributeHelper.GetTypeByteSize(typeof(Vector2)) +
             VertexAttributeHelper.GetTypeByteSize(typeof(Vector2))
             )];
 
@@ -190,6 +188,9 @@ public class CUIText : CUINode
 
                 flatpack[packIndex++] = letter.AtlasOffset.X;
                 flatpack[packIndex++] = letter.AtlasOffset.Y;
+
+                flatpack[packIndex++] = 0.1f; //10x10 atlas scale
+                flatpack[packIndex++] = 0.1f;
             }
 
             meshBuffer.SetDynamicVBOData(flatpack, CalculatedLetters.Count);

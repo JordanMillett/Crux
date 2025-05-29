@@ -323,8 +323,9 @@ public static class GraphicsCache
             meshBuffer.GenDynamicVBO(new (int, Type)[]
             {
                 (3, typeof(Matrix4)), //Model Matrix
-                (7, typeof(Vector4)), //Color
-                (8, typeof(Vector2)), //Atlas Offset
+                (7, typeof(Vector4)), //Hue
+                (8, typeof(Vector2)), //UV Offset
+                (9, typeof(Vector2)), //UV Scale
             });
             
             VAOs.Add(cacheKey, (meshBuffer, 1));            

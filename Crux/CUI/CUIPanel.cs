@@ -18,7 +18,7 @@ public class CUIPanel : CUINode
     public CUIPanel(CanvasComponent canvas): base(canvas)
     {
         if (ShaderSingleton == null)
-            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "");
+            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "Crux/Assets/Textures/Required/Blank.jpg");
 
         meshBuffer = GraphicsCache.GetInstancedQuadBuffer("CUIPanel");
         Instances.Add(this);
@@ -32,6 +32,7 @@ public class CUIPanel : CUINode
             (
             VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
             VertexAttributeHelper.GetTypeByteSize(typeof(Vector4)) +
+            VertexAttributeHelper.GetTypeByteSize(typeof(Vector2)) +
             VertexAttributeHelper.GetTypeByteSize(typeof(Vector2))
             )];
 
@@ -50,7 +51,11 @@ public class CUIPanel : CUINode
                 flatpack[packIndex++] = instance.Background.B;
                 flatpack[packIndex++] = instance.Background.A;
 
-                packIndex += 2;
+                flatpack[packIndex++] = 0f;
+                flatpack[packIndex++] = 0f;
+
+                flatpack[packIndex++] = 1f;
+                flatpack[packIndex++] = 1f;
 
                 //Logger.Log($"Container: {instance.Bounds.Width} x {instance.Bounds.Height} at ({instance.Bounds.AbsolutePosition.X}, {instance.Bounds.AbsolutePosition.Y})");
             }

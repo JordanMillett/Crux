@@ -144,8 +144,7 @@ public static class AssetHandler
         Lit_3D,
         Unlit_3D,
         Unlit_2D,
-        Unlit_2D_Skybox,
-        Unlit_2D_Font,
+        Unlit_2D_Skybox
     }
 
     public static Shader LoadPresetShader(ShaderPresets shaderPreset, bool useInstancing, string texturePath = "")
@@ -171,13 +170,6 @@ public static class AssetHandler
                 "Crux/Assets/Shaders/Required/Vertex/vert_2d.glsl",
                 "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit.glsl",
                 AssetExists(texturePath) ? texturePath : MissingTexturePath,
-                useInstancing
-            ),
-            ShaderPresets.Unlit_2D_Font => new Shader
-            (
-                "Crux/Assets/Shaders/Required/Vertex/vert_2d_font.glsl",
-                "Crux/Assets/Shaders/Required/Fragment/frag_2d_unlit_font.glsl",
-                AssetExists(texturePath) ? texturePath : "Crux/Assets/Fonts/PublicSans.jpg",
                 useInstancing
             ),
             ShaderPresets.Unlit_2D_Skybox => new Shader
