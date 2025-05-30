@@ -18,7 +18,10 @@ public class CUIPanel : CUINode
     public CUIPanel(CanvasComponent canvas): base(canvas)
     {
         if (ShaderSingleton == null)
+        {
             ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "Crux/Assets/Textures/Required/Blank.jpg");
+            ShaderSingleton.SetUniform("useSDF", 0f);
+        }
 
         meshBuffer = GraphicsCache.GetInstancedQuadBuffer("CUIPanel");
         Instances.Add(this);

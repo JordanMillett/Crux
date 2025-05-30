@@ -16,6 +16,7 @@ flat in vec2 instUVScale;
 //Non-Instanced Uniforms
 uniform sampler2D albedoTexture; //TextureUnit.Texture0
 uniform vec4 albedoHue = vec4(1.0);
+uniform float useSDF = 0;
 
 out vec4 outColor;
 
@@ -26,11 +27,31 @@ void main()
 
     #ifdef INSTANCED
         uv = passUV * instUVScale + instUVOffset;
-        computedColor = texture(albedoTexture, uv) * instHue;
     #else
         uv = passUV;
-        computedColor = texture(albedoTexture, uv) * albedoHue;
     #endif
+
+    vec4 sampledColor = texture(albedoTexture, uv);
+
+    if(useSDF > 0.5)
+    {
+        float threshold = 0.5;
+        float smoothing = 0.05;
+
+        float dist = (sampledColor.r + sampledColor.g + sampledColor.b) / 3.0;
+        smoothing = fwidth(dist) * 1.25; //lil smoothing on top
+        float alpha = smoothstep(threshold - smoothing, threshold + smoothing, dist);
+    
+        computedColor = vec4(instHue.r, instHue.g, instHue.b, alpha);
+
+    }else
+    {
+        #ifdef INSTANCED
+            computedColor = sampledColor * instHue;
+        #else
+            computedColor = sampledColor * albedoHue;
+        #endif
+    }
 
     outColor = computedColor;
 }

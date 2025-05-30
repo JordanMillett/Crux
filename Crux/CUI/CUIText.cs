@@ -4,16 +4,71 @@ using Crux.Utilities.Helpers;
 using Crux.Components;
 using AngleSharp.Text;
 using System.Diagnostics;
+using System.Text.Json.Nodes;
 
 namespace Crux.CUI;
 
-public struct CUILetter
+public struct CUILetterDraw
 {
     public char Character;
-    public Vector2 CalculatedPosition;
+    public CUIFontCharacter Font;
+    public float ResolvedFontMultiplier;
     public float ResolvedFontSize;
-    public Vector2 AtlasOffset;
+    public Vector2 AbsolutePosition;
     public Color4 Hue;
+}
+
+public class CUIFont
+{
+    public readonly Dictionary<char, CUIFontCharacter> Characters = [];
+
+    public float TextureWidth { get; init; }
+    public float TextureHeight { get; init; }
+    public float FontSize { get; init; }
+
+    public CUIFont(string path)
+    {
+        string json = AssetHandler.ReadAssetInFull(path);
+        JsonNode root = JsonNode.Parse(json)!;
+        TextureWidth = (float)root["width"]!;
+        TextureHeight = (float)root["height"]!;
+        FontSize = (float)root["size"]!;
+
+        JsonObject characters = root["characters"]!.AsObject();
+        foreach (var pair in characters)
+        {
+            char c = pair.Key[0];
+            JsonObject data = pair.Value!.AsObject();
+
+            float x = (float)data["x"]!;
+            float y = (float)data["y"]!;
+            float width = (float)data["width"]!;
+            float height = (float)data["height"]!;
+            float originX = (float)data["originX"]!;
+            float originY = (float)data["originY"]!;
+            float advance = (float)data["advance"]!;
+
+            CUIFontCharacter f = new CUIFontCharacter
+            {
+                DrawOffset = new Vector2(originX, originY),
+                DrawSize = new Vector2(width, height),
+                DrawAdvance = advance,
+                UVOffset = new Vector2(x / TextureWidth, 1.0f - (y + height) / TextureHeight),
+                UVScale = new Vector2(width / TextureWidth, height / TextureHeight),
+            };
+
+            Characters[c] = f;
+        }
+    }
+}
+
+public struct CUIFontCharacter
+{
+    public Vector2 DrawOffset;
+    public Vector2 DrawSize;
+    public float DrawAdvance;
+    public Vector2 UVOffset;
+    public Vector2 UVScale;
 }
 
 public class CUIText : CUINode
@@ -29,12 +84,21 @@ public class CUIText : CUINode
     public CUIUnit FontSize = CUIUnit.DefaultFontSize;
     public Color4 FontColor = Color4.White;
 
-    static readonly List<CUILetter> CalculatedLetters = [];
+    static readonly List<CUILetterDraw> LettersToDraw = [];
+
+    public string FontPath = "Crux/Assets/Fonts/Verdana";
+
+    static CUIFont? loadedFont;
 
     public CUIText(CanvasComponent canvas): base(canvas)
     {
         if (ShaderSingleton == null)
-            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "Crux/Assets/Fonts/PublicSans.png");
+        {
+            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, $"{FontPath}.png");
+            loadedFont = new CUIFont($"{FontPath}.json");
+
+            ShaderSingleton.SetUniform("useSDF", 1f);
+        }
 
         meshBuffer = GraphicsCache.GetInstancedQuadBuffer($"CUIText");
         InstanceID++;
@@ -107,12 +171,13 @@ public class CUIText : CUINode
 
             string word = RenderText[wordStart..wordEnd];
 
+            float fontScale = FontSize.Resolved / loadedFont!.FontSize;
             float wordWidth = 0;
             foreach (char c in word)
             {
                 if (c == '\n') break;
-                float charWidth = FontSize.Resolved * GetCharWidth(c) / 2f;
-                wordWidth += charWidth;
+                float charWidth = FontSize.Resolved;
+                wordWidth += loadedFont.Characters[c].DrawAdvance * fontScale;
             }
 
             if (cursorX + wordWidth > availableWidth && cursorX > 0)
@@ -127,20 +192,19 @@ public class CUIText : CUINode
                 if (c == '\n')
                     break;
                 
-                float charWidth = FontSize.Resolved * GetCharWidth(c) / 2f;
-                if (!TryGetCharacterAtlasOffset(c, out Vector2 atlasOffset))
-                    atlasOffset = Vector2.Zero;
+                float charWidth = FontSize.Resolved;
 
-                CalculatedLetters.Add(new CUILetter
+                LettersToDraw.Add(new CUILetterDraw
                 {
                     Character = c,
-                    CalculatedPosition = new Vector2(Bounds.AbsolutePosition.X + cursorX, Bounds.AbsolutePosition.Y + cursorY),
+                    Font = loadedFont.Characters[c],
+                    ResolvedFontMultiplier = fontScale,
                     ResolvedFontSize = FontSize.Resolved,
-                    AtlasOffset = atlasOffset,
+                    AbsolutePosition = new Vector2(Bounds.AbsolutePosition.X + cursorX, Bounds.AbsolutePosition.Y + cursorY),
                     Hue = FontColor
                 });
 
-                cursorX += charWidth;
+                cursorX += loadedFont.Characters[c].DrawAdvance * fontScale;
             }
 
             widestLine = Math.Max(widestLine, cursorX);            
@@ -155,7 +219,7 @@ public class CUIText : CUINode
     {
         if (!meshBuffer.DrawnThisFrame)
         {
-            float[] flatpack = new float[CalculatedLetters.Count *
+            float[] flatpack = new float[LettersToDraw.Count *
             (
             VertexAttributeHelper.GetTypeByteSize(typeof(Matrix4)) +
             VertexAttributeHelper.GetTypeByteSize(typeof(Vector4)) +
@@ -164,14 +228,14 @@ public class CUIText : CUINode
             )];
 
             int packIndex = 0;
-            foreach (CUILetter letter in CalculatedLetters)
+            foreach (CUILetterDraw letter in LettersToDraw)
             {
                 Matrix4 modelMatrix = Canvas.GetModelMatrix
                 (
-                    letter.ResolvedFontSize,
-                    letter.ResolvedFontSize,
-                    letter.CalculatedPosition.X - letter.ResolvedFontSize/7f,
-                    letter.CalculatedPosition.Y
+                    letter.Font.DrawSize.X * letter.ResolvedFontMultiplier,
+                    letter.Font.DrawSize.Y * letter.ResolvedFontMultiplier,
+                    letter.AbsolutePosition.X - letter.Font.DrawOffset.X * letter.ResolvedFontMultiplier,
+                    letter.AbsolutePosition.Y - (letter.Font.DrawOffset.Y * letter.ResolvedFontMultiplier) + letter.ResolvedFontSize
                 );
 
                 // Convert modelMatrix to float array
@@ -186,65 +250,24 @@ public class CUIText : CUINode
                 flatpack[packIndex++] = letter.Hue.B;
                 flatpack[packIndex++] = letter.Hue.A;
 
-                flatpack[packIndex++] = letter.AtlasOffset.X;
-                flatpack[packIndex++] = letter.AtlasOffset.Y;
+                flatpack[packIndex++] = letter.Font.UVOffset.X;
+                flatpack[packIndex++] = letter.Font.UVOffset.Y;
 
-                flatpack[packIndex++] = 0.1f; //10x10 atlas scale
-                flatpack[packIndex++] = 0.1f;
+                flatpack[packIndex++] = letter.Font.UVScale.X;
+                flatpack[packIndex++] = letter.Font.UVScale.Y;
             }
 
-            meshBuffer.SetDynamicVBOData(flatpack, CalculatedLetters.Count);
+            meshBuffer.SetDynamicVBOData(flatpack, LettersToDraw.Count);
 
             ShaderSingleton?.Bind();
 
-            meshBuffer.DrawInstancedWithoutIndices(Shapes.QuadVertices.Length, CalculatedLetters.Count);
+            meshBuffer.DrawInstancedWithoutIndices(Shapes.QuadVertices.Length, LettersToDraw.Count);
 
             ShaderSingleton?.Unbind();
 
             meshBuffer.DrawnThisFrame = true;
 
-            CalculatedLetters.Clear();
+            LettersToDraw.Clear();
         }
     }
-
-    private bool TryGetCharacterAtlasOffset(char c, out Vector2 atlasOffset)
-    {
-        int charsPerRow = 10;
-        int charSize = 100;
-        int atlasWidth = 1000;
-        int atlasHeight = 1000;
-
-        int index = Charset.IndexOf(c);
-        if (index < 0)
-        {
-            atlasOffset = Vector2.Zero;
-            return false;
-        }
-
-        int x = index % charsPerRow;
-        int y = index / charsPerRow;
-
-        atlasOffset = new Vector2(
-            (float)x * charSize / atlasWidth,
-            1.0f - ((float)(y + 1) * charSize / atlasHeight) // Flip Y-axis
-        );
-
-        return true;
-    }
-
-    float GetCharWidth(char c)
-    {
-        return charWidths.ContainsKey(c) ? charWidths[c] : 1.5f;
-    }
-
-    private readonly Dictionary<char, float> charWidths = new Dictionary<char, float>
-    {
-        { 'i', 1.1f }, { 'j', 1.1f }, { 'l', 1.1f }, { 'r', 1.1f }, { '!', 2.0f }, { '|', 1.1f }, { '\'', 1.1f }, { '`', 1.1f }, 
-        { ':', 1.1f }, { ';', 1.1f },
-
-        { 'm', 1.9f }, { 'w', 1.5f }, { 'M', 1.9f }, { 'W', 1.9f }, { '@', 1.9f },
-
-        { ' ', 1.25f }, { '.', 1.3f }, { ',', 1.3f }, { '-', 1.3f }, { '_', 1.9f }, { '=', 1.9f }, { '(', 1.3f }, 
-        { ')', 1.3f }, { '[', 1.3f }, { ']', 1.3f }, { '{', 1.3f }, { '}', 1.3f }, { '<', 1.3f }, { '>', 1.3f },
-    };
 }

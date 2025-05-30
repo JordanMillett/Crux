@@ -64,7 +64,10 @@ public class Shader
         //Apply standard and varied uniforms
         foreach (var uniform in pendingUniformUpdates)
             ApplyUniform(uniform.Key, uniform.Value);
-        pendingUniformUpdates.Clear();
+        //pendingUniformUpdates.Clear(); //TODO: THINK ABOUT THIS
+        //MAYBE IT'S WORTH REFRESHING EVERY UNIFORM THAT HAS BEEN MODIFIED
+        //SO THAT WHEN A PROGRAM IS SHARED THEY'RE DISTINCT
+        //ALBEDO HUE IS SET EVERY TIME ALREADY
         
         if(!string.IsNullOrEmpty(ColorTexturePath))
         {
@@ -124,6 +127,9 @@ public class Shader
         }else if (value is int[] intArray)
         {
             GL.Uniform1(uniformLocation, intArray.Length, intArray);
+        }else if (value is float f)
+        {
+            GL.Uniform1(uniformLocation, f);
         }
     }
 }
