@@ -7,7 +7,7 @@ namespace Crux.CUI;
 
 public class CUIPanel : CUINode
 {
-    private static Shader? ShaderSingleton { get; set; }
+    public static Shader? ShaderSingleton { get; set; }
     private readonly MeshBuffer meshBuffer;
 
     //Instanced Data

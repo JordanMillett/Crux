@@ -39,7 +39,7 @@ void main()
         float smoothing = 0.05;
 
         float dist = (sampledColor.r + sampledColor.g + sampledColor.b) / 3.0;
-        smoothing = fwidth(dist) * 1.25; //lil smoothing on top
+        smoothing = fwidth(dist) * 0.75; //1.25 for lil smoothing on top
         float alpha = smoothstep(threshold - smoothing, threshold + smoothing, dist);
     
         computedColor = vec4(instHue.r, instHue.g, instHue.b, alpha);

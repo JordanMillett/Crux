@@ -8,11 +8,11 @@ public class Shader
     private readonly int _programId;
     private readonly int _vertexShaderId;
     private readonly int _fragmentShaderId;
-    private readonly int _textureId;
+    private int _textureId;
     
     public string VertexShaderPath { get; init; }
     public string FragmentShaderPath { get; init; }
-    public string ColorTexturePath { get; init; }
+    public string ColorTexturePath { get; set; }
 
     //Standard uniforms in every shader
     public Color4 TextureHue { get; set; } = Color4.White;
@@ -34,7 +34,12 @@ public class Shader
         _fragmentShaderId = GraphicsCache.GetFragmentShader(FragmentShaderPath, UseInstancing);
         _programId = GraphicsCache.GetProgram((_vertexShaderId, _fragmentShaderId));
         if(!string.IsNullOrEmpty(ColorTexturePath))
-            _textureId = GraphicsCache.GetTexture(ColorTexturePath);
+            GenerateTextureID();
+    }
+
+    public void GenerateTextureID()
+    {
+        _textureId = GraphicsCache.GetTexture(ColorTexturePath);
     }
 
     public Shader Clone()

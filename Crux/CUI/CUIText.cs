@@ -86,7 +86,7 @@ public class CUIText : CUINode
 
     static readonly List<CUILetterDraw> LettersToDraw = [];
 
-    public string FontPath = "Crux/Assets/Fonts/Verdana";
+    public string FontPath = "Crux/Assets/Fonts/ComicSans";
 
     static CUIFont? loadedFont;
 
@@ -235,7 +235,7 @@ public class CUIText : CUINode
                     letter.Font.DrawSize.X * letter.ResolvedFontMultiplier,
                     letter.Font.DrawSize.Y * letter.ResolvedFontMultiplier,
                     letter.AbsolutePosition.X - letter.Font.DrawOffset.X * letter.ResolvedFontMultiplier,
-                    letter.AbsolutePosition.Y - (letter.Font.DrawOffset.Y * letter.ResolvedFontMultiplier) + letter.ResolvedFontSize
+                    letter.AbsolutePosition.Y - (letter.Font.DrawOffset.Y * letter.ResolvedFontMultiplier) + letter.ResolvedFontSize - (letter.ResolvedFontSize/8f)
                 );
 
                 // Convert modelMatrix to float array

@@ -22,12 +22,12 @@ public class MeshBoundsColliderComponent : ColliderComponent
         mesh = GetComponent<MeshComponent>();
         ComputeBounds();
 
-        /*
+        
         GameObject bounds = GameEngine.Link.InstantiateGameObject();
         bounds.Transform.Parent = this.Transform;
         bounds.Transform.LocalPosition = Vector3.Zero;
         bounds.AddComponent<BoundsRenderComponent>().Source = this;
-        */
+        
     }
     
     public override string ToString()

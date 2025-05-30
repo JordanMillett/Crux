@@ -75,6 +75,18 @@ public class CUIParser
                         (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(backgroundColor);
                     }
 
+                    string backgroundImage = styleData.GetPropertyValue("background-image");
+            
+                    if(!string.IsNullOrEmpty(backgroundImage))
+                    {
+                        if(cruxNode == null)
+                            cruxNode = new CUIPanel(canvas);
+                        
+                        CUIPanel.ShaderSingleton.ColorTexturePath = backgroundImage.Substring(5, backgroundImage.Length - 5 - 2);
+                        CUIPanel.ShaderSingleton.GenerateTextureID();
+                        
+                    }
+
                     string layout = styleData.GetPropertyValue("display");
                     if(!string.IsNullOrEmpty(layout))
                     {
