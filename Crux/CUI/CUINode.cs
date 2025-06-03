@@ -33,37 +33,48 @@ public abstract class CUINode
         Canvas = canvas;
     }
 
+    public Vector2 GetAvailableSpace()
+    {
+        float parentWidth;
+        float parentHeight;
+
+        if(Parent == null)
+        {
+            parentWidth = GameEngine.Link.Resolution.X;
+            parentHeight = GameEngine.Link.Resolution.Y;
+
+        }else
+        {
+            parentWidth = Parent.Bounds.Width.Resolved - Parent.Bounds.Padding.Horizontal;
+            parentHeight = Parent.Bounds.Height.Resolved - Parent.Bounds.Padding.Vertical;
+        }
+
+        return new Vector2(parentWidth, parentHeight);
+    }
+
     public virtual void Measure() 
     {
-        float parentWidth = Parent == null ? GameEngine.Link.Resolution.X
-            : (Parent.Bounds.Width.Resolved - Parent.Bounds.Padding.Horizontal);
-
-        float parentHeight = Parent == null ? GameEngine.Link.Resolution.Y
-            : (Parent.Bounds.Height.Resolved - Parent.Bounds.Padding.Vertical);
+        Vector2 availableSpace = GetAvailableSpace();
+        //Bounds.Padding.Resolve(availableSpace.X, availableSpace.Y);
         
-        Bounds.Padding.Resolve(parentWidth, parentHeight);
-
-        float rightExtents = 0;
-        float bottomExtents = 0;
+        float totalContentWidth = 0;
+        float totalContentHeight = 0;
         foreach (CUINode child in Children)
         {
             //Measure
             child.Measure();
 
             //Stack
-            child.Bounds.RelativePosition = new Vector2(Bounds.Padding.Left.Resolved, Bounds.Padding.Top.Resolved + bottomExtents);
-            bottomExtents += child.Bounds.Height.Resolved;
+            child.Bounds.RelativePosition = new Vector2(Bounds.Padding.Left.Resolved, Bounds.Padding.Top.Resolved + totalContentHeight);
+            totalContentHeight += child.Bounds.Height.Resolved;
 
             //Expand
-            rightExtents = Math.Max(child.Bounds.RelativePosition.X + child.Bounds.Width.Resolved, rightExtents);
+            totalContentWidth = Math.Max(child.Bounds.RelativePosition.X + child.Bounds.Width.Resolved, totalContentWidth);
         }
 
-        float totalContentWidth = rightExtents;
-        float maxAllowedWidth = parentWidth;
-
         //Resolve
-        Bounds.Width.Resolve(maxAllowedWidth, totalContentWidth, Bounds.LayoutMode == CUILayoutMode.Block);
-        Bounds.Height.Resolve(parentHeight, bottomExtents + Bounds.Padding.Vertical);
+        Bounds.Width.Resolve(availableSpace.X, totalContentWidth, 0f, false);
+        Bounds.Height.Resolve(availableSpace.Y, totalContentHeight, 0f, false);
     }
 
     public virtual void Arrange(Vector2 parentPosition)

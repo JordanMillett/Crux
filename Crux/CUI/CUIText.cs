@@ -81,12 +81,12 @@ public class CUIText : CUINode
     public string RenderText { get; set; } = "";
     public static int InstanceID = 0;
 
-    public CUIUnit FontSize = CUIUnit.DefaultFontSize;
+    public CUIUnit FontSize;
     public Color4 FontColor = Color4.White;
 
     static readonly List<CUILetterDraw> LettersToDraw = [];
 
-    public string FontPath = "Crux/Assets/Fonts/ComicSans";
+    public string FontPath = "Crux/Assets/Fonts/Verdana";
 
     static CUIFont? loadedFont;
 
@@ -104,7 +104,7 @@ public class CUIText : CUINode
         InstanceID++;
     }
 
-    public override void Measure() //NEED TO SUPPORT PADDING!!!!!
+    public string ParseBindPoints()
     {
         StringBuilder builder = new StringBuilder();
         int i = 0;
@@ -133,23 +133,23 @@ public class CUIText : CUINode
             }
         }
 
-        RenderText = builder.ToString();
+        return builder.ToString();
+    }
 
-        //CALC
-        //float availableWidth = Parent?.Bounds.Width.Resolved ?? GameEngine.Link.Resolution.X;
-        float availableWidth = (Parent?.Bounds.LayoutMode == CUILayoutMode.Block)
-            ? Parent.Bounds.Width.Resolved
-            : GameEngine.Link.Resolution.X;
-        float availableHeight = Parent?.Bounds.Height.Resolved ?? GameEngine.Link.Resolution.Y;
-        FontSize.Resolve(CUIUnit.DefaultFontSizePixels); //BASE FONT SIZE
+    public override void Measure()
+    {
+        Vector2 availableSpace = GetAvailableSpace();
+        FontSize.Resolve(16f); //Base font size
 
+        RenderText = ParseBindPoints();  
+            
         float cursorX = 0;
         float cursorY = 0;
 
         float lineHeight = FontSize.Resolved;
-        float totalHeight = lineHeight;
-        float widestLine = 0;
-
+        float totalContentHeight = lineHeight;
+        float totalContentWidth = 0;
+        
         int index = 0;
         while (index < RenderText.Length)
         {
@@ -157,7 +157,7 @@ public class CUIText : CUINode
             {
                 cursorX = 0;
                 cursorY += lineHeight;
-                totalHeight += lineHeight;
+                totalContentHeight += lineHeight;
                 index++;
                 continue;
             }
@@ -180,11 +180,11 @@ public class CUIText : CUINode
                 wordWidth += loadedFont.Characters[c].DrawAdvance * fontScale;
             }
 
-            if (cursorX + wordWidth > availableWidth && cursorX > 0)
+            if (cursorX + wordWidth > availableSpace.X && cursorX > 0)
             {
                 cursorX = 0;
                 cursorY += lineHeight;
-                totalHeight += lineHeight;
+                totalContentHeight += lineHeight;
             }
 
             foreach (char c in word)
@@ -207,12 +207,12 @@ public class CUIText : CUINode
                 cursorX += loadedFont.Characters[c].DrawAdvance * fontScale;
             }
 
-            widestLine = Math.Max(widestLine, cursorX);            
+            totalContentWidth = Math.Max(totalContentWidth, cursorX);            
         }
 
         //Resolve
-        Bounds.Width.Resolve(availableWidth, widestLine, FontSize.Resolved);
-        Bounds.Height.Resolve(availableHeight, totalHeight, FontSize.Resolved);
+        Bounds.Width.Resolve(availableSpace.X, totalContentWidth, FontSize.Resolved);
+        Bounds.Height.Resolve(availableSpace.Y, totalContentHeight, FontSize.Resolved);
     }
 
     public override void Render()

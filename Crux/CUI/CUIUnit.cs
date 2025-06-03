@@ -23,8 +23,8 @@ public struct CUIUnit
         Resolved = resolved;
     }
 
-    public const float DefaultFontSizePixels = 16f;
-    public static CUIUnit DefaultFontSize => new CUIUnit(CUIUnitType.Pixel, DefaultFontSizePixels);
+    //public const float DefaultFontSizePixels = 16f;
+    //public static CUIUnit DefaultFontSize => new CUIUnit(CUIUnitType.Pixel, DefaultFontSizePixels);
 
     public static CUIUnit Parse(string input)
     {
@@ -53,18 +53,13 @@ public struct CUIUnit
         return new CUIUnit(CUIUnitType.Auto);
     }
 
-    public void Resolve(float parentSize, float contentSize, bool Expands)
-    {
-        Resolve(parentSize, contentSize, DefaultFontSizePixels, Expands);
-    }
-
-    public void Resolve(float parentSize, float contentSize = 0f, float fontSize = DefaultFontSizePixels, bool Expands = false)
+    public void Resolve(float availableSpace, float contentSize = 0f, float fontSize = 0f, bool autoStretch = false)
     {
         Resolved = Type switch 
         {
             CUIUnitType.Pixel => Value * GameEngine.Link.DpiMultiplier,                     //Pixel based, must be scaled
-            CUIUnitType.Percentage => parentSize * (Value / 100f),
-            CUIUnitType.Auto => Expands ? parentSize : contentSize,
+            CUIUnitType.Percentage => availableSpace * (Value / 100f),
+            CUIUnitType.Auto => autoStretch ? availableSpace : contentSize,
             CUIUnitType.ViewportWidth => GameEngine.Link.Resolution.X * (Value / 100f),
             CUIUnitType.ViewportHeight => GameEngine.Link.Resolution.Y * (Value / 100f),
             CUIUnitType.Em => fontSize * Value * GameEngine.Link.DpiMultiplier,             //Pixel based, must be scaled

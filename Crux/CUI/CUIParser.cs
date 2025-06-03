@@ -7,20 +7,40 @@ using System.Text.RegularExpressions;
 
 namespace Crux.CUI;
 
-/*
-Supported Features
-
-div
-- background-color
-
-p
-- color
-- font-size
-*/
-
 public class CUIParser
 {
     private readonly string input;
+
+    public static Dictionary<string, string> DefaultCSSProperties = new()
+    {
+        {"display",             "block"},
+        {"width",               "auto"},
+        {"height",              "auto"},
+        {"background-color",    ""},
+        {"background-image",    ""},
+        {"font-size",           "16px"},
+        {"color",               "rgba(255, 255, 255, 1.0)"},
+        {"padding-top",         "0px"},
+        {"padding-right",       "0px"},
+        {"padding-bottom",      "0px"},
+        {"padding-left",        "0px"},
+    };
+
+    public Dictionary<string, string> ExtractCSSProperties(ICssStyleDeclaration styleData)
+    {
+        Dictionary<string, string> extracted = [];
+
+        foreach (string key in DefaultCSSProperties.Keys)
+        {
+            string property = styleData.GetPropertyValue(key);
+            if(string.IsNullOrEmpty(property))
+                extracted[key] = DefaultCSSProperties[key];
+            else
+                extracted[key] = property;
+        }
+
+        return extracted;
+    }
 
     public CUIParser(string input)
     {
@@ -45,19 +65,18 @@ public class CUIParser
 
         if (angleSharpNode is IElement angleSharpElement)
         {
+            Dictionary<string, string> style = ExtractCSSProperties(angleSharpElement.GetStyle());
             string tagName = angleSharpElement.TagName.ToLower();
-            ICssStyleDeclaration styleData = angleSharpElement.GetStyle();
+            
             //Logger.Log($"IElement parsed: {tagName}");
 
             switch (tagName)
             {
                 case "body": 
-                    string bodyColor = styleData.GetPropertyValue("background-color");
-            
-                    if(!string.IsNullOrEmpty(bodyColor))
+                    if(!string.IsNullOrEmpty(style["background-color"])) //OPTIONAL
                     {
                         cruxNode = new CUIPanel(canvas);
-                        (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(bodyColor);
+                        (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(style["background-color"]);
                     }else
                     {
                         cruxNode = new CUIEmpty(canvas);
@@ -65,49 +84,38 @@ public class CUIParser
 
                     cruxNode.Bounds.Width = new CUIUnit(CUIUnitType.ViewportWidth, 100);
                     cruxNode.Bounds.Height = new CUIUnit(CUIUnitType.ViewportHeight, 100);
+                    cruxNode.Bounds.LayoutMode = CUILayoutMode.Block;
                 break;
-                case "div": 
-                    string backgroundColor = styleData.GetPropertyValue("background-color");
-            
-                    if(!string.IsNullOrEmpty(backgroundColor))
+                case "div":    
+                    if(!string.IsNullOrEmpty(style["background-color"])) //OPTIONAL
                     {
                         cruxNode = new CUIPanel(canvas);
-                        (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(backgroundColor);
+                        (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(style["background-color"]);
                     }
 
-                    string backgroundImage = styleData.GetPropertyValue("background-image");
-            
-                    if(!string.IsNullOrEmpty(backgroundImage))
+                    if(!string.IsNullOrEmpty(style["background-image"])) //OPTIONAL
                     {
                         if(cruxNode == null)
                             cruxNode = new CUIPanel(canvas);
                         
-                        CUIPanel.ShaderSingleton.ColorTexturePath = backgroundImage.Substring(5, backgroundImage.Length - 5 - 2);
+                        CUIPanel.ShaderSingleton.ColorTexturePath = style["background-image"].Substring(5, style["background-image"].Length - 5 - 2);
                         CUIPanel.ShaderSingleton.GenerateTextureID();
-                        
                     }
 
-                    string layout = styleData.GetPropertyValue("display");
-                    if(!string.IsNullOrEmpty(layout))
+                    cruxNode.Bounds.LayoutMode = style["display"] switch
                     {
-                        cruxNode.Bounds.LayoutMode = layout switch
-                        {
-                            "inline-block" => CUILayoutMode.InlineBlock,
-                            "block" => CUILayoutMode.Block,
-                            _ => CUILayoutMode.Block
-                        };
-                    }   
+                        "inline-block" => CUILayoutMode.InlineBlock,
+                        "block" => CUILayoutMode.Block,
+                        _ => CUILayoutMode.Block
+                    };
                 break;
                 case "p": 
                     cruxNode = new CUIText(canvas);
 
-                    string textSize = styleData.GetPropertyValue("font-size");
-                    if(!string.IsNullOrEmpty(textSize))
-                        (cruxNode as CUIText)!.FontSize = CUIUnit.Parse(textSize);
+                    cruxNode.Bounds.LayoutMode = CUILayoutMode.InlineBlock;
 
-                    string textColor = styleData.GetPropertyValue("color");
-                    if(!string.IsNullOrEmpty(textColor))
-                        (cruxNode as CUIText)!.FontColor = ColorHelper.RGBAStringToColor4(textColor);
+                    (cruxNode as CUIText)!.FontSize = CUIUnit.Parse(style["font-size"]);
+                    (cruxNode as CUIText)!.FontColor = ColorHelper.RGBAStringToColor4(style["color"]);
 
                     (cruxNode as CUIText)!.TextData = string.Concat(
                         angleSharpElement.ChildNodes.Select(node =>
@@ -133,29 +141,12 @@ public class CUIParser
             if(!string.IsNullOrEmpty(angleSharpElement.Id))
                 canvas.NodesRefs.Add(angleSharpElement.Id, cruxNode);
 
-            string width = styleData.GetPropertyValue("width");
-            if(!string.IsNullOrEmpty(width))
-                cruxNode.Bounds.Width = CUIUnit.Parse(width);
-
-            string height = styleData.GetPropertyValue("height");
-            if(!string.IsNullOrEmpty(height))
-                cruxNode.Bounds.Height = CUIUnit.Parse(height);
-
-            string padding_top = styleData.GetPropertyValue("padding-top");
-            if(!string.IsNullOrEmpty(padding_top))
-                cruxNode.Bounds.Padding.Top = CUIUnit.Parse(padding_top);
-
-            string padding_right = styleData.GetPropertyValue("padding-right");
-            if(!string.IsNullOrEmpty(padding_right))
-                cruxNode.Bounds.Padding.Right = CUIUnit.Parse(padding_right);
-
-            string padding_bottom = styleData.GetPropertyValue("padding-bottom");
-            if(!string.IsNullOrEmpty(padding_bottom))
-                cruxNode.Bounds.Padding.Bottom = CUIUnit.Parse(padding_bottom);
-
-            string padding_left = styleData.GetPropertyValue("padding-left");
-            if(!string.IsNullOrEmpty(padding_left))
-                cruxNode.Bounds.Padding.Left = CUIUnit.Parse(padding_left);
+            cruxNode.Bounds.Width = CUIUnit.Parse(style["width"]);
+            cruxNode.Bounds.Height = CUIUnit.Parse(style["height"]);
+            cruxNode.Bounds.Padding.Top = CUIUnit.Parse(style["padding-top"]);
+            cruxNode.Bounds.Padding.Right = CUIUnit.Parse(style["padding-right"]);
+            cruxNode.Bounds.Padding.Bottom = CUIUnit.Parse(style["padding-bottom"]);
+            cruxNode.Bounds.Padding.Left = CUIUnit.Parse(style["padding-left"]);
         }
 
         if(cruxNode == null)
