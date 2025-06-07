@@ -45,7 +45,7 @@ public class Sandbox
     {
         Logger.Log("---Scripting Sandbox Full Context---");
 
-        Logger.Log($"(Static Class) Logger");
+        Logger.Log($"(Static Class) Logger"); //Crux Core
 
         foreach (var pair in Context.Bound)
         {
@@ -58,8 +58,17 @@ public class Sandbox
         string code = AssetHandler.ReadScriptInFull(path);
 
         ScriptOptions options = ScriptOptions.Default
-            .WithReferences(typeof(object).Assembly, typeof(Logger).Assembly)
+            .WithReferences(typeof(object).Assembly)
             .WithImports("System");
+
+        var requiredAssemblies = Context.Bound.Values
+            .Where(v => v != null)
+            .Select(v => v.GetType().Assembly)
+            .Distinct();
+
+        options = options.AddReferences(requiredAssemblies); //output for testing
+
+        options = options.WithImports("System", "Crux.Core");
 
         try
         {
