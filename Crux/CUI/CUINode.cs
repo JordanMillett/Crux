@@ -73,7 +73,7 @@ public abstract class CUINode
         }
 
         //Resolve
-        Bounds.Width.Resolve(availableSpace.X, totalContentWidth, 0f, false);
+        Bounds.Width.Resolve(availableSpace.X, totalContentWidth, 0f, Bounds.LayoutMode == CUILayoutMode.Block);
         Bounds.Height.Resolve(availableSpace.Y, totalContentHeight, 0f, false);
     }
 

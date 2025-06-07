@@ -66,6 +66,20 @@ public static class AssetHandler
         return stream;
     }
 
+    public static Stream GetExternalStream(string path)
+    {
+        if(string.IsNullOrEmpty(path))
+            return null!;
+
+        Stream stream = File.OpenRead(path)!;
+        if (stream == null)
+        {
+            Logger.LogWarning($"File '{path}' not found.");
+            return null!;
+        }
+        return stream;
+    }
+
     public static bool AssetExists(string path)
     {
         return GetStream(path) != null;
@@ -74,6 +88,17 @@ public static class AssetHandler
     public static string ReadAssetInFull(string path)
     {
         using (var stream = GetStream(path))
+        {
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+    }
+
+    public static string ReadScriptInFull(string path)
+    {
+        using (var stream = GetExternalStream(path))
         {
             using (var reader = new StreamReader(stream))
             {

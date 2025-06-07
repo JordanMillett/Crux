@@ -2,6 +2,7 @@ using OpenTK.Graphics.OpenGL4;
 using Crux.Graphics;
 using Crux.Utilities.IO;
 using Crux.Components;
+using Crux.Scripting;
 
 namespace Crux.Core;
 
@@ -12,6 +13,8 @@ public abstract class Scene
     public Shader Skybox;
 
     private readonly MeshBuffer skyboxBuffer;
+
+    public Sandbox ScriptingSandbox = new Sandbox();
 
     public static GameEngine Engine
     {
