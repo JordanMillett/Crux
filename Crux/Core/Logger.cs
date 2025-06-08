@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 
 namespace Crux.Core;
 
@@ -15,10 +16,12 @@ public enum LogSource
 public static class Logger
 {
     public static readonly string LogPath = Path.Combine(AppContext.BaseDirectory, "logs.txt");
-    private static readonly ConcurrentQueue<string> PendingLogs = new();
+    private static readonly ConcurrentQueue<string> PendingLogs = [];
     public static readonly DateTime StartTime;
 
     private static readonly Timer LogWriteTimer = new(_ => WritePendingLogsToFile(), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
+    private static readonly ConcurrentDictionary<string, Stopwatch> Stopwatches = [];
+
 
     static Logger()
     {
@@ -30,6 +33,16 @@ public static class Logger
         File.WriteAllText(LogPath, "");
         
         Log($"Crux Engine Logs @ UTC {DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}", LogSource.System);
+    }
+
+    public static void StopwatchStart()
+    {
+
+    }
+
+    public static void StopwatchStop()
+    {
+        Log($"Time Elapsed: ");
     }
 
     public static void WritePendingLogsToFile()

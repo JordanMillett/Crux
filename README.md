@@ -12,7 +12,6 @@ Hobbyist 3D C# Game Engine using OpenTK
 * [StbImageWriteSharp (1.16.7)](https://github.com/StbSharp/StbImageWriteSharp) - C# Image Handling
 * [AngleSharp (1.3.0)](https://github.com/AngleSharp/AngleSharp) - C# Angle Bracket Parser
 * [AngleSharp.Css (1.0.0-beta.154)](https://github.com/AngleSharp/AngleSharp.Css) - C# Cascading Stylesheets Parser
-* [Roslyn (4.14.0)](https://github.com/dotnet/roslyn) - C# Runtime Compiler for Scripting
 
 ## Set Up
 
