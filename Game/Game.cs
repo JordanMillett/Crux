@@ -29,8 +29,8 @@ public class GameInstance
 
         //ADD SCENE LOADING
         //GameEngine.Link.ActiveScene = new IslandScene();
-        GameEngine.Link.ActiveScene = new DebugScene();
-        //GameEngine.Link.ActiveScene = new GameScene();
+        //GameEngine.Link.ActiveScene = new DebugScene();
+        GameEngine.Link.ActiveScene = new GameScene();
         GameEngine.Link.ActiveScene.Start();
 
         Logger.Log($"Loaded Scene '{GameEngine.Link.ActiveScene.GetType().Name}'", LogSource.System);

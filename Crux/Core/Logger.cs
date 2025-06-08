@@ -20,7 +20,7 @@ public static class Logger
     public static readonly DateTime StartTime;
 
     private static readonly Timer LogWriteTimer = new(_ => WritePendingLogsToFile(), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
-    private static readonly ConcurrentDictionary<string, Stopwatch> Stopwatches = [];
+    private static readonly ConcurrentDictionary<string, Stopwatch> TimedTasks = [];
 
 
     static Logger()
@@ -35,14 +35,22 @@ public static class Logger
         Log($"Crux Engine Logs @ UTC {DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}", LogSource.System);
     }
 
-    public static void StopwatchStart()
+    public static void TimeTaskStart([CallerMemberName] string task = "")
     {
-
+        Stopwatch newWatch = new Stopwatch();
+        newWatch.Start();
+        TimedTasks[task] = newWatch;
+        Log($"Timer started for task '{task}'.");
     }
 
-    public static void StopwatchStop()
+    public static void TimeTaskEnd([CallerMemberName] string task = "")
     {
-        Log($"Time Elapsed: ");
+        if (TimedTasks.TryRemove(task, out Stopwatch stored))
+        {
+            stored.Stop();
+            double ms = stored.Elapsed.TotalMilliseconds;
+            Log($"Task '{task}' ended in {ms:F2}ms.");
+        }
     }
 
     public static void WritePendingLogsToFile()
