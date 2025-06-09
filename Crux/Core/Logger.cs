@@ -1,6 +1,8 @@
 using System.Runtime.CompilerServices;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Text.Json;
+using Crux.Utilities.IO;
 
 namespace Crux.Core;
 
@@ -17,10 +19,10 @@ public static class Logger
 {
     public static readonly string LogPath = Path.Combine(AppContext.BaseDirectory, "logs.txt");
     private static readonly ConcurrentQueue<string> PendingLogs = [];
-    public static readonly DateTime StartTime;
+    private static readonly DateTime StartTime;
 
     private static readonly Timer LogWriteTimer = new(_ => WritePendingLogsToFile(), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5));
-    private static readonly ConcurrentDictionary<string, Stopwatch> TimedTasks = [];
+    private static readonly ConcurrentDictionary<(string, string), (string name, Stopwatch stopwatch)> TimedTasks = [];
 
 
     static Logger()
@@ -35,21 +37,31 @@ public static class Logger
         Log($"Crux Engine Logs @ UTC {DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}", LogSource.System);
     }
 
-    public static void TimeTaskStart([CallerMemberName] string task = "")
+    public static void StartTimer(string? timerName,
+    [CallerFilePath] string file = "",
+    [CallerLineNumber] int line = 0,
+    [CallerMemberName] string function = "")
     {
+        timerName ??= "Unknown";
         Stopwatch newWatch = new Stopwatch();
         newWatch.Start();
-        TimedTasks[task] = newWatch;
-        Log($"Timer started for task '{task}'.");
+        string path = Path.GetFileNameWithoutExtension(TrimPath(file));
+
+        TimedTasks[(path, function)] = (timerName, newWatch);
     }
 
-    public static void TimeTaskEnd([CallerMemberName] string task = "")
+    public static void EndTimer(
+    [CallerFilePath] string file = "",
+    [CallerLineNumber] int line = 0,
+    [CallerMemberName] string function = "")
     {
-        if (TimedTasks.TryRemove(task, out Stopwatch stored))
+        string path = Path.GetFileNameWithoutExtension(TrimPath(file));
+
+        if (TimedTasks.TryRemove((path, function), out var stored))
         {
-            stored.Stop();
-            double ms = stored.Elapsed.TotalMilliseconds;
-            Log($"Task '{task}' ended in {ms:F2}ms.");
+            stored.stopwatch.Stop();
+            double ms = stored.stopwatch.Elapsed.TotalMilliseconds;
+            LogWarning($"'{stored.name}' executed in {ms:F2}ms.", file, line, function);
         }
     }
 
@@ -155,4 +167,26 @@ public static class Logger
         created = created.Substring(5, created.Length - 5);
         return created;
     }
+}
+
+public static class Debug
+{
+    private static Dictionary<string, bool>? Flags;
+
+    public static void LoadFlags(string path)
+    {
+        if (File.Exists(path))
+        {
+            try
+            {
+                Flags = JsonSerializer.Deserialize<Dictionary<string, bool>>(AssetHandler.ReadExternalAssetInFull(path))!;
+                Logger.Log($"Debug flags loaded from file '{path}.'", LogSource.System);
+            }catch (Exception e)
+            {
+                Logger.LogError(e);
+            }
+        }
+    }
+
+    public static bool FlagEnabled(string flag) => Flags?.TryGetValue(flag, out var toggled) == true && toggled;
 }

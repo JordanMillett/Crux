@@ -71,6 +71,11 @@ docfx metadata CruxDocs/docfx.json
 docfx CruxDocs/docfx.json --serve
 ```
 
+Developer's favorite:
+```
+dotnet run --project Game --property WarningLevel=0 -- flags.json
+```
+
 For more information, visit [Crux Docs](https://jordanmillett.github.io/Crux/).
 
 ## License

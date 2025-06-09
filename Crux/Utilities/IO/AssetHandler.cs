@@ -96,7 +96,7 @@ public static class AssetHandler
         }
     }
 
-    public static string ReadScriptInFull(string path)
+    public static string ReadExternalAssetInFull(string path)
     {
         using (var stream = GetExternalStream(path))
         {
