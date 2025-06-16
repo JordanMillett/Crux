@@ -1,4 +1,5 @@
 {
     "MeasureSceneStart": false,
-    "ShowMeshBounds": false
+    "ShowMeshBounds": false,
+    "OutputKeyBindings": true
 }

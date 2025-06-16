@@ -193,6 +193,7 @@ public class GameEngine : GameWindow
         //Register engine keys
         Input.CreateAction("Unfocus Window", Keys.Escape);
         Input.CreateAction("Take Screenshot", Keys.F12);
+        Input.CreateAction("Restart Scene", Keys.GraveAccent);
 
         //Required Objects INIT
         GameObject cam = InstantiateGameObject("Camera");
@@ -254,6 +255,15 @@ public class GameEngine : GameWindow
             CursorState = CursorState.Normal;
         if (MouseState.IsButtonDown(MouseButton.Left))
             CursorState = CursorState.Grabbed;
+
+        if (Input.IsActionPressed("restart scene"))
+        {
+            for(int i = 0; i < Instantiated.Count; i++)
+                Instantiated[i].Delete();
+
+            OnEngineReadyCallback?.Invoke();
+            return;
+        }
         
         OnUpdateCallback?.Invoke();
     }
