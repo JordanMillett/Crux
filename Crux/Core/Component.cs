@@ -48,5 +48,11 @@ public abstract class Component
     /// </summary>
     /// <remarks>If the specified abstract type is 'Component' then true will be returned if any concrete component exist.</remarks>
     public virtual void Delete() {}
+
+    ~Component()
+    {
+        if(Debug.FlagEnabled("LogFreedMemory"))
+            Logger.LogWarning($"Component '{this.GetType().Name}' was freed from memory.");
+    }
 }
 

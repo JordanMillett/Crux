@@ -3,5 +3,6 @@
     "ShowMeshBounds": false,
     "OutputKeyBindings": true,
     "AddCollidersWhenLoadingGltfAsMeshRenderers": false,
-    "LogCreated": true
+    "LogCreated": true,
+    "LogFreedMemory": true
 }

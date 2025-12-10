@@ -1,6 +1,7 @@
 using System.Data;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using AngleSharp.Dom.Events;
 using Crux.Components;
 
 namespace Crux.Core;
@@ -8,6 +9,7 @@ namespace Crux.Core;
 public class GameObject
 {
     public string Name;
+    public Scene Owner;
     
     public event Action<bool>? OnFrozenStateChanged;
     private bool isFrozen = false;
@@ -41,18 +43,24 @@ public class GameObject
     }
     
     // ========== Public Constructors ==========
-    public GameObject(string name)
+    public GameObject(string name, Scene owner)
     {
         transform = AddComponent<TransformComponent>()!;
-        GameEngine.Link.OnUpdateCallback += Update;
+        
 
         Name = name;
+        Owner = owner;
+
+        if(Owner == null) //gameobjects like the camera will update always, scenes can be unloaded and paused
+            GameEngine.Link.OnEngineUpdateCallback += Update;
+        else
+            Owner.OnSceneUpdateCallback += Update;
     }
     
     // ========== Public Instance Methods ==========
     public GameObject Clone()
     {
-        GameObject cloned = new GameObject(Name + " copy")
+        GameObject cloned = new GameObject(Name + " copy", Owner)
         {
             components = []
         };
@@ -70,6 +78,7 @@ public class GameObject
 
     public void Delete()
     {
+        //This is bad
         var removeMethod = typeof(GameObject).GetMethod(nameof(RemoveComponent));
         foreach (var pair in components.ToList())
         {
@@ -84,7 +93,7 @@ public class GameObject
             return;
         }
 
-        //GameEngine.Link.Instantiated.Remove(this);
+        Owner.OnSceneUpdateCallback -= Update;
     }
 
     /// <summary>
@@ -247,5 +256,11 @@ public class GameObject
         }
 
         return sb.ToString();
+    }
+
+    ~GameObject()
+    {
+        if(Debug.FlagEnabled("LogFreedMemory"))
+            Logger.LogWarning($"GameObject '{Name}' was freed from memory.");
     }
 }

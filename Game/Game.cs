@@ -26,7 +26,7 @@ public class GameInstance //MOVE INTO GAME ENGINE AND INHERET IT!
     public void Start()
     {
         Logger.Log("Game Loading...", LogSource.System);
-        GameEngine.Link.OnUpdateCallback += Update;
+        GameEngine.Link.OnEngineUpdateCallback += Update;
 
         //Scene ChosenScene = new IslandScene();
         Scene ChosenScene = new DebugScene();
@@ -46,6 +46,7 @@ public class GameInstance //MOVE INTO GAME ENGINE AND INHERET IT!
         }
 
         ActiveScene?.Update();
+        ActiveScene?.OnSceneUpdateCallback?.Invoke();
     }
 }
 

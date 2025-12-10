@@ -32,7 +32,7 @@ public class GameEngine : GameWindow
 
     private Scene? ActiveScene = null;
 
-    public event Action? OnUpdateCallback;
+    public event Action? OnEngineUpdateCallback;
     public Action? OnEngineReadyCallback;
 
     public float deltaTime = 0f;
@@ -92,7 +92,7 @@ public class GameEngine : GameWindow
 
         string fullName = String.IsNullOrEmpty(name) ? "GameObject #" + ActiveScene.Instantiated.Count : name;
 
-        GameObject gameObject = new GameObject(fullName);
+        GameObject gameObject = new GameObject(fullName, ActiveScene);
         ActiveScene.Instantiated.Add(gameObject);
 
         if(Debug.FlagEnabled("LogCreated"))
@@ -196,7 +196,7 @@ public class GameEngine : GameWindow
         Input.CreateAction("Restart Scene", Keys.GraveAccent, true);
 
         //Required Objects INIT
-        GameObject cam = new GameObject("Camera");
+        GameObject cam = new GameObject("Camera", null!);
         cam.AddComponent<CameraComponent>();
         
         //Scene Begin
@@ -256,7 +256,7 @@ public class GameEngine : GameWindow
         if (MouseState.IsButtonDown(MouseButton.Left))
             CursorState = CursorState.Grabbed;
         
-        OnUpdateCallback?.Invoke();
+        OnEngineUpdateCallback?.Invoke();
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)
