@@ -1,8 +1,9 @@
 {
     "MeasureSceneTransitionTime": true,
-    "ShowMeshBounds": true,
+    "ShowMeshBounds": false,
     "OutputKeyBindings": true,
     "AddCollidersWhenLoadingGltfAsMeshRenderers": false,
-    "LogCreated": true,
+    "LogCreated": false,
+    "LogOctreeRemovals": false,
     "LogFreedMemory": true
 }

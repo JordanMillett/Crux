@@ -89,7 +89,7 @@ public class GameObject
         
         if(HasComponent<CameraComponent>())
         {
-            Logger.LogWarning($"Cannot delete GameObject '{Name}' that has component 'CameraComponent'");
+            //Logger.LogWarning($"Cannot delete GameObject '{Name}' that has component 'CameraComponent'");
             return;
         }
 
@@ -187,7 +187,7 @@ public class GameObject
 
         if(typeof(T) == typeof(CameraComponent))
         {
-            Logger.LogWarning($"Cannot remove 'CameraComponent' from GameObject '{Name}'.");
+            //Logger.LogWarning($"Cannot remove 'CameraComponent' from GameObject '{Name}'.");
             return;
         }
 

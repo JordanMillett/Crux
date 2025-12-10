@@ -69,7 +69,8 @@ public class Octree
     public void UnregisterComponent(Component component, (Vector3 minKey, Vector3 maxKey) octreeKeys)
     {
         RemoveComponent(Root, component, octreeKeys.minKey, octreeKeys.maxKey);
-        Logger.Log($"Removed GameObject '{component.GameObject.Name}' from {OctreeName}");
+        if(Debug.FlagEnabled("LogOctreeRemovals"))
+            Logger.Log($"Removed GameObject '{component.GameObject.Name}' from {OctreeName}");
     }
 
     public List<Component> FindNearbyNodes(Vector3 min, Vector3 max)
