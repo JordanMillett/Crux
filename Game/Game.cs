@@ -28,11 +28,10 @@ public class GameInstance //MOVE INTO GAME ENGINE AND INHERET IT!
         Logger.Log("Game Loading...", LogSource.System);
         GameEngine.Link.OnEngineUpdateCallback += Update;
 
-        //Scene ChosenScene = new IslandScene();
-        Scene ChosenScene = new DebugScene();
-        //Scene ChosenScene = new GameScene();
-
-        ActiveScene = GameEngine.Link.SetScene(new DebugScene());  
+        
+        ActiveScene = GameEngine.Link.SetScene(new IslandScene());   
+        //ActiveScene = GameEngine.Link.SetScene(new DebugScene());  
+        //ActiveScene = GameEngine.Link.SetScene(new GameScene()); 
 
         Logger.Log("Game Started!", LogSource.System);
     }
@@ -41,7 +40,7 @@ public class GameInstance //MOVE INTO GAME ENGINE AND INHERET IT!
     {
         if (Input.IsActionPressed("restart scene"))
         {
-            ActiveScene = GameEngine.Link.SetScene(new DebugScene());
+            ActiveScene = GameEngine.Link.SetScene(new GameScene());
             return;
         }
 
