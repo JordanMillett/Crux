@@ -80,7 +80,6 @@ public class DebugScene : Scene
 
         Input.CreateAction("Spawn Cube", Keys.Q);
         Input.CreateAction("Cast Ray", Keys.E);
-        Input.OutputKeyBindings();
 
         Canvas = GameEngine.Link.SetupDebugCanvas();
     }

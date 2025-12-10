@@ -322,8 +322,8 @@ public class GameEngine : GameWindow
 
     public Scene SetScene(Scene Selected) //add proper unloading and reloading instead of deleting?
     {
-        if(Debug.FlagEnabled("MeasureSceneLoadingTime"))
-            Logger.StartTimer("Scene Loading Time");
+        if(Debug.FlagEnabled("MeasureSceneTransitionTime"))
+            Logger.StartTimer("Scene Transition Time");
 
         if(GameEngine.Link.ActiveScene != null)
             Logger.Log($"Deleting Scene '{GameEngine.Link.ActiveScene.GetType().Name}'", LogSource.System);
@@ -340,8 +340,11 @@ public class GameEngine : GameWindow
 
         Logger.Log($"Scene Set to '{GameEngine.Link.ActiveScene.GetType().Name}'", LogSource.System);
 
-        if(Debug.FlagEnabled("MeasureSceneLoadingTime"))
+        if(Debug.FlagEnabled("MeasureSceneTransitionTime"))
             Logger.EndTimer();
+
+        if(Debug.FlagEnabled("OutputKeyBindings")) 
+            Input.OutputKeyBindings();
 
         return Selected;
     }

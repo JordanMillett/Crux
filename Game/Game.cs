@@ -29,8 +29,8 @@ public class GameInstance //MOVE INTO GAME ENGINE AND INHERET IT!
         GameEngine.Link.OnEngineUpdateCallback += Update;
 
         
-        ActiveScene = GameEngine.Link.SetScene(new IslandScene());   
-        //ActiveScene = GameEngine.Link.SetScene(new DebugScene());  
+        //ActiveScene = GameEngine.Link.SetScene(new IslandScene());   
+        ActiveScene = GameEngine.Link.SetScene(new DebugScene());  
         //ActiveScene = GameEngine.Link.SetScene(new GameScene()); 
 
         Logger.Log("Game Started!", LogSource.System);
