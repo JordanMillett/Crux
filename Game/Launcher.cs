@@ -26,7 +26,7 @@ class GameLauncher
             engine.OnEngineReadyCallback = () =>
             {
                 GameInstance game = new GameInstance();
-                game.Ready();
+                game.Start();
             };
             
             engine.Run();

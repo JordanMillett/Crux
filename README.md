@@ -39,7 +39,7 @@ public class GameScene : Scene
 
 Next open Game/Game.cs and set the GameScene as the active scene.
 ```
-GameEngine.Link.ActiveScene = new GameScene();
+GameEngine.Link.SetScene(new GameScene());
 ```
 
 ## Build Commands
@@ -47,6 +47,11 @@ GameEngine.Link.ActiveScene = new GameScene();
 Compile and run:
 ```
 dotnet run --project Game -c Debug
+```
+
+Compile and run with flags:
+```
+dotnet run --project Game --property WarningLevel=0 -- flags.json
 ```
 
 Publish:
@@ -69,11 +74,6 @@ Generate and serve DocFX (manually):
 ```
 docfx metadata CruxDocs/docfx.json
 docfx CruxDocs/docfx.json --serve
-```
-
-Developer's favorite:
-```
-dotnet run --project Game --property WarningLevel=0 -- flags.json
 ```
 
 For more information, visit [Crux Docs](https://jordanmillett.github.io/Crux/).

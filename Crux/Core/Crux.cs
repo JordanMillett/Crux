@@ -13,6 +13,7 @@ using Crux.Utilities.IO;
 using Crux.Utilities;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using Crux.Assets.Scenes;
 
 namespace Crux.Core;
 
@@ -28,10 +29,8 @@ public class GameEngine : GameWindow
             return link;
         }
     }
-    
-    public List<GameObject> Instantiated = new List<GameObject>();
 
-    public Scene? ActiveScene;
+    private Scene? ActiveScene = null;
 
     public event Action? OnUpdateCallback;
     public Action? OnEngineReadyCallback;
@@ -83,20 +82,21 @@ public class GameEngine : GameWindow
         Camera?.Recalculate();
     }
     
-    public GameObject CloneGameObject(GameObject toCopy)
-    {
-        GameObject gameObject = toCopy.Clone();
-        Instantiated.Add(gameObject);
-
-        return gameObject;
-    }
-    
     public GameObject InstantiateGameObject(string name = "")
     {
-        string fullName = String.IsNullOrEmpty(name) ? "GameObject #" + Instantiated.Count : name;
+        if(ActiveScene == null)
+        {
+            Logger.LogWarning ("Failed to instantiate gameobject, there is no active scene.");
+            return null!;
+        }
+
+        string fullName = String.IsNullOrEmpty(name) ? "GameObject #" + ActiveScene.Instantiated.Count : name;
 
         GameObject gameObject = new GameObject(fullName);
-        Instantiated.Add(gameObject);
+        ActiveScene.Instantiated.Add(gameObject);
+
+        if(Debug.FlagEnabled("LogCreated"))
+            Logger.Log($"GameObject '{fullName}' created.");
 
         return gameObject;
     }
@@ -191,12 +191,12 @@ public class GameEngine : GameWindow
         Logger.Log("Engine Started!", LogSource.System);
 
         //Register engine keys
-        Input.CreateAction("Unfocus Window", Keys.Escape);
-        Input.CreateAction("Take Screenshot", Keys.F12);
-        Input.CreateAction("Restart Scene", Keys.GraveAccent);
+        Input.CreateAction("Unfocus Window", Keys.Escape, true);
+        Input.CreateAction("Take Screenshot", Keys.F12, true);
+        Input.CreateAction("Restart Scene", Keys.GraveAccent, true);
 
         //Required Objects INIT
-        GameObject cam = InstantiateGameObject("Camera");
+        GameObject cam = new GameObject("Camera");
         cam.AddComponent<CameraComponent>();
         
         //Scene Begin
@@ -255,15 +255,6 @@ public class GameEngine : GameWindow
             CursorState = CursorState.Normal;
         if (MouseState.IsButtonDown(MouseButton.Left))
             CursorState = CursorState.Grabbed;
-
-        if (Input.IsActionPressed("restart scene"))
-        {
-            for(int i = 0; i < Instantiated.Count; i++)
-                Instantiated[i].Delete();
-
-            OnEngineReadyCallback?.Invoke();
-            return;
-        }
         
         OnUpdateCallback?.Invoke();
     }
@@ -295,7 +286,7 @@ public class GameEngine : GameWindow
 
         try
         {
-            foreach(GameObject E in Instantiated)
+            foreach(GameObject E in ActiveScene.Instantiated)
             {
                 if(E.HasComponent<RenderComponent>())
                     E.GetComponent<RenderComponent>()!.Render();
@@ -316,7 +307,7 @@ public class GameEngine : GameWindow
 
         try
         {
-            foreach(GameObject E in Instantiated)
+            foreach(GameObject E in ActiveScene.Instantiated)
             {
                 if(E.HasComponent<CanvasComponent>())
                     E.GetComponent<CanvasComponent>()!.AfterRender();
@@ -327,6 +318,26 @@ public class GameEngine : GameWindow
         }
 
         SwapBuffers();
+    }
+
+    public Scene SetScene(Scene Selected) //add proper unloading and reloading instead of deleting?
+    {
+        if(GameEngine.Link.ActiveScene != null)
+            Logger.Log($"Deleting Scene '{GameEngine.Link.ActiveScene.GetType().Name}'", LogSource.System);
+
+        Input.UnbindAll();
+        Camera?.GameObject.Delete(); //This prunes the camera of all other components
+        for(int i = 0; i < GameEngine.Link.ActiveScene?.Instantiated.Count; i++)
+            GameEngine.Link.ActiveScene.Instantiated[i].Delete();
+        
+        Logger.Log($"Loading Scene '{Selected.GetType().Name}'", LogSource.System);
+
+        ActiveScene = Selected;
+        ActiveScene.Start();
+
+        Logger.Log($"Scene Set to '{GameEngine.Link.ActiveScene.GetType().Name}'", LogSource.System);
+
+        return Selected;
     }
 
     void TakeScreenshot()

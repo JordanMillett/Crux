@@ -14,6 +14,9 @@ public abstract class Scene
 
     private readonly MeshBuffer skyboxBuffer;
 
+    public List<GameObject> Instantiated = new List<GameObject>();
+
+    //Not implemented
     public Sandbox ScriptingSandbox = new Sandbox();
 
     public static GameEngine Engine

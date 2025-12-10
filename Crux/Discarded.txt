@@ -1,3 +1,12 @@
+public GameObject CloneGameObject(GameObject toCopy)
+{
+    GameObject gameObject = toCopy.Clone();
+    Instantiated.Add(gameObject);
+
+    return gameObject;
+}
+
+
 using Crux.Utilities.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;

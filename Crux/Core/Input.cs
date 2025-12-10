@@ -4,16 +4,22 @@ namespace Crux.Core;
 
 public static class Input
 {
-    private static Dictionary<string, Keys> keybindings = [];
+    private static Dictionary<string, (Keys key, bool permanent)> keybindings = [];
 
-    public static void CreateAction(string action, Keys key)
+    public static void CreateAction(string action, Keys key, bool permanent = false)
     {
         action = action.ToUpper();
 
         if (keybindings.ContainsKey(action))
-            Logger.LogWarning($"Action '{action}' already bound to key {key}.");
+            Logger.LogWarning($"Action '{action}' already bound to key '{key}'{(keybindings[action].permanent ? " permanently" : "")}.");
         else
-            keybindings[action] = key;
+            keybindings[action] = (key, permanent);
+    }
+
+    public static void UnbindAll()
+    {
+        foreach (var key in keybindings.Where(pair => !pair.Value.permanent).Select(pair => pair.Key).ToList())
+            keybindings.Remove(key);
     }
 
     public static void OutputKeyBindings()
@@ -22,13 +28,8 @@ public static class Input
 
         foreach (var pair in keybindings)
             Logger.Log(string.Format("{0,-14}{1}",
-                                    pair.Value.ToString().ToUpper(),
+                                    pair.Value.key.ToString().ToUpper(),
                                     pair.Key));
-        /*
-        Logger.Log("KEY\t\tACTION");
-        foreach (var pair in keybindings)
-            Logger.Log($"{pair.Value.ToString().ToUpper()}\t\t{pair.Key}");
-        */
     }
 
     public static bool IsActionHeld(string action)
@@ -37,7 +38,7 @@ public static class Input
 
         if (keybindings.ContainsKey(action))
         {
-            return GameEngine.Link.IsKeyDown(keybindings[action]);
+            return GameEngine.Link.IsKeyDown(keybindings[action].key);
         }else
         {
             Logger.LogWarning($"Action '{action}' is unbound.");
@@ -51,7 +52,7 @@ public static class Input
 
         if (keybindings.ContainsKey(action))
         {
-            return GameEngine.Link.IsKeyPressed(keybindings[action]);
+            return GameEngine.Link.IsKeyPressed(keybindings[action].key);
         }else
         {
             Logger.LogWarning($"Action '{action}' is unbound.");
@@ -65,7 +66,7 @@ public static class Input
 
         if (keybindings.ContainsKey(action))
         {
-            return GameEngine.Link.IsKeyReleased(keybindings[action]);
+            return GameEngine.Link.IsKeyReleased(keybindings[action].key);
         }else
         {
             Logger.LogWarning($"Action '{action}' is unbound.");

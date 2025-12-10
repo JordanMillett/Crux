@@ -2,5 +2,7 @@
   href: graphics-flow.md
 - name: Introduction
   href: introduction.md
+- name: Shader Presets
+  href: shader-presets.md
 - name: Version History
   href: version-history.md

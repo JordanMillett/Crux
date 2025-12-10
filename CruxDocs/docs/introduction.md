@@ -1,10 +1,49 @@
 # Introduction
 
-Crux is a simple GameEngine. 
+## Initialization
+```mermaid
+classDiagram
+	class Launcher {
+		Array~string~ args
+	     Main()
+    }
+	class GameEngine {
+		List~GameObject~ Instantiated
+		Scene ActiveScene
+		OnLoad()
+		InstantiateGameObject()
+	}
+    class GameInstance {
+	     Start()
+	     Update()
+    }
+    class Scene {
+	     Start()
+	     Update()
+    }
+	class GameObject{
+		Dictionary~Type, Component~ components
+        Update()
+        AddComponent~T~()
+	}
+	class Component {
+		Start()
+	    Update()
+    }
 
-It is difficult to import GLTF models unless very specific export settings are configured in Blender.
-That information will be included in the future.
+	Launcher --> GameEngine : constructs
+	GameEngine --> GameInstance : constructs and updates
+	GameInstance --> Scene : constructs and updates
 
-Check out the [Ray Class](xref:Crux.Physics.Ray)
+	Scene ..> GameEngine : uses InstantiateGameObject()
+	
+	GameEngine --> GameObject : contains multiple
+	GameEngine --> Scene : contains
+	GameObject --> Component : contains multiple
+```
+
+
+
+
 
 

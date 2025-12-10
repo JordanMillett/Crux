@@ -21,7 +21,7 @@ public static class GltfHandler
         Made.Transform.Scale = objectScale;
         Made.AddComponent<MeshComponent>()!.Data = fullMesh;
         Made.GetComponent<MeshComponent>()!.LoadedPath = path + "_" + objectNode["name"]!.GetValue<string>();
-
+    
         return Made;
     }
 
@@ -71,7 +71,8 @@ public static class GltfHandler
                     Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false, textures[i]));
                 }
                 Made.AddComponent<MeshRenderComponent>()!.SetShaders(Mats);
-                //Made.AddComponent<MeshBoundsColliderComponent>();
+                if(Debug.FlagEnabled("AddCollidersWhenLoadingGltfAsMeshRenderers"))
+                    Made.AddComponent<MeshBoundsColliderComponent>();
             }
         }
 

@@ -1,4 +1,6 @@
+using System.Data;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using Crux.Components;
 
 namespace Crux.Core;
@@ -68,12 +70,21 @@ public class GameObject
 
     public void Delete()
     {
-        GameEngine.Link.Instantiated.Remove(this);
-
-        foreach (var pair in components)
+        var removeMethod = typeof(GameObject).GetMethod(nameof(RemoveComponent));
+        foreach (var pair in components.ToList())
         {
-            components[pair.Key].Delete();
+            var type = pair.Key;
+            var generic = removeMethod.MakeGenericMethod(type);
+            generic.Invoke(this, null);
         }
+        
+        if(HasComponent<CameraComponent>())
+        {
+            Logger.LogWarning($"Cannot delete GameObject '{Name}' that has component 'CameraComponent'");
+            return;
+        }
+
+        //GameEngine.Link.Instantiated.Remove(this);
     }
 
     /// <summary>
@@ -162,6 +173,12 @@ public class GameObject
         if(!HasComponent<T>())
         {
             Logger.LogWarning($"Cannot remove '{typeof(T).Name}' as GameObject '{Name}' does not contain '{typeof(T).Name}'.");
+            return;
+        }
+
+        if(typeof(T) == typeof(CameraComponent))
+        {
+            Logger.LogWarning($"Cannot remove 'CameraComponent' from GameObject '{Name}'.");
             return;
         }
 
