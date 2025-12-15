@@ -1,6 +1,5 @@
-using Game.Assets.Scenes;
 using CruxEngine.Assets.Scenes;
-using CruxEngine;
+using Game.Assets.Scenes;
 
 namespace Game;
 

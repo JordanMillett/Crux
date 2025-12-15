@@ -1,8 +1,4 @@
-﻿global using OpenTK.Mathematics;
-global using System.Text;
-global using CruxEngine.Core;
-
-using OpenTK.Windowing.Common;
+﻿using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.GraphicsLibraryFramework;

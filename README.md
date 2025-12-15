@@ -17,10 +17,6 @@ Hobbyist 3D C# Game Engine using OpenTK
 
 First you will need to create a GameScene.cs script under Game/Assets/Scenes/ using the following template:
 ```
-global using OpenTK.Mathematics;
-global using System.Text;
-global using CruxEngine;
-
 namespace Game.Assets.Scenes;
 
 public class GameScene : Scene

@@ -1,3 +1,7 @@
+global using OpenTK.Mathematics;
+global using System.Text;
+global using CruxEngine.Core;
+
 namespace CruxEngine;
 
 public static class Crux

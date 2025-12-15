@@ -1,4 +1,9 @@
-﻿using OpenTK.Windowing.Desktop;
+﻿global using OpenTK.Mathematics;
+global using System.Text;
+global using CruxEngine;
+global using CruxEngine.Core;
+
+using OpenTK.Windowing.Desktop;
 using CruxEngine.Utilities.IO;
 
 namespace Game;
