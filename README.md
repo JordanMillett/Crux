@@ -19,7 +19,7 @@ First you will need to create a GameScene.cs script under Game/Assets/Scenes/ us
 ```
 global using OpenTK.Mathematics;
 global using System.Text;
-global using Crux.Core;
+global using CruxEngine;
 
 namespace Game.Assets.Scenes;
 
@@ -39,7 +39,7 @@ public class GameScene : Scene
 
 Next open Game/Game.cs and set the GameScene as the active scene.
 ```
-GameEngine.Link.SetScene(new GameScene());
+Crux.Engine.SetScene(new GameScene());
 ```
 
 ## Build Commands

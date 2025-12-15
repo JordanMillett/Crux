@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Crux\Crux.csproj" />
+    <ProjectReference Include="..\CruxEngine\CruxEngine.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

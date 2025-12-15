@@ -1,6 +1,7 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using Crux.Components;
-using Crux.Physics;
+using CruxEngine.Components;
+using CruxEngine.Physics;
+using CruxEngine;
 
 namespace Game.Logic;
 
@@ -43,16 +44,16 @@ public class PlayerController : Component
     {
         Move();
 
-        if (GameEngine.Link.CursorState == OpenTK.Windowing.Common.CursorState.Grabbed)
+        if (Crux.Engine.CursorState == OpenTK.Windowing.Common.CursorState.Grabbed)
             Look();
     }
     
     public void Look()
     {
-        TransformComponent cam = GameEngine.Link.Camera!.Transform;
+        TransformComponent cam = Crux.Engine.Camera!.Transform;
 
         float sensitivity = 0.1f;
-        Vector2 LookInput = new Vector2(GameEngine.Link.MouseState.Delta.X, GameEngine.Link.MouseState.Delta.Y);
+        Vector2 LookInput = new Vector2(Crux.Engine.MouseState.Delta.X, Crux.Engine.MouseState.Delta.Y);
         if (Input.IsActionHeld("Look Up"))
             LookInput -= new Vector2(0, 1) * 15;
         if (Input.IsActionHeld("Look Down"))
@@ -97,13 +98,13 @@ public class PlayerController : Component
             pos += right * force;
     
         if(physics.Velocity.Length < 3f * mult)
-            physics.AddForce(pos * GameEngine.Link.deltaTime, true); 
+            physics.AddForce(pos * Crux.Engine.deltaTime, true); 
 
         /*
         if (Input.Action("Jump") && CanJump())
         {
-            lastJumped = GameEngine.Link.totalTime;
-            physics.AddForce(Vector3.UnitY * GameEngine.Link.deltaTime * 200f, true); 
+            lastJumped = Crux.Engine.totalTime;
+            physics.AddForce(Vector3.UnitY * Crux.Engine.deltaTime * 200f, true); 
         }
         */
     }
@@ -113,7 +114,7 @@ public class PlayerController : Component
 
     bool CanJump()
     {
-        if(GameEngine.Link.totalTime < lastJumped + 0.25f)
+        if(Crux.Engine.totalTime < lastJumped + 0.25f)
             return false;
 
         Ray ray = new Ray(this.Transform.WorldPosition, -this.Transform.Up, 0.95f);

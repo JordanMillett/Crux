@@ -1,3 +1,5 @@
+using CruxEngine;
+
 namespace Game.Logic;
 
 public class FaceCamera : Component
@@ -27,7 +29,7 @@ public class FaceCamera : Component
     {
         // Get the position of the camera and this object
         Vector3 objectPosition = this.Transform.WorldPosition;
-        Vector3 cameraPosition = GameEngine.Link.Camera!.Transform.WorldPosition;
+        Vector3 cameraPosition = Crux.Engine.Camera!.Transform.WorldPosition;
 
         // Compute the direction vector (ignore Y axis)
         Vector3 direction = new Vector3(cameraPosition.X - objectPosition.X, 0, cameraPosition.Z - objectPosition.Z);

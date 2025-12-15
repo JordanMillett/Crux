@@ -1,5 +1,5 @@
 ﻿using OpenTK.Windowing.Desktop;
-using Crux.Utilities.IO;
+using CruxEngine.Utilities.IO;
 
 namespace Game;
 
