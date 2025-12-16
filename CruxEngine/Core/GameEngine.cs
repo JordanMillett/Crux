@@ -153,6 +153,9 @@ public class GameEngine : GameWindow
 
     protected override void OnLoad()
     {
+        if(InDebugMode())
+            Profiler.Start();
+
         Logger.Log("Engine Loading...", LogSource.System);
         Logger.Log(GetEngineShortName(), LogSource.System);
         Logger.Log($"OpenGL {GL.GetString(StringName.Version)}", LogSource.System);

@@ -4,24 +4,8 @@ using Game.Assets.Scenes;
 namespace Game;
 
 public class GameInstance //MOVE INTO GAME ENGINE AND INHERET IT!
-{
-    private static GameInstance? link;
-    public static GameInstance LINK
-    {
-        get
-        {
-            if (link == null)
-                throw new InvalidOperationException("GameInstance is null");
-            return link;
-        }
-    }
-    
+{  
     Scene ActiveScene = null!;
-
-    public GameInstance()
-    {
-        link = this;
-    }
     
     public void Start()
     {
