@@ -20,14 +20,18 @@ public static class Profiler
     {
         try
         {
-            long managedMemory = GC.GetTotalMemory(false);
-            long exclusiveMemory = Process.GetCurrentProcess().PrivateMemorySize64;
-            long processMemory = Process.GetCurrentProcess().WorkingSet64;
+            string spacing = "{0,-20}{1,-15}{2}";
 
-            Logger.Log($"[Profiler Report]", LogSource.System);
-            Logger.Log($"Managed Memory (.NET Objects): {managedMemory / 1024 / 1024} MB", LogSource.System);
-            Logger.Log($"Private Memory (Exclusive): {exclusiveMemory / 1024 / 1024} MB", LogSource.System);
-            Logger.Log($"Process Memory: {processMemory / 1024 / 1024} MB", LogSource.System);
+            long managedMemory = GC.GetTotalMemory(false);
+            long privateMemory = Process.GetCurrentProcess().PrivateMemorySize64;
+            long workingSetMemory = Process.GetCurrentProcess().WorkingSet64;
+
+            Logger.Log($"==== Profiler Report ====", LogSource.System);
+            Logger.Log(string.Format(spacing, "Memory", $"Usage", "Info"), LogSource.System);
+            Logger.Log(string.Format(spacing, "Working Set", $"{workingSetMemory / 1024 / 1024} MB", "Physical RAM Allocation"), LogSource.System);
+            Logger.Log(string.Format(spacing, "- Private", $"{privateMemory / 1024 / 1024} MB", "Exclusive Virtual Memory Allocation"), LogSource.System);
+            Logger.Log(string.Format(spacing, "-- Managed", $"{managedMemory / 1024 / 1024} MB", ".NET Allocation"), LogSource.System);
+            Logger.Log("--------------------------", LogSource.System);
         }
         catch (Exception e)
         {
