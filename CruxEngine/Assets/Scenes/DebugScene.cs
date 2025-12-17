@@ -7,8 +7,6 @@ namespace CruxEngine.Assets.Scenes;
 
 public class DebugScene : Scene
 {
-    public CanvasComponent? Canvas;
-
     public override void Start()
     {
         //Skybox
@@ -81,7 +79,7 @@ public class DebugScene : Scene
         Input.CreateAction("Spawn Cube", Keys.Q);
         Input.CreateAction("Cast Ray", Keys.E);
 
-        Canvas = Crux.Engine.SetupDebugCanvas();
+        Crux.Canvas = Crux.Engine.SetupDebugCanvas();
     }
 
     public override void Update()

@@ -28,6 +28,8 @@ public class BoundsRenderComponent : RenderComponent
         Instances.Add(this);
     }
 
+    //DELETE DELETE
+
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();

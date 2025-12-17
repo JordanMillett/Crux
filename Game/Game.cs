@@ -12,8 +12,8 @@ public class GameInstance
         Logger.Log("Game Loading...", LogSource.System);
         Crux.Engine.OnEngineUpdateCallback += Update;
         
-        ActiveScene = Crux.Engine.SetScene(new IslandScene());   
-        //ActiveScene = Crux.Engine.SetScene(new DebugScene());  
+        //ActiveScene = Crux.Engine.SetScene(new IslandScene());   
+        ActiveScene = Crux.Engine.SetScene(new DebugScene());  
         //ActiveScene = Crux.Engine.SetScene(new GameScene()); 
 
         Logger.Log("Game Started!", LogSource.System);
@@ -23,7 +23,7 @@ public class GameInstance
     {
         if (Input.IsActionPressed("restart scene"))
         {
-            ActiveScene = Crux.Engine.SetScene(new IslandScene());
+            ActiveScene = Crux.Engine.SetScene(new DebugScene());
             return;
         }
 

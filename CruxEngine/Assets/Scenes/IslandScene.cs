@@ -7,7 +7,6 @@ namespace CruxEngine.Assets.Scenes;
 public class IslandScene : Scene
 {
     TransformComponent? CenterPoint;
-    public CanvasComponent? Canvas;
 
     public override void Start()
     {
@@ -28,7 +27,7 @@ public class IslandScene : Scene
         //Dictionary<string, GameObject> Map = GltfHandler.LoadGltfAsMeshRenderers("CruxEngine/Assets/Models/Examples/Island.gltf")!;
         GltfHandler.LoadGltfAsMeshRenderers("CruxEngine/Assets/Models/Examples/Island.gltf");
         
-        Canvas = Crux.Engine.SetupDebugCanvas();
+        Crux.Canvas = Crux.Engine.SetupDebugCanvas();
     }
 
     public override void Update()

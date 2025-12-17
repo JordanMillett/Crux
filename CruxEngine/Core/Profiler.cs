@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text.Json;
 using CruxEngine.Utilities.IO;
+using CruxEngine.Graphics;
 
 namespace CruxEngine.Core;
 
@@ -81,6 +82,8 @@ public static class Profiler
             Logger.Log(string.Format(spacing, "Handles", $"{Taken.Handles}x", $"{ToCountDiff(Taken.Handles - Last.Handles)}", "OS Handles"), LogSource.System);
             Logger.Log("", LogSource.System);
             Logger.Log("--------------------------", LogSource.System);
+
+            Logger.Log(GraphicsCache.GetFullInfo(), LogSource.System);
 
             Last = Taken; 
         }
