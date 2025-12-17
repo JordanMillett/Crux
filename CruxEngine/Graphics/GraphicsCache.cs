@@ -91,6 +91,47 @@ public static class GraphicsCache
         return sb.ToString();
     }
 
+    public static void LogFullInfo()
+    {
+        string spacing = "";
+        spacing = "{0,-20}{1,-20}{2,-20}{3}";
+
+        Logger.Log(string.Format(spacing, "Feature", "Amount", "", "Info"), LogSource.System);
+        Logger.Log(string.Format(spacing, "FPS", $"{FramesPerSecond:F2}", "", "Frames Per Second"), LogSource.System);
+        Logger.Log(string.Format(spacing, "Draw Calls", $"{DrawCallsThisFrame}", "", "GPU Draw Calls"), LogSource.System);
+        Logger.Log(string.Format(spacing, "Triangles", $"{TrianglesThisFrame}", "", "GPU Triangles Rendered"), LogSource.System);
+        Logger.Log(string.Format(spacing, "Lines", $"{LinesThisFrame}", "", "GPU Lines Rendered"), LogSource.System);
+        
+        //MAKE SHORTHAND NOT FULL ITEMIZED AND OUTPUT IN PROFILER ALONE AND ALSO INCLUDE DIFFERENCE ADD TO THE SNAPSHOT FEATURE!!
+
+        /*
+        sb.AppendLine($"Unique VAOs - {VAOs.Count}x");
+        foreach (var entry in VAOs)
+            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
+
+        sb.AppendLine($"Unique Textures - {Textures.Count}x");
+        foreach (var entry in Textures)
+            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
+
+        sb.AppendLine($"Unique Vertex Shaders - {Vertex.Count}x");
+        foreach (var entry in Vertex)
+            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
+
+        sb.AppendLine($"Unique Fragment Shaders - {Fragment.Count}x");
+        foreach (var entry in Fragment)
+            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
+
+        sb.AppendLine($"Unique Shader Programs - {Programs.Count}x");
+        int totalProgramUsers = 0;
+        foreach (var entry in Programs)
+        {
+            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
+            totalProgramUsers += entry.Value.users;
+        }
+        sb.AppendLine($"Shader Program Users - {totalProgramUsers}x");
+        */
+    }
+
     public static int GetTexture(string cacheKey)
     {
         if (Textures.TryGetValue(cacheKey, out var cached))

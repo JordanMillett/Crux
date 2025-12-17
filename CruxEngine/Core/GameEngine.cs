@@ -154,7 +154,10 @@ public class GameEngine : GameWindow
     protected override void OnLoad()
     {
         if(InDebugMode())
+        {
             Profiler.Start();
+            Input.CreateAction("Report Profiler", Keys.Backspace, true);
+        }
 
         Logger.Log("Engine Loading...", LogSource.System);
         Logger.Log(GetEngineShortName(), LogSource.System);
@@ -238,6 +241,8 @@ public class GameEngine : GameWindow
         deltaTime = (float) e.Time;
         totalTime += deltaTime;
         
+        if (InDebugMode() && Input.IsActionPressed("report profiler"))
+            Profiler.Report();
         if (Input.IsActionPressed("take screenshot"))
             TakeScreenshot();
         if (Input.IsActionPressed("unfocus window"))

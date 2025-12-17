@@ -81,9 +81,13 @@ public static class Profiler
             Logger.Log(string.Format(spacing, "Threads", $"{Taken.Threads}x", $"{ToCountDiff(Taken.Threads - Last.Threads)}", "Running Threads"), LogSource.System);
             Logger.Log(string.Format(spacing, "Handles", $"{Taken.Handles}x", $"{ToCountDiff(Taken.Handles - Last.Handles)}", "OS Handles"), LogSource.System);
             Logger.Log("", LogSource.System);
-            Logger.Log("--------------------------", LogSource.System);
+            GraphicsCache.LogFullInfo();
 
-            Logger.Log(GraphicsCache.GetFullInfo(), LogSource.System);
+            //string[] GraphicsCacheInfo = GraphicsCache.GetFullInfo().Split('\n');
+            //foreach (string line in GraphicsCacheInfo)
+                //Logger.Log(line, LogSource.System);
+
+            Logger.Log("--------------------------", LogSource.System);
 
             Last = Taken; 
         }
