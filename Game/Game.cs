@@ -3,7 +3,7 @@ using Game.Assets.Scenes;
 
 namespace Game;
 
-public class GameInstance //MOVE INTO GAME ENGINE AND INHERET IT!
+public class GameInstance
 {  
     Scene ActiveScene = null!;
     
@@ -11,10 +11,9 @@ public class GameInstance //MOVE INTO GAME ENGINE AND INHERET IT!
     {
         Logger.Log("Game Loading...", LogSource.System);
         Crux.Engine.OnEngineUpdateCallback += Update;
-
         
-        //ActiveScene = Crux.Engine.SetScene(new IslandScene());   
-        ActiveScene = Crux.Engine.SetScene(new DebugScene());  
+        ActiveScene = Crux.Engine.SetScene(new IslandScene());   
+        //ActiveScene = Crux.Engine.SetScene(new DebugScene());  
         //ActiveScene = Crux.Engine.SetScene(new GameScene()); 
 
         Logger.Log("Game Started!", LogSource.System);
@@ -24,7 +23,7 @@ public class GameInstance //MOVE INTO GAME ENGINE AND INHERET IT!
     {
         if (Input.IsActionPressed("restart scene"))
         {
-            ActiveScene = Crux.Engine.SetScene(new DebugScene());
+            ActiveScene = Crux.Engine.SetScene(new IslandScene());
             return;
         }
 
