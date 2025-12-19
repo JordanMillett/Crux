@@ -6,5 +6,5 @@
     "LogCreated": false,
     "LogOctreeRemovals": false,
     "LogFreedMemory": true,
-    "EnableProfiler": false
+    "EnableProfiler": true
 }

@@ -23,7 +23,7 @@ public class GameInstance
     {
         if (Input.IsActionPressed("restart scene"))
         {
-            ActiveScene = Crux.Engine.SetScene(new DebugScene());
+            ActiveScene = Crux.Engine.SetScene(new GameScene());
             return;
         }
 

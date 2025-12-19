@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using CruxEngine.Utilities.IO;
 using CruxEngine.Graphics;
+using CruxEngine.Physics;
 
 namespace CruxEngine.Core;
 
@@ -24,6 +25,9 @@ public static class Profiler
         public int Handles;
 
         public float FPS;
+        public float PhysicsFPS;
+        public int Colliders;
+        public int PhysicsObjects;
         public int DrawCalls;
         public int Triangles;
         public int Lines;
@@ -54,6 +58,9 @@ public static class Profiler
             Handles = Process.GetCurrentProcess().HandleCount;
 
             FPS = GraphicsCache.FramesPerSecond;
+            PhysicsFPS = PhysicsSystem.FramesPerSecond;
+            Colliders = PhysicsSystem.TotalColliders;
+            PhysicsObjects = PhysicsSystem.TotalPhysicsObjects;
             DrawCalls = GraphicsCache.DrawCallsThisFrame;
             Triangles = GraphicsCache.TrianglesThisFrame;
             Lines = GraphicsCache.LinesThisFrame;
@@ -116,6 +123,9 @@ public static class Profiler
             Logger.Log("", LogSource.System);
             Logger.Log(string.Format(spacing, "Feature", "Value", "Difference", "Info"), LogSource.System);
             Logger.Log(string.Format(spacing, "FPS", $"{Taken.FPS:F2}", $"{ToFloatDiff(Taken.FPS - Last.FPS)}", "Frames Per Second"), LogSource.System);
+            Logger.Log(string.Format(spacing, "Physics FPS", $"{Taken.PhysicsFPS:F2}", $"{ToFloatDiff(Taken.PhysicsFPS - Last.PhysicsFPS)}", "Physics Frames Per Second"), LogSource.System);
+            Logger.Log(string.Format(spacing, "Colliders", $"{Taken.Colliders}x", $"{ToCountDiff(Taken.Colliders - Last.Colliders)}", "Total Colliders"), LogSource.System);
+            Logger.Log(string.Format(spacing, "Physics Objects", $"{Taken.PhysicsObjects}x", $"{ToCountDiff(Taken.PhysicsObjects - Last.PhysicsObjects)}", "Total Physics Objects"), LogSource.System);
             Logger.Log(string.Format(spacing, "Draw Calls", $"{Taken.DrawCalls}x", $"{ToCountDiff(Taken.DrawCalls - Last.DrawCalls)}", "GPU Draw Calls"), LogSource.System);
             Logger.Log(string.Format(spacing, "Triangles", $"{Taken.Triangles}x", $"{ToCountDiff(Taken.Triangles - Last.Triangles)}", "GPU Triangles Rendered"), LogSource.System);
             Logger.Log(string.Format(spacing, "Lines", $"{Taken.Lines}x", $"{ToCountDiff(Taken.Lines - Last.Lines)}", "GPU Lines Rendered"), LogSource.System);
