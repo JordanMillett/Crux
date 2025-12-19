@@ -77,7 +77,7 @@ public class GameObject
     }
 
     public void Delete()
-    {
+    {       
         //This is bad
         var removeMethod = typeof(GameObject).GetMethod(nameof(RemoveComponent));
         foreach (var pair in components.ToList())
@@ -86,7 +86,10 @@ public class GameObject
             var generic = removeMethod.MakeGenericMethod(type);
             generic.Invoke(this, null);
         }
-        
+
+        //    GameObject = null!;
+
+          //this is bad 
         if(HasComponent<CameraComponent>())
         {
             //Logger.LogWarning($"Cannot delete GameObject '{Name}' that has component 'CameraComponent'");

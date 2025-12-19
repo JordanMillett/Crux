@@ -26,7 +26,7 @@ public abstract class RenderComponent : Component
 
     public RenderComponent(GameObject gameObject): base(gameObject)
     {
-        GameObject = gameObject;
+        
     }
 
     public abstract void Render();

@@ -27,7 +27,7 @@ public class MeshBoundsColliderComponent : ColliderComponent
             GameObject bounds = Crux.Engine.InstantiateGameObject();
             bounds.Transform.Parent = this.Transform;
             bounds.Transform.LocalPosition = Vector3.Zero;
-            bounds.AddComponent<BoundsRenderComponent>().Source = this;
+            bounds.AddComponent<BoundsRenderComponent>().Source = this;  //THIS NEEDS TO BE DELETED TO TO GARBAGE COLLECT
         }
     }
     

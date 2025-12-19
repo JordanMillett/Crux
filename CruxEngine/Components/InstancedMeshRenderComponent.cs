@@ -65,7 +65,7 @@ public class InstancedMeshRenderComponent : RenderComponent
         }
     }
     
-    public override void Delete()
+    public override void OnDelete()
     {
         for(int i = 0; i < mesh.Data!.Submeshes.Count; i++)
         {
@@ -103,7 +103,7 @@ public class InstancedMeshRenderComponent : RenderComponent
         return clone;
     }
 
-    public override void HandleFrozenStateChanged(bool IsFrozen)
+    public override void OnFrozenStateChanged(bool IsFrozen)
     {
         if(IsFrozen)
         {

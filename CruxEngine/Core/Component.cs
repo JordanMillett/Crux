@@ -4,7 +4,7 @@ namespace CruxEngine.Core;
 
 public abstract class Component
 {
-    public GameObject GameObject { get; init; }
+    public GameObject GameObject { get; private set; }
 
     public TransformComponent Transform
     {
@@ -27,27 +27,23 @@ public abstract class Component
     public Component(GameObject gameObject)
     {
         GameObject = gameObject;
-        GameObject.OnFrozenStateChanged += HandleFrozenStateChanged;
+        GameObject.OnFrozenStateChanged += OnFrozenStateChanged;
     }
     
     public abstract override string ToString();
     public abstract Component Clone(GameObject gameObject);
 
-    public virtual void HandleFrozenStateChanged(bool IsFrozen) {}
+    public virtual void OnFrozenStateChanged(bool IsFrozen) {}
 
-    /// <summary>
-    /// Returns true if the GameObject contains a concrete component that
-    /// matches either the specified concrete type, a sibling of the specified concrete type, or a child of the specified abstract type.
-    /// </summary>
-    /// <remarks>If the specified abstract type is 'Component' then true will be returned if any concrete component exist.</remarks>
     public virtual void Update() {}
     
-    /// <summary>
-    /// Returns true if the GameObject contains a concrete component that
-    /// matches either the specified concrete type, a sibling of the specified concrete type, or a child of the specified abstract type.
-    /// </summary>
-    /// <remarks>If the specified abstract type is 'Component' then true will be returned if any concrete component exist.</remarks>
-    public virtual void Delete() {}
+    public void Delete()
+    {
+        GameObject.OnFrozenStateChanged -= OnFrozenStateChanged;
+        OnDelete();
+    }
+
+    public virtual void OnDelete() {} //make protected in the future, implement that more
 
     ~Component()
     {

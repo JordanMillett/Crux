@@ -153,7 +153,7 @@ public class GameEngine : GameWindow
 
     protected override void OnLoad()
     {
-        if(InDebugMode())
+        if(InDebugMode() && Debug.FlagEnabled("EnableProfiler"))
         {
             Profiler.Start();
             Input.CreateAction("Report Profiler", Keys.Backspace, true);
@@ -241,7 +241,7 @@ public class GameEngine : GameWindow
         deltaTime = (float) e.Time;
         totalTime += deltaTime;
         
-        if (InDebugMode() && Input.IsActionPressed("report profiler"))
+        if (InDebugMode() && Debug.FlagEnabled("EnableProfiler") && Input.IsActionPressed("report profiler"))
             Profiler.Report();
         if (Input.IsActionPressed("take screenshot"))
             TakeScreenshot();

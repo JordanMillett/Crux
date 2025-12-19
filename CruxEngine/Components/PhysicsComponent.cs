@@ -34,7 +34,7 @@ public class PhysicsComponent : Component
         LastInteracted = Crux.Engine.totalTime;
     }
 
-    public override void Delete()
+    public override void OnDelete()
     {
         PhysicsSystem.UnregisterPhysicsObject(col, this);
     }

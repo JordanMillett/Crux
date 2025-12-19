@@ -14,11 +14,10 @@ public abstract class ColliderComponent : Component
 
     public ColliderComponent(GameObject gameObject): base(gameObject)
     {
-        GameObject = gameObject;
         PhysicsSystem.RegisterColliderObject(this);
     }
 
-    public override void HandleFrozenStateChanged(bool IsFrozen)
+    public override void OnFrozenStateChanged(bool IsFrozen)
     {
         if(IsFrozen)
         {
@@ -30,7 +29,7 @@ public abstract class ColliderComponent : Component
         }
     }
 
-    public override void Delete()
+    public override void OnDelete()
     {
         PhysicsSystem.UnregisterColliderObject(this);
         if(GameObject.IsFrozen)

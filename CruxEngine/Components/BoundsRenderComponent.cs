@@ -29,6 +29,11 @@ public class BoundsRenderComponent : RenderComponent
     }
 
     //DELETE DELETE
+    public override void OnDelete()
+    {
+        Instances.Remove(this);
+        Logger.Log("DELETED BOUNDS");
+    }
 
     public override string ToString()
     {

@@ -133,7 +133,9 @@ public static class PhysicsSystem
         Crux.Engine.DebugDisplayPositions.Clear();
 
         foreach (PhysicsComponent phy in PhysicsObjects.Values) //maps colliders to physics components
+        {
             phy.Integrate();
+        }
 
         List<ColliderComponent> Dynamic = [];
 
