@@ -55,6 +55,7 @@ public abstract class CUINode
     public virtual void Measure() 
     {
         Vector2 availableSpace = GetAvailableSpace();
+        Logger.Log($"{GetType().Name} - {Children.Count}x Children - {availableSpace.X}, {availableSpace.Y}");
         //Bounds.Padding.Resolve(availableSpace.X, availableSpace.Y);
         
         float totalContentWidth = 0;

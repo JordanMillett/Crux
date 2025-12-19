@@ -139,6 +139,7 @@ public class CUIText : CUINode
     public override void Measure()
     {
         Vector2 availableSpace = GetAvailableSpace();
+        Logger.Log($"{GetType().Name} - {Children.Count}x Children - {availableSpace.X}, {availableSpace.Y}");
         FontSize.Resolve(16f); //Base font size
 
         RenderText = ParseBindPoints();  
