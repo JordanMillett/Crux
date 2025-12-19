@@ -437,7 +437,7 @@ public static class GraphicsCache
     [Obsolete("Feature not maintained")]
     public static MeshBuffer GetSkyboxBuffer()
     {
-        string cacheKey = "skybox";
+        string cacheKey = "Skybox";
         
         if (VAOs.TryGetValue(cacheKey, out var cached))
         {

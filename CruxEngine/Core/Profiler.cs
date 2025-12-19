@@ -169,36 +169,6 @@ public static class Profiler
                 Logger.Log(string.Format(spacing, $"{entry.Value.users}x", $"{vertKey.instanced}", $"{Path.GetFileNameWithoutExtension(vertKey.cacheKey)}", $"{fragKey.instanced}", $"{Path.GetFileNameWithoutExtension(fragKey.cacheKey)}"), LogSource.System);
             }
 
-            //public static Dictionary<(int vertId, int fragId), (int id, int users)> Programs = new();
-            //Path.GetFileNameWithoutExtension(path);
-
-            /*
-            foreach (var entry in GraphicsCache.Programs.OrderByDescending(e => e.Value.users))
-                Logger.Log(string.Format(spacing, $"{entry.Value.users}/{Taken.ProgramUsers} Program Users", $"{entry.Key}"), LogSource.System);
-            */
-        
-        /*
-
-        sb.AppendLine($"Unique Textures - {Textures.Count}x");
-        foreach (var entry in Textures)
-            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
-
-        sb.AppendLine($"Unique Vertex Shaders - {Vertex.Count}x");
-        foreach (var entry in Vertex)
-            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
-
-        sb.AppendLine($"Unique Fragment Shaders - {Fragment.Count}x");
-        foreach (var entry in Fragment)
-            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
-
-        sb.AppendLine($"Unique Shader Programs - {Programs.Count}x");
-        int totalProgramUsers = 0;
-        foreach (var entry in Programs)
-        {
-            sb.AppendLine($" {entry.Value.users}x {entry.Key}");
-            totalProgramUsers += entry.Value.users;
-        }
-        */
             Logger.Log("--------------------------", LogSource.System);
 
             Last = Taken; 
