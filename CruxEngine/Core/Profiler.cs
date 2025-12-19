@@ -17,9 +17,9 @@ public static class Profiler
         public long ManagedMemory;
         public long UnmanagedMemory;
 
+        public int GenerationZero;
         public int GenerationOne;
         public int GenerationTwo;
-        public int GenerationThree;
         public int Threads;
         public int Handles;
 
@@ -47,9 +47,9 @@ public static class Profiler
             ManagedMemory = GC.GetTotalMemory(false); 
             UnmanagedMemory = PrivateMemory - ManagedMemory;
 
-            GenerationOne = GC.CollectionCount(0);
-            GenerationTwo = GC.CollectionCount(1);
-            GenerationThree = GC.CollectionCount(2);
+            GenerationZero = GC.CollectionCount(0);
+            GenerationOne = GC.CollectionCount(1);
+            GenerationTwo = GC.CollectionCount(2);
             Threads = Process.GetCurrentProcess().Threads.Count;
             Handles = Process.GetCurrentProcess().HandleCount;
 
@@ -107,9 +107,9 @@ public static class Profiler
             
             Logger.Log("", LogSource.System);
             Logger.Log(string.Format(spacing, "Feature", "Total", "Difference", "Info"), LogSource.System);
-            Logger.Log(string.Format(spacing, "Gen 1 GC", $"{Taken.GenerationOne}x", $"{ToCountDiff(Taken.GenerationOne - Last.GenerationOne)}", "Short-Lived Garbage Collection"), LogSource.System);
-            Logger.Log(string.Format(spacing, "Gen 2 GC", $"{Taken.GenerationTwo}x", $"{ToCountDiff(Taken.GenerationTwo - Last.GenerationTwo)}", "Medium-Lived Garbage Collection"), LogSource.System);
-            Logger.Log(string.Format(spacing, "Gen 3 GC", $"{Taken.GenerationThree}x", $"{ToCountDiff(Taken.GenerationThree - Last.GenerationThree)}", "Long-Lived Garbage Collection"), LogSource.System);
+            Logger.Log(string.Format(spacing, "Gen 0 GC", $"{Taken.GenerationZero}x", $"{ToCountDiff(Taken.GenerationZero - Last.GenerationZero)}", "Short-Lived Garbage Collection"), LogSource.System);
+            Logger.Log(string.Format(spacing, "Gen 1 GC", $"{Taken.GenerationOne}x", $"{ToCountDiff(Taken.GenerationOne - Last.GenerationOne)}", "Medium-Lived Garbage Collection"), LogSource.System);
+            Logger.Log(string.Format(spacing, "Gen 2 GC", $"{Taken.GenerationTwo}x", $"{ToCountDiff(Taken.GenerationTwo - Last.GenerationTwo)}", "Long-Lived Garbage Collection"), LogSource.System);
             Logger.Log(string.Format(spacing, "Threads", $"{Taken.Threads}x", $"{ToCountDiff(Taken.Threads - Last.Threads)}", "Running Threads"), LogSource.System);
             Logger.Log(string.Format(spacing, "Handles", $"{Taken.Handles}x", $"{ToCountDiff(Taken.Handles - Last.Handles)}", "OS Handles"), LogSource.System);
 
