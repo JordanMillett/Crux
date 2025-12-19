@@ -136,21 +136,39 @@ public static class Profiler
             Logger.Log(string.Format(spacing, "Fragment Users", $"{Taken.FragmentUsers}x", $"{ToCountDiff(Taken.FragmentUsers - Last.FragmentUsers)}", "Fragment Shader Users"), LogSource.System);
             Logger.Log(string.Format(spacing, "Program Users", $"{Taken.ProgramUsers}x", $"{ToCountDiff(Taken.ProgramUsers - Last.ProgramUsers)}", "Shader Program Users"), LogSource.System);
 
-            spacing = "{0,-30}{1}";
+            spacing = "{0,-25}{1}";
             Logger.Log("", LogSource.System);
-            int test = GraphicsCache.VAOs.Sum(entry => entry.Value.users);
-            //Logger.Log(string.Format(spacing, "Users / Total", "Source"), LogSource.System);
-            Logger.Log(string.Format(spacing, "", "", LogSource.System));
+            Logger.Log(string.Format(spacing, $"{GraphicsCache.VAOs.Sum(entry => entry.Value.users)}x VAO Users", "Source"), LogSource.System);
             foreach (var entry in GraphicsCache.VAOs.OrderByDescending(e => e.Value.users))
-                Logger.Log(string.Format(spacing, $"{entry.Value.users}/{Taken.VAOUsers} VAO Users", $"{entry.Key}"), LogSource.System);
+                Logger.Log(string.Format(spacing, $"{entry.Value.users}x", $"{entry.Key}"), LogSource.System);
+        
+            Logger.Log("", LogSource.System);
+            Logger.Log(string.Format(spacing, $"{GraphicsCache.Textures.Sum(entry => entry.Value.users)}x Texture Users", "Source"), LogSource.System);
             foreach (var entry in GraphicsCache.Textures.OrderByDescending(e => e.Value.users))
-                Logger.Log(string.Format(spacing, $"{entry.Value.users}/{Taken.TextureUsers} Texture Users", $"{entry.Key}"), LogSource.System);
+                Logger.Log(string.Format(spacing, $"{entry.Value.users}x", $"{entry.Key}"), LogSource.System);
+
+            spacing = "{0,-25}{1,-20}{2}";
+            Logger.Log("", LogSource.System);
+            Logger.Log(string.Format(spacing, $"{GraphicsCache.Vertex.Sum(entry => entry.Value.users)}x Vertex Users", "Instanced", "Source"), LogSource.System);
+            foreach (var entry in GraphicsCache.Vertex.OrderByDescending(e => e.Value.users))
+                Logger.Log(string.Format(spacing, $"{entry.Value.users}x", $"{entry.Key.instanced}", $"{entry.Key.cacheKey}"), LogSource.System);
+
+            Logger.Log("", LogSource.System);
+            Logger.Log(string.Format(spacing, $"{GraphicsCache.Vertex.Sum(entry => entry.Value.users)}x Fragment Users", "Instanced", "Source"), LogSource.System);
+            foreach (var entry in GraphicsCache.Fragment.OrderByDescending(e => e.Value.users))
+                Logger.Log(string.Format(spacing, $"{entry.Value.users}x", $"{entry.Key.instanced}", $"{entry.Key.cacheKey}"), LogSource.System);
+
+            Logger.Log("", LogSource.System);
+            Logger.Log(string.Format(spacing, $"{GraphicsCache.Programs.Sum(entry => entry.Value.users)}x Program Users", "Vertex", "Fragment"), LogSource.System);
+            foreach (var entry in GraphicsCache.Programs.OrderByDescending(e => e.Value.users))
+                Logger.Log(string.Format(spacing, $"{entry.Value.users}x", 
+                $"{Path.GetFileNameWithoutExtension(GraphicsCache.Vertex.FirstOrDefault(f => f.Value.id == entry.Key.vertId).Key.cacheKey)}", 
+                $"{Path.GetFileNameWithoutExtension(GraphicsCache.Fragment.FirstOrDefault(f => f.Value.id == entry.Key.fragId).Key.cacheKey)}"), LogSource.System);
+
+            //public static Dictionary<(int vertId, int fragId), (int id, int users)> Programs = new();
+            //Path.GetFileNameWithoutExtension(path);
 
             /*
-            foreach (var entry in GraphicsCache.Vertex.OrderByDescending(e => e.Value.users))
-                Logger.Log(string.Format(spacing, $"{entry.Value.users}/{Taken.VertexUsers} Vertex Users", $"{entry.Key}"), LogSource.System);
-            foreach (var entry in GraphicsCache.Fragment.OrderByDescending(e => e.Value.users))
-                Logger.Log(string.Format(spacing, $"{entry.Value.users}/{Taken.FragmentUsers} Fragment Users", $"{entry.Key}"), LogSource.System);
             foreach (var entry in GraphicsCache.Programs.OrderByDescending(e => e.Value.users))
                 Logger.Log(string.Format(spacing, $"{entry.Value.users}/{Taken.ProgramUsers} Program Users", $"{entry.Key}"), LogSource.System);
             */
