@@ -65,7 +65,8 @@ public class CUIParser
 
         if (angleSharpNode is IElement angleSharpElement)
         {
-            Dictionary<string, string> style = ExtractCSSProperties(angleSharpElement.GetStyle());
+            Dictionary<string, string> style = new();
+            style = ExtractCSSProperties(angleSharpElement.GetStyle());
             string tagName = angleSharpElement.TagName.ToLower();
             
             //Logger.Log($"IElement parsed: {tagName}");
@@ -101,13 +102,19 @@ public class CUIParser
                         CUIPanel.ShaderSingleton.ColorTexturePath = style["background-image"].Substring(5, style["background-image"].Length - 5 - 2);
                         CUIPanel.ShaderSingleton.GenerateTextureID();
                     }
-
-                    cruxNode.Bounds.LayoutMode = style["display"] switch
+                    
+                    if(!string.IsNullOrEmpty(style["display"]))
                     {
-                        "inline-block" => CUILayoutMode.InlineBlock,
-                        "block" => CUILayoutMode.Block,
-                        _ => CUILayoutMode.Block
-                    };
+                        if(cruxNode == null)
+                            cruxNode = new CUIEmpty(canvas);
+
+                        cruxNode.Bounds.LayoutMode = style["display"] switch
+                        {
+                            "inline-block" => CUILayoutMode.InlineBlock,
+                            "block" => CUILayoutMode.Block,
+                            _ => CUILayoutMode.Block
+                        };
+                    }
                 break;
                 case "p": 
                     cruxNode = new CUIText(canvas);
