@@ -158,12 +158,16 @@ public static class Profiler
             foreach (var entry in GraphicsCache.Fragment.OrderByDescending(e => e.Value.users))
                 Logger.Log(string.Format(spacing, $"{entry.Value.users}x", $"{entry.Key.instanced}", $"{entry.Key.cacheKey}"), LogSource.System);
 
+            spacing = "{0,-25}{1,-20}{2,-20}{3,-20}{4}";
             Logger.Log("", LogSource.System);
-            Logger.Log(string.Format(spacing, $"{GraphicsCache.Programs.Sum(entry => entry.Value.users)}x Program Users", "Vertex", "Fragment"), LogSource.System);
+            Logger.Log(string.Format(spacing, $"{GraphicsCache.Programs.Sum(entry => entry.Value.users)}x Program Users", "Instanced", "Vertex", "Instanced", "Fragment"), LogSource.System);
             foreach (var entry in GraphicsCache.Programs.OrderByDescending(e => e.Value.users))
-                Logger.Log(string.Format(spacing, $"{entry.Value.users}x", 
-                $"{Path.GetFileNameWithoutExtension(GraphicsCache.Vertex.FirstOrDefault(f => f.Value.id == entry.Key.vertId).Key.cacheKey)}", 
-                $"{Path.GetFileNameWithoutExtension(GraphicsCache.Fragment.FirstOrDefault(f => f.Value.id == entry.Key.fragId).Key.cacheKey)}"), LogSource.System);
+            {
+                var vertKey = GraphicsCache.Vertex.FirstOrDefault(f => f.Value.id == entry.Key.vertId).Key;
+                var fragKey = GraphicsCache.Fragment.FirstOrDefault(f => f.Value.id == entry.Key.fragId).Key;
+
+                Logger.Log(string.Format(spacing, $"{entry.Value.users}x", $"{vertKey.instanced}", $"{Path.GetFileNameWithoutExtension(vertKey.cacheKey)}", $"{fragKey.instanced}", $"{Path.GetFileNameWithoutExtension(fragKey.cacheKey)}"), LogSource.System);
+            }
 
             //public static Dictionary<(int vertId, int fragId), (int id, int users)> Programs = new();
             //Path.GetFileNameWithoutExtension(path);

@@ -28,6 +28,11 @@ public class MeshRenderComponent : RenderComponent
         {
             GraphicsCache.RemoveBuffer(mesh.LoadedPath + "_" + i);
         }
+
+        for(int i = 0; i < Shaders.Count; i++)
+        {
+            Shaders[i].Delete();
+        }
     }
     
     public override string ToString()

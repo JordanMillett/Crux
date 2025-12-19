@@ -1,5 +1,5 @@
 {
-    "MeasureSceneTransitionTime": true,
+    "MeasureSceneTransitionTime": false,
     "ShowMeshBounds": true,
     "OutputKeyBindings": true,
     "AddCollidersWhenLoadingGltfAsMeshRenderers": false,

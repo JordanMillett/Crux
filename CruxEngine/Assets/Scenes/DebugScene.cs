@@ -79,7 +79,7 @@ public class DebugScene : Scene
         Input.CreateAction("Spawn Cube", Keys.Q);
         Input.CreateAction("Cast Ray", Keys.E);
 
-        Crux.Canvas = Crux.Engine.SetupDebugCanvas();
+        //Crux.Canvas = Crux.Engine.SetupDebugCanvas();
     }
 
     public override void Update()
