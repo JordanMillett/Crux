@@ -109,6 +109,8 @@ public abstract class CUINode
 
     public void Output(Vector2 availableSpace)
     {
+        return;
+
         if(!string.IsNullOrWhiteSpace(Identifier))
         {   
             Logger.Log(Identifier);

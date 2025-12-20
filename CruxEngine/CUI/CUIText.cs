@@ -136,6 +136,78 @@ public class CUIText : CUINode
         return builder.ToString();
     }
 
+    public override void Measure(Vector2 availableSpace)
+    {   
+        Identifier = $"<p>{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}</p>";
+
+        Bounds.Width.Resolve(availableSpace.X, 0f, 0f, Bounds.LayoutMode == CUILayoutMode.Block);
+        Bounds.Height.Resolve(availableSpace.Y, 0f, 0f, false);
+        
+        FontSize.Resolve(16f);
+        RenderText = ParseBindPoints();  
+
+        float cursorX = 0;
+        float cursorY = 0;
+
+        float fontScale = FontSize.Resolved / loadedFont!.FontSize;
+        float lineHeight = FontSize.Resolved;
+        float contentWidth = 0f;
+        float contentHeight = lineHeight;
+
+        int index = 0;
+        while (index < RenderText.Length)
+        {
+            if (RenderText[index] == '\n')
+            {
+                cursorX = 0;
+                cursorY += lineHeight;
+                contentHeight += lineHeight;
+                index++;
+                continue;
+            }
+
+            int wordStart = index;
+            while (index < RenderText.Length && RenderText[index] != ' ' && RenderText[index] != '\n')
+                index++;
+            while (index < RenderText.Length && RenderText[index] == ' ')
+                index++;
+            string word = RenderText[wordStart..index];
+
+            float wordWidth = 0;
+            foreach (char c in word)
+                wordWidth += loadedFont.Characters[c].DrawAdvance * fontScale;
+
+            if (cursorX + wordWidth > availableSpace.X && cursorX > 0)
+            {
+                cursorX = 0;
+                cursorY += lineHeight;
+                contentHeight += lineHeight;
+            }
+
+            foreach (char c in word)
+            {
+                LettersToDraw.Add(new CUILetterDraw
+                {
+                    Character = c,
+                    Font = loadedFont.Characters[c],
+                    ResolvedFontMultiplier = fontScale,
+                    ResolvedFontSize = FontSize.Resolved,
+                    AbsolutePosition = new Vector2(Bounds.AbsolutePosition.X + cursorX, Bounds.AbsolutePosition.Y + cursorY),
+                    Hue = FontColor
+                });
+
+                cursorX += loadedFont.Characters[c].DrawAdvance * fontScale;
+            }
+
+            contentWidth = Math.Max(contentWidth, cursorX); 
+        }
+
+        Bounds.Width.Resolve(availableSpace.X, contentWidth, FontSize.Resolved);
+        Bounds.Height.Resolve(availableSpace.Y, contentHeight, FontSize.Resolved);
+
+        Output(availableSpace);
+    }
+
     /*
     public override void Measure()
     {
