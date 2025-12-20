@@ -58,18 +58,27 @@ public abstract class CUINode
         return new Vector2(parentWidth, parentHeight);
     }
 
+    public void Output()
+    {
+        if(!string.IsNullOrWhiteSpace(Identifier))
+        {   
+            Logger.Log(Identifier);
+            Logger.Log($"Absolute Position: {Bounds.AbsolutePosition}");
+            Logger.Log($"Width: {Bounds.Width.Resolved}px");
+            Logger.Log($"Height: {Bounds.Height.Resolved}px");
+            Logger.Log($"Layout: {Bounds.LayoutMode}");
+            //Logger.Log($"- Available: {availableSpace.X}");
+            Logger.Log("");
+        }
+    }
+
     public virtual void Measure() 
     {
         Vector2 availableSpace = GetAvailableSpace();
         //Logger.Log($"{GetType().Name} - {Children.Count}x Children - {availableSpace.X}, {availableSpace.Y}");
         //Bounds.Padding.Resolve(availableSpace.X, availableSpace.Y);
 
-        if(!string.IsNullOrWhiteSpace(Identifier))
-        {   
-            Logger.Log(Identifier);
-            Logger.Log($"- Available: {availableSpace.X}");
-            Logger.Log("");
-        }
+        Output();
         
         float totalContentWidth = 0;
         float totalContentHeight = 0;

@@ -145,9 +145,7 @@ public class CUIText : CUINode
 
         RenderText = ParseBindPoints();  
         Identifier = $"<p> '{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}'";
-        Logger.Log(Identifier);
-        Logger.Log($"- Available: {availableSpace.X}");
-        Logger.Log("");
+        Output();
             
         float cursorX = 0;
         float cursorY = 0;
