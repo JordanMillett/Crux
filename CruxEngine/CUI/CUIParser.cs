@@ -95,7 +95,7 @@ public class CUIParser
                         cruxNode = new CUIPanel(canvas);
                         (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(style["background-color"]);
 
-                        cruxNode.Identifier = $"<div> {style["background-color"]}";
+                        cruxNode.Identifier = $"<div background-color:{style["background-color"]}>";
                     }
 
                     if(!string.IsNullOrEmpty(style["background-image"])) //OPTIONAL
@@ -106,7 +106,7 @@ public class CUIParser
                         CUIPanel.ShaderSingleton.ColorTexturePath = style["background-image"].Substring(5, style["background-image"].Length - 5 - 2);
                         CUIPanel.ShaderSingleton.GenerateTextureID();
 
-                        cruxNode.Identifier = $"<div> {style["background-image"]}";
+                        cruxNode.Identifier = $"<div background-image:{style["background-image"]}>";
                     }
                     
                     if(!string.IsNullOrEmpty(style["display"]))

@@ -39,26 +39,36 @@ public abstract class CUINode
     {
         //return new Vector2(Crux.Engine.Resolution.X, Crux.Engine.Resolution.Y); //REMOVE
 
-        float parentWidth;
-        float parentHeight;
+        float availableWidth;
+        float availableHeight;
 
-        //
+        //GET PARENT OF PARENT
         //if(Parent == null || (Parent.Bounds.LayoutMode == CUILayoutMode.Block))
+
         if(Parent == null)
         {
-            parentWidth = Crux.Engine.Resolution.X;
-            parentHeight = Crux.Engine.Resolution.Y;
-
+            availableWidth = Crux.Engine.Resolution.X;
+            availableHeight = Crux.Engine.Resolution.Y;
+            return new Vector2(availableWidth, availableHeight);
+        }
+        
+        if(Parent.Bounds.LayoutMode == CUILayoutMode.Block)
+        {
+            availableWidth = Parent.Bounds.Width.Resolved - Parent.Bounds.Padding.Horizontal;
+            availableHeight = Parent.Bounds.Height.Resolved - Parent.Bounds.Padding.Vertical;
         }else
         {
-            parentWidth = Parent.Bounds.Width.Resolved - Parent.Bounds.Padding.Horizontal;
-            parentHeight = Parent.Bounds.Height.Resolved - Parent.Bounds.Padding.Vertical;
+            availableWidth = 200;
+            availableHeight = 200;
+            //Vector2 availableSpace = Parent.GetAvailableSpace();
+            //availableWidth = availableSpace.X;
+            //availableHeight = availableSpace.Y;
         }
 
-        return new Vector2(parentWidth, parentHeight);
+        return new Vector2(availableWidth, availableHeight);
     }
 
-    public void Output()
+    public void Output(Vector2 availableSpace)
     {
         if(!string.IsNullOrWhiteSpace(Identifier))
         {   
@@ -66,6 +76,8 @@ public abstract class CUINode
             Logger.Log($"Absolute Position: {Bounds.AbsolutePosition}");
             Logger.Log($"Width: {Bounds.Width.Resolved}px");
             Logger.Log($"Height: {Bounds.Height.Resolved}px");
+            Logger.Log($"Available Width: {availableSpace.X}px");
+            Logger.Log($"Available Height: {availableSpace.Y}px");
             Logger.Log($"Layout: {Bounds.LayoutMode}");
             //Logger.Log($"- Available: {availableSpace.X}");
             Logger.Log("");
@@ -78,7 +90,9 @@ public abstract class CUINode
         //Logger.Log($"{GetType().Name} - {Children.Count}x Children - {availableSpace.X}, {availableSpace.Y}");
         //Bounds.Padding.Resolve(availableSpace.X, availableSpace.Y);
 
-        Output();
+        Output(availableSpace);
+
+        //PREMEASURE UNBOUND SPACE, TOTAL POSSIBLE THAT CAN BE USED, AND THEN TRY AGAIN????
         
         float totalContentWidth = 0;
         float totalContentHeight = 0;

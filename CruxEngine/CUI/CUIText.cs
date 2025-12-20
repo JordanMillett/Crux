@@ -144,8 +144,8 @@ public class CUIText : CUINode
         FontSize.Resolve(16f); //Base font size
 
         RenderText = ParseBindPoints();  
-        Identifier = $"<p> '{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}'";
-        Output();
+        Identifier = $"<p>{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}</p>";
+        Output(availableSpace);
             
         float cursorX = 0;
         float cursorY = 0;
