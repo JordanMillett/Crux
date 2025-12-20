@@ -53,13 +53,13 @@ public struct CUIUnit
         return new CUIUnit(CUIUnitType.Auto);
     }
 
-    public void Resolve(float availableSpace, float contentSize = 0f, float fontSize = 0f, bool autoStretch = false)
+    public void Resolve(float availableSpace, float contentSize = 0f, float fontSize = 0f, bool fillAvailableSpace = false)
     {
         Resolved = Type switch 
         {
             CUIUnitType.Pixel => Value * Crux.Engine.DpiMultiplier,                     //Pixel based, must be scaled
             CUIUnitType.Percentage => availableSpace * (Value / 100f),
-            CUIUnitType.Auto => autoStretch ? availableSpace : contentSize,
+            CUIUnitType.Auto => fillAvailableSpace ? availableSpace : contentSize,
             CUIUnitType.ViewportWidth => Crux.Engine.Resolution.X * (Value / 100f),
             CUIUnitType.ViewportHeight => Crux.Engine.Resolution.Y * (Value / 100f),
             CUIUnitType.Em => fontSize * Value * Crux.Engine.DpiMultiplier,             //Pixel based, must be scaled
