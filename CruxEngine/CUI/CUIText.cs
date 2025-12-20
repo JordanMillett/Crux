@@ -139,10 +139,15 @@ public class CUIText : CUINode
     public override void Measure()
     {
         Vector2 availableSpace = GetAvailableSpace();
-        Logger.Log($"{GetType().Name} - {Children.Count}x Children - {availableSpace.X}, {availableSpace.Y}");
+        //Logger.Log($"{GetType().Name} - {Children.Count}x Children - {availableSpace.X}, {availableSpace.Y}");
+        //Logger.Log($"{TextData}");
         FontSize.Resolve(16f); //Base font size
 
         RenderText = ParseBindPoints();  
+        Identifier = $"<p> '{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}'";
+        Logger.Log(Identifier);
+        Logger.Log($"- Available: {availableSpace.X}");
+        Logger.Log("");
             
         float cursorX = 0;
         float cursorY = 0;
@@ -156,6 +161,7 @@ public class CUIText : CUINode
         {
             if (RenderText[index] == '\n')
             {
+                //Logger.LogWarning("LINE BREAK BUILT IN");
                 cursorX = 0;
                 cursorY += lineHeight;
                 totalContentHeight += lineHeight;
@@ -181,7 +187,7 @@ public class CUIText : CUINode
                 wordWidth += loadedFont.Characters[c].DrawAdvance * fontScale;
             }
 
-            if (cursorX + wordWidth > availableSpace.X && cursorX > 0)
+            if (cursorX + wordWidth > availableSpace.X && cursorX > 0) //THIS IS RELATED TO LINE BREAKING
             {
                 cursorX = 0;
                 cursorY += lineHeight;
@@ -210,6 +216,8 @@ public class CUIText : CUINode
 
             totalContentWidth = Math.Max(totalContentWidth, cursorX);            
         }
+
+        //Logger.Log($"Width: {totalContentWidth} - '{TextData}'"); CONTENT WIDTH IS LOWER WHEN BLOCK IS USED?
 
         //Resolve
         Bounds.Width.Resolve(availableSpace.X, totalContentWidth, FontSize.Resolved);

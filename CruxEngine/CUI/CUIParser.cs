@@ -86,12 +86,16 @@ public class CUIParser
                     cruxNode.Bounds.Width = new CUIUnit(CUIUnitType.ViewportWidth, 100);
                     cruxNode.Bounds.Height = new CUIUnit(CUIUnitType.ViewportHeight, 100);
                     cruxNode.Bounds.LayoutMode = CUILayoutMode.Block;
+
+                    cruxNode.Identifier = $"======== <body> ========";
                 break;
                 case "div":    
                     if(!string.IsNullOrEmpty(style["background-color"])) //OPTIONAL
                     {
                         cruxNode = new CUIPanel(canvas);
                         (cruxNode as CUIPanel)!.Background = ColorHelper.RGBAStringToColor4(style["background-color"]);
+
+                        cruxNode.Identifier = $"<div> {style["background-color"]}";
                     }
 
                     if(!string.IsNullOrEmpty(style["background-image"])) //OPTIONAL
@@ -101,12 +105,17 @@ public class CUIParser
                         
                         CUIPanel.ShaderSingleton.ColorTexturePath = style["background-image"].Substring(5, style["background-image"].Length - 5 - 2);
                         CUIPanel.ShaderSingleton.GenerateTextureID();
+
+                        cruxNode.Identifier = $"<div> {style["background-image"]}";
                     }
                     
                     if(!string.IsNullOrEmpty(style["display"]))
                     {
                         if(cruxNode == null)
+                        {
                             cruxNode = new CUIEmpty(canvas);
+                            cruxNode.Identifier = $"<>";
+                        }
 
                         cruxNode.Bounds.LayoutMode = style["display"] switch
                         {
@@ -140,11 +149,12 @@ public class CUIParser
                     );
 
                 break;
+                default:
+                    cruxNode = new CUIEmpty(canvas);
+                    cruxNode.Identifier = "Not Implemented";
+                break;
             }
 
-            if(cruxNode == null)
-                cruxNode = new CUIEmpty(canvas);
-            
             if(!string.IsNullOrEmpty(angleSharpElement.Id))
                 canvas.NodesRefs.Add(angleSharpElement.Id, cruxNode);
 
@@ -155,9 +165,12 @@ public class CUIParser
             cruxNode.Bounds.Padding.Bottom = CUIUnit.Parse(style["padding-bottom"]);
             cruxNode.Bounds.Padding.Left = CUIUnit.Parse(style["padding-left"]);
         }
-
+        
         if(cruxNode == null)
+        {
             cruxNode = new CUIEmpty(canvas);
+            cruxNode.Identifier = "";
+        }
 
         foreach (INode child in angleSharpNode.ChildNodes)
         {

@@ -28,16 +28,22 @@ public abstract class CUINode
     public CUIBounds Bounds;
     public List<CUINode> Children = [];
 
+    public string Identifier = "NULL";
+
     public CUINode(CanvasComponent canvas)
     {
         Canvas = canvas;
     }
 
-    public Vector2 GetAvailableSpace()
+    public Vector2 GetAvailableSpace() //MODIFY THIS TO BE THE PARENT OF THE PARENT IF IT IS INLINE BLOCK
     {
+        //return new Vector2(Crux.Engine.Resolution.X, Crux.Engine.Resolution.Y); //REMOVE
+
         float parentWidth;
         float parentHeight;
 
+        //
+        //if(Parent == null || (Parent.Bounds.LayoutMode == CUILayoutMode.Block))
         if(Parent == null)
         {
             parentWidth = Crux.Engine.Resolution.X;
@@ -55,8 +61,15 @@ public abstract class CUINode
     public virtual void Measure() 
     {
         Vector2 availableSpace = GetAvailableSpace();
-        Logger.Log($"{GetType().Name} - {Children.Count}x Children - {availableSpace.X}, {availableSpace.Y}");
+        //Logger.Log($"{GetType().Name} - {Children.Count}x Children - {availableSpace.X}, {availableSpace.Y}");
         //Bounds.Padding.Resolve(availableSpace.X, availableSpace.Y);
+
+        if(!string.IsNullOrWhiteSpace(Identifier))
+        {   
+            Logger.Log(Identifier);
+            Logger.Log($"- Available: {availableSpace.X}");
+            Logger.Log("");
+        }
         
         float totalContentWidth = 0;
         float totalContentHeight = 0;
