@@ -139,9 +139,6 @@ public class CUIText : CUINode
     public override void Measure(Vector2 availableSpace)
     {   
         Identifier = $"<p>{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}</p>";
-
-        Bounds.Width.Resolve(availableSpace.X, 0f, 0f, Bounds.LayoutMode == CUILayoutMode.Block);
-        Bounds.Height.Resolve(availableSpace.Y, 0f, 0f, false);
         
         FontSize.Resolve(16f);
         RenderText = ParseBindPoints();  
@@ -157,6 +154,7 @@ public class CUIText : CUINode
         int index = 0;
         while (index < RenderText.Length)
         {
+            //Newline
             if (RenderText[index] == '\n')
             {
                 cursorX = 0;
@@ -165,18 +163,22 @@ public class CUIText : CUINode
                 index++;
                 continue;
             }
-
+            
+            //Iterate to find word end
             int wordStart = index;
             while (index < RenderText.Length && RenderText[index] != ' ' && RenderText[index] != '\n')
                 index++;
+            //Skip all spaces
             while (index < RenderText.Length && RenderText[index] == ' ')
                 index++;
             string word = RenderText[wordStart..index];
 
+            //Calculate width of word
             float wordWidth = 0;
             foreach (char c in word)
                 wordWidth += loadedFont.Characters[c].DrawAdvance * fontScale;
 
+            //Word wrap if the word is too long
             if (cursorX + wordWidth > availableSpace.X && cursorX > 0)
             {
                 cursorX = 0;

@@ -109,18 +109,19 @@ public abstract class CUINode
 
     public void Output(Vector2 availableSpace)
     {
-        return;
-
-        if(!string.IsNullOrWhiteSpace(Identifier))
-        {   
-            Logger.Log(Identifier);
-            Logger.Log($"Absolute Position: {Bounds.AbsolutePosition}");
-            Logger.Log($"Width: {Bounds.Width.Resolved}px");
-            Logger.Log($"Height: {Bounds.Height.Resolved}px");
-            Logger.Log($"Available Width: {availableSpace.X}px");
-            Logger.Log($"Available Height: {availableSpace.Y}px");
-            Logger.Log($"Layout: {Bounds.LayoutMode}");
-            Logger.Log("");
+        if(Debug.FlagEnabled("OutputCUINodes"))
+        {
+            if(!string.IsNullOrWhiteSpace(Identifier))
+            {   
+                Logger.Log(Identifier);
+                Logger.Log($"Absolute Position: {Bounds.AbsolutePosition}");
+                Logger.Log($"Width: {Bounds.Width.Resolved}px");
+                Logger.Log($"Height: {Bounds.Height.Resolved}px");
+                Logger.Log($"Available Width: {availableSpace.X}px");
+                Logger.Log($"Available Height: {availableSpace.Y}px");
+                Logger.Log($"Layout: {Bounds.LayoutMode}");
+                Logger.Log("");
+            }
         }
     }
     
