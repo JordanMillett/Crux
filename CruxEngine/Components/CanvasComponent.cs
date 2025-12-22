@@ -51,7 +51,7 @@ public class CanvasComponent : RenderComponent
 
     public void AfterRender()
     {        
-        Root?.Measure(new Vector2(Crux.Engine.Resolution.X, Crux.Engine.Resolution.Y));
+        Root?.Measure(Crux.Engine.Resolution.X, Crux.Engine.Resolution.Y);
         Root?.Arrange(Vector2.Zero);
 
         GL.Disable(EnableCap.DepthTest);

@@ -13,13 +13,15 @@ public enum CUIUnitType
 public struct CUIUnit 
 {
     public CUIUnitType Type { get; init; }
-    public float Value { get; init; }
-    public float Resolved { get; private set; }
+    public float Unresolved { get; init; }
+    public float Resolved { get; private set; } //Always pixels
 
-    public CUIUnit(CUIUnitType type, float value = 0, float resolved = 0)
+    public readonly float ResolvedPixels { get { return Unresolved * Crux.Engine.DpiMultiplier; } }
+
+    public CUIUnit(CUIUnitType type, float uresolved = 0, float resolved = 0)
     {
-        Value = value;
         Type = type;
+        Unresolved = uresolved;
         Resolved = resolved;
     }
 
@@ -53,6 +55,21 @@ public struct CUIUnit
         return new CUIUnit(CUIUnitType.Auto);
     }
 
+    public void Resolve(bool stretchToFill, float neededSpace = 0f, float availableSpace = 0f)
+    {
+        Resolved = Type switch 
+        {
+            CUIUnitType.Pixel => ResolvedPixels,   
+            CUIUnitType.Auto => stretchToFill ? availableSpace : neededSpace,                            
+            CUIUnitType.Percentage => availableSpace * (Unresolved / 100f),
+            CUIUnitType.ViewportWidth => Crux.Engine.Resolution.X * (Unresolved / 100f),
+            CUIUnitType.ViewportHeight => Crux.Engine.Resolution.Y * (Unresolved / 100f),
+            CUIUnitType.Em => neededSpace * ResolvedPixels,       
+            _ => 0
+        };   
+    }
+
+    /*
     public void Resolve(float availableSpace, float contentSize = 0f, float fontSize = 0f, bool fillAvailableSpace = false)
     {
         Resolved = Type switch 
@@ -66,4 +83,5 @@ public struct CUIUnit
             _ => 0
         };
     }
+    */
 }

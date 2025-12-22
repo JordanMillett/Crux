@@ -160,22 +160,21 @@ public class CUIParser
 
             cruxNode.Bounds.Width = CUIUnit.Parse(style["width"]);
             cruxNode.Bounds.Height = CUIUnit.Parse(style["height"]);
-            cruxNode.Bounds.Padding.Top = CUIUnit.Parse(style["padding-top"]);
-            cruxNode.Bounds.Padding.Right = CUIUnit.Parse(style["padding-right"]);
-            cruxNode.Bounds.Padding.Bottom = CUIUnit.Parse(style["padding-bottom"]);
-            cruxNode.Bounds.Padding.Left = CUIUnit.Parse(style["padding-left"]);
-        }
-        
-        if(cruxNode == null)
+            //cruxNode.Bounds.Padding.Top = CUIUnit.Parse(style["padding-top"]);
+            //cruxNode.Bounds.Padding.Right = CUIUnit.Parse(style["padding-right"]);
+            //cruxNode.Bounds.Padding.Bottom = CUIUnit.Parse(style["padding-bottom"]);
+            //cruxNode.Bounds.Padding.Left = CUIUnit.Parse(style["padding-left"]);
+        }else
         {
-            cruxNode = new CUIEmpty(canvas);
-            cruxNode.Identifier = "";
+            return null!;
         }
 
         foreach (INode child in angleSharpNode.ChildNodes)
         {
             //Logger.Log("ENTERING...");
             CUINode createdChild = ConvertFromAngleSharp(child, canvas);
+            if (createdChild == null)
+                continue;
             cruxNode.Children.Add(createdChild);
             createdChild.Parent = cruxNode;
             //Logger.Log("EXITING...");

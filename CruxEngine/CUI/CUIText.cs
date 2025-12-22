@@ -136,11 +136,11 @@ public class CUIText : CUINode
         return builder.ToString();
     }
 
-    public override void Measure(Vector2 availableSpace)
+    public override void Measure(float availableWidth, float availableHeight)
     {   
         Identifier = $"<p>{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}</p>";
         
-        FontSize.Resolve(16f);
+        FontSize.Resolve(false, 16f);
         RenderText = ParseBindPoints();  
 
         float cursorX = 0;
@@ -179,7 +179,7 @@ public class CUIText : CUINode
                 wordWidth += loadedFont.Characters[c].DrawAdvance * fontScale;
 
             //Word wrap if the word is too long
-            if (cursorX + wordWidth > availableSpace.X && cursorX > 0)
+            if (cursorX + wordWidth > availableWidth && cursorX > 0)
             {
                 cursorX = 0;
                 cursorY += lineHeight;
@@ -204,172 +204,13 @@ public class CUIText : CUINode
             contentWidth = Math.Max(contentWidth, cursorX); 
         }
 
-        Bounds.Width.Resolve(availableSpace.X, contentWidth, FontSize.Resolved);
-        Bounds.Height.Resolve(availableSpace.Y, contentHeight, FontSize.Resolved);
+        Bounds.Width.Resolve(false, contentWidth, availableWidth);
+        Bounds.Height.Resolve(false, contentHeight, availableHeight);
+        //Bounds.Width.Resolve(availableSpace.X, contentWidth, FontSize.Resolved);
+        //Bounds.Height.Resolve(availableSpace.Y, contentHeight, FontSize.Resolved);
 
-        Output(availableSpace);
+        Output(availableWidth, availableHeight);
     }
-
-    /*
-    public override void Measure()
-    {
-        Vector2 availableSpace = GetAvailableSpace();
-        FontSize.Resolve(16f);
-        RenderText = ParseBindPoints();  
-        Identifier = $"<p>{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}</p>";
-            
-        float cursorX = 0;
-        float cursorY = 0;
-
-        float fontScale = FontSize.Resolved / loadedFont!.FontSize;
-        float lineHeight = FontSize.Resolved;
-
-        float contentHeight = lineHeight;
-        float contentWidth = 0;
-        
-        int index = 0;
-        while (index < RenderText.Length)
-        {
-            if (RenderText[index] == '\n')
-            {
-                cursorX = 0;
-                cursorY += lineHeight;
-                contentHeight += lineHeight;
-                index++;
-                continue;
-            }
-
-            int wordStart = index;
-            while (index < RenderText.Length && RenderText[index] != ' ' && RenderText[index] != '\n')
-                index++;
-            while (index < RenderText.Length && RenderText[index] == ' ')
-                index++;
-            string word = RenderText[wordStart..index];
-            
-            float wordWidth = 0;
-            foreach (char c in word)
-                wordWidth += loadedFont.Characters[c].DrawAdvance * fontScale;
-
-            if (cursorX + wordWidth > availableSpace.X && cursorX > 0)
-            {
-                cursorX = 0;
-                cursorY += lineHeight;
-                contentHeight += lineHeight;
-            }
-
-            foreach (char c in word)
-            {
-                LettersToDraw.Add(new CUILetterDraw
-                {
-                    Character = c,
-                    Font = loadedFont.Characters[c],
-                    ResolvedFontMultiplier = fontScale,
-                    ResolvedFontSize = FontSize.Resolved,
-                    AbsolutePosition = new Vector2(Bounds.AbsolutePosition.X + cursorX, Bounds.AbsolutePosition.Y + cursorY),
-                    Hue = FontColor
-                });
-
-                cursorX += loadedFont.Characters[c].DrawAdvance * fontScale;
-            }
-
-            contentWidth = Math.Max(contentWidth, cursorX);            
-        }
-
-        //Resolve
-        Bounds.Width.Resolve(availableSpace.X, contentWidth, FontSize.Resolved);
-        Bounds.Height.Resolve(availableSpace.Y, contentHeight, FontSize.Resolved);
-
-        Output(availableSpace);
-    }
-    */
-
-    /*
-    public override void Measure()
-    {
-        Vector2 availableSpace = GetAvailableSpace();
-        //Logger.Log($"{GetType().Name} - {Children.Count}x Children - {availableSpace.X}, {availableSpace.Y}");
-        //Logger.Log($"{TextData}");
-        FontSize.Resolve(16f); //Base font size
-
-        RenderText = ParseBindPoints();  
-        Identifier = $"<p>{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}</p>";
-        Output(availableSpace);
-            
-        float cursorX = 0;
-        float cursorY = 0;
-
-        float lineHeight = FontSize.Resolved;
-        float totalContentHeight = lineHeight;
-        float totalContentWidth = 0;
-        
-        int index = 0;
-        while (index < RenderText.Length)
-        {
-            if (RenderText[index] == '\n')
-            {
-                //Logger.LogWarning("LINE BREAK BUILT IN");
-                cursorX = 0;
-                cursorY += lineHeight;
-                totalContentHeight += lineHeight;
-                index++;
-                continue;
-            }
-
-            int wordStart = index;
-            while (index < RenderText.Length && RenderText[index] != ' ' && RenderText[index] != '\n')
-                index++;
-            while (index < RenderText.Length && RenderText[index] == ' ')
-                index++;
-            int wordEnd = index;
-
-            string word = RenderText[wordStart..wordEnd];
-
-            float fontScale = FontSize.Resolved / loadedFont!.FontSize;
-            float wordWidth = 0;
-            foreach (char c in word)
-            {
-                if (c == '\n') break;
-                float charWidth = FontSize.Resolved;
-                wordWidth += loadedFont.Characters[c].DrawAdvance * fontScale;
-            }
-
-            if (cursorX + wordWidth > availableSpace.X && cursorX > 0) //THIS IS RELATED TO LINE BREAKING
-            {
-                cursorX = 0;
-                cursorY += lineHeight;
-                totalContentHeight += lineHeight;
-            }
-
-            foreach (char c in word)
-            {
-                if (c == '\n')
-                    break;
-                
-                float charWidth = FontSize.Resolved;
-
-                LettersToDraw.Add(new CUILetterDraw
-                {
-                    Character = c,
-                    Font = loadedFont.Characters[c],
-                    ResolvedFontMultiplier = fontScale,
-                    ResolvedFontSize = FontSize.Resolved,
-                    AbsolutePosition = new Vector2(Bounds.AbsolutePosition.X + cursorX, Bounds.AbsolutePosition.Y + cursorY),
-                    Hue = FontColor
-                });
-
-                cursorX += loadedFont.Characters[c].DrawAdvance * fontScale;
-            }
-
-            totalContentWidth = Math.Max(totalContentWidth, cursorX);            
-        }
-
-        //Logger.Log($"Width: {totalContentWidth} - '{TextData}'"); CONTENT WIDTH IS LOWER WHEN BLOCK IS USED?
-
-        //Resolve
-        Bounds.Width.Resolve(availableSpace.X, totalContentWidth, FontSize.Resolved);
-        Bounds.Height.Resolve(availableSpace.Y, totalContentHeight, FontSize.Resolved);
-    }
-    */
 
     public override void Render()
     {

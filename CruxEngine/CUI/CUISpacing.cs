@@ -1,5 +1,5 @@
 namespace CruxEngine.CUI;
-
+/*
 public struct CUISpacing
 {
     public CUIUnit Top;
@@ -34,3 +34,4 @@ public struct CUISpacing
     public float Horizontal => Left.Resolved + Right.Resolved;
     public float Vertical => Top.Resolved + Bottom.Resolved;
 } 
+*/
