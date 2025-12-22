@@ -20,6 +20,10 @@ public class CUIParser
         {"background-image",    ""},
         {"font-size",           "16px"},
         {"color",               "rgba(255, 255, 255, 1.0)"},
+        {"margin-top",         "0px"},
+        {"margin-right",       "0px"},
+        {"margin-bottom",      "0px"},
+        {"margin-left",        "0px"},
         {"padding-top",         "0px"},
         {"padding-right",       "0px"},
         {"padding-bottom",      "0px"},
@@ -160,10 +164,14 @@ public class CUIParser
 
             cruxNode.Bounds.Width = CUIUnit.Parse(style["width"]);
             cruxNode.Bounds.Height = CUIUnit.Parse(style["height"]);
-            //cruxNode.Bounds.Padding.Top = CUIUnit.Parse(style["padding-top"]);
-            //cruxNode.Bounds.Padding.Right = CUIUnit.Parse(style["padding-right"]);
-            //cruxNode.Bounds.Padding.Bottom = CUIUnit.Parse(style["padding-bottom"]);
-            //cruxNode.Bounds.Padding.Left = CUIUnit.Parse(style["padding-left"]);
+            cruxNode.Bounds.Margin.Top = CUIUnit.Parse(style["margin-top"]);
+            cruxNode.Bounds.Margin.Right = CUIUnit.Parse(style["margin-right"]);
+            cruxNode.Bounds.Margin.Bottom = CUIUnit.Parse(style["margin-bottom"]);
+            cruxNode.Bounds.Margin.Left = CUIUnit.Parse(style["margin-left"]);
+            cruxNode.Bounds.Padding.Top = CUIUnit.Parse(style["padding-top"]);
+            cruxNode.Bounds.Padding.Right = CUIUnit.Parse(style["padding-right"]);
+            cruxNode.Bounds.Padding.Bottom = CUIUnit.Parse(style["padding-bottom"]);
+            cruxNode.Bounds.Padding.Left = CUIUnit.Parse(style["padding-left"]);
         }else
         {
             return null!;

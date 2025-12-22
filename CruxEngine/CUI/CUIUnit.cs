@@ -25,9 +25,6 @@ public struct CUIUnit
         Resolved = resolved;
     }
 
-    //public const float DefaultFontSizePixels = 16f;
-    //public static CUIUnit DefaultFontSize => new CUIUnit(CUIUnitType.Pixel, DefaultFontSizePixels);
-
     public static CUIUnit Parse(string input)
     {
         if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
@@ -55,6 +52,7 @@ public struct CUIUnit
         return new CUIUnit(CUIUnitType.Auto);
     }
 
+    //Calculates pixel space size based on needed space, available space, and if it should fill that space
     public void Resolve(bool stretchToFill, float neededSpace = 0f, float availableSpace = 0f)
     {
         Resolved = Type switch 

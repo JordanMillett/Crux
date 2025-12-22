@@ -7,12 +7,15 @@ public struct CUIBounds
     public CUIUnit Width;
     public CUIUnit Height;
 
-    //public CUISpacing Padding;
+    public CUISpacing Margin;
+    public CUISpacing Padding;
 
     public Vector2 RelativePosition;
     public Vector2 AbsolutePosition;
 
     public CUILayoutMode LayoutMode;
+
+    public bool Fixed; //ignore all other elements
 }
 
 public enum CUILayoutMode
@@ -55,11 +58,17 @@ public abstract class CUINode
     
     public virtual void Measure(float availableWidth, float availableHeight)
     {   
-        //Bounds.Width.Resolve(availableSpace.X, 0f, 0f, Bounds.LayoutMode == CUILayoutMode.Block);
-        //Bounds.Height.Resolve(availableSpace.Y, 0f, 0f, false);
+        Bounds.Margin.Resolve(availableWidth, availableHeight);
+        //Bounds.Padding.Resolve(availableWidth, availableHeight);
+
+        //Logger.LogWarning(Bounds.Margin.Left.Resolved);
+        
         Bounds.Width.Resolve(Bounds.LayoutMode == CUILayoutMode.Block, availableWidth, availableHeight);
         Bounds.Height.Resolve(false, availableWidth, availableHeight);
-
+        /*
+        availableWidth -= Bounds.Padding.HorizontalResolved;
+        availableHeight -= Bounds.Padding.VerticalResolved;
+        */
         float neededWidth = 0f;
         float neededHeight = 0f;
 
@@ -67,32 +76,29 @@ public abstract class CUINode
         {
             child.Measure(availableWidth, availableHeight);
 
-            neededHeight += child.Bounds.Height.Resolved;
-            neededWidth = Math.Max(neededWidth, child.Bounds.Width.Resolved);
+            neededHeight += child.Bounds.Height.Resolved + child.Bounds.Margin.VerticalResolved;
+            neededWidth = Math.Max(neededWidth, child.Bounds.Width.Resolved + child.Bounds.Margin.HorizontalResolved);
         }
 
         Bounds.Width.Resolve(Bounds.LayoutMode == CUILayoutMode.Block, neededWidth, availableWidth);
         Bounds.Height.Resolve(false, neededHeight, availableHeight);
-
-        /*
-        if (Bounds.Width.Type == CUIUnitType.Auto)
-            Bounds.Width.Resolve(availableSpace.X, contentWidth, 0f, Bounds.LayoutMode == CUILayoutMode.Block);
-        if (Bounds.Height.Type == CUIUnitType.Auto)
-            Bounds.Height.Resolve(availableSpace.Y, contentHeight, 0f, false);
-        */
 
         Output(availableWidth, availableHeight);
     }
 
     public virtual void Arrange(Vector2 parentPosition)
     {
-        Bounds.AbsolutePosition = parentPosition + Bounds.RelativePosition;
+        Bounds.AbsolutePosition = parentPosition + Bounds.RelativePosition + new Vector2(Bounds.Margin.Left.Resolved, Bounds.Margin.Top.Resolved);
 
-        float cursorY = 0f;
+        float cursorX = 0;
+        float cursorY = 0;
+
+        //float cursorX = Bounds.Padding.Left.Resolved;
+        //float cursorY = Bounds.Padding.Top.Resolved;
 
         foreach (CUINode child in Children)
         {
-            child.Bounds.RelativePosition = new Vector2(0f, cursorY);
+            child.Bounds.RelativePosition = new Vector2(cursorX, cursorY);
             cursorY += child.Bounds.Height.Resolved;
             child.Arrange(Bounds.AbsolutePosition);
         }

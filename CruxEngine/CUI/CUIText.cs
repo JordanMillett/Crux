@@ -138,6 +138,8 @@ public class CUIText : CUINode
 
     public override void Measure(float availableWidth, float availableHeight)
     {   
+        Bounds.Margin.Resolve(availableWidth, availableHeight);
+
         Identifier = $"<p>{(RenderText.Length > 10 ? RenderText[..10] : RenderText)}</p>";
         
         FontSize.Resolve(false, 16f);
@@ -148,8 +150,8 @@ public class CUIText : CUINode
 
         float fontScale = FontSize.Resolved / loadedFont!.FontSize;
         float lineHeight = FontSize.Resolved;
-        float contentWidth = 0f;
-        float contentHeight = lineHeight;
+        float neededWidth = 0f;
+        float neededHeight = lineHeight;
 
         int index = 0;
         while (index < RenderText.Length)
@@ -159,7 +161,7 @@ public class CUIText : CUINode
             {
                 cursorX = 0;
                 cursorY += lineHeight;
-                contentHeight += lineHeight;
+                neededHeight += lineHeight;
                 index++;
                 continue;
             }
@@ -179,11 +181,11 @@ public class CUIText : CUINode
                 wordWidth += loadedFont.Characters[c].DrawAdvance * fontScale;
 
             //Word wrap if the word is too long
-            if (cursorX + wordWidth > availableWidth && cursorX > 0)
+            if (cursorX + wordWidth + Bounds.Margin.Left.Resolved > availableWidth && cursorX > 0)
             {
                 cursorX = 0;
                 cursorY += lineHeight;
-                contentHeight += lineHeight;
+                neededHeight += lineHeight;
             }
 
             foreach (char c in word)
@@ -201,13 +203,11 @@ public class CUIText : CUINode
                 cursorX += loadedFont.Characters[c].DrawAdvance * fontScale;
             }
 
-            contentWidth = Math.Max(contentWidth, cursorX); 
+            neededWidth = Math.Max(neededWidth, cursorX); 
         }
 
-        Bounds.Width.Resolve(false, contentWidth, availableWidth);
-        Bounds.Height.Resolve(false, contentHeight, availableHeight);
-        //Bounds.Width.Resolve(availableSpace.X, contentWidth, FontSize.Resolved);
-        //Bounds.Height.Resolve(availableSpace.Y, contentHeight, FontSize.Resolved);
+        Bounds.Width.Resolve(false, neededWidth, availableWidth);
+        Bounds.Height.Resolve(false, neededHeight, availableHeight);
 
         Output(availableWidth, availableHeight);
     }

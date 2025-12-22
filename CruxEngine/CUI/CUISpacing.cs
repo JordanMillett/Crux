@@ -1,5 +1,5 @@
 namespace CruxEngine.CUI;
-/*
+
 public struct CUISpacing
 {
     public CUIUnit Top;
@@ -23,15 +23,14 @@ public struct CUISpacing
         Left = left;
     }
 
-    public void Resolve(float parentWidth, float parentHeight)
+    public void Resolve(float availableWidth, float availableHeight)
     {
-        Top.Resolve(parentHeight);
-        Right.Resolve(parentWidth);
-        Bottom.Resolve(parentHeight);
-        Left.Resolve(parentWidth);
+        Top.Resolve(false, 0, availableHeight);
+        Right.Resolve(false, 0, availableWidth);
+        Bottom.Resolve(false, 0, availableHeight);
+        Left.Resolve(false, 0, availableWidth);
     }
 
-    public float Horizontal => Left.Resolved + Right.Resolved;
-    public float Vertical => Top.Resolved + Bottom.Resolved;
+    public readonly float HorizontalResolved => Left.Resolved + Right.Resolved;
+    public readonly float VerticalResolved => Top.Resolved + Bottom.Resolved;
 } 
-*/
