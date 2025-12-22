@@ -13,7 +13,7 @@ public enum CUIUnitType
 public struct CUIUnit 
 {
     public CUIUnitType Type { get; init; }
-    public float Unresolved { get; init; }
+    public float Unresolved { get; set; }
     public float Resolved { get; private set; } //Always pixels
 
     public readonly float ResolvedPixels { get { return Unresolved * Crux.Engine.DpiMultiplier; } }

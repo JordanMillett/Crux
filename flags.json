@@ -7,5 +7,5 @@
     "LogOctreeRemovals": false,
     "LogFreedMemory": true,
     "EnableProfiler": true,
-    "OutputCUINodes": true
+    "OutputCUINodes": false
 }
