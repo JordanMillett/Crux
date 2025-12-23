@@ -5,7 +5,7 @@
     "AddCollidersWhenLoadingGltfAsMeshRenderers": false,
     "LogCreated": false,
     "LogOctreeRemovals": false,
-    "LogFreedMemory": true,
+    "LogFreedMemory": false,
     "EnableProfiler": true,
     "OutputCUINodes": false
 }

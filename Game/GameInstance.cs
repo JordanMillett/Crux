@@ -6,6 +6,8 @@ namespace Game;
 public class GameInstance
 {  
     Scene ActiveScene = null!;
+
+    public int Score = 0;
     
     public void Start()
     {
