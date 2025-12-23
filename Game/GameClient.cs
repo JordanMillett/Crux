@@ -3,22 +3,33 @@ using Game.Assets.Scenes;
 
 namespace Game;
 
-public class GameInstance
+public static class Game
+{
+    public static GameClient Client { get; internal set; } = null!;
+    public static Scene ActiveScene => Client.ActiveScene!;
+}
+
+public class GameClient
 {  
-    Scene ActiveScene = null!;
+    public Scene ActiveScene { get; internal set; } = null!;
 
     public int Score = 0;
     
+    public GameClient()
+    {
+        Game.Client = this;
+    }
+
     public void Start()
     {
-        Logger.Log("Game Loading...", LogSource.System);
+        Logger.Log("Game Client Loading...", LogSource.System);
         Crux.Engine.OnEngineUpdateCallback += Update;
         
         //ActiveScene = Crux.Engine.SetScene(new IslandScene());   
         //ActiveScene = Crux.Engine.SetScene(new DebugScene());  
         ActiveScene = Crux.Engine.SetScene(new GameScene()); 
 
-        Logger.Log("Game Started!", LogSource.System);
+        Logger.Log("Game Client Started!", LogSource.System);
     }
             
     public void Update()

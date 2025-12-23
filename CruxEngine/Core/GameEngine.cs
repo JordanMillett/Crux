@@ -202,7 +202,7 @@ public class GameEngine : GameWindow
     {
         base.OnUnload();
         
-        Logger.Log("Game Stopped.", LogSource.System);
+        Logger.Log("Game Client Stopped.", LogSource.System);
         Logger.Log("Engine Stopped.", LogSource.System);
 
         Logger.WritePendingLogsToFile();
