@@ -8,7 +8,7 @@ public class IslandScene : Scene
 {
     TransformComponent? CenterPoint;
 
-    public override void Start()
+    protected override void OnStart()
     {
         AssetHandler.GameAssetPath = "CruxEngine/Assets";
 
@@ -30,7 +30,7 @@ public class IslandScene : Scene
         Crux.Canvas = Crux.Engine.SetupDebugCanvas();
     }
 
-    public override void Update()
+    protected override void OnUpdate()
     {
         CenterPoint!.Transform.WorldRotation *= Quaternion.FromEulerAngles(0f, Crux.Engine.deltaTime * 0.5f, 0f);
     }

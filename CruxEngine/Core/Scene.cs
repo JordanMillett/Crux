@@ -115,6 +115,8 @@ public abstract class Scene
     
     public Scene()
     {
+
+
         //string materialPath = "CruxEngine/Assets/Materials/Skybox.json";
         Skybox = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Skybox, false);
 
@@ -133,8 +135,20 @@ public abstract class Scene
         Recalculate();
     }
 
-    public abstract void Start();
-    public abstract void Update();
+    public void Start()
+    {
+        OnStart();
+    }
+
+    protected virtual void OnStart() {}
+
+    public void Update()
+    {
+        OnUpdate(); //Update Scene Logic
+        OnSceneUpdateCallback?.Invoke(); //Update GameObject Logic
+    }
+
+    protected virtual void OnUpdate() {}
     
     public void RenderSkybox()
     {

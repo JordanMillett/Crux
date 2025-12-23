@@ -1,4 +1,8 @@
-﻿using OpenTK.Windowing.Common;
+﻿global using OpenTK.Mathematics;
+global using System.Text;
+global using CruxEngine.Core;
+
+using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -9,9 +13,15 @@ using CruxEngine.Utilities.IO;
 using CruxEngine.Utilities;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
-using CruxEngine.Assets.Scenes;
 
 namespace CruxEngine.Core;
+
+public static class Crux
+{
+    public static GameEngine Engine { get; internal set; } = null!;
+    public static CruxEngine.Components.CameraComponent Camera => Engine.Camera!;
+    public static CruxEngine.Components.CanvasComponent? Canvas = null!;
+}
 
 public class GameEngine : GameWindow
 {
@@ -313,6 +323,14 @@ public class GameEngine : GameWindow
 
         SwapBuffers();
     }
+
+    /*
+        if (Input.IsActionPressed("restart scene"))
+        {
+            ActiveScene = Crux.Engine.SetScene(new GameScene());
+            return;
+        }
+        */
 
     public Scene SetScene(Scene Selected) //add proper unloading and reloading instead of deleting?
     {

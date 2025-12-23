@@ -30,7 +30,7 @@ class GameLauncher
             
             engine.OnEngineReadyCallback = () =>
             {
-                GameClient client = new GameClient();
+                MyGame client = new MyGame();
                 client.Start();
             };
             

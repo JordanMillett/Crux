@@ -7,7 +7,7 @@ namespace CruxEngine.Assets.Scenes;
 
 public class DebugScene : Scene
 {
-    public override void Start()
+    protected override void OnStart()
     {
         //Skybox
         Fog = Color4.Black;
@@ -82,7 +82,7 @@ public class DebugScene : Scene
         Crux.Canvas = Crux.Engine.SetupDebugCanvas();
     }
 
-    public override void Update()
+    protected override void OnUpdate()
     {
         if(Input.IsActionHeld("Spawn Cube"))
         {
