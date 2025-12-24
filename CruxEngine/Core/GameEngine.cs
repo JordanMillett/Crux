@@ -25,7 +25,8 @@ public static class Crux
 
 public class GameEngine : GameWindow
 {
-    private Scene? ActiveScene = null;
+    private Scene? activeScene = null;
+    public Scene ActiveScene { get => activeScene!; private set => activeScene = value; }
 
     public event Action? OnEngineUpdateCallback;
     public Action? OnEngineReadyCallback;
@@ -332,7 +333,7 @@ public class GameEngine : GameWindow
         }
         */
 
-    public Scene SetScene(Scene Selected) //add proper unloading and reloading instead of deleting?
+    public void SetScene(Scene Selected) //add proper unloading and reloading instead of deleting?
     {
         if(Debug.FlagEnabled("MeasureSceneTransitionTime"))
             Logger.StartTimer("Scene Transition Time");
@@ -357,8 +358,6 @@ public class GameEngine : GameWindow
 
         if(Debug.FlagEnabled("OutputKeyBindings")) 
             Input.OutputKeyBindings();
-
-        return Selected;
     }
 
     void TakeScreenshot()
