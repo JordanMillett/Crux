@@ -28,7 +28,7 @@ class GameLauncher
             engine.Icon = AssetHandler.LoadIcon();
             engine.ClientSize = new OpenTK.Mathematics.Vector2i(1280, 720);
             
-            engine.OnEngineReadyCallback = () =>
+            engine.EngineReadyEvent = () =>
             {
                 MyGame client = new MyGame();
                 client.Start();

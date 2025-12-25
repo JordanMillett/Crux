@@ -52,9 +52,9 @@ public class GameObject
         Owner = owner;
 
         if(Owner == null) //gameobjects like the camera will update always, scenes can be unloaded and paused
-            Crux.Engine.OnEngineUpdateCallback += Update;
+            Crux.Engine.EngineUpdateEvent += Update;
         else
-            Owner.OnSceneUpdateCallback += Update;
+            Owner.SceneUpdateEvent += Update;
     }
     
     // ========== Public Instance Methods ==========
@@ -96,7 +96,7 @@ public class GameObject
             return;
         }
 
-        Owner.OnSceneUpdateCallback -= Update;
+        Owner.SceneUpdateEvent -= Update;
     }
 
     /// <summary>

@@ -26,27 +26,26 @@ public static class Crux
 
 public class GameEngine : GameWindow
 {
-    private Scene? activeScene = null;
     public Scene ActiveScene { get => activeScene!; private set => activeScene = value; }
 
-    public event Action? OnEngineUpdateCallback;
-    public Action? OnEngineReadyCallback;
+    public Action? EngineUpdateEvent;
+    public Action? EngineReadyEvent;
 
-    public float deltaTime = 0f;
-    public float totalTime = 0f;
+    public float deltaTime { get; private set; } = 0f; 
+    public float totalTime { get; private set; } = 0f;
+    public float fixedTotalTime { get; private set; } = 0f;
+    public float fixedDeltaTime { get; init; } = 1f / 60f;
 
-    public float fixedTotalTime = 0f;
+    private int physicsFrameCalls = 0;
+    private Timer? physicsTimer;
 
-    public float fixedDeltaTime = 1f / 60f;
+    private float frameTimer = 0f;
+    private int frameCount = 0;
 
-    int physicsFrameCalls = 0;
-    Timer? physicsTimer;
+    private Scene? activeScene = null;
 
-    float frameTimer = 0f;
-    int frameCount = 0;
-
-    public Vector2i Resolution = new Vector2i(1280, 720);
-    public float DpiMultiplier = 1.0f;
+    public Vector2i Resolution { get; private set; } = new Vector2i(1280, 720);
+    public float DpiMultiplier { get; private set; } = 1.0f;
 
     internal CameraComponent? Camera;
     internal CanvasComponent? Canvas;
@@ -205,7 +204,7 @@ public class GameEngine : GameWindow
         cam.AddComponent<CameraComponent>();
         
         //Scene Begin
-        OnEngineReadyCallback?.Invoke();
+        EngineReadyEvent?.Invoke();
         
         //Physics Begin
         physicsTimer = new Timer(OnPhysicsUpdate, null, 0, (int)(fixedDeltaTime * 1000));
@@ -263,7 +262,7 @@ public class GameEngine : GameWindow
         if (MouseState.IsButtonDown(MouseButton.Left))
             CursorState = CursorState.Grabbed;
         
-        OnEngineUpdateCallback?.Invoke();
+        EngineUpdateEvent?.Invoke();
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)

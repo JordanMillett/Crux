@@ -20,8 +20,6 @@ public class MyGame : GameClient
     
     protected override void OnStart()
     {
-        //ActiveScene = Crux.Engine.SetScene(new IslandScene());   
-        //ActiveScene = Crux.Engine.SetScene(new DebugScene());  
         Crux.Engine.SetScene(new GameScene()); 
     }
             

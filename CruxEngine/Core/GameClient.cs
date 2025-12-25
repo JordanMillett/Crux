@@ -7,7 +7,7 @@ public abstract class GameClient
     public void Start()
     {
         Logger.Log("Game Client Loading...", LogSource.System);
-        Crux.Engine.OnEngineUpdateCallback += Update;
+        Crux.Engine.EngineUpdateEvent += Update;
 
         OnStart();
 
