@@ -6,11 +6,12 @@
         {
           "src": "../",
           "files": [
-            "/Crux/Crux.csproj"
+            "/CruxEngine/CruxEngine.csproj"
           ]
         }
       ],
-      "dest": "api"
+      "dest": "api",
+      "includePrivateMembers": true
     }
   ],
   "build": {

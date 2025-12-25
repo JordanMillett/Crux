@@ -50,7 +50,7 @@ public class PlayerController : Component
     
     public void Look()
     {
-        TransformComponent cam = Crux.Engine.Camera!.Transform;
+        TransformComponent cam = Crux.Camera!.Transform;
 
         float sensitivity = 0.1f;
         Vector2 LookInput = new Vector2(Crux.Engine.MouseState.Delta.X, Crux.Engine.MouseState.Delta.Y);

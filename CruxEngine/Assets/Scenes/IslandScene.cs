@@ -17,17 +17,17 @@ public class IslandScene : Scene
         float intensity = 1.25f;
         Hue = new Color4(intensity, intensity, intensity, 1f);
 
-        Crux.Engine.Camera!.Transform.WorldPosition = new Vector3(0, 5f, 15f);
-        Crux.Engine.Camera.Transform.LocalEulerAngles = new Vector3(-25f, 180f, 0f);
+        Crux.Camera!.Transform.WorldPosition = new Vector3(0, 5f, 15f);
+        Crux.Camera.Transform.LocalEulerAngles = new Vector3(-25f, 180f, 0f);
 
         CenterPoint = Crux.Engine.InstantiateGameObject().Transform;
         
-        Crux.Engine.Camera.Transform.Parent = CenterPoint;
+        Crux.Camera.Transform.Parent = CenterPoint;
 
         //Dictionary<string, GameObject> Map = GltfHandler.LoadGltfAsMeshRenderers("CruxEngine/Assets/Models/Examples/Island.gltf")!;
         GltfHandler.LoadGltfAsMeshRenderers("CruxEngine/Assets/Models/Examples/Island.gltf");
         
-        Crux.Canvas = Crux.Engine.SetupDebugCanvas();
+        Crux.Engine.SetupDebugCanvas();
     }
 
     protected override void OnUpdate()

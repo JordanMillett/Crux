@@ -19,8 +19,9 @@ namespace CruxEngine.Core;
 public static class Crux
 {
     public static GameEngine Engine { get; internal set; } = null!;
-    public static CruxEngine.Components.CameraComponent Camera => Engine.Camera!;
-    public static CruxEngine.Components.CanvasComponent? Canvas = null!;
+    internal static GameEngine Hidden { get; set; } = null!;
+    public static CameraComponent Camera {get => Engine.Camera!; internal set => Engine.Camera = value;}
+    public static CanvasComponent Canvas {get => Engine.Canvas!; internal set => Engine.Canvas = value;}
 }
 
 public class GameEngine : GameWindow
@@ -47,7 +48,8 @@ public class GameEngine : GameWindow
     public Vector2i Resolution = new Vector2i(1280, 720);
     public float DpiMultiplier = 1.0f;
 
-    public CameraComponent? Camera;
+    internal CameraComponent? Camera;
+    internal CanvasComponent? Canvas;
 
     public List<Vector3> DebugDisplayPositions = new List<Vector3>();
 
@@ -333,6 +335,16 @@ public class GameEngine : GameWindow
         }
         */
 
+    public void SetCamera(CameraComponent camera)
+    {
+        Camera = camera;
+    }
+
+    public void SetCanvas(CanvasComponent canvas)
+    {
+        Canvas = canvas;
+    }
+
     public void SetScene(Scene Selected) //add proper unloading and reloading instead of deleting?
     {
         if(Debug.FlagEnabled("MeasureSceneTransitionTime"))
@@ -393,7 +405,7 @@ public class GameEngine : GameWindow
         Logger.Log($"Screenshot taken '{filePath}'", LogSource.System);
     }
 
-    public CanvasComponent SetupDebugCanvas()
+    public void SetupDebugCanvas()
     {
         CanvasComponent Canvas = InstantiateGameObject("Canvas").AddComponent<CanvasComponent>()!;
         Canvas.ParseMarkup("CruxEngine/Assets/CUI/debug.html");
@@ -413,7 +425,7 @@ public class GameEngine : GameWindow
         Canvas.BindPoints.Add("App", () => GameEngine.GetApplicationInformation());
         Canvas.BindPoints.Add("Game", () => GameEngine.GetGameShortName());
         Canvas.BindPoints.Add("Engine", () => GameEngine.GetEngineShortName());
-
-        return Canvas;
+        
+        SetCanvas(Canvas);
     }
 }

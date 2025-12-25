@@ -14,7 +14,7 @@ public class DebugScene : Scene
         Skybox.SetUniform("topColor", Color4.Black);
         Skybox.SetUniform("bottomColor", Color4.Black);
 
-        Crux.Engine.Camera?.GameObject.AddComponent<FreeLookComponent>();
+        Crux.Camera?.GameObject.AddComponent<FreeLookComponent>();
         string debugTexture = "CruxEngine/Assets/Textures/Required/Debug.jpg";
 
         GameObject selected;
@@ -73,13 +73,13 @@ public class DebugScene : Scene
         selected.AddComponent<MovementComponent>();
         selected.AddComponent<MeshBoundsColliderComponent>();
     
-        Crux.Engine.Camera!.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
-        Crux.Engine.Camera.GetComponent<FreeLookComponent>().yaw = MathHelper.DegreesToRadians(180f);
+        Crux.Camera!.Transform.WorldPosition = new Vector3(5, 0.5f, 7);
+        Crux.Camera.GetComponent<FreeLookComponent>().yaw = MathHelper.DegreesToRadians(180f);
 
         Input.CreateAction("Spawn Cube", Keys.Q);
         Input.CreateAction("Cast Ray", Keys.E);
 
-        Crux.Canvas = Crux.Engine.SetupDebugCanvas();
+        Crux.Engine.SetupDebugCanvas();
     }
 
     protected override void OnUpdate()
@@ -89,12 +89,12 @@ public class DebugScene : Scene
             string debugTexture = "CruxEngine/Assets/Textures/Required/Debug.jpg";
 
             GameObject selected = Presets.MakePhysicsPrimitive(Primitives.Cube, debugTexture);
-            selected.Transform.WorldPosition = Crux.Engine.Camera!.Transform.WorldPosition + (Crux.Engine.Camera.Transform.Forward * 3f);
+            selected.Transform.WorldPosition = Crux.Camera!.Transform.WorldPosition + (Crux.Camera.Transform.Forward * 3f);
         }
 
         if(Input.IsActionHeld("Cast Ray"))
         {
-            Ray ray = new Ray(Crux.Engine.Camera!.Transform.WorldPosition, Crux.Engine.Camera.Transform.Forward);
+            Ray ray = new Ray(Crux.Camera!.Transform.WorldPosition, Crux.Camera.Transform.Forward);
             if(PhysicsSystem.Raycast(ray, out RayHit hit))
             {
                 Logger.LogWarning(hit.Collider.GameObject.Name);

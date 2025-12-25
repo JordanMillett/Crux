@@ -185,7 +185,7 @@ public class Octree
     {
         if(!forceCull)
         {
-            node.Culled = Crux.Engine.Camera!.OutsideOfFrustrum(node.Min, node.Max);
+            node.Culled = Crux.Camera!.OutsideOfFrustrum(node.Min, node.Max);
         }else
         {
             node.Culled = true;

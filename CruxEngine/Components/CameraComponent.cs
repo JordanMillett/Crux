@@ -34,7 +34,7 @@ public class CameraComponent : Component
 
     public CameraComponent(GameObject gameObject) : base(gameObject)
     {
-        Crux.Engine.Camera = this;
+        Crux.Engine.SetCamera(this);
         
         // Create a UBO
         UBO = GL.GenBuffer();

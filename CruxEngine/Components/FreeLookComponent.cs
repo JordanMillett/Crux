@@ -48,7 +48,7 @@ public class FreeLookComponent : Component
     
     public void Look()
     {
-        TransformComponent transform = Crux.Engine.Camera!.Transform;
+        TransformComponent transform = Crux.Camera!.Transform;
         float sensitivity = 0.1f;
 
         Vector2 LookInput = new Vector2(Crux.Engine.MouseState.Delta.X, Crux.Engine.MouseState.Delta.Y);
@@ -73,7 +73,7 @@ public class FreeLookComponent : Component
     
     void Move()
     {
-        TransformComponent transform = Crux.Engine.Camera!.Transform;
+        TransformComponent transform = Crux.Camera!.Transform;
         Vector3 pos = Vector3.Zero;
         Vector3 forward = transform.Forward;
         Vector3 right = -transform.Right;
