@@ -14,7 +14,7 @@ public abstract class Scene
 
     private readonly MeshBuffer skyboxBuffer;
 
-    public Action? SceneUpdateEvent;
+    public event Action? SceneUpdateEvent;
     public List<GameObject> Instantiated = new List<GameObject>();
 
     //Not implemented

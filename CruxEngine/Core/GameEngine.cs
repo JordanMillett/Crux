@@ -26,35 +26,31 @@ public static class Crux
 
 public class GameEngine : GameWindow
 {
+    public static readonly VersionData Version = new(0, 0, 2);
+    public static int BuildNumber = 0;
+
+    public event Action? EngineUpdateEvent;
+    public event Action? EngineReadyEvent;
+
+    public List<Vector3> DebugDisplayPositions = new List<Vector3>();
+    public Vector2i Resolution { get; private set; } = new Vector2i(1280, 720);
     public Scene ActiveScene { get => activeScene!; private set => activeScene = value; }
-
-    public Action? EngineUpdateEvent;
-    public Action? EngineReadyEvent;
-
+    
+    public float DpiMultiplier { get; private set; } = 1.0f;
     public float deltaTime { get; private set; } = 0f; 
     public float totalTime { get; private set; } = 0f;
     public float fixedTotalTime { get; private set; } = 0f;
     public float fixedDeltaTime { get; init; } = 1f / 60f;
 
-    private int physicsFrameCalls = 0;
-    private Timer? physicsTimer;
-
-    private float frameTimer = 0f;
-    private int frameCount = 0;
-
-    private Scene? activeScene = null;
-
-    public Vector2i Resolution { get; private set; } = new Vector2i(1280, 720);
-    public float DpiMultiplier { get; private set; } = 1.0f;
-
     internal CameraComponent? Camera;
     internal CanvasComponent? Canvas;
 
-    public List<Vector3> DebugDisplayPositions = new List<Vector3>();
+    private Timer? physicsTimer;
+    private Scene? activeScene = null;
 
-    public static readonly VersionData Version = new(0, 0, 2);
-
-    public static int BuildNumber = 0;
+    private int physicsFrameCalls = 0;
+    private int frameCount = 0;
+    private float frameTimer = 0f;
     
     public GameEngine(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
         : base(gameWindowSettings, nativeWindowSettings)
