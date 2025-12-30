@@ -36,6 +36,14 @@ public static class Presets
         return target;
     }
 
+    public static GameObject MakePhysicsObject(string model, string texture)
+    {
+        GameObject target = MakeObject(model, texture);
+        target.AddComponent<MeshBoundsColliderComponent>();
+        target.AddComponent<PhysicsComponent>();
+        return target;
+    }
+
     public static GameObject MakeObject(string model, string texture)
     {
         string textureName = Path.GetFileNameWithoutExtension(texture);

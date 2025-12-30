@@ -40,7 +40,7 @@ public static class GltfHandler
     public static Dictionary<string, GameObject>? LoadGltfAsMeshRenderers(string path)
     {
         if(!AssetHandler.AssetExists(path))
-            return null;
+            return new Dictionary<string, GameObject>();
 
         Dictionary<string, GameObject> All = new();
         using (StreamReader reader = new StreamReader(AssetHandler.GetStream(path)))

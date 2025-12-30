@@ -1,3 +1,376 @@
+using CruxEngine.Graphics;
+using CruxEngine.Utilities.IO;
+using CruxEngine.Components;
+using Game.Logic;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using CruxEngine.Utilities.Helpers;
+using CruxEngine.Physics;
+using CruxEngine.CUI;
+
+namespace Game.Assets.Scenes;
+
+public class GameScene : Scene
+{
+    public GameObject? Player;
+
+    protected override void OnStart()
+    {
+        Ambient = ColorHelper.HexToColor4("494b61");
+        Crux.Camera.FarPlane = 600f;
+        FadeStart = 400f;
+        FadeEnd = 600f;
+        FogEnd = 400f;
+
+        Player = Presets.MakePhysicsPrimitive(Primitives.Cylinder, "");
+        Player.Transform.Scale = new Vector3(.75f, 1.8f, 0.75f);
+        Player.Transform.WorldPosition = new Vector3(0f, 5f, 3f);
+        Player.GetComponent<PhysicsComponent>()!.DisableRotation = true;
+        Crux.Camera.Transform.Parent = Player.Transform;
+        Crux.Camera.Transform.LocalPosition = new Vector3(0f, 0.75f, 0f);
+        Player.GetComponent<MeshRenderComponent>()!.Hide();
+
+        Player.AddComponent<PlayerController>();
+
+        Dictionary<string, GameObject> Map = GltfHandler.LoadGltfAsMeshRenderers("Game/Assets/Models/Map.gltf")!;
+        foreach(string key in Map.Keys)
+        {
+            Map[key].AddComponent<MeshBoundsColliderComponent>()!.ColliderIndex = 0;
+            Map[key].GetComponent<ColliderComponent>()!.ComputeBounds();
+            Map[key].GetComponent<MeshRenderComponent>()!.GameObject.Freeze();
+        }
+
+        Input.CreateAction("Spawn Cube", Keys.Q);
+        Input.CreateAction("Cast Ray", Keys.E);  
+
+        Input.CreateAction("Decrease", Keys.LeftBracket);    
+        Input.CreateAction("Increase", Keys.RightBracket);      
+        
+        //CANVAS CRASHING
+        Crux.Engine.SetCanvas(Crux.Engine.InstantiateGameObject("Canvas").AddComponent<CanvasComponent>()!);
+        Crux.Canvas.ParseMarkup("Game/Assets/CUI/main.html");
+        Crux.Canvas.BindPoints.Add("FPS", () => GraphicsCache.FramesPerSecond.ToString("F2"));
+        Crux.Canvas.BindPoints.Add("Info", () => Info);
+        Crux.Canvas.BindPoints.Add("Crosshair", () => Crosshair);
+        
+        //change
+        //Game.Current.Update();
+    }
+
+    public string Crosshair = "+";
+
+    public CUIUnit FontSize = new CUIUnit(CUIUnitType.Pixel, 16, 16);
+
+    public string Info = "";
+
+    protected override void OnUpdate()
+    {  
+        Ray ray = new Ray(Crux.Camera.Transform.WorldPosition, Crux.Camera.Transform.Forward, 3f);
+        if(PhysicsSystem.Raycast(ray, out RayHit hit))
+        {
+            Crosshair = "o";
+            
+            if(Crux.Engine.IsMouseButtonPressed(MouseButton.Left))
+            {
+                
+                hit.Collider.GameObject.GetComponent<PhysicsComponent>()?.AddForce(Crux.Camera.Transform.Forward * 10f, true);
+            }
+        }else
+        {
+            Crosshair = "+";
+        }
+
+        if(Input.IsActionPressed("Decrease"))
+        {
+            if (Crux.Canvas!.NodesRefs.TryGetValue("selected", out CUINode node))
+            {
+                FontSize.Unresolved--;
+                ((CUIText)node).FontSize = FontSize;
+            }
+        }
+        if(Input.IsActionPressed("Increase"))
+        {
+            if (Crux.Canvas!.NodesRefs.TryGetValue("selected", out CUINode node))
+            {
+                FontSize.Unresolved++;
+                ((CUIText)node).FontSize = FontSize;
+            }
+        }
+
+        if(Input.IsActionPressed("Spawn Cube"))
+        {
+            string debugTexture = "CruxEngine/Assets/Textures/Required/Debug.jpg";
+
+            GameObject selected = Presets.MakePhysicsPrimitive(Primitives.Cube, debugTexture);
+            selected.Transform.WorldPosition = Crux.Camera!.Transform.WorldPosition + (Crux.Camera.Transform.Forward * 3f);
+
+            selected.AddComponent<Enemy>();
+        }
+
+        if(Input.IsActionPressed("Cast Ray"))
+        {
+            /*
+            Ray ray = new Ray(Crux.Camera.Transform.WorldPosition, Crux.Camera.Transform.Forward);
+            if(PhysicsSystem.Raycast(ray, out RayHit hit))
+            {
+                hit.Collider.GameObject.Delete();
+            }
+            */
+
+            /*
+            Ray ray = new Ray(Crux.Camera.Transform.WorldPosition, Crux.Camera.Transform.Forward);
+            if(PhysicsSystem.Raycast(ray, out RayHit hit))
+            {
+                Info = hit.Collider.GameObject.Name;
+                
+                if (Crux.Canvas!.NodesRefs.TryGetValue("selected", out CUINode node))
+                    ((CUIText)node).FontColor = Color4.Green;
+            }else
+            {
+                Info = "None";
+                
+                if (Crux.Canvas!.NodesRefs.TryGetValue("selected", out CUINode node))
+                    ((CUIText)node).FontColor = Color4.Red;
+            }
+            */
+        }
+    }
+}
+
+
+/*
+global using OpenTK.Mathematics;
+global using System.Text;
+global using Crux.Core;
+
+using Crux.Graphics;
+using Crux.Utilities.IO;
+using Crux.Components;
+using Demo.Logic;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using Crux.Utilities.Helpers;
+using Crux.Physics;
+
+namespace Demo.Assets.Scenes;
+
+public class GameScene : Scene
+{
+    public static GameObject Player = null!;
+    Random Rand = new Random();
+
+    public override void Start()
+    {
+        bool Debugging = true;
+
+        //Scene Lighting
+        if(!Debugging)
+        {
+            Engine.Camera.FarPlane = 50f;
+            FadeStart = 40f;
+            FadeEnd = 50f;
+            FogStart = 5f;
+            FogEnd = 40f;
+            Fog = ColorHelper.HexToColor4("2F303E");
+            Skybox.SetUniform("topColor", ColorHelper.HexToColor4("131627"));
+            Skybox.SetUniform("bottomColor", ColorHelper.HexToColor4("4E4C57"));
+            Ambient = ColorHelper.HexToColor4("2b2c38");
+            Hue = ColorHelper.HexToColor4("6c6780");
+        }else
+        {
+            float clip = 1000f;
+
+            Engine.Camera.FarPlane = clip;
+            FadeStart = clip;
+            FadeEnd = clip;
+            FogStart = clip;
+            FogEnd = clip;
+        }
+
+        //Player
+        MainCamera.GameObject.AddComponent<FreeLookComponent>();
+
+
+        Player = Presets.MakePhysicsPrimitive(Primitives.Cylinder, "Demo/Assets/Textures/Bricks_1.jpg");
+        Player.Transform.Scale = new Vector3(.75f, 1.8f, 0.75f);
+        Player.Transform.WorldPosition = new Vector3(0f, 5f, 1.5f);
+        //Player.GetComponent<ColliderComponent>().ShowColliders = true;
+        Player.GetComponent<PhysicsComponent>().DisableRotation = true;
+
+        GameObject T = Presets.MakePrimitive(Primitives.Sphere, "Demo/Assets/Textures/Bricks_1.jpg");
+        T.Transform.WorldPosition = new Vector3(0f, 2f, 0f);
+        MainCamera.Transform.Parent = Player.Transform;
+        MainCamera.Transform.LocalPosition = new Vector3(0f, 0.75f, 0f);
+        //Player.AddComponent<PlayerController>();
+        Player.GetComponent<MeshRenderComponent>().Hidden = true;
+
+        
+        try 
+        {
+            T.GetComponent<PhysicsComponent>().DisableRotation = true; 
+        }catch (Exception ex)
+        {
+            Logger.LogError(ex);
+        }
+        
+
+        //Map
+
+        GameObject Ground = GltfHandler.LoadGltfAsMeshRenderer("Demo/Assets/Models/Ground.gltf");
+        Ground.AddComponent<ColliderComponent>();
+        Mesh Forest = Ground.GetComponent<MeshComponent>().data.Submeshes[2];
+
+        
+        Mesh Forest = Presets.MakeColliderObject("Demo/Assets/Models/Ground.obj", new List<string>()
+        {
+            "Demo/Assets/Textures/Dirt_2.jpg", 
+            "Demo/Assets/Textures/Dirt_1.jpg",
+            "Demo/Assets/Textures/Grass_1.jpg", 
+            "Demo/Assets/Textures/Road_1.jpg"
+        }
+        ).GetComponent<MeshComponent>().data.Submeshes[0];
+        
+
+        //MakeCreature(new Vector3(5f, 1f, 5f), "Demo/Assets/Textures/Clown_1.png");
+        //MakeCreature(new Vector3(6f, 1f, 5f), "Demo/Assets/Textures/Clown_2.png");
+        //MakeCreature(new Vector3(7f, 1f, 5f), "Demo/Assets/Textures/Zombie_1.png");
+        //MakeCreature(new Vector3(8f, 1f, 5f), "Demo/Assets/Textures/Vampire_1.png");
+        
+        //Presets.MakePhysicsPrimitive(Primitives.Cylinder, "Demo/Assets/Textures/Stone_1.jpg").Transform.WorldPosition = new Vector3(5f, 2f, 2f);
+
+        //Console.WriteLine(GraphicsCache.GetFullInfo());
+        
+        List<string> textures = new List<string>
+        {
+            "Demo/Assets/Textures/Bark_1.jpg",
+            "Demo/Assets/Textures/Tree_1.png"
+        };
+        Logger.Log("Spawning trees");
+        for(int i = 0; i < (Debugging ? 5000 : 20000); i++)
+        {
+            GameObject tree = GameEngine.Link.InstantiateGameObject();
+            tree.AddComponent<MeshComponent>().Load("Demo/Assets/Models/Tree.obj");
+            tree.Transform.WorldPosition = Forest.GetRandomPositionOnMesh(Rand);
+            tree.Transform.WorldEulerAngles = new Vector3(0f, (float) Rand.NextDouble() * 360f, 0f);
+            tree.AddComponent<InstancedMeshRenderComponent>();
+            tree.AddComponent<ColliderComponent>().ColliderIndex = 0;
+            tree.GetComponent<ColliderComponent>().ComputeBounds();
+
+            List<Shader> Mats = new List<Shader>();
+            Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Lit, textures[0]));
+            Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Lit, textures[1]));
+            tree.GetComponent<InstancedMeshRenderComponent>().SetMaterials(Mats);
+            tree.GetComponent<InstancedMeshRenderComponent>().RegisterAsStationary();
+            //tree.GetComponent<ColliderComponent>().ShowColliders = true;
+        }
+        Logger.Log("Trees spawned");
+
+        Logger.Log(GraphicsCache.GetFullInfo());
+        
+        
+        GameObject Test = GltfHandler.LoadGltfAsEmpty("Demo/Assets/Models/Buildings/House_2.gltf");
+        Test.AddComponent<MeshComponent>().Load("Demo/Assets/Models/Buildings/House_2.gltf");
+        Test.Transform.WorldPosition = Vector3.Zero;
+        //Test.AddComponent<MeshRenderComponent>();
+
+        foreach (Material mat in Test.GetComponent<MeshRenderComponent>().Materials)
+        {
+            Console.WriteLine(mat.ColorTexturePath);
+        }
+        
+
+        
+        
+        Dictionary<string, GameObject> Points = GltfHandler.LoadGltfAsEmpties("Demo/Assets/Models/Points.gltf");
+        Mesh reference = GltfHandler.LoadGltfAsMeshWithMaterials("Demo/Assets/Models/Post.gltf", out List<Shader> mats);
+        foreach(string key in Points.Keys)
+        {
+            Points[key].AddComponent<MeshComponent>().data = reference.Clone();
+
+            List<Shader> copied = new List<Shader>();
+            foreach (Shader mat in mats)
+            {
+                copied.Add(mat.Clone());
+            }
+            Points[key].AddComponent<MeshRenderComponent>().SetMaterials(copied);
+            Points[key].AddComponent<ColliderComponent>().ColliderIndex = 0;
+            //Points[key].GetComponent<ColliderComponent>().ShowColliders = true;
+        }
+        
+        Dictionary<string, GameObject> Buildings = GltfHandler.LoadGltfAsMeshRenderers("Demo/Assets/Models/Buildings/Buildings.gltf");
+        foreach(string key in Buildings.Keys)
+        {
+            Buildings[key].AddComponent<ColliderComponent>().ColliderIndex = 0;
+            Buildings[key].GetComponent<ColliderComponent>().ComputeBounds();
+            //Buildings[key].GetComponent<ColliderComponent>().ShowColliders = true;
+            Buildings[key].GetComponent<MeshRenderComponent>().RegisterAsStationary();
+        }
+    }
+
+    void MakeCreature(Vector3 pos, string texture)
+    {
+        TransformComponent tall = GameEngine.Link.InstantiateGameObject("Creature").Transform;
+        tall.WorldEulerAngles = new Vector3(90f, 0f, 0f);
+        tall.WorldPosition = pos;
+        TransformComponent creature = Presets.MakePrimitive(Primitives.Quad, texture).Transform;
+        creature.Parent = tall;
+        creature.Scale = new Vector3(2f, 2f, 2f);
+        creature.GameObject.AddComponent<FaceCamera>();
+    }
+
+    public override void Update()
+    {
+        if(GameEngine.Link.IsKeyPressed(Keys.GraveAccent))
+        {
+            Logger.Log(GraphicsCache.GetFullInfo());
+        }
+
+        if(GameEngine.Link.IsKeyDown(Keys.E) || GameEngine.Link.IsKeyPressed(Keys.Q))
+        {
+            Logger.Log("Spawning Cube");
+
+            Presets.MakePhysicsPrimitive(Primitives.Cube, "Demo/Assets/Textures/Stone_1.jpg").Transform.WorldPosition
+            = new Vector3((float) (Rand.NextDouble() - 0.5f) * 5f, 5f, (float) (Rand.NextDouble() - 0.5f) * 5f);
+        }
+
+        if(GameEngine.Link.IsKeyDown(Keys.F) || GameEngine.Link.IsKeyPressed(Keys.R))
+        {
+            Ray ray = new Ray(GameEngine.Link.Camera.Transform.WorldPosition, GameEngine.Link.Camera.Transform.Forward);
+            RayHit hit;
+
+            //if(PhysicsSystem.Raycast(ray, out hit, Player.GetComponent<ColliderComponent>()))
+            if(PhysicsSystem.Raycast(ray, out hit))
+            {
+                Logger.Log(hit.Collider.GameObject.Name);
+
+                //GameObject point = GameEngine.Link.InstantiateGameObject();
+                //point.Transform.WorldPosition = hit.Point;
+                //point.AddComponent<LineRenderComponent>();
+
+                hit.Collider.Transform.GameObject.Delete();
+
+                //if(hit.Collider.HasComponent<PhysicsComponent>())
+                    //hit.Collider.GetComponent<PhysicsComponent>().AddForce(GameEngine.Link.Camera.Transform.Forward);
+                
+                List<string> textures = new List<string>
+                {
+                    "Demo/Assets/Textures/Bark_1.jpg",
+                    "Demo/Assets/Textures/Tree_1.png"
+                };
+                GameObject tree = GameEngine.Link.InstantiateGameObject();
+                tree.AddComponent<MeshComponent>().Load("Demo/Assets/Models/Tree.obj");
+                tree.AddComponent<InstancedMeshRenderComponent>();
+                tree.Transform.WorldPosition = hit.Point;
+                List<Material> Mats = new List<Material>();
+                Mats.Add(new Material("Crux/Assets/Shaders/instance_vert_lit.glsl", "Crux/Assets/Shaders/frag_lit.glsl", textures[0]));
+                Mats.Add(new Material("Crux/Assets/Shaders/instance_vert_lit.glsl", "Crux/Assets/Shaders/frag_lit.glsl", textures[1]));
+                tree.GetComponent<InstancedMeshRenderComponent>().SetMaterials(Mats);
+                tree.Transform.WorldEulerAngles = new Vector3(0f, (float) Rand.NextDouble() * 360f, 0f);
+                
+            }
+        }
+    }
+}
+*/
+
 public GameObject CloneGameObject(GameObject toCopy)
 {
     GameObject gameObject = toCopy.Clone();

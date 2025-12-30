@@ -5,22 +5,22 @@ namespace Game;
 
 public static class Game
 {
-    public static MyGame Current { get; internal set; } = null!;
+    public static Spectral Current { get; internal set; } = null!;
     public static Scene ActiveScene => Current.ActiveScene!;
 }
 
-public class MyGame : GameClient
+public class Spectral : GameClient
 {  
     public int Score = 0;
 
-    public MyGame()
+    public Spectral()
     {
         Game.Current = this;
     }
     
     protected override void OnStart()
     {
-        Crux.Engine.SetScene(new GameScene()); 
+        Crux.Engine.SetScene(new LandingScene()); 
     }
             
     protected override void OnUpdate()
