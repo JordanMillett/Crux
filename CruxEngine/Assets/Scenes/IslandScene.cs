@@ -13,9 +13,9 @@ public class IslandScene : Scene
         AssetHandler.GameAssetPath = "CruxEngine/Assets";
 
         //Skybox
-        Ambient = ColorHelper.HexToColor4("6f7290");
+        Lighting.AmbientColor = ColorHelper.HexToColor4("6f7290");
         float intensity = 1.25f;
-        Hue = new Color4(intensity, intensity, intensity, 1f);
+        Lighting.SunColor = new Color4(intensity, intensity, intensity, 1f);
 
         Crux.Camera!.Transform.WorldPosition = new Vector3(0, 5f, 15f);
         Crux.Camera.Transform.LocalEulerAngles = new Vector3(-25f, 180f, 0f);

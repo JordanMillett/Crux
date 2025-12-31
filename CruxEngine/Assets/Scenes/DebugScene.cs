@@ -10,7 +10,7 @@ public class DebugScene : Scene
     protected override void OnStart()
     {
         //Skybox
-        Fog = Color4.Black;
+        Lighting.FogColor = Color4.Black;
         Skybox.SetUniform("topColor", Color4.Black);
         Skybox.SetUniform("bottomColor", Color4.Black);
 

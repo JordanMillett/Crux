@@ -37,7 +37,7 @@ public class Shader
             GenerateTextureID();
     }
 
-    public void GenerateTextureID()
+    internal void GenerateTextureID()
     {
         _textureId = GraphicsCache.GetTexture(ColorTexturePath);
     }
@@ -59,7 +59,7 @@ public class Shader
         return clone;
     }
 
-    public void Bind()
+    internal void Bind()
     {
         //Set standard uniforms
         SetUniform("albedoHue", TextureHue); 
@@ -81,7 +81,7 @@ public class Shader
         }
     }
     
-    public void Unbind()
+    internal void Unbind()
     {
         GL.UseProgram(0);
         GL.BindTexture(TextureTarget.Texture2D, 0);
@@ -100,7 +100,7 @@ public class Shader
         pendingUniformUpdates[uniformName] = value;
     }
     
-    void ApplyUniform(string uniformName, object value)
+    private void ApplyUniform(string uniformName, object value)
     {
         int uniformLocation;
         if (uniformLocations.TryGetValue(uniformName, out var cached))

@@ -3,6 +3,7 @@ using CruxEngine.Graphics;
 using System.Reflection;
 using StbImageSharp;
 using OpenTK.Windowing.Common.Input;
+using CruxEngine.Graphics.Shaders;
 
 namespace CruxEngine.Utilities.IO;
 
@@ -197,7 +198,7 @@ public static class AssetHandler
                 AssetExists(texturePath) ? texturePath : MissingTexturePath,
                 useInstancing
             ),
-            ShaderPresets.Unlit_2D_Skybox => new Shader
+            ShaderPresets.Unlit_2D_Skybox => new SkyboxShader
             (
                 "CruxEngine/Assets/Shaders/Required/Vertex/vert_2d.glsl",
                 "CruxEngine/Assets/Shaders/Required/Fragment/frag_2d_unlit_skybox.glsl",

@@ -2,6 +2,8 @@ namespace CruxEngine.Utilities.Helpers;
 
 public static class ColorHelper
 {
+    public static readonly Color4 Missing = HexToColor4("ff00fe");
+
     public static float[] Flatten(Color4 input)
     {
         return new float[] { input.R, input.G, input.B, input.A };
