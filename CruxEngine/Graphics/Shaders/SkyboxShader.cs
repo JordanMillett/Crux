@@ -4,11 +4,11 @@ using CruxEngine.Utilities.IO;
 
 namespace CruxEngine.Graphics.Shaders;
 
-public class SkyboxDTO : JsonAsset
+public class SkyboxJsonPreset : JsonPreset
 {
-    public Color4 TopColor { get; init; } = ColorHelper.Missing;
-    public Color4 MiddleColor { get; init; } = ColorHelper.Missing;
-    public Color4 BottomColor { get; init; } = ColorHelper.Missing;
+    public Color4 TopColor { get; init; } = ColorHelper.HexToColor4("4c4cff");
+    public Color4 MiddleColor { get; init; } = ColorHelper.HexToColor4("9999ff");
+    public Color4 BottomColor { get; init; } = ColorHelper.HexToColor4("FFFFFF");
 }
 
 public class SkyboxShader : Shader

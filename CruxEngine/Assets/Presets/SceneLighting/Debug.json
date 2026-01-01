@@ -1,0 +1,11 @@
+{
+  "JsonPresetType": "SceneLightingJsonPreset",
+  "AmbientColor": "FFFFFF-FF",
+  "FogColor": "000000-FF",
+  "SunColor": "FFFFFF-FF",
+  "SunIntensity": 1,
+  "AlphaFadeStart": 75,
+  "AlphaFadeEnd": 100,
+  "FogStart": 10,
+  "FogEnd": 100
+}

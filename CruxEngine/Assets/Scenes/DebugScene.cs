@@ -7,12 +7,13 @@ namespace CruxEngine.Assets.Scenes;
 
 public class DebugScene : Scene
 {
+    protected override string DefaultSkyboxPath => "CruxEngine/Assets/Presets/Skybox/Debug.json";
+    protected override string DefaultSceneLightingPath => "CruxEngine/Assets/Presets/SceneLighting/Debug.json";
+
     protected override void OnStart()
     {
         //Skybox
         Lighting.FogColor = Color4.Black;
-        Skybox.SetUniform("topColor", Color4.Black);
-        Skybox.SetUniform("bottomColor", Color4.Black);
 
         Crux.Camera?.GameObject.AddComponent<FreeLookComponent>();
         string debugTexture = "CruxEngine/Assets/Textures/Required/Debug.jpg";

@@ -9,9 +9,8 @@ namespace CruxEngine.Core;
 
 public abstract class Scene
 {
-    public SkyboxShader Skybox;
-
-    public SceneLighting Lighting;
+    public SkyboxShader Skybox { get; private set;}
+    public SceneLighting Lighting { get; private set;}
 
     private readonly MeshBuffer skyboxBuffer;
 
@@ -20,20 +19,16 @@ public abstract class Scene
 
     //Not implemented
     public Sandbox ScriptingSandbox = new Sandbox();
-    
-    public Scene(string skyboxPath = "CruxEngine/Assets/Templates/Skybox.json")
+
+    protected virtual string DefaultSkyboxPath { get; } = JsonPresetLoader.TemplateSkyboxJsonPresetPath;
+    protected virtual string DefaultSceneLightingPath { get; } = JsonPresetLoader.TemplateSceneLightingJsonPresetPath;
+
+    public Scene()
     {
-
-
-        //string materialPath = "CruxEngine/Assets/Materials/Skybox.json";
-        
-        //Skybox = (SkyboxShader) Presets.LoadPresetShader(Presets.ShaderPresets.Unlit_2D_Skybox, false);
-
-        Skybox = JsonAssetLoader.LoadSkybox(skyboxPath);
+        Skybox = JsonPresetLoader.LoadSkybox(DefaultSkyboxPath);
+        Lighting = JsonPresetLoader.LoadSceneLighting(DefaultSceneLightingPath);
 
         skyboxBuffer = GraphicsCache.GetInstancedQuadBuffer("Skybox");
-        
-        Lighting = new SceneLighting();
     }
 
     public void Start()
@@ -68,5 +63,16 @@ public abstract class Scene
         Skybox.Unbind();
         
         GL.DepthMask(true); 
+    }
+
+    public void SetSkybox(SkyboxShader Selected)
+    {
+        Skybox = Selected;
+    }
+
+    public void SetLighting(SceneLighting Selected)
+    {
+        Lighting = Selected;
+        Lighting.Apply();
     }
 }

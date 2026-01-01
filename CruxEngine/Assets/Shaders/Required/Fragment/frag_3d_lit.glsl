@@ -28,18 +28,18 @@ void main()
     
     vec4 computedColor = vec4(0.0);
     
-    vec3 sunLightDir = normalize(-Sun.Dir);
-    float sunIntensity = max(dot(normalize(passNormal), sunLightDir), 0.0);
-    computedColor += albedo * Sun.Hue * sunIntensity * 1.0;
+    vec3 sunLightDir = normalize(-Scene.SunDirection);
+    float sunHit = max(dot(normalize(passNormal), sunLightDir), 0.0);
+    computedColor += albedo * Scene.SunColor * sunHit * Scene.SunIntensity;
     
-    computedColor = max(computedColor, albedo * Sun.Ambient * 1.0);
+    computedColor = max(computedColor, albedo * Scene.AmbientColor * 1.0);
     
     vec3 cameraPosition = inverse(view)[3].xyz;
     float fragDistance = length(passPosition - cameraPosition);
-    float fogFactor = clamp((fragDistance - Sun.FogStart) / (Sun.FogEnd - Sun.FogStart), 0.0, 1.0);
+    float fogFactor = clamp((fragDistance - Scene.FogStart) / (Scene.FogEnd - Scene.FogStart), 0.0, 1.0);
 
-    computedColor = mix(computedColor, Sun.Fog, fogFactor);
-    float fadeFactor = clamp((fragDistance - Sun.FadeStart) / (Sun.FadeEnd - Sun.FadeStart), 0.0, 1.0);
+    computedColor = mix(computedColor, Scene.FogColor, fogFactor);
+    float fadeFactor = clamp((fragDistance - Scene.AlphaFadeStart) / (Scene.AlphaFadeEnd - Scene.AlphaFadeStart), 0.0, 1.0);
 
     #ifdef INSTANCED
         computedColor *= instHue;

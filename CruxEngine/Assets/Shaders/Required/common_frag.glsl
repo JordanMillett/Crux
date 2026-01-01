@@ -6,16 +6,17 @@ struct PointLight
     float Intensity;
 };
 
-struct SceneLight
+struct SceneLighting
 {
-    vec3 Dir;
-    vec4 Hue;
-    vec4 Ambient;
-    vec4 Fog;
+    vec3 SunDirection;
+    float SunIntensity;
+    vec4 SunColor;
+    vec4 AmbientColor;
+    vec4 FogColor;
+    float AlphaFadeStart;
+    float AlphaFadeEnd;
     float FogStart;
     float FogEnd;
-    float FadeStart;
-    float FadeEnd;
 };
 
 //UBOs
@@ -25,9 +26,9 @@ layout(std140, binding = 0) uniform Camera
     mat4 projection;
 };
 
-layout(std140, binding = 1) uniform SunBuffer
+layout(std140, binding = 1) uniform SceneBuffer
 {
-    SceneLight Sun;
+    SceneLighting Scene;
 };
 
 //SSBOs

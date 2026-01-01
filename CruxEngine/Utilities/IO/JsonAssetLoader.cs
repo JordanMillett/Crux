@@ -8,26 +8,30 @@ using System.Text.Json.Serialization;
 
 namespace CruxEngine.Utilities.IO;
 
-public abstract class JsonAsset
+public abstract class JsonPreset
 {
     [JsonPropertyOrder(-100)]
-    public string JsonAssetType { get; init; }
+    public string JsonPresetType { get; init; }
 
-    protected JsonAsset()
+    protected JsonPreset()
     {
-        JsonAssetType = GetType().Name;
+        JsonPresetType = GetType().Name;
     }
 }
 
-public static class JsonAssetLoader
+public static class JsonPresetLoader
 {
-    static JsonAssetLoader()
+    public const string TemplateSkyboxJsonPresetPath = "CruxEngine/Assets/Templates/Skybox.json";
+    public const string TemplateSceneLightingJsonPresetPath = "CruxEngine/Assets/Templates/SceneLighting.json";
+
+    static JsonPresetLoader()
     {
         if(GameEngine.InDebugMode())
         {
             try
             {
-                File.WriteAllText("CruxEngine/Assets/Templates/Skybox.json", JsonSerializer.Serialize(new SkyboxDTO(), DataProvider.JsonOptions));
+                File.WriteAllText(TemplateSkyboxJsonPresetPath, JsonSerializer.Serialize(new SkyboxJsonPreset(), DataProvider.JsonOptions));
+                File.WriteAllText(TemplateSceneLightingJsonPresetPath, JsonSerializer.Serialize(new SceneLightingJsonPreset(), DataProvider.JsonOptions));
             }catch
             {
                 Logger.LogWarning("Failed to write template files.");
@@ -39,16 +43,45 @@ public static class JsonAssetLoader
     {
         SkyboxShader created = (SkyboxShader) Presets.LoadPresetShader(Presets.ShaderPresets.Unlit_2D_Skybox, false);
 
-        SkyboxDTO loaded = null!;
+        SkyboxJsonPreset loaded = null!;
         if(DataProvider.EmbeddedFileExists(embeddedPath))
         {
             string data = DataProvider.ReadEmbeddedFileInFull(embeddedPath);
-            loaded = JsonSerializer.Deserialize<SkyboxDTO>(data, DataProvider.JsonOptions)!;
+            loaded = JsonSerializer.Deserialize<SkyboxJsonPreset>(data, DataProvider.JsonOptions)!;
         }
 
-        created.TopColor = loaded.TopColor;
-        created.MiddleColor = loaded.MiddleColor;
-        created.BottomColor = loaded.BottomColor;
+        if(loaded != null)
+        {
+            created.TopColor = loaded.TopColor;
+            created.MiddleColor = loaded.MiddleColor;
+            created.BottomColor = loaded.BottomColor;
+        }
+
+        return created;
+    }
+    
+    public static SceneLighting LoadSceneLighting(string embeddedPath)
+    {
+        SceneLighting created = new SceneLighting();
+
+        SceneLightingJsonPreset loaded = null!;
+        if(DataProvider.EmbeddedFileExists(embeddedPath))
+        {
+            string data = DataProvider.ReadEmbeddedFileInFull(embeddedPath);
+            loaded = JsonSerializer.Deserialize<SceneLightingJsonPreset>(data, DataProvider.JsonOptions)!;
+        }
+
+        if(loaded != null)
+        {
+            created.AmbientColor = loaded.AmbientColor;
+            created.FogColor = loaded.FogColor;
+            created.SunColor = loaded.SunColor;
+            created.SunIntensity = loaded.SunIntensity;
+            created.AlphaFadeStart = loaded.AlphaFadeStart;
+            created.AlphaFadeEnd = loaded.AlphaFadeEnd;
+            created.FogStart = loaded.FogStart;
+            created.FogEnd = loaded.FogEnd;
+        }
 
         return created;
     }

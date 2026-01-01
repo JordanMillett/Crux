@@ -1,12 +1,28 @@
+using CruxEngine.Utilities.Helpers;
+using CruxEngine.Utilities.IO;
 using OpenTK.Graphics.OpenGL4;
 
 namespace CruxEngine.Graphics;
 
+public class SceneLightingJsonPreset : JsonPreset
+{
+    public Color4 AmbientColor { get; init; } = ColorHelper.HexToColor4("FFFFFF");
+    public Color4 FogColor { get; init; } = ColorHelper.HexToColor4("a3a3ff");
+    public Color4 SunColor { get; init; } = ColorHelper.HexToColor4("FFFFFF");
+    public float SunIntensity { get; init; } = 1f;
+    public float AlphaFadeStart { get; init; } = 75f;
+    public float AlphaFadeEnd { get; init; } = 100f;
+    public float FogStart { get; init; } = 10f;
+    public float FogEnd { get; init; } = 100f;
+}
+
 public class SceneLighting
 {
+    static SceneLighting Active = null!;
+
     static int UBO = -1;
     
-    private Color4 _ambientColor = Color4.White;
+    private Color4 _ambientColor = ColorHelper.Missing;
     public Color4 AmbientColor
     { 
         get { return _ambientColor; } 
@@ -17,7 +33,7 @@ public class SceneLighting
         } 
     }
     
-    private Color4 _fogColor = new Color4(0.639215686f, 0.639215686f, 1.0f, 1.0f);
+    private Color4 _fogColor = ColorHelper.Missing;
     public Color4 FogColor
     { 
         get { return _fogColor; } 
@@ -28,7 +44,7 @@ public class SceneLighting
         } 
     }
     
-    private Color4 _sunColor = Color4.White;
+    private Color4 _sunColor = ColorHelper.Missing;
     public Color4 SunColor
     { 
         get { return _sunColor; } 
@@ -39,7 +55,18 @@ public class SceneLighting
         } 
     }
 
-    private float _alphaFadeStart = 175f;
+    private float _sunIntensity = 1f;
+    public float SunIntensity 
+    { 
+        get { return _sunIntensity; } 
+        set 
+        { 
+            _sunIntensity = value;
+            Recalculate(); 
+        } 
+    }
+
+    private float _alphaFadeStart = 75f;
     public float AlphaFadeStart 
     { 
         get { return _alphaFadeStart; } 
@@ -50,7 +77,7 @@ public class SceneLighting
         } 
     }
 
-    private float _alphaFadeEnd = 200f;
+    private float _alphaFadeEnd = 100f;
     public float AlphaFadeEnd 
     { 
         get { return _alphaFadeEnd; } 
@@ -61,7 +88,7 @@ public class SceneLighting
         } 
     }
 
-    private float _fogStart = 20f;
+    private float _fogStart = 10f;
     public float FogStart 
     { 
         get { return _fogStart; } 
@@ -72,7 +99,7 @@ public class SceneLighting
         } 
     }
 
-    private float _fogEnd = 200f;
+    private float _fogEnd = 100f;
     public float FogEnd 
     { 
         get { return _fogEnd; } 
@@ -101,6 +128,12 @@ public class SceneLighting
     
     public SceneLighting()
     {   
+        if(Active == null)
+            Active = this;
+
+        if(Active != this)
+            return;
+
         if (UBO == -1)
         {                
             UBO = GL.GenBuffer();
@@ -113,18 +146,29 @@ public class SceneLighting
 
         Recalculate();
     }
+
+    public void Apply()
+    {
+        Active = this;
+        Recalculate();
+    }
     
     public void Recalculate()
     {
+        if(Active != this)
+            return;
+
+        Crux.Camera.FarPlane = AlphaFadeEnd;
+
         GL.BindBuffer(BufferTarget.UniformBuffer, UBO);
 
         float[] lightData = new float[] //20 bytes total
         {
-            SunDirection.X, SunDirection.Y, SunDirection.Z, 0.0f, //padding
+            SunDirection.X, SunDirection.Y, SunDirection.Z, SunIntensity, //SunIntensity was padding
             SunColor.R, SunColor.G, SunColor.B, SunColor.A,
             AmbientColor.R, AmbientColor.G, AmbientColor.B, AmbientColor.A,
             FogColor.R, FogColor.G, FogColor.B, FogColor.A,
-            FogStart, FogEnd, AlphaFadeStart, AlphaFadeEnd
+            AlphaFadeStart, AlphaFadeEnd, FogStart, FogEnd
         };
         
         GL.BufferSubData(BufferTarget.UniformBuffer,
