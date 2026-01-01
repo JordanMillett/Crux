@@ -49,7 +49,7 @@ public class InstancedMeshRenderComponent : RenderComponent
                 PerInstanceData data = new PerInstanceData
                 {
                     Transforms = new List<TransformComponent> { this.Transform },
-                    Mat = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, true),
+                    Mat = Presets.LoadPresetShader(Presets.ShaderPresets.Lit_3D, true),
                     GPUBufferLength = 0
                 };
 

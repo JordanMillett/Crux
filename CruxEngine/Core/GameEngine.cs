@@ -58,7 +58,7 @@ public class GameEngine : GameWindow
         this.VSync = VSyncMode.On;
         this.ClientSize = Resolution;
         this.Title = GetWindowShortName();
-        this.Icon = AssetHandler.LoadIcon();
+        this.Icon = DataProvider.LoadIcon();
 
         Crux.Engine = this;
     }

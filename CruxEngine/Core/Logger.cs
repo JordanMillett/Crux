@@ -179,7 +179,7 @@ public static class Debug
         {
             try
             {
-                Flags = JsonSerializer.Deserialize<Dictionary<string, bool>>(AssetHandler.ReadExternalAssetInFull(path))!;
+                Flags = JsonSerializer.Deserialize<Dictionary<string, bool>>(DataProvider.ReadExternalFileInFull(path))!;
                 Logger.Log($"Debug flags loaded from file '{path}.'", LogSource.System);
             }catch (Exception e)
             {

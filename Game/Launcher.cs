@@ -20,12 +20,12 @@ class GameLauncher
             APIVersion = new System.Version(4, 3), //OpenGL 4.3
         };
 
-        GameEngine.BuildNumber = AssetHandler.IterateBuildNumber();
+        GameEngine.BuildNumber = DataProvider.IterateBuildNumber();
 
         using (var engine = new GameEngine(GameWindowSettings.Default, nativeWindowSettings))
         {
             engine.Title = GameEngine.GetWindowShortName();
-            engine.Icon = AssetHandler.LoadIcon();
+            engine.Icon = DataProvider.LoadIcon();
             engine.ClientSize = new OpenTK.Mathematics.Vector2i(1280, 720);
             
             engine.EngineReadyEvent += () =>

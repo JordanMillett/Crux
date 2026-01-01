@@ -1,5 +1,6 @@
 using CruxEngine.Components;
 using CruxEngine.Graphics;
+using CruxEngine.Graphics.Shaders;
 using CruxEngine.Utilities.IO;
 
 namespace CruxEngine.Core;
@@ -53,7 +54,7 @@ public static class Presets
         target.AddComponent<MeshComponent>()!.Load(model);
         target.AddComponent<MeshRenderComponent>()!.SetShader
         (
-            AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false, texture),
+            LoadPresetShader(ShaderPresets.Lit_3D, false, texture),
             0
         );
 
@@ -76,12 +77,58 @@ public static class Presets
         List<Shader> Mats = new List<Shader>();
         for(int i = 0; i < textures.Count; i++)
         {           
-            Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Lit_3D, false, textures[i]));
+            Mats.Add(LoadPresetShader(ShaderPresets.Lit_3D, false, textures[i]));
         }
         target.AddComponent<MeshRenderComponent>()!.SetShaders(Mats);
         //target.AddComponent<MeshBoundsColliderComponent>();
 
         return target;
+    }
+
+    public static string MissingTexturePath = "CruxEngine/Assets/Textures/Required/Missing.jpg";
+
+    public enum ShaderPresets
+    {
+        Lit_3D,
+        Unlit_3D,
+        Unlit_2D,
+        Unlit_2D_Skybox
+    }
+
+    public static Shader LoadPresetShader(ShaderPresets shaderPreset, bool useInstancing, string texturePath = "")
+    {
+        return shaderPreset switch
+        {
+            ShaderPresets.Lit_3D => new Shader
+            (
+                "CruxEngine/Assets/Shaders/Required/Vertex/vert_3d.glsl",
+                "CruxEngine/Assets/Shaders/Required/Fragment/frag_3d_lit.glsl",
+                DataProvider.EmbeddedFileExists(texturePath) ? texturePath : MissingTexturePath,
+                useInstancing
+            ),
+            ShaderPresets.Unlit_3D => new Shader
+            (
+                "CruxEngine/Assets/Shaders/Required/Vertex/vert_3d.glsl",
+                "CruxEngine/Assets/Shaders/Required/Fragment/frag_3d_unlit.glsl",
+                "",
+                useInstancing
+            ),
+            ShaderPresets.Unlit_2D => new Shader
+            (
+                "CruxEngine/Assets/Shaders/Required/Vertex/vert_2d.glsl",
+                "CruxEngine/Assets/Shaders/Required/Fragment/frag_2d_unlit.glsl",
+                DataProvider.EmbeddedFileExists(texturePath) ? texturePath : MissingTexturePath,
+                useInstancing
+            ),
+            ShaderPresets.Unlit_2D_Skybox => new SkyboxShader
+            (
+                "CruxEngine/Assets/Shaders/Required/Vertex/vert_2d.glsl",
+                "CruxEngine/Assets/Shaders/Required/Fragment/frag_2d_unlit_skybox.glsl",
+                "",
+                useInstancing
+            ),
+            _ => null!,
+        };
     }
         
     /*

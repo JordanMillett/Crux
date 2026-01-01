@@ -22,7 +22,7 @@ public class BoundsRenderComponent : RenderComponent
     public BoundsRenderComponent(GameObject gameObject): base(gameObject)
     {
         if (ShaderSingleton == null)
-            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_3D, true, "");
+            ShaderSingleton = Presets.LoadPresetShader(Presets.ShaderPresets.Unlit_3D, true, "");
 
         meshBuffer = GraphicsCache.GetInstancedLineBuffer("LineBounds", Shapes.LineBounds);
         Instances.Add(this);

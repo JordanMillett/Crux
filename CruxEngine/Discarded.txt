@@ -255,8 +255,8 @@ public class GameScene : Scene
             tree.GetComponent<ColliderComponent>().ComputeBounds();
 
             List<Shader> Mats = new List<Shader>();
-            Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Lit, textures[0]));
-            Mats.Add(AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Instance_Lit, textures[1]));
+            Mats.Add(Presets.LoadPresetShader(Presets.ShaderPresets.Instance_Lit, textures[0]));
+            Mats.Add(Presets.LoadPresetShader(Presets.ShaderPresets.Instance_Lit, textures[1]));
             tree.GetComponent<InstancedMeshRenderComponent>().SetMaterials(Mats);
             tree.GetComponent<InstancedMeshRenderComponent>().RegisterAsStationary();
             //tree.GetComponent<ColliderComponent>().ShowColliders = true;
@@ -437,7 +437,7 @@ public class Sandbox
 
     public async Task ExecuteScriptAsync(string path)
     {
-        string code = AssetHandler.ReadScriptInFull(path);
+        string code = DataProvider.ReadScriptInFull(path);
 
         ScriptOptions options = ScriptOptions.Default
             .WithReferences(typeof(object).Assembly)

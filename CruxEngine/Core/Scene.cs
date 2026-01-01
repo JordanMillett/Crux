@@ -9,8 +9,6 @@ namespace CruxEngine.Core;
 
 public abstract class Scene
 {
-    static int UBO = -1;
-
     public SkyboxShader Skybox;
 
     public SceneLighting Lighting;
@@ -28,7 +26,7 @@ public abstract class Scene
 
 
         //string materialPath = "CruxEngine/Assets/Materials/Skybox.json";
-        Skybox = (SkyboxShader) AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D_Skybox, false);
+        Skybox = (SkyboxShader) Presets.LoadPresetShader(Presets.ShaderPresets.Unlit_2D_Skybox, false);
 
         skyboxBuffer = GraphicsCache.GetInstancedQuadBuffer("Skybox");
         

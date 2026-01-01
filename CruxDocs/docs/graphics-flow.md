@@ -27,7 +27,7 @@ classDiagram
 	     GetMeshBuffer()
 	     GetProgram()
     }
-    class AssetHandler {
+    class DataProvider {
 	     LoadPresetShader()
     }
     class MeshBuffer {
@@ -47,12 +47,12 @@ classDiagram
     RenderComponent --|> Component :  inherits
 
     MeshRenderComponent ..> GraphicsCache : uses GetMeshBuffer()
-    MeshRenderComponent ..> AssetHandler : uses LoadPresetShader()
+    MeshRenderComponent ..> DataProvider : uses LoadPresetShader()
 
     MeshRenderComponent --> Shader : contains multiple
     MeshRenderComponent --> MeshBuffer : contains multiple
 
-    AssetHandler --> Shader : constructs
+    DataProvider --> Shader : constructs
     GraphicsCache --> MeshBuffer : constructs
 
     Shader ..> GraphicsCache : retrieves program id

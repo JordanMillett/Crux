@@ -34,8 +34,8 @@ public static class GraphicsCache
     static GraphicsCache()
     {
         Tree = new Octree(new Vector3(-500, -500, -500), new Vector3(500, 500, 500), 5, "Visibility Octree");
-        common_vert = AssetHandler.ReadAssetInFull("CruxEngine/Assets/Shaders/Required/common_vert.glsl");
-        common_frag = AssetHandler.ReadAssetInFull("CruxEngine/Assets/Shaders/Required/common_frag.glsl");
+        common_vert = DataProvider.ReadEmbeddedFileInFull("CruxEngine/Assets/Shaders/Required/common_vert.glsl");
+        common_frag = DataProvider.ReadEmbeddedFileInFull("CruxEngine/Assets/Shaders/Required/common_frag.glsl");
     }
     
     public static string GetShortInfo()
@@ -102,7 +102,7 @@ public static class GraphicsCache
         else
         {
             StbImage.stbi_set_flip_vertically_on_load(1);
-            using (var stream = AssetHandler.GetStream(cacheKey))
+            using (var stream = DataProvider.GetEmbeddedStream(cacheKey))
             {
                 ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
 
@@ -164,7 +164,7 @@ public static class GraphicsCache
         }else
         {
             int id = GL.CreateShader(ShaderType.VertexShader);
-            string contents = AssetHandler.ReadAssetInFull(cacheKey);
+            string contents = DataProvider.ReadEmbeddedFileInFull(cacheKey);
             if (useInstancing)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
 
@@ -212,7 +212,7 @@ public static class GraphicsCache
         }else
         {
             int id = GL.CreateShader(ShaderType.FragmentShader);
-            string contents = AssetHandler.ReadAssetInFull(cacheKey);
+            string contents = DataProvider.ReadEmbeddedFileInFull(cacheKey);
             if (useInstancing)
                 contents = contents.Substring(0, 13) + "#define INSTANCED\n" + contents.Substring(13); //must define version first
                 

@@ -28,7 +28,7 @@ public class CUIFont
 
     public CUIFont(string path)
     {
-        string json = AssetHandler.ReadAssetInFull(path);
+        string json = DataProvider.ReadEmbeddedFileInFull(path);
         JsonNode root = JsonNode.Parse(json)!;
         TextureWidth = (float)root["width"]!;
         TextureHeight = (float)root["height"]!;
@@ -94,7 +94,7 @@ public class CUIText : CUINode
     {
         if (ShaderSingleton == null)
         {
-            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, $"{FontPath}.png");
+            ShaderSingleton = Presets.LoadPresetShader(Presets.ShaderPresets.Unlit_2D, true, $"{FontPath}.png");
             loadedFont = new CUIFont($"{FontPath}.json");
 
             ShaderSingleton.SetUniform("useSDF", 1f);

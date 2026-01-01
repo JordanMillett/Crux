@@ -9,7 +9,7 @@ public static class ObjHandler
 
     public static Mesh LoadObjAsMesh(ref string path)
     {
-        if (!AssetHandler.AssetExists(path))
+        if (!DataProvider.EmbeddedFileExists(path))
         {
             Logger.LogWarning($"Mesh {path} not found");
             //path = fallbackMeshPath;
@@ -43,7 +43,7 @@ public static class ObjHandler
         List<Vector3> normals = new List<Vector3>();
         List<Vector2> uvs = new List<Vector2>();
 
-        string fileData = AssetHandler.ReadAssetInFull(path);
+        string fileData = DataProvider.ReadEmbeddedFileInFull(path);
         string[] lines = fileData.Split('\n', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
         foreach (string line in lines)

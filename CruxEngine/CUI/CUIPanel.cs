@@ -19,7 +19,7 @@ public class CUIPanel : CUINode
     {
         if (ShaderSingleton == null)
         {
-            ShaderSingleton = AssetHandler.LoadPresetShader(AssetHandler.ShaderPresets.Unlit_2D, true, "CruxEngine/Assets/Textures/Required/Blank.jpg");
+            ShaderSingleton = Presets.LoadPresetShader(Presets.ShaderPresets.Unlit_2D, true, "CruxEngine/Assets/Textures/Required/Blank.jpg");
             ShaderSingleton.SetUniform("useSDF", 0f);
         }
 

@@ -21,7 +21,7 @@ public class CanvasComponent : RenderComponent
         NodesRefs.Clear();
         BindPoints.Clear();
 
-        var parser = new CUIParser(AssetHandler.ReadAssetInFull(src));
+        var parser = new CUIParser(DataProvider.ReadEmbeddedFileInFull(src));
         Root = parser.Parse(this)!;
     }
 

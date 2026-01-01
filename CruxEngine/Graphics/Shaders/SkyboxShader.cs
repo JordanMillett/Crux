@@ -3,6 +3,11 @@ using CruxEngine.Utilities.Helpers;
 
 namespace CruxEngine.Graphics.Shaders;
 
+public class SkyboxJson
+{
+    public Color4 test;
+}
+
 public class SkyboxShader : Shader
 {
     private Color4 _topColor = ColorHelper.Missing;
