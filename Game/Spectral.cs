@@ -1,4 +1,5 @@
 using CruxEngine.Assets.Scenes;
+using CruxEngine.Utilities.IO;
 using Game.Assets.Scenes;
 
 namespace Game;
@@ -20,7 +21,10 @@ public class Spectral : GameClient
     
     protected override void OnStart()
     {
-        Crux.Engine.SetScene(new LandingScene()); 
+        //DataProvider.RootDirectory = "CruxEngine/Assets";
+        Crux.Engine.SetScene(new IslandScene()); 
+
+        //Crux.Engine.SetScene(new LandingScene()); 
     }
             
     protected override void OnUpdate()

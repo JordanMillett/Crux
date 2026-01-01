@@ -1,9 +1,10 @@
 using OpenTK.Graphics.OpenGL4;
 using CruxEngine.Utilities.Helpers;
+using CruxEngine.Utilities.IO;
 
 namespace CruxEngine.Graphics.Shaders;
 
-public class SkyboxJson
+public class SkyboxDTO : JsonAsset
 {
     public Color4 test;
 }

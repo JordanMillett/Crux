@@ -10,8 +10,6 @@ public class IslandScene : Scene
 
     protected override void OnStart()
     {
-        DataProvider.RootDirectory = "CruxEngine/Assets";
-
         //Skybox
         Lighting.AmbientColor = ColorHelper.HexToColor4("6f7290");
         float intensity = 1.25f;
