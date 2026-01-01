@@ -6,9 +6,9 @@ namespace CruxEngine.Utilities.IO;
 
 public static class GltfHandler
 {
-    private static GameObject ProcessObjectNodeIntoGameObjectWithMesh(string path, JsonNode rootNode, JsonNode objectNode, out List<string> textures)
+    private static GameObject ProcessObjectNodeIntoGameObjectWithMesh(string embeddedPath, JsonNode rootNode, JsonNode objectNode, out List<string> textures)
     {
-        string folder = Path.GetDirectoryName(path)!;
+        string folder = Path.GetDirectoryName(embeddedPath)!;
 
         Mesh fullMesh = ProcessObjectNodeToMesh(
             folder, rootNode, objectNode,
@@ -20,7 +20,7 @@ public static class GltfHandler
         Made.Transform.WorldRotation = objectRotation;
         Made.Transform.Scale = objectScale;
         Made.AddComponent<MeshComponent>()!.Data = fullMesh;
-        Made.GetComponent<MeshComponent>()!.LoadedPath = path + "_" + objectNode["name"]!.GetValue<string>();
+        Made.GetComponent<MeshComponent>()!.LoadedPath = embeddedPath + "_" + objectNode["name"]!.GetValue<string>();
     
         return Made;
     }
@@ -37,13 +37,13 @@ public static class GltfHandler
         return Made;
     }
 
-    public static Dictionary<string, GameObject>? LoadGltfAsMeshRenderers(string path)
+    public static Dictionary<string, GameObject>? LoadGltfAsMeshRenderers(string embeddedPath)
     {
-        if(!DataProvider.EmbeddedFileExists(path))
+        if(!DataProvider.EmbeddedFileExists(embeddedPath))
             return new Dictionary<string, GameObject>();
 
         Dictionary<string, GameObject> All = new();
-        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(path)))
+        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(embeddedPath)))
         {
             string json = reader.ReadToEnd();
             JsonNode rootNode = JsonNode.Parse(json)!;
@@ -52,22 +52,13 @@ public static class GltfHandler
             {
                 JsonNode objectNode = rootNode["nodes"]![(int) objectIndex!]!;
 
-                GameObject Made = ProcessObjectNodeIntoGameObjectWithMesh(path, rootNode, objectNode, out List<string> textures);
+                GameObject Made = ProcessObjectNodeIntoGameObjectWithMesh(embeddedPath, rootNode, objectNode, out List<string> textures);
                 All.Add(objectNode["name"]!.GetValue<string>(), Made);
 
                 List<Shader> Mats = new List<Shader>();
                 for(int i = 0; i < textures.Count; i++)
                 {    
-                    if(textures[i] == "")
-                        textures[i] = "CruxEngine/Assets/Textures/Required/Blank";
-                    else
-                        textures[i] = $"{DataProvider.RootDirectory}/Textures/" + textures[i];
-                    
-                    if(DataProvider.EmbeddedFileExists(textures[i] + ".jpg"))
-                        textures[i] = textures[i] + ".jpg";
-                    else if(DataProvider.EmbeddedFileExists(textures[i] + ".png"))
-                        textures[i] = textures[i] + ".png";  
-                    
+                    textures[i] = !string.IsNullOrEmpty(textures[i]) ? $"{DataProvider.RootDirectory}/Textures/" + textures[i] : Presets.DefaultTexturePath;
                     Mats.Add(Presets.LoadPresetShader(Presets.ShaderPresets.Lit_3D, false, textures[i]));
                 }
                 Made.AddComponent<MeshRenderComponent>()!.SetShaders(Mats);
@@ -79,32 +70,23 @@ public static class GltfHandler
         return All;
     }
 
-    public static GameObject? LoadGltfAsMeshRenderer(string path)
+    public static GameObject? LoadGltfAsMeshRenderer(string embeddedPath)
     {
-        if(!DataProvider.EmbeddedFileExists(path))
+        if(!DataProvider.EmbeddedFileExists(embeddedPath))
             return null;
 
-        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(path)))
+        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(embeddedPath)))
         {
             string json = reader.ReadToEnd();
             JsonNode rootNode = JsonNode.Parse(json)!;
             
             JsonNode objectNode = rootNode["nodes"]![0]!;
-            GameObject Made = ProcessObjectNodeIntoGameObjectWithMesh(path, rootNode, objectNode, out List<string> textures);
+            GameObject Made = ProcessObjectNodeIntoGameObjectWithMesh(embeddedPath, rootNode, objectNode, out List<string> textures);
 
             List<Shader> Mats = new List<Shader>();
             for(int i = 0; i < textures.Count; i++)
             {    
-                if(textures[i] == "")
-                    textures[i] = "CruxEngine/Assets/Textures/Required/Blank";
-                else
-                    textures[i] = $"{DataProvider.RootDirectory}/Textures/" + textures[i];
-                
-                if(DataProvider.EmbeddedFileExists(textures[i] + ".jpg"))
-                    textures[i] = textures[i] + ".jpg";
-                else if(DataProvider.EmbeddedFileExists(textures[i] + ".png"))
-                    textures[i] = textures[i] + ".png";
-
+                textures[i] = !string.IsNullOrEmpty(textures[i]) ? $"{DataProvider.RootDirectory}/Textures/" + textures[i] : Presets.DefaultTexturePath;
                 Mats.Add(Presets.LoadPresetShader(Presets.ShaderPresets.Lit_3D, false, textures[i]));
             }
             Made.AddComponent<MeshRenderComponent>()!.SetShaders(Mats);
@@ -113,14 +95,14 @@ public static class GltfHandler
         }
     }
 
-    public static Dictionary<string, GameObject>? LoadGltfAsEmpties(string path)
+    public static Dictionary<string, GameObject>? LoadGltfAsEmpties(string embeddedPath)
     {
-        if(!DataProvider.EmbeddedFileExists(path))
+        if(!DataProvider.EmbeddedFileExists(embeddedPath))
             return null;
 
         Dictionary<string, GameObject> All = new();
 
-        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(path)))
+        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(embeddedPath)))
         {
             string json = reader.ReadToEnd();
             JsonNode rootNode = JsonNode.Parse(json)!;
@@ -135,12 +117,12 @@ public static class GltfHandler
         return All;
     }
 
-    public static GameObject? LoadGltfAsEmpty(string path)
+    public static GameObject? LoadGltfAsEmpty(string embeddedPath)
     {
-        if(!DataProvider.EmbeddedFileExists(path))
+        if(!DataProvider.EmbeddedFileExists(embeddedPath))
             return null;
 
-        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(path)))
+        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(embeddedPath)))
         {
             string json = reader.ReadToEnd();
             JsonNode rootNode = JsonNode.Parse(json)!;
@@ -151,20 +133,20 @@ public static class GltfHandler
         }
     }
 
-    public static Mesh? LoadGltfAsMesh(ref string path, out Vector3 objectPosition, out Quaternion objectRotation, out Vector3 objectScale)
+    public static Mesh? LoadGltfAsMesh(ref string embeddedPath, out Vector3 objectPosition, out Quaternion objectRotation, out Vector3 objectScale)
     {
         objectPosition = Vector3.Zero;
         objectRotation = Quaternion.Identity;
         objectScale = Vector3.One;
 
-        if(!DataProvider.EmbeddedFileExists(path))
+        if(!DataProvider.EmbeddedFileExists(embeddedPath))
             return null;
 
-        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(path)))
+        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(embeddedPath)))
         {
             string json = reader.ReadToEnd();
             JsonNode rootNode = JsonNode.Parse(json)!;
-            string folder = Path.GetDirectoryName(path)!;
+            string folder = Path.GetDirectoryName(embeddedPath)!;
 
             JsonNode objectNode = rootNode["nodes"]![0]!;
 
@@ -177,17 +159,17 @@ public static class GltfHandler
         }
     }
 
-    public static Mesh? LoadGltfAsMeshWithMaterials(string path, out List<Shader> materials)
+    public static Mesh? LoadGltfAsMeshWithMaterials(string embeddedPath, out List<Shader> materials)
     {
         materials = [];
-        if(!DataProvider.EmbeddedFileExists(path))
+        if(!DataProvider.EmbeddedFileExists(embeddedPath))
             return null;
 
-        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(path)))
+        using (StreamReader reader = new StreamReader(DataProvider.GetEmbeddedStream(embeddedPath)))
         {
             string json = reader.ReadToEnd();
             JsonNode rootNode = JsonNode.Parse(json)!;
-            string folder = Path.GetDirectoryName(path)!;
+            string folder = Path.GetDirectoryName(embeddedPath)!;
 
             JsonNode objectNode = rootNode["nodes"]![0]!;
 
@@ -198,16 +180,7 @@ public static class GltfHandler
             
             for(int i = 0; i < textures.Count; i++)
             {    
-                if(textures[i] == "")
-                    textures[i] = "CruxEngine/Assets/Textures/Required/Blank";
-                else
-                    textures[i] = $"{DataProvider.RootDirectory}/Textures/" + textures[i];
-                
-                if(DataProvider.EmbeddedFileExists(textures[i] + ".jpg"))
-                    textures[i] = textures[i] + ".jpg";
-                else if(DataProvider.EmbeddedFileExists(textures[i] + ".png"))
-                    textures[i] = textures[i] + ".png";
-
+                textures[i] = !string.IsNullOrEmpty(textures[i]) ? $"{DataProvider.RootDirectory}/Textures/" + textures[i] : Presets.DefaultTexturePath;
                 materials.Add(Presets.LoadPresetShader(Presets.ShaderPresets.Lit_3D, false, textures[i]));
             }
 

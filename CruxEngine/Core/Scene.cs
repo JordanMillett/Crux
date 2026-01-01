@@ -21,7 +21,7 @@ public abstract class Scene
     //Not implemented
     public Sandbox ScriptingSandbox = new Sandbox();
     
-    public Scene()
+    public Scene(string skyboxPath = "CruxEngine/Assets/Templates/Skybox.json")
     {
 
 
@@ -29,7 +29,7 @@ public abstract class Scene
         
         //Skybox = (SkyboxShader) Presets.LoadPresetShader(Presets.ShaderPresets.Unlit_2D_Skybox, false);
 
-        Skybox = JsonAssetLoader.LoadSkybox("");
+        Skybox = JsonAssetLoader.LoadSkybox(skyboxPath);
 
         skyboxBuffer = GraphicsCache.GetInstancedQuadBuffer("Skybox");
         

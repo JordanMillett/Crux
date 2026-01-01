@@ -45,9 +45,9 @@ public static class Logger
         timerName ??= "Unknown";
         Stopwatch newWatch = new Stopwatch();
         newWatch.Start();
-        string path = Path.GetFileNameWithoutExtension(TrimPath(file));
+        string relativePath = Path.GetFileNameWithoutExtension(TrimPath(file));
 
-        TimedTasks[(path, function)] = (timerName, newWatch);
+        TimedTasks[(relativePath, function)] = (timerName, newWatch);
     }
 
     public static void EndTimer(
@@ -55,9 +55,9 @@ public static class Logger
     [CallerLineNumber] int line = 0,
     [CallerMemberName] string function = "")
     {
-        string path = Path.GetFileNameWithoutExtension(TrimPath(file));
+        string relativePath = Path.GetFileNameWithoutExtension(TrimPath(file));
 
-        if (TimedTasks.TryRemove((path, function), out var stored))
+        if (TimedTasks.TryRemove((relativePath, function), out var stored))
         {
             stored.stopwatch.Stop();
             double ms = stored.stopwatch.Elapsed.TotalMilliseconds;
@@ -144,9 +144,9 @@ public static class Logger
     [CallerLineNumber] int line = 0,
     [CallerMemberName] string function = "")
     {
-        string path = TrimPath(file);
+        string relativePath = TrimPath(file);
         Log($"{message}", LogSource.Warning);
-        Log($"^ {path}({line},1) -> {function}()", LogSource.Context);
+        Log($"^ {relativePath}({line},1) -> {function}()", LogSource.Context);
     }
 
     public static void LogError(Exception ex,
@@ -154,9 +154,9 @@ public static class Logger
     [CallerLineNumber] int line = 0,
     [CallerMemberName] string function = "")
     {
-        string path = TrimPath(file);
+        string relativePath = TrimPath(file);
         Log(ex.Message, LogSource.Error);
-        Log($"^ {path}({line},1) -> {function}()", LogSource.Context);
+        Log($"^ {relativePath}({line},1) -> {function}()", LogSource.Context);
     }
 
     private const string RootMarker = @"\Crux\";
@@ -173,14 +173,14 @@ public static class Debug
 {
     private static Dictionary<string, bool>? Flags;
 
-    public static void LoadFlags(string path)
+    public static void LoadFlags(string relativePath)
     {
-        if (File.Exists(path))
+        if (File.Exists(relativePath))
         {
             try
             {
-                Flags = JsonSerializer.Deserialize<Dictionary<string, bool>>(DataProvider.ReadExternalFileInFull(path))!;
-                Logger.Log($"Debug flags loaded from file '{path}.'", LogSource.System);
+                Flags = JsonSerializer.Deserialize<Dictionary<string, bool>>(DataProvider.ReadExternalFileInFull(relativePath))!;
+                Logger.Log($"Debug flags loaded from file '{relativePath}.'", LogSource.System);
             }catch (Exception e)
             {
                 Logger.LogError(e);

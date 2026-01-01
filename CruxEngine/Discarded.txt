@@ -435,7 +435,7 @@ public class Sandbox
         }
     }
 
-    public async Task ExecuteScriptAsync(string path)
+    public async Task ExecuteScriptAsync(string unknownpath)
     {
         string code = DataProvider.ReadScriptInFull(path);
 

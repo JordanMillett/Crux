@@ -85,7 +85,8 @@ public static class Presets
         return target;
     }
 
-    public static string MissingTexturePath = "CruxEngine/Assets/Textures/Required/Missing.jpg";
+    public static readonly string MissingTexturePath = "CruxEngine/Assets/Textures/Required/Missing.jpg";
+    public static readonly string DefaultTexturePath = "CruxEngine/Assets/Textures/Required/Blank.jpg";
 
     public enum ShaderPresets
     {
@@ -95,36 +96,64 @@ public static class Presets
         Unlit_2D_Skybox
     }
 
-    public static Shader LoadPresetShader(ShaderPresets shaderPreset, bool useInstancing, string texturePath = "")
+    public static Shader LoadPresetShader(ShaderPresets shaderPreset, bool useInstancing, string embeddedTexturePath = "")
     {
+        if(string.IsNullOrEmpty(embeddedTexturePath))
+        {
+            embeddedTexturePath = "";
+        }else
+        {
+            string found = DataProvider.NearbyEmbeddedFileExists(embeddedTexturePath);
+            if(!string.IsNullOrEmpty(found))    
+                embeddedTexturePath = found;
+            else
+                embeddedTexturePath = MissingTexturePath;
+        }
+
+        //Logger.LogWarning(embeddedPath);
+        /*
+        string found = DataProvider.NearbyEmbeddedFileExists(textures[i]);
+                if(!string.IsNullOrEmpty(found))    
+                    textures[i] = found;
+
+        if(string.IsNullOrEmpty(textures[i]))
+            textures[i] = "CruxEngine/Assets/Textures/Required/Blank";
+        else
+            textures[i] = $"{DataProvider.RootDirectory}/Textures/" + textures[i];
+        */
+
+        //DataProvider.EmbeddedFileExists(texturePath) ? texturePath : MissingTexturePath,
+
+        //texturePath
+
         return shaderPreset switch
         {
             ShaderPresets.Lit_3D => new Shader
             (
                 "CruxEngine/Assets/Shaders/Required/Vertex/vert_3d.glsl",
                 "CruxEngine/Assets/Shaders/Required/Fragment/frag_3d_lit.glsl",
-                DataProvider.EmbeddedFileExists(texturePath) ? texturePath : MissingTexturePath,
+                embeddedTexturePath,
                 useInstancing
             ),
             ShaderPresets.Unlit_3D => new Shader
             (
                 "CruxEngine/Assets/Shaders/Required/Vertex/vert_3d.glsl",
                 "CruxEngine/Assets/Shaders/Required/Fragment/frag_3d_unlit.glsl",
-                "",
+                embeddedTexturePath,
                 useInstancing
             ),
             ShaderPresets.Unlit_2D => new Shader
             (
                 "CruxEngine/Assets/Shaders/Required/Vertex/vert_2d.glsl",
                 "CruxEngine/Assets/Shaders/Required/Fragment/frag_2d_unlit.glsl",
-                DataProvider.EmbeddedFileExists(texturePath) ? texturePath : MissingTexturePath,
+                embeddedTexturePath,
                 useInstancing
             ),
             ShaderPresets.Unlit_2D_Skybox => new SkyboxShader
             (
                 "CruxEngine/Assets/Shaders/Required/Vertex/vert_2d.glsl",
                 "CruxEngine/Assets/Shaders/Required/Fragment/frag_2d_unlit_skybox.glsl",
-                "",
+                embeddedTexturePath,
                 useInstancing
             ),
             _ => null!,

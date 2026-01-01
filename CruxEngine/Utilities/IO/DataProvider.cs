@@ -42,46 +42,75 @@ public static class DataProvider
     }
     */
 
-    public static Stream GetExternalStream(string path)
+    public static Stream GetExternalStream(string relativePath)
     {
-        if(string.IsNullOrEmpty(path))
+        if(string.IsNullOrEmpty(relativePath))
             return null!;
 
-        Stream stream = File.OpenRead(path)!;
+        Stream stream = File.OpenRead(relativePath)!;
         if (stream == null)
         {
-            Logger.LogWarning($"File '{path}' not found.");
+            Logger.LogWarning($"File '{relativePath}' not found.");
             return null!;
         }
         return stream;
     }
 
-    public static Stream GetEmbeddedStream(string path, bool silenceWarning = false)
+    public static Stream GetEmbeddedStream(string embeddedPath)
     {
-        if(string.IsNullOrEmpty(path))
+        if(string.IsNullOrEmpty(embeddedPath))
             return null!;
         
-        path = path.Replace("/", "\\");
+        embeddedPath = embeddedPath.Replace("/", "\\");
         Assembly assembly = Assembly.GetExecutingAssembly();
 
-        Stream stream = assembly.GetManifestResourceStream(path)!;
+        Stream stream = assembly.GetManifestResourceStream(embeddedPath)!;
         if (stream == null)
         {
-            if(!silenceWarning)
-                Logger.LogWarning($"Embedded File '{path}' not found.");
+            Logger.LogWarning($"No exact embedded file match found for '{embeddedPath}'");
             return null!;
         }
         return stream;
     }
 
-    public static bool EmbeddedFileExists(string path)
+    public static bool EmbeddedFileExists(string embeddedPath)
     {
-        return GetEmbeddedStream(path, true) != null;
+        return GetEmbeddedStream(embeddedPath) != null;
     }
 
-    public static string ReadEmbeddedFileInFull(string path)
+    public static string NearbyEmbeddedFileExists(string embeddedPath)
     {
-        using (var stream = GetEmbeddedStream(path))
+        if(string.IsNullOrEmpty(embeddedPath))
+            return null!;
+
+        if(Path.HasExtension(embeddedPath))
+            return embeddedPath;
+        
+        embeddedPath = embeddedPath.Replace("/", "\\");
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        string[] resourceNames = assembly.GetManifestResourceNames();
+
+        List<string> matches = resourceNames
+            .Where(r => Path.ChangeExtension(r, null).ToLower() == Path.ChangeExtension(embeddedPath, null).ToLower())
+            .ToList();
+
+        if (matches.Count == 0)
+        {
+            Logger.LogWarning($"No exact or nearby embedded file matches found for '{embeddedPath}'");
+            return null!;
+        }
+
+        if (matches.Count > 1)
+        {
+            Logger.LogWarning($"Multiple exact or nearby embedded file matches found for '{embeddedPath}'");
+        }
+
+        return matches[0];
+    }
+
+    public static string ReadEmbeddedFileInFull(string embeddedPath)
+    {
+        using (var stream = GetEmbeddedStream(embeddedPath))
         {
             using (var reader = new StreamReader(stream))
             {
@@ -90,9 +119,9 @@ public static class DataProvider
         }
     }
 
-    public static string ReadExternalFileInFull(string path)
+    public static string ReadExternalFileInFull(string relativePath)
     {
-        using (var stream = GetExternalStream(path))
+        using (var stream = GetExternalStream(relativePath))
         {
             using (var reader = new StreamReader(stream))
             {
@@ -103,9 +132,9 @@ public static class DataProvider
 
     public static WindowIcon LoadIcon()
     {
-        string path = "CruxEngine/Assets/logo.png";
+        string embeddedPath = "CruxEngine/Assets/logo.png";
         
-        using (Stream stream = GetEmbeddedStream(path)) 
+        using (Stream stream = GetEmbeddedStream(embeddedPath)) 
         {
             ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
 
@@ -120,13 +149,13 @@ public static class DataProvider
 
     public static int IterateBuildNumber()
     {
-        string path = "CruxEngine/Assets/history.json";
+        string embeddedPath = "CruxEngine/Assets/history.json";
         Dictionary<string, int> history = [];
         int buildNumber = 1;
 
-        if(EmbeddedFileExists(path))
+        if(EmbeddedFileExists(embeddedPath))
         {
-            string data = ReadEmbeddedFileInFull(path);
+            string data = ReadEmbeddedFileInFull(embeddedPath);
             history = JsonSerializer.Deserialize<Dictionary<string, int>>(data) ?? [];
 
             if (history.TryGetValue(GameEngine.Version.ToString(), out buildNumber))
@@ -149,7 +178,7 @@ public static class DataProvider
         {
             try
             {
-                File.WriteAllText(path, JsonSerializer.Serialize(history, JsonOptions));
+                File.WriteAllText(embeddedPath, JsonSerializer.Serialize(history, JsonOptions));
             }catch
             {
                 Logger.LogWarning("Failed to iterate build number.");

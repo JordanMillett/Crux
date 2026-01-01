@@ -26,9 +26,9 @@ public class CUIFont
     public float TextureHeight { get; init; }
     public float FontSize { get; init; }
 
-    public CUIFont(string path)
+    public CUIFont(string embeddedPath)
     {
-        string json = DataProvider.ReadEmbeddedFileInFull(path);
+        string json = DataProvider.ReadEmbeddedFileInFull(embeddedPath);
         JsonNode root = JsonNode.Parse(json)!;
         TextureWidth = (float)root["width"]!;
         TextureHeight = (float)root["height"]!;

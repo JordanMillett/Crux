@@ -6,7 +6,9 @@ namespace CruxEngine.Graphics.Shaders;
 
 public class SkyboxDTO : JsonAsset
 {
-    public Color4 test;
+    public Color4 TopColor { get; init; } = ColorHelper.Missing;
+    public Color4 MiddleColor { get; init; } = ColorHelper.Missing;
+    public Color4 BottomColor { get; init; } = ColorHelper.Missing;
 }
 
 public class SkyboxShader : Shader

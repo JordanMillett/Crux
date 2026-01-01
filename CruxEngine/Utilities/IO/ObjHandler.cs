@@ -7,28 +7,28 @@ public static class ObjHandler
 {
     public static Dictionary<string, (Mesh mesh, int users)> UniqueMeshes = new Dictionary<string, (Mesh mesh, int users)>();
 
-    public static Mesh LoadObjAsMesh(ref string path)
+    public static Mesh LoadObjAsMesh(ref string embeddedPath)
     {
-        if (!DataProvider.EmbeddedFileExists(path))
+        if (!DataProvider.EmbeddedFileExists(embeddedPath))
         {
-            Logger.LogWarning($"Mesh {path} not found");
+            Logger.LogWarning($"Mesh {embeddedPath} not found");
             //path = fallbackMeshPath;
         }
 
-        if (UniqueMeshes.TryGetValue(path, out var cached))
+        if (UniqueMeshes.TryGetValue(embeddedPath, out var cached))
         {
             cached.users++;
-            UniqueMeshes[path] = cached;
+            UniqueMeshes[embeddedPath] = cached;
             return cached.mesh;
         }else
         {
-            Mesh loaded = LoadAsMesh(ref path);
-            UniqueMeshes.Add(path, (loaded, 1));
+            Mesh loaded = LoadAsMesh(ref embeddedPath);
+            UniqueMeshes.Add(embeddedPath, (loaded, 1));
             return loaded;
         }
     }
 
-    public static Mesh LoadAsMesh(ref string path)
+    public static Mesh LoadAsMesh(ref string embeddedPath)
     {
         List<Vertex> fullVertices = new List<Vertex>();
         List<uint> fullIndices = new List<uint>();
@@ -43,7 +43,7 @@ public static class ObjHandler
         List<Vector3> normals = new List<Vector3>();
         List<Vector2> uvs = new List<Vector2>();
 
-        string fileData = DataProvider.ReadEmbeddedFileInFull(path);
+        string fileData = DataProvider.ReadEmbeddedFileInFull(embeddedPath);
         string[] lines = fileData.Split('\n', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
         foreach (string line in lines)

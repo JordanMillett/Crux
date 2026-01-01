@@ -19,7 +19,7 @@ public class LineRenderComponent : RenderComponent
     public LineRenderComponent(GameObject gameObject): base(gameObject)
     {
         if (ShaderSingleton == null)
-            ShaderSingleton = Presets.LoadPresetShader(Presets.ShaderPresets.Unlit_3D, true, "");
+            ShaderSingleton = Presets.LoadPresetShader(Presets.ShaderPresets.Unlit_3D, true);
 
         meshBuffer = GraphicsCache.GetInstancedLineBuffer("LineAnchor", Shapes.LineAnchor);
         Instances.Add(this);
