@@ -21,11 +21,11 @@ public class Spectral : GameClient
     
     protected override void OnStart()
     {
-        //DataProvider.RootDirectory = "CruxEngine/Assets";
+        DataProvider.RootDirectory = "CruxEngine/Assets";
+        Crux.Engine.SetScene(new DebugScene()); 
         //Crux.Engine.SetScene(new IslandScene()); 
-        //Crux.Engine.SetScene(new DebugScene()); 
 
-        Crux.Engine.SetScene(new LandingScene()); 
+        //Crux.Engine.SetScene(new LandingScene()); 
     }
             
     protected override void OnUpdate()

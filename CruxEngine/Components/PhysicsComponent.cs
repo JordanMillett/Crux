@@ -9,19 +9,19 @@ public class PhysicsComponent : Component
     public float LinearDrag = 0.5f; //1.4
     public float AngularDrag = 0.5f; //1.0
     public float Mass = 1f;
-    public float Resitution = 0.2f;
+    public float Restitution = 0.2f;
     public float StaticFriction = 0.6f;
     public float KineticFriction = 0.4f;
     public float AngularStaticFriction = 0.1f; 
     public float AngularKineticFriction = 0.1f;
 
     private float LastInteracted = 0f;
-    private readonly float SleepTime = 2f;
+    private readonly float SleepTime = 4f;
     public bool Awake = true;
 
     public bool DisableRotation = false;
 
-    private readonly float threshold = 0.5f * 0.5f;
+    private readonly float threshold = 1f * 1f;
     private readonly float requiredAwakeImpulse = 0.01f * 0.01f;
 
     private readonly ColliderComponent col;
@@ -104,9 +104,28 @@ public class PhysicsComponent : Component
 
         //Offset object
         float correctionStrength = otherIsStatic ? 1.0f : (otherMass / totalMass);
-        correctionStrength *= otherIsStatic ? 1f : 0.4f;
-        Vector3 correction = resolution * correctionStrength;
-        GameObject.Transform.WorldPosition -= correction;    
+        correctionStrength *= otherIsStatic ? 1f : 0.5f; 
+        float biasPercent = 0.1f; // small fraction of penetration
+        float velocityBiasPercent = 0.2f; // tweak for strength
+        float maxBiasVelocity = 1f/PhysicsSystem.SolverIterations;
+        float slop = 0.005f;       // tiny tolerance
+        if (resolution.Length > slop)
+        {
+            Vector3 biasCorrection = biasPercent * resolution.Normalized() * (resolution.Length - slop);
+            GameObject.Transform.WorldPosition -= biasCorrection * correctionStrength;
+
+            Vector3 normal = resolution.Normalized();
+            Vector3 biasVelocity = velocityBiasPercent * (resolution.Length - slop) * normal / Crux.Engine.fixedDeltaTime;
+
+            if (biasVelocity.Length > maxBiasVelocity)
+                biasVelocity = Vector3.Normalize(biasVelocity) * maxBiasVelocity;
+
+            // Scale for mass distribution
+            if (!otherIsStatic)
+                Velocity -= biasVelocity * correctionStrength;
+            else
+                Velocity -= biasVelocity;
+        }
 
         // ===== Linear Velocity =====
         //Determine relative velocity
@@ -121,7 +140,7 @@ public class PhysicsComponent : Component
         // ===== Friction Calculation =====
 
         //Calculate impulse strength
-        float impulseScalar = -(1 + Resitution) * velocityAlongNormal;
+        float impulseScalar = -(1 + Restitution) * velocityAlongNormal;
         if (!otherIsStatic) 
             impulseScalar /= totalMass;
 

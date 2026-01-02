@@ -32,7 +32,7 @@ public class GameEngine : GameWindow
     public event Action? EngineUpdateEvent;
     public event Action? EngineReadyEvent;
 
-    public List<Vector3> DebugDisplayPositions = new List<Vector3>();
+    //public List<Vector3> DebugDisplayPositions = new List<Vector3>();
     public Vector2i Resolution { get; private set; } = new Vector2i(1280, 720);
     public Scene ActiveScene { get => activeScene!; private set => activeScene = value; }
     

@@ -32,6 +32,8 @@ public static class PhysicsSystem
     public static int AABBChecks = 0;
     public static int OBBChecks = 0;
 
+    public const int SolverIterations = 5; // tweak from 4–10
+
     static PhysicsSystem()
     {
         Tree = new Octree(new Vector3(-500, -500, -500), new Vector3(500, 500, 500), 7, "Physics Octree");
@@ -130,7 +132,7 @@ public static class PhysicsSystem
         PhysicsFrameCount++;
         MergeDictionaries();
 
-        Crux.Engine.DebugDisplayPositions.Clear();
+        //Crux.Engine.DebugDisplayPositions.Clear();
 
         foreach (PhysicsComponent phy in PhysicsObjects.Values) //maps colliders to physics components
         {
@@ -190,8 +192,11 @@ public static class PhysicsSystem
         }
 
         OBBConflicts = OBBConflicts.OrderByDescending(conflict => conflict.contactPoint.Y).ToList();
-        foreach (var (a, b, resolution, contactPoint) in OBBConflicts)
-            ResolveCollision(a, b, resolution, contactPoint);
+        for(int i = 0; i < SolverIterations; i++)
+        {
+            foreach (var (a, b, resolution, contactPoint) in OBBConflicts)
+                ResolveCollision(a, b, resolution, contactPoint);
+        }
 
         IntegratingAndComputing = false;
     }
@@ -215,7 +220,7 @@ public static class PhysicsSystem
         resolution = Vector3.Zero;
         contactPoint = Vector3.Zero;
         Dictionary<Vector3, bool> axes = new Dictionary<Vector3, bool>();
-        
+    
         foreach (Vector3 normal in a.GetWorldNormals())
             axes.TryAdd(normal, true);
 
@@ -227,14 +232,10 @@ public static class PhysicsSystem
             foreach (var edgeB in b.GetWorldEdges())
             {
                 Vector3 cross = Vector3.Cross(edgeA, edgeB);
-                if (cross.LengthSquared > 0.0001f)
-                {
-                    axes.TryAdd(cross.Normalized(), true);
-                }
+                if (cross.LengthSquared > 1e-6f) // small threshold for numerical stability
+                    axes.TryAdd(Vector3.Normalize(cross), true);
             }
         }
-
-        //Logger.LogLine(axes.Count);
 
         float minPenetration = float.MaxValue;
         Vector3 bestAxis = Vector3.Zero;
@@ -252,7 +253,10 @@ public static class PhysicsSystem
             }
         }
         
-        if(minPenetration < 0.002f)
+        float scale = MathF.Min(a.SphereRadius, b.SphereRadius);
+        float penetrationEpsilon = scale * 0.01f; // 1% of object size
+
+        if(minPenetration < penetrationEpsilon || bestAxis.LengthSquared < 1e-8f)
         {
             resolution = Vector3.Zero;
             return false;
@@ -337,67 +341,23 @@ public static class PhysicsSystem
                 return true;
         }
 
-        /*
-        Logger.Log($"A Shape: {aShape.Count}");
-        Logger.Log($"B Shape: {bShape.Count}");
-        Logger.Log($"Clipped A Shape: {clippedAShape.Count}");
-        Logger.Log($"Clipped B Shape: {clippedBShape.Count}"); 
-        */
-
-        if (clippedAShape.Count == 0 && clippedBShape.Count == 0)
+        if (bShape.Count >= 3)
         {
-            return false;
-            
-            /*
-
-            if(aShape.Count < bShape.Count)
-            {
-                Logger.Log("face midpoint A");
-                contactPoint = GetPolyhedronMidpoint(aShape);
-            }else
-            {
-                Logger.Log("face midpoint B");
-                contactPoint = GetPolyhedronMidpoint(bShape);
-            }
-
-            Crux.Engine.DebugDisplayPositions.Add(contactPoint);
-            return true;
-
-            */
-        }
-
-
-        
-
-        //Crux.Engine.DebugDisplayPositions.Add(contactPoint);
-
-        if(bShape.Count >= 3)
-        {
-            //Logger.LogLine($"face intersection");
-
-            if(clippedBShape.Count == 0)
-                contactPoint = GetPolyhedronMidpoint(SutherlandHodgmanClip(aShape, bShape, bestAxis));
-            else
-                contactPoint = GetPolyhedronMidpoint(SutherlandHodgmanClip(bShape, aShape, bestAxis));
-
-            if(VectorHelper.IsVectorNaN(contactPoint))
+            var clipped = SutherlandHodgmanClip(aShape, bShape, bestAxis);
+            if (clipped == null || clipped.Count == 0)
                 return false;
-            
+
+            contactPoint = GetPolyhedronMidpoint(clipped);
             return true;
         }
         
-        if(aShape.Count >= 3)
+        if (aShape.Count >= 3)
         {
-            //Logger.LogLine($"face intersection");
-
-            if(clippedAShape.Count == 0)
-                contactPoint = GetPolyhedronMidpoint(SutherlandHodgmanClip(bShape, aShape, bestAxis));
-            else
-                contactPoint = GetPolyhedronMidpoint(SutherlandHodgmanClip(aShape, bShape, bestAxis));
-            
-            if(VectorHelper.IsVectorNaN(contactPoint))
+            var clipped = SutherlandHodgmanClip(bShape, aShape, bestAxis);
+            if (clipped == null || clipped.Count == 0)
                 return false;
 
+            contactPoint = GetPolyhedronMidpoint(clipped);
             return true;
         }
 
@@ -437,40 +397,10 @@ public static class PhysicsSystem
         }
     }
 
-    /*
-    private static Vector3 ClampToPlane(Vector3 point, List<Vector3> shape)
-    {
-        Vector3 center = GetPolyhedronMidpoint(shape);
-
-        Vector3 p1 = shape[0];
-        Vector3 p2 = shape[1];
-        Vector3 p3 = shape[2];
-
-        Vector3 edge1 = p2 - p1;
-        Vector3 edge2 = p3 - p1;
-
-        Vector3 planeNormal = Vector3.Cross(edge1, edge2);
-        planeNormal = Vector3.Normalize(planeNormal);
-
-        float distance = Vector3.Dot(point - center, planeNormal);
-        Vector3 projectedPoint = point - distance * planeNormal;
-
-        return projectedPoint;
-    }
-    */
-
     private static bool IsVertexInsideShape(List<Vector3> shape, Vector3 axis, Vector3 point)
     {
         if (shape.Count < 3)
             return false;
-
-        /*
-        if (shape.Count == 1)
-            return Vector3.DistanceSquared(shape[0], point) < 1e-4f;
-
-        if (shape.Count == 2)
-            return IsPointNearSegment(point, shape[0], shape[1]);
-        */
 
         List<Vector2> flattened = new List<Vector2>();
         foreach (Vector3 vertex in shape)
@@ -484,20 +414,6 @@ public static class PhysicsSystem
 
         return IsPointInsideShape(flatPoint, flattened);
     }
-
-    /*
-    private static bool IsPointNearSegment(Vector3 point, Vector3 a, Vector3 b)
-    {
-        Vector3 ab = b - a;
-        Vector3 ap = point - a;
-
-        float t = Vector3.Dot(ap, ab) / Vector3.Dot(ab, ab);
-        t = Math.Clamp(t, 0, 1); // Clamp to segment
-
-        Vector3 closestPoint = a + t * ab;
-        return Vector3.DistanceSquared(closestPoint, point) < 1e-4f; // Tolerance check
-    }
-    */
 
     private static Vector3 ClosestPointOnSegment(Vector3 P, Vector3 A, Vector3 B)
     {
@@ -618,14 +534,6 @@ public static class PhysicsSystem
             }
         }
 
-        /*
-        if(outputList.Count != subjectPolyhedron.Count)
-            return SutherlandHodgmanClip(clipPolyhedron, subjectPolyhedron, axis);
-        */
-        //Logger.LogLine($"Output list count: {outputList.Count}");
-        //for(int i = 0; i < outputList.Count; i++)
-            //Logger.LogLine($"Output #[{i}] = {outputList[i]}");
-
         List<Vector3> clipped3D = new List<Vector3>();
         foreach (Vector2 point2D in outputList)
         {
@@ -696,14 +604,28 @@ public static class PhysicsSystem
 
     private static Vector2 ProjectPointTo2D(Vector3 point, Vector3 axis)
     {
-        Vector3 u = Vector3.Cross(axis, Vector3.UnitX);
-        if (u.LengthSquared < 1e-6f)
+        if (axis.LengthSquared < 1e-8f)
+        return Vector2.Zero;
+
+        axis = Vector3.Normalize(axis);
+
+        // Pick a safe perpendicular vector
+        Vector3 u;
+        if (MathF.Abs(axis.Y) < 0.99f)
             u = Vector3.Cross(axis, Vector3.UnitY);
+        else
+            u = Vector3.Cross(axis, Vector3.UnitX);
+
+        if (u.LengthSquared < 1e-8f)
+            return Vector2.Zero;
+
         u = Vector3.Normalize(u);
-        Vector3 v = Vector3.Normalize(Vector3.Cross(axis, u));
+
+        Vector3 v = Vector3.Cross(axis, u);
 
         float x = Vector3.Dot(point, u);
         float y = Vector3.Dot(point, v);
+
         return new Vector2(x, y);
     }
 
@@ -723,11 +645,13 @@ public static class PhysicsSystem
 
     private static Vector3 GetPolyhedronMidpoint(List<Vector3> polygon)
     {
+        if (polygon == null || polygon.Count == 0)
+            return Vector3.Zero;
+
         Vector3 midpoint = Vector3.Zero;
         foreach (Vector3 point in polygon)
-        {
             midpoint += point;
-        }
+
         return midpoint / polygon.Count;
     }
 
@@ -763,11 +687,21 @@ public static class PhysicsSystem
 
     private static void ResolveCollision(ColliderComponent a, ColliderComponent b, Vector3 resolution, Vector3 contactPoint)
     {     
+        Vector3 perIterationResolution = resolution / SolverIterations;
+
+        if (PhysicsObjects.ContainsKey(a))
+            PhysicsObjects[a].RespondToCollision(contactPoint, perIterationResolution, PhysicsObjects.ContainsKey(b) ? PhysicsObjects[b] : null!);
+
+        if (PhysicsObjects.ContainsKey(b))
+            PhysicsObjects[b].RespondToCollision(contactPoint, -perIterationResolution, PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null!);
+
+         /* COMMENTED OUT
         if (PhysicsObjects.ContainsKey(a))
             PhysicsObjects[a].RespondToCollision(contactPoint, resolution, PhysicsObjects.ContainsKey(b) ? PhysicsObjects[b] : null!);
 
         if (PhysicsObjects.ContainsKey(b))
             PhysicsObjects[b].RespondToCollision(contactPoint, -resolution,  PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null!);
+        */
     }
 
     public static bool Raycast(Ray ray, out RayHit hit)
