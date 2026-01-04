@@ -6,14 +6,15 @@ public class PhysicsComponent : Component
 {     
     public Vector3 Velocity = Vector3.Zero;
     public Vector3 AngularVelocity = Vector3.Zero;
-    public float LinearDrag = 0.5f; //1.4
-    public float AngularDrag = 0.5f; //1.0
+    public float LinearDrag = 0.5f;
+    public float AngularDrag = 0.5f;
     public float Mass = 1f;
-    public float Restitution = 0.2f;
-    public float StaticFriction = 0.6f;
-    public float KineticFriction = 0.4f;
-    public float AngularStaticFriction = 0.1f; 
-    public float AngularKineticFriction = 0.1f;
+    public float InverseMass => 1f/ Mass;
+    //public float Restitution = 0.2f;
+    //public float StaticFriction = 0.6f;
+    //public float KineticFriction = 0.4f;
+    //public float AngularStaticFriction = 0.1f; 
+    //public float AngularKineticFriction = 0.1f;
 
     private float LastInteracted = 0f;
     private readonly float SleepTime = 4f;
@@ -31,7 +32,7 @@ public class PhysicsComponent : Component
         col = GetComponent<ColliderComponent>();
         PhysicsSystem.RegisterPhysicsObject(col, this);
         
-        LastInteracted = Crux.Engine.totalTime;
+        LastInteracted = Crux.Engine.fixedTotalTime;
     }
 
     public override void OnDelete()
@@ -82,10 +83,9 @@ public class PhysicsComponent : Component
             AngularVelocity *= 1f - (AngularDrag * Delta);
         }
         
-        //Sleep Function 
         if (Velocity.LengthSquared < threshold && AngularVelocity.LengthSquared < threshold)
         {
-            if (Crux.Engine.totalTime > LastInteracted + SleepTime)
+            if (Crux.Engine.fixedTotalTime > LastInteracted + SleepTime)
             {
                 Velocity = Vector3.Zero;
                 AngularVelocity = Vector3.Zero;
@@ -94,6 +94,46 @@ public class PhysicsComponent : Component
         }
     }
 
+    public void RespondToCollision(Vector3 contactPoint, Vector3 resolution, PhysicsComponent other)
+    {
+        bool otherHasPhysics = other != null;
+        float totalInverseMass = InverseMass + (otherHasPhysics ? other!.InverseMass : 0f);
+
+        float massPercentA = InverseMass / totalInverseMass;
+        float massPercentB = otherHasPhysics ? (other!.InverseMass / totalInverseMass) : 0f;
+
+        Vector3 normal = Vector3.Normalize(resolution);
+        float penetration = resolution.Length;
+
+        //ignore intersections under this value
+        const float penetrationThreshold = 0.005f;                //Lower values cause jitter
+        //percentage of penetration position to correct per frame (pos offset)
+        float penetrationCorrectionPercent = 0.15f / PhysicsSystem.SolverIterations;        //Higher values can overshoot and cause bouncing, lower are too smooth
+        //percentage of penetration velocity to correct per frame (velocity push)
+        float velocityCorrectionPercent = 0.15f / PhysicsSystem.SolverIterations;           //Higher values can overshoot and cause bouncing, lower reduces bouncing but slower settling
+        //clamp on max penetration velocity to correct per frame
+        const float velocityCorrectionLimit = 1.00f;             //Can overshoot heavily if too high, slower corrections for deep penetrations if low
+
+        if (penetration > penetrationThreshold)
+        {
+            Vector3 positionalCorrection = penetrationCorrectionPercent * normal * (penetration - penetrationThreshold);
+            GameObject.Transform.WorldPosition -= positionalCorrection * massPercentA;
+            if (otherHasPhysics)
+                other!.Transform.WorldPosition += positionalCorrection * massPercentB;
+
+            Vector3 velocityCorrection = velocityCorrectionPercent * (penetration - penetrationThreshold) * normal / Crux.Engine.fixedDeltaTime;
+
+            if (velocityCorrection.Length > velocityCorrectionLimit)
+                velocityCorrection = Vector3.Normalize(velocityCorrection) * velocityCorrectionLimit;
+
+            Velocity -= velocityCorrection * massPercentA;
+            if (otherHasPhysics)
+                other!.Velocity += velocityCorrection * massPercentB;
+        }
+    }
+    
+
+    /*
     public void RespondToCollision(Vector3 contactPoint, Vector3 resolution, PhysicsComponent other)
     {      
         // ===== Position =====
@@ -107,7 +147,7 @@ public class PhysicsComponent : Component
         correctionStrength *= otherIsStatic ? 1f : 0.5f; 
         float biasPercent = 0.1f; // small fraction of penetration
         float velocityBiasPercent = 0.2f; // tweak for strength
-        float maxBiasVelocity = 1f/PhysicsSystem.SolverIterations;
+        float maxBiasVelocity = 1f;
         float slop = 0.005f;       // tiny tolerance
         if (resolution.Length > slop)
         {
@@ -214,6 +254,7 @@ public class PhysicsComponent : Component
         float inverseInertia = 1.0f / (2.0f * Mass); // Replace with actual inertia if available
         AddTorque(angularImpulse * inverseInertia);
     }
+    */
 
     public void AddForce(Vector3 impulse, bool forceAwake = false)
     {
@@ -223,7 +264,7 @@ public class PhysicsComponent : Component
         Velocity += impulse;
         if (impulse.LengthSquared > threshold || forceAwake)
         {
-            LastInteracted = Crux.Engine.totalTime;
+            LastInteracted = Crux.Engine.fixedTotalTime;
             Awake = true;
         }
     }
@@ -239,7 +280,7 @@ public class PhysicsComponent : Component
         AngularVelocity += impulse;
         if (impulse.LengthSquared > threshold || forceAwake)
         {
-            LastInteracted = Crux.Engine.totalTime;
+            LastInteracted = Crux.Engine.fixedTotalTime;
             Awake = true;
         }
     }

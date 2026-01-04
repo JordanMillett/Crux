@@ -32,7 +32,7 @@ public static class PhysicsSystem
     public static int AABBChecks = 0;
     public static int OBBChecks = 0;
 
-    public const int SolverIterations = 5; // tweak from 4–10
+    public static int SolverIterations = 1;
 
     static PhysicsSystem()
     {
@@ -193,10 +193,8 @@ public static class PhysicsSystem
 
         OBBConflicts = OBBConflicts.OrderByDescending(conflict => conflict.contactPoint.Y).ToList();
         for(int i = 0; i < SolverIterations; i++)
-        {
             foreach (var (a, b, resolution, contactPoint) in OBBConflicts)
                 ResolveCollision(a, b, resolution, contactPoint);
-        }
 
         IntegratingAndComputing = false;
     }
@@ -304,6 +302,7 @@ public static class PhysicsSystem
         //EDGE
         if(aShape.Count == 2 && clippedAShape.Count == 2) //middle of edge will work
         {
+            //Logger.LogWarning("aShape.Count == 2 && clippedAShape.Count == 2");  
             //Logger.LogLine("edge midpoint A");
             contactPoint = (clippedAShape[0] + clippedAShape[1]) / 2f;
             return true;
@@ -311,6 +310,7 @@ public static class PhysicsSystem
 
         if(bShape.Count == 2 && clippedBShape.Count == 2) //middle of edge will work
         {
+            //Logger.LogWarning("bShape.Count == 2 && clippedBShape.Count == 2");   
             //Logger.LogLine("edge midpoint B");
             contactPoint = (clippedBShape[0] + clippedBShape[1]) / 2f;
             return true;
@@ -318,6 +318,7 @@ public static class PhysicsSystem
         
         if(aShape.Count == 2 && bShape.Count == 2) //two edges contacting
         {
+            //Logger.LogWarning("aShape.Count == 2 && bShape.Count == 2");
             //Logger.LogLine($"edge intersection");
             contactPoint = ComputeEdgeIntersection(aShape[0], aShape[1], bShape[0], bShape[1]);
             return true;
@@ -325,6 +326,7 @@ public static class PhysicsSystem
 
         if(aShape.Count == 2 && bShape.Count >= 3)
         {
+            //Logger.LogWarning("aShape.Count == 2 && bShape.Count >= 3");
             //Logger.LogLine($"edge on face A");
             Vector3 midpoint = GetPolyhedronMidpoint(bShape);
             contactPoint = ClosestPointOnSegment(midpoint, aShape[0], aShape[1]);
@@ -334,6 +336,7 @@ public static class PhysicsSystem
 
         if(bShape.Count == 2 && aShape.Count >= 3)
         {
+            //Logger.LogWarning("bShape.Count == 2 && aShape.Count >= 3");
             //Logger.LogLine($"edge on face B");
             Vector3 midpoint = GetPolyhedronMidpoint(aShape);
             contactPoint = ClosestPointOnSegment(midpoint, bShape[0], bShape[1]);
@@ -341,8 +344,11 @@ public static class PhysicsSystem
                 return true;
         }
 
+        //THESE ARE USED THE MOST FOR SOME REASON? CHECK THE LOGIC HERE, GETTING SLOWDOWS QUITE EASILY NOW.
+
         if (bShape.Count >= 3)
         {
+            //Logger.LogWarning("bShape.Count >= 3");
             var clipped = SutherlandHodgmanClip(aShape, bShape, bestAxis);
             if (clipped == null || clipped.Count == 0)
                 return false;
@@ -350,9 +356,10 @@ public static class PhysicsSystem
             contactPoint = GetPolyhedronMidpoint(clipped);
             return true;
         }
-        
+
         if (aShape.Count >= 3)
         {
+            //Logger.LogWarning("aShape.Count >= 3");
             var clipped = SutherlandHodgmanClip(bShape, aShape, bestAxis);
             if (clipped == null || clipped.Count == 0)
                 return false;
@@ -687,21 +694,13 @@ public static class PhysicsSystem
 
     private static void ResolveCollision(ColliderComponent a, ColliderComponent b, Vector3 resolution, Vector3 contactPoint)
     {     
-        Vector3 perIterationResolution = resolution / SolverIterations;
+        //Vector3 perIterationResolution = resolution / SolverIterations;
 
-        if (PhysicsObjects.ContainsKey(a))
-            PhysicsObjects[a].RespondToCollision(contactPoint, perIterationResolution, PhysicsObjects.ContainsKey(b) ? PhysicsObjects[b] : null!);
-
-        if (PhysicsObjects.ContainsKey(b))
-            PhysicsObjects[b].RespondToCollision(contactPoint, -perIterationResolution, PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null!);
-
-         /* COMMENTED OUT
         if (PhysicsObjects.ContainsKey(a))
             PhysicsObjects[a].RespondToCollision(contactPoint, resolution, PhysicsObjects.ContainsKey(b) ? PhysicsObjects[b] : null!);
 
         if (PhysicsObjects.ContainsKey(b))
-            PhysicsObjects[b].RespondToCollision(contactPoint, -resolution,  PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null!);
-        */
+            PhysicsObjects[b].RespondToCollision(contactPoint, -resolution, PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null!);
     }
 
     public static bool Raycast(Ray ray, out RayHit hit)

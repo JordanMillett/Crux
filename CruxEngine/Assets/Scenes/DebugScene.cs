@@ -80,17 +80,32 @@ public class DebugScene : Scene
         Input.CreateAction("Spawn Cube", Keys.Q);
         Input.CreateAction("Cast Ray", Keys.E);
 
+        Input.CreateAction("Decrease Solver", Keys.LeftBracket);
+        Input.CreateAction("Increase Solver", Keys.RightBracket);
+
         Crux.Engine.SetupDebugCanvas();
     }
 
     protected override void OnUpdate()
     {
-        if(Input.IsActionHeld("Spawn Cube"))
+        if(Input.IsActionPressed("Decrease Solver"))
+        {
+            PhysicsSystem.SolverIterations = Math.Max(PhysicsSystem.SolverIterations - 1, 1);
+            Logger.Log($"Solver Iterations: {PhysicsSystem.SolverIterations}");
+        }
+        if(Input.IsActionPressed("Increase Solver"))
+        {
+            PhysicsSystem.SolverIterations++;
+            Logger.Log($"Solver Iterations: {PhysicsSystem.SolverIterations}");
+        }
+
+        if(Input.IsActionPressed("Spawn Cube"))
         {
             string debugTexture = "CruxEngine/Assets/Textures/Required/Debug.jpg";
 
             GameObject selected = Presets.MakePhysicsPrimitive(Primitives.Cube, debugTexture);
             selected.Transform.WorldPosition = Crux.Camera!.Transform.WorldPosition + (Crux.Camera.Transform.Forward * 3f);
+            selected.GetComponent<PhysicsComponent>().Mass = 1.0f;
         }
 
         if(Input.IsActionHeld("Cast Ray"))
