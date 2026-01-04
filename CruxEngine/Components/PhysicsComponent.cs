@@ -22,7 +22,7 @@ public class PhysicsComponent : Component
 
     public bool DisableRotation = false;
 
-    private readonly float threshold = 1f * 1f;
+    private readonly float threshold = 0.01f * 0.01f;
     private readonly float requiredAwakeImpulse = 0.01f * 0.01f;
 
     private readonly ColliderComponent col;
@@ -108,9 +108,9 @@ public class PhysicsComponent : Component
         //ignore intersections under this value
         const float penetrationThreshold = 0.005f;                //Lower values cause jitter
         //percentage of penetration position to correct per frame (pos offset)
-        float penetrationCorrectionPercent = 0.15f / PhysicsSystem.SolverIterations;        //Higher values can overshoot and cause bouncing, lower are too smooth
+        const float penetrationCorrectionPercent = 0.15f;        //Higher values can overshoot and cause bouncing, lower are too smooth
         //percentage of penetration velocity to correct per frame (velocity push)
-        float velocityCorrectionPercent = 0.15f / PhysicsSystem.SolverIterations;           //Higher values can overshoot and cause bouncing, lower reduces bouncing but slower settling
+        const float velocityCorrectionPercent = 0.15f;           //Higher values can overshoot and cause bouncing, lower reduces bouncing but slower settling
         //clamp on max penetration velocity to correct per frame
         const float velocityCorrectionLimit = 1.00f;             //Can overshoot heavily if too high, slower corrections for deep penetrations if low
 
@@ -130,6 +130,55 @@ public class PhysicsComponent : Component
             if (otherHasPhysics)
                 other!.Velocity += velocityCorrection * massPercentB;
         }
+
+
+
+
+
+        Vector3 relativeVelocity =
+        Velocity - (otherHasPhysics ? other!.Velocity : Vector3.Zero);
+
+        float velAlongNormal = Vector3.Dot(relativeVelocity, normal);
+
+        // Objects are separating → no impulse
+        if (velAlongNormal > 0f)
+            return;
+
+        const float restitution = 0.0f; // bounciness
+
+        float impulseScalar =
+            -(1f + restitution) * velAlongNormal / totalInverseMass;
+
+        Vector3 impulse = impulseScalar * normal;
+
+        // ---- Angular velocity (THIS IS THE FIX)
+        Vector3 rA = contactPoint - GameObject.Transform.WorldPosition;
+        AngularVelocity -= Vector3.Cross(rA, impulse) * InverseMass;
+
+        if (otherHasPhysics)
+        {
+            Vector3 rB = contactPoint - other!.Transform.WorldPosition;
+            other!.AngularVelocity += Vector3.Cross(rB, impulse) * other.InverseMass;
+        }
+
+        /*
+        if (otherHasPhysics)
+        {
+            Vector3 relativeVelocity = Velocity - other!.Velocity;
+            Vector3 tangentVelocity = relativeVelocity - Vector3.Dot(relativeVelocity, normal) * normal;
+
+            const float frictionCoefficient = 0.5f; // tweak this
+            Vector3 frictionImpulse = tangentVelocity * frictionCoefficient;
+
+            Velocity -= frictionImpulse * massPercentA;
+            other!.Velocity += frictionImpulse * massPercentB;
+        }
+        else
+        {
+            Vector3 tangentVelocity = Velocity - Vector3.Dot(Velocity, normal) * normal;
+            const float frictionCoefficient = 0.5f;
+            Velocity -= tangentVelocity * frictionCoefficient;
+        }*/
     }
     
 

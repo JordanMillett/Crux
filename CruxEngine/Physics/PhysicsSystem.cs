@@ -32,7 +32,7 @@ public static class PhysicsSystem
     public static int AABBChecks = 0;
     public static int OBBChecks = 0;
 
-    public static int SolverIterations = 1;
+    //public static int SolverIterations = 1;
 
     static PhysicsSystem()
     {
@@ -192,9 +192,9 @@ public static class PhysicsSystem
         }
 
         OBBConflicts = OBBConflicts.OrderByDescending(conflict => conflict.contactPoint.Y).ToList();
-        for(int i = 0; i < SolverIterations; i++)
-            foreach (var (a, b, resolution, contactPoint) in OBBConflicts)
-                ResolveCollision(a, b, resolution, contactPoint);
+        //for(int i = 0; i < SolverIterations; i++)
+        foreach (var (a, b, resolution, contactPoint) in OBBConflicts)
+            ResolveCollision(a, b, resolution, contactPoint);
 
         IntegratingAndComputing = false;
     }

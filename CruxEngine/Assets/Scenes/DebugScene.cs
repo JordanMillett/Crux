@@ -88,6 +88,7 @@ public class DebugScene : Scene
 
     protected override void OnUpdate()
     {
+        /*
         if(Input.IsActionPressed("Decrease Solver"))
         {
             PhysicsSystem.SolverIterations = Math.Max(PhysicsSystem.SolverIterations - 1, 1);
@@ -98,6 +99,7 @@ public class DebugScene : Scene
             PhysicsSystem.SolverIterations++;
             Logger.Log($"Solver Iterations: {PhysicsSystem.SolverIterations}");
         }
+        */
 
         if(Input.IsActionPressed("Spawn Cube"))
         {
