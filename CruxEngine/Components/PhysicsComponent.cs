@@ -96,12 +96,16 @@ public class PhysicsComponent : Component
                 other!.Velocity += velocityCorrection * massPercentB;
             */
 
+            //Combined object velocity
             Vector3 relativeVelocity = Velocity - (otherHasPhysics ? other!.Velocity : Vector3.Zero);
-            float velocityNormal = Vector3.Dot(relativeVelocity, normal);
+            //Determines if the velocity between objects is moving towards or away from the collision face
+            float velocityNormalLength = Vector3.Dot(relativeVelocity, normal);
 
-            if (velocityNormal < 0f)
+            //if objects are moving towards eachother, towards the collision surface
+            if (velocityNormalLength < 0f)
             {       
-                Vector3 linearCorrection = normal * velocityNormal;
+                //push away on collision face with the relative velocity needed
+                Vector3 linearCorrection = normal * velocityNormalLength;
 
                 // Apply linear velocity
                 AddLinearImpulse(-linearCorrection * massPercentA);
