@@ -32,7 +32,7 @@ public static class PhysicsSystem
     public static int AABBChecks = 0;
     public static int OBBChecks = 0;
 
-    //public static int SolverIterations = 1;
+    public static int SolverIterations = 1;
 
     static PhysicsSystem()
     {
@@ -140,48 +140,75 @@ public static class PhysicsSystem
         }
 
         List<ColliderComponent> Dynamic = [];
-
-        foreach (ColliderComponent col in ColliderObjects) //Contains all colliders, even the ones on Physics objects
-        {
-            if(!col.GameObject.IsFrozen)
-            {
-                col.ComputeBounds();
-                Dynamic.Add(col);
-            }
-        }
-        
         SphereChecks = 0;
-        List<(ColliderComponent, ColliderComponent)> SphereConflicts = new List<(ColliderComponent, ColliderComponent)>();       
-        foreach (var pair in PhysicsObjects)
-        {
-            if(!pair.Value.Awake)
-                continue;
-
-            List<ColliderComponent> nearby = Tree.FindNearbyNodes(pair.Key.AABBMin, pair.Key.AABBMax).OfType<ColliderComponent>().ToList();
-            nearby.AddRange(Dynamic); //make sure to check against dynamic, non octree colliders
-            nearby.AddRange(PhysicsObjects.Keys); //make sure to check against Physicss always
-
-            foreach (ColliderComponent collider in nearby)
-            {
-                if (pair.Key == collider)
-                    continue;
-
-                if (CheckSphere(pair.Key, collider))
-                    SphereConflicts.Add((pair.Key, collider));
-                
-                SphereChecks++;
-            }
-        }
-
+        List<(ColliderComponent, ColliderComponent)> SphereConflicts = new List<(ColliderComponent, ColliderComponent)>();
         AABBChecks = 0;
         List<(ColliderComponent, ColliderComponent)> AABBConflicts = new List<(ColliderComponent, ColliderComponent)>();
-        foreach (var (a, b) in SphereConflicts)
-        {
-            if (CheckAABB(a, b))
-                AABBConflicts.Add((a, b));
-            AABBChecks++;
-        }
+        OBBChecks = 0;
 
+        for(int i = 0; i < SolverIterations; i++)
+        {   
+            foreach (ColliderComponent col in ColliderObjects) //Contains all colliders, even the ones on Physics objects
+            {
+                if(!col.GameObject.IsFrozen)
+                {
+                    col.ComputeBounds();
+                    Dynamic.Add(col);
+                }
+            }
+            
+            foreach (var pair in PhysicsObjects)
+            {
+                //if(!pair.Value.Awake)
+                    //continue;
+
+                List<ColliderComponent> nearby = Tree.FindNearbyNodes(pair.Key.AABBMin, pair.Key.AABBMax).OfType<ColliderComponent>().ToList();
+                nearby.AddRange(Dynamic); //make sure to check against dynamic, non octree colliders
+                nearby.AddRange(PhysicsObjects.Keys); //make sure to check against Physicss always
+
+                foreach (ColliderComponent collider in nearby)
+                {
+                    if (pair.Key == collider)
+                        continue;
+
+                    if (CheckSphere(pair.Key, collider))
+                        SphereConflicts.Add((pair.Key, collider));
+                    
+                    SphereChecks++;
+                }
+            }
+
+            foreach (var (a, b) in SphereConflicts)
+            {
+                if (CheckAABB(a, b))
+                    AABBConflicts.Add((a, b));
+                AABBChecks++;
+            }
+
+            
+            foreach (var (a, b) in AABBConflicts)
+            {
+                if (CheckOBB(a, b, out Vector3 resolution, out Vector3 contactPoint))
+                    ResolveCollision(a, b, resolution, contactPoint);
+                OBBChecks++;
+            }
+
+            Dynamic.Clear();
+            SphereConflicts.Clear();
+            AABBConflicts.Clear();
+        }
+        /*
+        for(int i = 0; i < SolverIterations; i++)
+        {
+            foreach (var (a, b) in AABBConflicts)
+            {
+                if (CheckOBB(a, b, out Vector3 resolution, out Vector3 contactPoint))
+                    ResolveCollision(a, b, resolution, contactPoint);
+                OBBChecks++;
+            }
+        }*/
+
+        /*
         OBBChecks = 0;
         List<(ColliderComponent, ColliderComponent, Vector3 resolution, Vector3 contactPoint)> OBBConflicts = new();
         foreach (var (a, b) in AABBConflicts)
@@ -190,11 +217,12 @@ public static class PhysicsSystem
                 OBBConflicts.Add((a, b, resolution, contactPoint));
             OBBChecks++;
         }
-
+        
         OBBConflicts = OBBConflicts.OrderByDescending(conflict => conflict.contactPoint.Y).ToList();
-        //for(int i = 0; i < SolverIterations; i++)
-        foreach (var (a, b, resolution, contactPoint) in OBBConflicts)
-            ResolveCollision(a, b, resolution, contactPoint);
+        for(int i = 0; i < SolverIterations; i++)
+            foreach (var (a, b, resolution, contactPoint) in OBBConflicts)
+                ResolveCollision(a, b, resolution, contactPoint);
+        */
 
         IntegratingAndComputing = false;
     }
@@ -694,13 +722,11 @@ public static class PhysicsSystem
 
     private static void ResolveCollision(ColliderComponent a, ColliderComponent b, Vector3 resolution, Vector3 contactPoint)
     {     
-        //Vector3 perIterationResolution = resolution / SolverIterations;
-
         if (PhysicsObjects.ContainsKey(a))
-            PhysicsObjects[a].RespondToCollision(contactPoint, resolution, PhysicsObjects.ContainsKey(b) ? PhysicsObjects[b] : null!);
+            PhysicsObjects[a].RespondToCollision(contactPoint, -resolution, PhysicsObjects.ContainsKey(b) ? PhysicsObjects[b] : null!);
 
         if (PhysicsObjects.ContainsKey(b))
-            PhysicsObjects[b].RespondToCollision(contactPoint, -resolution, PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null!);
+            PhysicsObjects[b].RespondToCollision(contactPoint, resolution, PhysicsObjects.ContainsKey(a) ? PhysicsObjects[a] : null!);
     }
 
     public static bool Raycast(Ray ray, out RayHit hit)

@@ -98,7 +98,7 @@ public class PlayerController : Component
             pos += right * force;
     
         if(physics.Velocity.Length < 3f * mult)
-            physics.AddForce(pos * Crux.Engine.deltaTime, true); 
+            physics.AddLinearImpulse(pos * Crux.Engine.deltaTime, true); 
 
         /*
         if (Input.Action("Jump") && CanJump())
