@@ -15,6 +15,8 @@ public class IslandScene : Scene
 
     protected override void OnStart()
     {
+        Utilities.IO.DataProvider.RootDirectory = "CruxEngine/Assets";
+
         Crux.Camera!.Transform.WorldPosition = new Vector3(0, 5f, 15f);
         Crux.Camera.Transform.LocalEulerAngles = new Vector3(-25f, 180f, 0f);
 

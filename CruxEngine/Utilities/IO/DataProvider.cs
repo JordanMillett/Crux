@@ -108,6 +108,34 @@ public static class DataProvider
         return matches[0];
     }
 
+    public static List<string> GetNearbyFileNames(string embeddedPath)
+    {
+        if(string.IsNullOrEmpty(embeddedPath))
+            return new List<string>();
+
+        if(Path.HasExtension(embeddedPath))
+        {
+            Logger.LogWarning("Do not provide a file extension when retrieving nearby file names.");
+            return new List<string>();
+        }
+        
+        embeddedPath = embeddedPath.Replace("/", "\\");
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        string[] resourceNames = assembly.GetManifestResourceNames();
+
+        List<string> matches = resourceNames
+            .Where(r => r.Contains(embeddedPath, StringComparison.CurrentCultureIgnoreCase))
+            .ToList();
+
+        if (matches.Count == 0)
+        {
+            Logger.LogWarning($"No nearby file names found for search term '{embeddedPath}'");
+            return new List<string>();
+        }
+
+        return matches;
+    }
+
     public static string ReadEmbeddedFileInFull(string embeddedPath)
     {
         using (var stream = GetEmbeddedStream(embeddedPath))

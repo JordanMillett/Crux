@@ -107,12 +107,12 @@ public class PhysicsComponent : Component
                 //push away on collision face with the relative velocity needed
                 Vector3 linearCorrection = normal * velocityNormalLength;
 
-                // Apply linear velocity
+                //apply linear velocity
                 AddLinearImpulse(-linearCorrection * massPercentA);
                 if (otherHasPhysics)
                     other!.AddLinearImpulse(linearCorrection * massPercentB);
 
-                // Compute torque / angular velocity
+                //calculate and apply torque
                 if (!DisableRotation)
                 {
                     Vector3 localContactPoint = contactPoint - GameObject.Transform.WorldPosition;
@@ -120,6 +120,7 @@ public class PhysicsComponent : Component
                     AddAngularImpulse(torque / Mass);
                 }
 
+                //calculate and apply torque to other
                 if (otherHasPhysics && !other!.DisableRotation)
                 {
                     Vector3 otherLocalContactPoint = otherHasPhysics ? contactPoint - other!.Transform.WorldPosition : Vector3.Zero;

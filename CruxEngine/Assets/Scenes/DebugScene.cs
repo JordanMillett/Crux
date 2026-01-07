@@ -12,6 +12,7 @@ public class DebugScene : Scene
 
     protected override void OnStart()
     {
+        Utilities.IO.DataProvider.RootDirectory = "CruxEngine/Assets";
         //Skybox
         Lighting.FogColor = Color4.Black;
 
