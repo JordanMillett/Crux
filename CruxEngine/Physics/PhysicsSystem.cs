@@ -10,6 +10,8 @@ public static class PhysicsSystem
 
     private static bool IntegratingAndComputing = false;
 
+    public static bool TimeNextPhysicsStep = false;
+
     public static Octree Tree;
 
     private static readonly List<ColliderComponent> ColliderObjects = [];
@@ -130,16 +132,24 @@ public static class PhysicsSystem
             return;
         IntegratingAndComputing = true;
         PhysicsFrameCount++;
+        if(TimeNextPhysicsStep)
+        {
+            Logger.StartTimer("Physics Frame Update");
+            TimeNextPhysicsStep = false;
+        }
+        Logger.StartTimer("Merge Dictionaries");
         MergeDictionaries();
-
+        Logger.EndTimer();
         //Crux.Engine.DebugDisplayPositions.Clear();
 
+        Logger.StartTimer("Integrate");
         foreach (PhysicsComponent phy in PhysicsObjects.Values) //maps colliders to physics components
         {
             phy.Integrate();
         }
+        Logger.EndTimer();
 
-        List<ColliderComponent> Dynamic = [];
+        List<ColliderComponent> DynamicColliders = [];
         SphereChecks = 0;
         List<(ColliderComponent, ColliderComponent)> SphereConflicts = new List<(ColliderComponent, ColliderComponent)>();
         AABBChecks = 0;
@@ -147,23 +157,25 @@ public static class PhysicsSystem
         OBBChecks = 0;
 
         for(int i = 0; i < SolverIterations; i++)
-        {   
+        {      
+            Logger.StartTimer("Calculate World Bounds");
+            //Calculate World Bounds for each collider that could have changed
             foreach (ColliderComponent col in ColliderObjects) //Contains all colliders, even the ones on Physics objects
             {
                 if(!col.GameObject.IsFrozen)
                 {
-                    col.ComputeBounds();
-                    Dynamic.Add(col);
+                    col.CalculateWorldBounds();
+                    DynamicColliders.Add(col);
                 }
             }
+            Logger.EndTimer();
             
+            //For every physics object
+            Logger.StartTimer("Find Sphere Conflicts");
             foreach (var pair in PhysicsObjects)
             {
-                //if(!pair.Value.Awake)
-                    //continue;
-
                 List<ColliderComponent> nearby = Tree.FindNearbyNodes(pair.Key.AABBMin, pair.Key.AABBMax).OfType<ColliderComponent>().ToList();
-                nearby.AddRange(Dynamic); //make sure to check against dynamic, non octree colliders
+                //nearby.AddRange(DynamicColliders); //make sure to check against dynamic, non octree colliders
                 nearby.AddRange(PhysicsObjects.Keys); //make sure to check against Physicss always
 
                 foreach (ColliderComponent collider in nearby)
@@ -177,23 +189,27 @@ public static class PhysicsSystem
                     SphereChecks++;
                 }
             }
+            Logger.EndTimer();
 
+            Logger.StartTimer("Find AABB Conflicts");
             foreach (var (a, b) in SphereConflicts)
             {
                 if (CheckAABB(a, b))
                     AABBConflicts.Add((a, b));
                 AABBChecks++;
             }
-
+            Logger.EndTimer();
             
+            Logger.StartTimer("Find OBB Conflicts and Resolve");
             foreach (var (a, b) in AABBConflicts)
             {
                 if (CheckOBB(a, b, out Vector3 resolution, out Vector3 contactPoint))
                     ResolveCollision(a, b, resolution, contactPoint);
                 OBBChecks++;
             }
+            Logger.EndTimer();
 
-            Dynamic.Clear();
+            DynamicColliders.Clear();
             SphereConflicts.Clear();
             AABBConflicts.Clear();
         }
@@ -223,7 +239,8 @@ public static class PhysicsSystem
             foreach (var (a, b, resolution, contactPoint) in OBBConflicts)
                 ResolveCollision(a, b, resolution, contactPoint);
         */
-
+        Logger.EndTimer();
+        
         IntegratingAndComputing = false;
     }
 

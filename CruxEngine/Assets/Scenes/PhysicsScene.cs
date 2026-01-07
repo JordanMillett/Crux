@@ -19,7 +19,7 @@ public class PhysicsScene : Scene
         foreach(string key in Map.Keys)
         {
             Map[key].AddComponent<MeshBoundsColliderComponent>()!.ColliderIndex = 1;
-            Map[key].GetComponent<ColliderComponent>()!.ComputeBounds();
+            Map[key].GetComponent<ColliderComponent>()!.CalculateWorldBounds();
             Map[key].GetComponent<MeshRenderComponent>()!.GameObject.Freeze();
         }
 
@@ -30,6 +30,7 @@ public class PhysicsScene : Scene
 
         Input.CreateAction("Spawn Cubes", Keys.Q);
         Input.CreateAction("Spawn Cube", Keys.E);
+        Input.CreateAction("Time Physics", Keys.R);
 
         Input.CreateAction("Decrease Solver", Keys.LeftBracket);
         Input.CreateAction("Increase Solver", Keys.RightBracket);
@@ -45,11 +46,15 @@ public class PhysicsScene : Scene
             PhysicsSystem.SolverIterations = Math.Max(PhysicsSystem.SolverIterations - 1, 1);
             Logger.Log($"Solver Iterations: {PhysicsSystem.SolverIterations}");
         }
+
         if(Input.IsActionPressed("Increase Solver"))
         {
             PhysicsSystem.SolverIterations++;
             Logger.Log($"Solver Iterations: {PhysicsSystem.SolverIterations}");
         }
+
+        if(Input.IsActionPressed("Time Physics"))
+            PhysicsSystem.TimeNextPhysicsStep = true;
         
 
         if(Input.IsActionPressed("Spawn Cube") || Input.IsActionHeld("Spawn Cubes"))

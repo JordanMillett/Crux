@@ -3,7 +3,7 @@
   "AmbientColor": "6f7290-FF",
   "FogColor": "3c4f59-FF",
   "SunColor": "FFFFFF-FF",
-  "SunIntensity": 1,
+  "SunIntensity": 1.1,
   "AlphaFadeStart": 175,
   "AlphaFadeEnd": 200,
   "FogStart": 50,

@@ -20,7 +20,7 @@ public class MeshBoundsColliderComponent : ColliderComponent
     public MeshBoundsColliderComponent(GameObject gameObject): base(gameObject)
     {
         mesh = GetComponent<MeshComponent>();
-        ComputeBounds();
+        CalculateWorldBounds();
 
         if(Debug.FlagEnabled("ShowMeshBounds"))
         {        
@@ -47,7 +47,7 @@ public class MeshBoundsColliderComponent : ColliderComponent
         return clone;
     }
     
-    public override void ComputeBounds()
+    public override void CalculateWorldBounds()
     {
         if(ColliderIndex > -1 && ColliderIndex < mesh.Data!.Submeshes.Count)
         {

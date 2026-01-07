@@ -21,7 +21,7 @@ public abstract class ColliderComponent : Component
     {
         if(IsFrozen)
         {
-            ComputeBounds();
+            CalculateWorldBounds();
             OctreeKeys = PhysicsSystem.Tree.RegisterComponentGetAABB(this, AABBMin, AABBMax);
         }else
         {
@@ -36,7 +36,7 @@ public abstract class ColliderComponent : Component
             PhysicsSystem.Tree.UnregisterComponent(this, OctreeKeys);
     }
 
-    public abstract void ComputeBounds();
+    public abstract void CalculateWorldBounds();
 
     public abstract List<Vector3> GetWorldPoints();
     public abstract List<Vector3> GetWorldNormals();
