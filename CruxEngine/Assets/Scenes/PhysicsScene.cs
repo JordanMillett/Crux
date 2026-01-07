@@ -8,8 +8,8 @@ namespace CruxEngine.Assets.Scenes;
 
 public class PhysicsScene : Scene
 {
-    protected override string DefaultSkyboxPath => "CruxEngine/Assets/Presets/Skybox/Debug.json";
-    protected override string DefaultSceneLightingPath => "CruxEngine/Assets/Presets/SceneLighting/Debug.json";
+    protected override string DefaultSkyboxPath => "CruxEngine/Assets/Presets/Skybox/Physics.json";
+    protected override string DefaultSceneLightingPath => "CruxEngine/Assets/Presets/SceneLighting/Physics.json";
 
     protected override void OnStart()
     {
@@ -28,7 +28,8 @@ public class PhysicsScene : Scene
         Crux.Camera!.Transform.WorldPosition = new Vector3(0, 1f, -1);
         Crux.Camera.GetComponent<FreeLookComponent>().yaw = MathHelper.DegreesToRadians(180f);
 
-        Input.CreateAction("Spawn Cube", Keys.Q);
+        Input.CreateAction("Spawn Cubes", Keys.Q);
+        Input.CreateAction("Spawn Cube", Keys.E);
 
         Input.CreateAction("Decrease Solver", Keys.LeftBracket);
         Input.CreateAction("Increase Solver", Keys.RightBracket);
@@ -51,7 +52,7 @@ public class PhysicsScene : Scene
         }
         
 
-        if(Input.IsActionPressed("Spawn Cube"))
+        if(Input.IsActionPressed("Spawn Cube") || Input.IsActionHeld("Spawn Cubes"))
         {
             string debugTexture = "CruxEngine/Assets/Textures/Required/Debug.jpg";
 
