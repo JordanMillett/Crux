@@ -137,17 +137,17 @@ public static class PhysicsSystem
             Logger.StartTimer("Physics Frame Update");
             TimeNextPhysicsStep = false;
         }
-        Logger.StartTimer("Merge Dictionaries");
+        //Logger.StartTimer("Merge Dictionaries");
         MergeDictionaries();
-        Logger.EndTimer();
+        //Logger.EndTimer();
         //Crux.Engine.DebugDisplayPositions.Clear();
 
-        Logger.StartTimer("Integrate");
+        //Logger.StartTimer("Integrate");
         foreach (PhysicsComponent phy in PhysicsObjects.Values) //maps colliders to physics components
         {
             phy.Integrate();
         }
-        Logger.EndTimer();
+        //Logger.EndTimer();
 
         List<ColliderComponent> DynamicColliders = [];
         SphereChecks = 0;
@@ -158,20 +158,20 @@ public static class PhysicsSystem
 
         for(int i = 0; i < SolverIterations; i++)
         {      
-            Logger.StartTimer("Calculate World Bounds");
+            //Logger.StartTimer("Calculate World Bounds");
             //Calculate World Bounds for each collider that could have changed
             foreach (ColliderComponent col in ColliderObjects) //Contains all colliders, even the ones on Physics objects
             {
                 if(!col.GameObject.IsFrozen)
                 {
-                    col.CalculateWorldBounds();
+                    col.CalculateWorldData();
                     DynamicColliders.Add(col);
                 }
             }
-            Logger.EndTimer();
+            //Logger.EndTimer();
             
             //For every physics object
-            Logger.StartTimer("Find Sphere Conflicts");
+            //Logger.StartTimer("Find Sphere Conflicts");
             foreach (var pair in PhysicsObjects)
             {
                 List<ColliderComponent> nearby = Tree.FindNearbyNodes(pair.Key.AABBMin, pair.Key.AABBMax).OfType<ColliderComponent>().ToList();
@@ -189,25 +189,25 @@ public static class PhysicsSystem
                     SphereChecks++;
                 }
             }
-            Logger.EndTimer();
+            //Logger.EndTimer();
 
-            Logger.StartTimer("Find AABB Conflicts");
+            //Logger.StartTimer("Find AABB Conflicts");
             foreach (var (a, b) in SphereConflicts)
             {
                 if (CheckAABB(a, b))
                     AABBConflicts.Add((a, b));
                 AABBChecks++;
             }
-            Logger.EndTimer();
+            //Logger.EndTimer();
             
-            Logger.StartTimer("Find OBB Conflicts and Resolve");
+            //Logger.StartTimer("Find OBB Conflicts and Resolve");
             foreach (var (a, b) in AABBConflicts)
             {
                 if (CheckOBB(a, b, out Vector3 resolution, out Vector3 contactPoint))
                     ResolveCollision(a, b, resolution, contactPoint);
                 OBBChecks++;
             }
-            Logger.EndTimer();
+            //Logger.EndTimer();
 
             DynamicColliders.Clear();
             SphereConflicts.Clear();
@@ -264,15 +264,15 @@ public static class PhysicsSystem
         contactPoint = Vector3.Zero;
         Dictionary<Vector3, bool> axes = new Dictionary<Vector3, bool>();
     
-        foreach (Vector3 normal in a.GetWorldNormals())
+        foreach (Vector3 normal in a.WorldNormals)
             axes.TryAdd(normal, true);
 
-        foreach (Vector3 normal in b.GetWorldNormals())
+        foreach (Vector3 normal in b.WorldNormals)
             axes.TryAdd(normal, true);
 
-        foreach (var edgeA in a.GetWorldEdges())
+        foreach (var edgeA in a.WorldEdges)
         {
-            foreach (var edgeB in b.GetWorldEdges())
+            foreach (var edgeB in b.WorldEdges)
             {
                 Vector3 cross = Vector3.Cross(edgeA, edgeB);
                 if (cross.LengthSquared > 1e-6f) // small threshold for numerical stability
@@ -280,6 +280,7 @@ public static class PhysicsSystem
             }
         }
 
+        //30ms below
         float minPenetration = float.MaxValue;
         Vector3 bestAxis = Vector3.Zero;
 
@@ -312,7 +313,7 @@ public static class PhysicsSystem
             resolution = -bestAxis * minPenetration;
         else
             resolution = bestAxis * minPenetration;
-        
+
         //FIND CONTACT POINT
         FindIntersectingPoints(a, b, bestAxis, out List<Vector3> aShape, out List<Vector3> bShape);
 
@@ -413,7 +414,7 @@ public static class PhysicsSystem
             return true;
         }
 
-        Logger.LogWarning("You should never see this.");
+        //Logger.LogWarning("You should never see this.");
 
         return false;
     }
@@ -427,7 +428,7 @@ public static class PhysicsSystem
         float overlapEnd = Math.Min(maxA, maxB);
         
         aIntersect = new List<Vector3>();
-        foreach (Vector3 vertex in a.GetWorldPoints())
+        foreach (Vector3 vertex in a.WorldPoints)
         {
             float projection = Vector3.Dot(vertex, bestAxis);
             if (projection >= overlapStart && projection <= overlapEnd)
@@ -438,7 +439,7 @@ public static class PhysicsSystem
         }
         
         bIntersect = new List<Vector3>();
-        foreach (Vector3 vertex in b.GetWorldPoints())
+        foreach (Vector3 vertex in b.WorldPoints)
         {
             float projection = Vector3.Dot(vertex, bestAxis);
             if (projection >= overlapStart && projection <= overlapEnd)
@@ -727,7 +728,7 @@ public static class PhysicsSystem
         float min = float.MaxValue;
         float max = float.MinValue;
 
-        foreach (Vector3 vertex in col.GetWorldPoints())
+        foreach (Vector3 vertex in col.WorldPoints)
         {
             float projection = Vector3.Dot(vertex, axis);
             min = MathF.Min(min, projection);

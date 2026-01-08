@@ -13,6 +13,23 @@ public class Mesh
 
     public Vector3 OffsetFromCenter = Vector3.Zero;
 
+    public readonly Vector3[] localAxes = new Vector3[]
+    {
+        new Vector3(1, 0, 0),
+        new Vector3(0, 1, 0),
+        new Vector3(0, 0, 1)
+    };
+
+    public readonly Vector3[] localNormals =
+    {
+        new Vector3(1, 0, 0),
+        new Vector3(-1, 0, 0),
+        new Vector3(0, 1, 0),
+        new Vector3(0, -1, 0),
+        new Vector3(0, 0, 1),
+        new Vector3(0, 0, -1)
+    };
+
     public Mesh(uint[] indices, Vertex[] vertices)
     {
         Indices = indices;
@@ -99,6 +116,7 @@ public class Mesh
         return new VertexAttribute[] { positionAttribute, normalAttribute, uvAttribute };
     }
 
+    /*
     public (Vector3 center, Vector3[] axes, Vector3 halfExtents) GetWorldSpaceOBB(Matrix4 modelMatrix)
     {
         MatrixHelper.Decompose(modelMatrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation);
@@ -155,6 +173,46 @@ public class Mesh
         }
 
         return (transformedMin, transformedMax);
+    }*/
+
+    public (Vector3 center, Vector3[] axes, Vector3 halfExtents) GetLocalOBB()
+    {
+        Vector3 localCenter = (MinBounds + MaxBounds) / 2.0f;
+        Vector3 halfExtents = (MaxBounds - MinBounds) / 2.0f;
+
+        return (localCenter, localAxes, halfExtents);
+    }
+
+    public (Vector3 min, Vector3 max) GetLocalAABB()
+    {
+        return (MinBounds, MaxBounds);
+    }
+
+    public (Vector3 min, Vector3 max) GetWorldSpaceAABB(Matrix4 modelMatrix)
+    {
+        Vector3[] localPoints =
+        {
+            new Vector3(MinBounds.X, MinBounds.Y, MinBounds.Z),
+            new Vector3(MinBounds.X, MinBounds.Y, MaxBounds.Z),
+            new Vector3(MinBounds.X, MaxBounds.Y, MinBounds.Z),
+            new Vector3(MinBounds.X, MaxBounds.Y, MaxBounds.Z),
+            new Vector3(MaxBounds.X, MinBounds.Y, MinBounds.Z),
+            new Vector3(MaxBounds.X, MinBounds.Y, MaxBounds.Z),
+            new Vector3(MaxBounds.X, MaxBounds.Y, MinBounds.Z),
+            new Vector3(MaxBounds.X, MaxBounds.Y, MaxBounds.Z),
+        };
+
+        Vector3 worldMin = new Vector3(float.MaxValue);
+        Vector3 worldMax = new Vector3(float.MinValue);
+
+        foreach (Vector3 point in localPoints)
+        {
+            Vector3 worldPoint = Vector3.TransformPosition(point, modelMatrix);
+            worldMin = Vector3.ComponentMin(worldMin, worldPoint);
+            worldMax = Vector3.ComponentMax(worldMax, worldPoint);
+        }
+
+        return (worldMin, worldMax);
     }
 
     public Vector3 GetRandomPositionOnMesh(Random random)

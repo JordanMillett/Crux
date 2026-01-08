@@ -8,19 +8,11 @@ namespace CruxEngine.Components;
 
 public class MeshBoundsColliderComponent : ColliderComponent
 {     
-    readonly MeshComponent mesh;
-
-    //World Space
-    public Vector3 OBBCenter; 
-    public Vector3[] OBBAxes = [];
-    public Vector3 OBBHalfExtents;
-
-    public int ColliderIndex = -1;
+    MeshComponent mesh;
 
     public MeshBoundsColliderComponent(GameObject gameObject): base(gameObject)
     {
         mesh = GetComponent<MeshComponent>();
-        CalculateWorldBounds();
 
         if(Debug.FlagEnabled("ShowMeshBounds"))
         {        
@@ -47,6 +39,32 @@ public class MeshBoundsColliderComponent : ColliderComponent
         return clone;
     }
     
+    public override void CalculateLocalBounds()
+    {
+        if(mesh == null)
+            mesh = GetComponent<MeshComponent>();
+
+        if(ColliderIndex > -1 && ColliderIndex < mesh.Data!.Submeshes.Count)
+        {
+            (LocalAABBMin, LocalAABBMax) = mesh.Data.Submeshes[ColliderIndex].GetLocalAABB();
+            (LocalOBBCenter, LocalOBBAxes, LocalOBBHalfExtents) = mesh.Data.Submeshes[ColliderIndex].GetLocalOBB();
+        }else
+        {
+            (LocalAABBMin, LocalAABBMax) = mesh.Data!.GetLocalAABB();
+            (LocalOBBCenter, LocalOBBAxes, LocalOBBHalfExtents) = mesh.Data.GetLocalOBB();
+        }
+    }
+
+    public override void CalculateWorldBounds()
+    {
+        (AABBMin, AABBMax) = GetWorldSpaceAABB();
+        (OBBCenter, OBBAxes, OBBHalfExtents) = GetWorldSpaceOBB();
+
+        SphereCenter = (AABBMin + AABBMax) * 0.5f;
+        SphereRadius = ((AABBMax - AABBMin) * 0.5f).Length;
+    }
+
+    /*
     public override void CalculateWorldBounds()
     {
         if(ColliderIndex > -1 && ColliderIndex < mesh.Data!.Submeshes.Count)
@@ -61,6 +79,41 @@ public class MeshBoundsColliderComponent : ColliderComponent
 
         SphereCenter = (AABBMin + AABBMax) * 0.5f;
         SphereRadius = ((AABBMax - AABBMin) * 0.5f).Length;
+    }
+    */
+
+    public (Vector3 center, Vector3[] axes, Vector3 halfExtents) GetWorldSpaceOBB()
+    {
+        MatrixHelper.Decompose(GameObject.Transform.ModelMatrix, out Vector3 scale, out Quaternion rotation, out Vector3 translation);
+    
+        Matrix4 rotationMatrix = Matrix4.CreateFromQuaternion(rotation);
+        Vector3[] worldAxes = new Vector3[3];
+        for (int i = 0; i < 3; i++)
+            worldAxes[i] = Vector3.Normalize(Vector3.TransformNormal(LocalOBBAxes[i], rotationMatrix));
+
+        Vector3 worldHalfExtents = new Vector3(
+            LocalOBBHalfExtents.X * scale.X,
+            LocalOBBHalfExtents.Y * scale.Y,
+            LocalOBBHalfExtents.Z * scale.Z
+        );
+
+        Vector3 worldCenter = Vector3.TransformPosition(LocalOBBCenter, GameObject.Transform.ModelMatrix);
+        return (worldCenter, worldAxes, worldHalfExtents);
+    }
+    
+    public (Vector3 min, Vector3 max) GetWorldSpaceAABB()
+    {
+        Vector3 worldMin = new Vector3(float.MaxValue);
+        Vector3 worldMax = new Vector3(float.MinValue);
+
+        foreach (Vector3 point in localPoints)
+        {
+            Vector3 worldPoint = Vector3.TransformPosition(point, GameObject.Transform.ModelMatrix);
+            worldMin = Vector3.ComponentMin(worldMin, worldPoint);
+            worldMax = Vector3.ComponentMax(worldMax, worldPoint);
+        }
+
+        return (worldMin, worldMax);
     }
 
     public Vector3 GetClosestPointOnOBB(Vector3 bestAxis, float overlapStart, float overlapEnd)
@@ -108,32 +161,54 @@ public class MeshBoundsColliderComponent : ColliderComponent
         return (float)Math.Sqrt(distanceX * distanceX + distanceY * distanceY + distanceZ * distanceZ);
     }
 
-    public override List<Vector3> GetWorldPoints()
+    public override void CalculateLocalPoints()
     {
-        List<Vector3> points = new List<Vector3>();
-
-        // Iterate through all 8 combinations of half-extents applied to the OBB axes
+        int i = 0;
         for (int x = -1; x <= 1; x += 2)
         {
             for (int y = -1; y <= 1; y += 2)
             {
                 for (int z = -1; z <= 1; z += 2)
                 {
-                    Vector3 corner = OBBCenter
-                        + (OBBAxes[0] * OBBHalfExtents.X * x)
-                        + (OBBAxes[1] * OBBHalfExtents.Y * y)
-                        + (OBBAxes[2] * OBBHalfExtents.Z * z);
-
-                    corner = GameObject.Transform.WorldRotation * (corner - OBBCenter) + OBBCenter;
-                    corner = GameObject.Transform.WorldRotation * (corner - OBBCenter) + OBBCenter;
-                    points.Add(corner);
+                    localPoints[i++] =
+                        LocalOBBAxes[0] * LocalOBBHalfExtents.X * x +
+                        LocalOBBAxes[1] * LocalOBBHalfExtents.Y * y +
+                        LocalOBBAxes[2] * LocalOBBHalfExtents.Z * z;
                 }
             }
         }
-
-        return points;
     }
 
+    public override void CalculateWorldPoints()
+    {
+        for (int i = 0; i < 8; i++)
+            worldPoints[i] = GameObject.Transform.WorldRotation * localPoints[i] + OBBCenter;
+    }
+
+    public override void CalculateLocalNormals()
+    {
+        if(ColliderIndex > -1 && ColliderIndex < mesh.Data!.Submeshes.Count)
+            localNormals = mesh.Data.Submeshes[ColliderIndex].localNormals;
+        else
+            localNormals = mesh.Data!.localNormals;
+    }
+
+    public override void CalculateWorldNormals()
+    {
+        Matrix3 rotationScaleMatrix = MatrixHelper.ExtractRotationScale(GameObject.Transform.ModelMatrix);
+        Matrix3 normalMatrix = MatrixHelper.Transpose(rotationScaleMatrix.Inverted());
+
+        for(int i = 0; i < localNormals.Length; i++)
+            worldNormals[i] = Vector3.Normalize(normalMatrix * localNormals[i]);
+    }
+
+    public override void CalculateWorldEdges()
+    {
+        for (int i = 0; i < edgePairs.GetLength(0); i++)
+            worldEdges[i] = worldPoints[edgePairs[i, 1]] - worldPoints[edgePairs[i, 0]];
+    }
+
+    /*
     public override List<Vector3> GetWorldNormals()
     {
         List<Vector3> normals = new List<Vector3>();
@@ -162,7 +237,7 @@ public class MeshBoundsColliderComponent : ColliderComponent
     
     public override List<Vector3> GetWorldEdges()
     {
-        List<Vector3> vertices = GetWorldPoints();
+        //List<Vector3> vertices = GetWorldPoints();
         List<Vector3> edges = new List<Vector3>();
 
         int[,] edgePairs = new int[,]
@@ -174,10 +249,11 @@ public class MeshBoundsColliderComponent : ColliderComponent
 
         for (int i = 0; i < edgePairs.GetLength(0); i++)
         {
-            Vector3 edge = vertices[edgePairs[i, 1]] - vertices[edgePairs[i, 0]];
+            Vector3 edge = worldPoints[edgePairs[i, 1]] - worldPoints[edgePairs[i, 0]];
             edges.Add(edge);
         }
 
         return edges;
     }
+    */
 }
