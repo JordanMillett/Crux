@@ -49,9 +49,9 @@ public class PhysicsComponent : Component
 
         if (!DisableRotation && AngularVelocity.Length > 0f)
         {
+            AngularVelocity *= MathF.Exp(-AngularDrag * Crux.Engine.fixedDeltaTime);
             Quaternion deltaRot = Quaternion.FromAxisAngle(Vector3.Normalize(AngularVelocity), AngularVelocity.Length * Crux.Engine.fixedDeltaTime);
             GameObject.Transform.WorldRotation = deltaRot * GameObject.Transform.WorldRotation;
-            AngularVelocity *= MathF.Exp(-AngularDrag * Crux.Engine.fixedDeltaTime);
         }
     }
 
@@ -79,6 +79,7 @@ public class PhysicsComponent : Component
         if (penetration > penetrationThreshold)
         {
             //Penetration-based position correction
+            
             Vector3 positionalCorrection = penetrationCorrectionPercent * normal * (penetration - penetrationThreshold);
             GameObject.Transform.WorldPosition += positionalCorrection * massPercentA;
             if (otherHasPhysics)
@@ -95,38 +96,38 @@ public class PhysicsComponent : Component
             if (otherHasPhysics)
                 other!.Velocity += velocityCorrection * massPercentB;
             */
+        }
 
-            //Combined object velocity
-            Vector3 relativeVelocity = Velocity - (otherHasPhysics ? other!.Velocity : Vector3.Zero);
-            //Determines if the velocity between objects is moving towards or away from the collision face
-            float velocityNormalLength = Vector3.Dot(relativeVelocity, normal);
+        //Combined object velocity
+        Vector3 relativeVelocity = Velocity - (otherHasPhysics ? other!.Velocity : Vector3.Zero);
+        //Determines if the velocity between objects is moving towards or away from the collision face
+        float velocityNormalLength = Vector3.Dot(relativeVelocity, normal);
 
-            //if objects are moving towards eachother, towards the collision surface
-            if (velocityNormalLength < 0f)
-            {       
-                //push away on collision face with the relative velocity needed
-                Vector3 linearCorrection = normal * velocityNormalLength;
+        if (velocityNormalLength < 0f)
+        {
+            //push away on collision face with the relative velocity needed
+            Vector3 linearCorrection = normal * velocityNormalLength;
 
-                //apply linear velocity
-                AddLinearImpulse(-linearCorrection * massPercentA);
-                if (otherHasPhysics)
-                    other!.AddLinearImpulse(linearCorrection * massPercentB);
+            //apply linear velocity
+            AddLinearImpulse(-linearCorrection * massPercentA);
+            if (otherHasPhysics)
+                other!.AddLinearImpulse(linearCorrection * massPercentB);
 
-                //calculate and apply torque
-                if (!DisableRotation)
-                {
-                    Vector3 localContactPoint = contactPoint - GameObject.Transform.WorldPosition;
-                    Vector3 torque = Vector3.Cross(localContactPoint, -linearCorrection * massPercentA);
-                    AddAngularImpulse(torque / Mass);
-                }
+            Vector3 angularCorrection = normal * velocityNormalLength;
+            //calculate and apply torque
+            if (!DisableRotation)
+            {      
+                Vector3 localContactPoint = contactPoint - GameObject.Transform.WorldPosition;
+                Vector3 torque = Vector3.Cross(localContactPoint, -angularCorrection * massPercentA);
+                AddAngularImpulse(torque / Mass);
+            }
 
-                //calculate and apply torque to other
-                if (otherHasPhysics && !other!.DisableRotation)
-                {
-                    Vector3 otherLocalContactPoint = otherHasPhysics ? contactPoint - other!.Transform.WorldPosition : Vector3.Zero;
-                    Vector3 otherTorque = Vector3.Cross(otherLocalContactPoint, linearCorrection * massPercentB);
-                    other!.AddAngularImpulse(otherTorque / other.Mass);
-                }
+            //calculate and apply torque to other
+            if (otherHasPhysics && !other!.DisableRotation)
+            {
+                Vector3 otherLocalContactPoint = otherHasPhysics ? contactPoint - other!.Transform.WorldPosition : Vector3.Zero;
+                Vector3 otherTorque = Vector3.Cross(otherLocalContactPoint, angularCorrection * massPercentB);
+                other!.AddAngularImpulse(otherTorque / other.Mass);
             }
         }
     }
