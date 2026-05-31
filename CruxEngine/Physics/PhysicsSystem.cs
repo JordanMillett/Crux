@@ -213,32 +213,7 @@ public static class PhysicsSystem
             SphereConflicts.Clear();
             AABBConflicts.Clear();
         }
-        /*
-        for(int i = 0; i < SolverIterations; i++)
-        {
-            foreach (var (a, b) in AABBConflicts)
-            {
-                if (CheckOBB(a, b, out Vector3 resolution, out Vector3 contactPoint))
-                    ResolveCollision(a, b, resolution, contactPoint);
-                OBBChecks++;
-            }
-        }*/
 
-        /*
-        OBBChecks = 0;
-        List<(ColliderComponent, ColliderComponent, Vector3 resolution, Vector3 contactPoint)> OBBConflicts = new();
-        foreach (var (a, b) in AABBConflicts)
-        {
-            if (CheckOBB(a, b, out Vector3 resolution, out Vector3 contactPoint))
-                OBBConflicts.Add((a, b, resolution, contactPoint));
-            OBBChecks++;
-        }
-        
-        OBBConflicts = OBBConflicts.OrderByDescending(conflict => conflict.contactPoint.Y).ToList();
-        for(int i = 0; i < SolverIterations; i++)
-            foreach (var (a, b, resolution, contactPoint) in OBBConflicts)
-                ResolveCollision(a, b, resolution, contactPoint);
-        */
         Logger.EndTimer();
         
         IntegratingAndComputing = false;
@@ -286,7 +261,7 @@ public static class PhysicsSystem
 
         foreach (Vector3 axis in axes.Keys)
         {
-            if (!OverlapOnAxis(a, b, axis, out float penetration))
+            if (!VectorHelper.OverlapOnAxis(a, b, axis, out float penetration))
             {
                 return false; // Found a separating axis → No collision
             }
@@ -318,11 +293,11 @@ public static class PhysicsSystem
         FindIntersectingPoints(a, b, bestAxis, out List<Vector3> aShape, out List<Vector3> bShape);
 
         List<Vector3> clippedAShape = aShape
-            .Where(point => IsVertexInsideShape(bShape, bestAxis, point))
+            .Where(point => VectorHelper.IsVertexInsideShape(bShape, bestAxis, point))
             .ToList();
 
         List<Vector3> clippedBShape = bShape
-            .Where(point => IsVertexInsideShape(aShape, bestAxis, point))
+            .Where(point => VectorHelper.IsVertexInsideShape(aShape, bestAxis, point))
             .ToList();
         
         //VERTEX
@@ -367,6 +342,7 @@ public static class PhysicsSystem
             //Logger.LogWarning("aShape.Count == 2 && bShape.Count == 2");
             //Logger.LogLine($"edge intersection");
             contactPoint = ComputeEdgeIntersection(aShape[0], aShape[1], bShape[0], bShape[1]);
+            contactPoint = VectorHelper.ComputeEdgeIntersection(aShape[0], aShape[1], bShape[0], bShape[1]);
             return true;
         }
 
@@ -374,9 +350,9 @@ public static class PhysicsSystem
         {
             //Logger.LogWarning("aShape.Count == 2 && bShape.Count >= 3");
             //Logger.LogLine($"edge on face A");
-            Vector3 midpoint = GetPolyhedronMidpoint(bShape);
-            contactPoint = ClosestPointOnSegment(midpoint, aShape[0], aShape[1]);
-            if(IsVertexInsideShape(bShape, bestAxis, contactPoint))
+            Vector3 midpoint = VectorHelper.GetPolyhedronMidpoint(bShape);
+            contactPoint = VectorHelper.ClosestPointOnSegment(midpoint, aShape[0], aShape[1]);
+            if(VectorHelper.IsVertexInsideShape(bShape, bestAxis, contactPoint))
                 return true;
         }
 
@@ -384,9 +360,9 @@ public static class PhysicsSystem
         {
             //Logger.LogWarning("bShape.Count == 2 && aShape.Count >= 3");
             //Logger.LogLine($"edge on face B");
-            Vector3 midpoint = GetPolyhedronMidpoint(aShape);
-            contactPoint = ClosestPointOnSegment(midpoint, bShape[0], bShape[1]);
-            if(IsVertexInsideShape(aShape, bestAxis, contactPoint))
+            Vector3 midpoint = VectorHelper.GetPolyhedronMidpoint(aShape);
+            contactPoint = VectorHelper.ClosestPointOnSegment(midpoint, bShape[0], bShape[1]);
+            if(VectorHelper.IsVertexInsideShape(aShape, bestAxis, contactPoint))
                 return true;
         }
 
@@ -399,7 +375,7 @@ public static class PhysicsSystem
             if (clipped == null || clipped.Count == 0)
                 return false;
 
-            contactPoint = GetPolyhedronMidpoint(clipped);
+            contactPoint = VectorHelper.GetPolyhedronMidpoint(clipped);
             return true;
         }
 
@@ -410,7 +386,7 @@ public static class PhysicsSystem
             if (clipped == null || clipped.Count == 0)
                 return false;
 
-            contactPoint = GetPolyhedronMidpoint(clipped);
+            contactPoint = VectorHelper.GetPolyhedronMidpoint(clipped);
             return true;
         }
 
@@ -422,8 +398,8 @@ public static class PhysicsSystem
     //Finds all of the points that are intersecting along the best axis (found from separating axis theorem)
     private static void FindIntersectingPoints(ColliderComponent a, ColliderComponent b, Vector3 bestAxis, out List<Vector3> aIntersect, out List<Vector3> bIntersect)
     {
-        (float minA, float maxA) = ProjectOntoAxis(a, bestAxis);
-        (float minB, float maxB) = ProjectOntoAxis(b, bestAxis);
+        (float minA, float maxA) = VectorHelper.ProjectOntoAxis(a, bestAxis);
+        (float minB, float maxB) = VectorHelper.ProjectOntoAxis(b, bestAxis);
         float overlapStart = Math.Max(minA, minB);
         float overlapEnd = Math.Min(maxA, maxB);
         
@@ -450,54 +426,6 @@ public static class PhysicsSystem
         }
     }
 
-    private static bool IsVertexInsideShape(List<Vector3> shape, Vector3 axis, Vector3 point)
-    {
-        if (shape.Count < 3)
-            return false;
-
-        List<Vector2> flattened = new List<Vector2>();
-        foreach (Vector3 vertex in shape)
-        {
-            Vector2 projected = ProjectPointTo2D(vertex, axis);
-            flattened.Add(projected);
-        }
-        PolarSort(ref flattened);
-
-        Vector2 flatPoint = ProjectPointTo2D(point, axis);
-
-        return IsPointInsideShape(flatPoint, flattened);
-    }
-
-    private static Vector3 ClosestPointOnSegment(Vector3 P, Vector3 A, Vector3 B)
-    {
-        Vector3 AB = B - A;
-        float t = Vector3.Dot(P - A, AB) / Vector3.Dot(AB, AB);
-        t = Math.Clamp(t, 0.0f, 1.0f); // Clamp between segment endpoints
-        return A + t * AB;
-    }
-
-    private static Vector3 ComputeEdgeIntersection(Vector3 a1, Vector3 a2, Vector3 b1, Vector3 b2)
-    {
-        Vector3 lineDirA = Vector3.Normalize(a2 - a1);
-        Vector3 lineDirB = Vector3.Normalize(b2 - b1);
-        Vector3 r = a1 - b1;
-        float aDot = Vector3.Dot(lineDirA, lineDirA);
-        float bDot = Vector3.Dot(lineDirA, lineDirB);
-        float cDot = Vector3.Dot(lineDirB, lineDirB);
-        float dDot = Vector3.Dot(lineDirA, r);
-        float eDot = Vector3.Dot(lineDirB, r);
-        float denom = aDot * cDot - bDot * bDot;
-
-        if (Math.Abs(denom) < 1e-6f)
-            return (a1 + b1) / 2.0f;
-
-        float s = (bDot * eDot - cDot * dDot) / denom;
-        float t = (aDot * eDot - bDot * dDot) / denom;
-        Vector3 closestA = a1 + s * lineDirA;
-        Vector3 closestB = b1 + t * lineDirB;
-        return (closestA + closestB) / 2.0f;
-    }
-
     private static List<Vector3> SutherlandHodgmanClip(List<Vector3> subjectPolyhedron, List<Vector3> clipPolyhedron, Vector3 axis)
     {
         Dictionary<Vector2, Vector3> projectionMap = new Dictionary<Vector2, Vector3>();
@@ -506,27 +434,27 @@ public static class PhysicsSystem
         List<Vector2> subjectPolygon = new List<Vector2>();
         foreach (Vector3 point in subjectPolyhedron)
         {
-            Vector2 projected = ProjectPointTo2D(point, axis);
+            Vector2 projected = VectorHelper.ProjectPointTo2D(point, axis);
             subjectPolygon.Add(projected);
             projectionMap[projected] = point;
         }
-        PolarSort(ref subjectPolygon);
+        VectorHelper.PolarSort(ref subjectPolygon);
 
         //Generate 2D clip
         List<Vector2> clipPolygon = new List<Vector2>();
         foreach (Vector3 point in clipPolyhedron)
         {
-            Vector2 projected = ProjectPointTo2D(point, axis);
+            Vector2 projected = VectorHelper.ProjectPointTo2D(point, axis);
             clipPolygon.Add(projected);
         }
-        PolarSort(ref clipPolygon);
+        VectorHelper.PolarSort(ref clipPolygon);
         
         
         //Check subject is fully in clip
         bool allInside = true;
         foreach (Vector2 point in subjectPolygon)
         {
-            if (!IsPointInsideShape(point, clipPolygon))
+            if (!VectorHelper.IsPointInsideShape(point, clipPolygon))
             {
                 allInside = false;
                 break;
@@ -538,7 +466,7 @@ public static class PhysicsSystem
         allInside = true;
         foreach (Vector2 point in clipPolygon)
         {
-            if (!IsPointInsideShape(point, subjectPolygon))
+            if (!VectorHelper.IsPointInsideShape(point, subjectPolygon))
             {
                 allInside = false;
                 break;
@@ -562,15 +490,15 @@ public static class PhysicsSystem
             Vector2 prevVertex = inputList[inputList.Count - 1];
             foreach (Vector2 currVertex in inputList)
             {
-                bool currInside = IsInside(currVertex, clipEdgeStart, clipEdgeEnd);
-                bool prevInside = IsInside(prevVertex, clipEdgeStart, clipEdgeEnd);
+                bool currInside = VectorHelper.IsInside(currVertex, clipEdgeStart, clipEdgeEnd);
+                bool prevInside = VectorHelper.IsInside(prevVertex, clipEdgeStart, clipEdgeEnd);
                 
                 if (currInside)
                 {
                     if (!prevInside)
                     {
-                        Vector2 intersection2D = ComputeLineIntersection(prevVertex, currVertex, clipEdgeStart, clipEdgeEnd);
-                        Vector3 intersection3D = Interpolate3D(projectionMap[prevVertex], projectionMap[currVertex], prevVertex, currVertex, intersection2D);
+                        Vector2 intersection2D = VectorHelper.ComputeLineIntersection(prevVertex, currVertex, clipEdgeStart, clipEdgeEnd);
+                        Vector3 intersection3D = VectorHelper.Interpolate3D(projectionMap[prevVertex], projectionMap[currVertex], prevVertex, currVertex, intersection2D);
                         projectionMap[intersection2D] = intersection3D;
                         outputList.Add(intersection2D);
                     }
@@ -578,8 +506,8 @@ public static class PhysicsSystem
                 }
                 else if (prevInside)
                 {
-                    Vector2 intersection2D = ComputeLineIntersection(prevVertex, currVertex, clipEdgeStart, clipEdgeEnd);
-                    Vector3 intersection3D = Interpolate3D(projectionMap[prevVertex], projectionMap[currVertex], prevVertex, currVertex, intersection2D);
+                    Vector2 intersection2D = VectorHelper.ComputeLineIntersection(prevVertex, currVertex, clipEdgeStart, clipEdgeEnd);
+                    Vector3 intersection3D = VectorHelper.Interpolate3D(projectionMap[prevVertex], projectionMap[currVertex], prevVertex, currVertex, intersection2D);
                     projectionMap[intersection2D] = intersection3D;
                     outputList.Add(intersection2D);
                 }
@@ -599,144 +527,7 @@ public static class PhysicsSystem
         return clipped3D;
     }
 
-    private static bool IsPointInsideShape(Vector2 point, List<Vector2> shape)
-    {
-        if(shape.Count < 3)
-            return false;
-
-        for (int i = 0; i < shape.Count; i++)
-        {
-            int next = (i + 1) % shape.Count;
-            Vector2 a = shape[i];
-            Vector2 b = shape[next];
-
-            float crossProduct = (b.X - a.X) * (point.Y - a.Y) - (b.Y - a.Y) * (point.X - a.X);
-
-            if (crossProduct < -1e-6f) 
-                return false;
-        }
-        return true;
-    }
-
-    private static float GetAngle(Vector2 centroid, Vector2 point)
-    {
-        return (float) Math.Atan2(point.Y - centroid.Y, point.X - centroid.X);
-    }
-
-    private static void PolarSort(ref List<Vector2> points)
-    {
-        // Compute the centroid of the polygon (average of all points)
-        Vector2 centroid = new Vector2(0, 0);
-        foreach (var point in points)
-        {
-            centroid += point;
-        }
-        centroid /= points.Count;
-
-        // Sort the points based on their angle to the centroid
-        points.Sort((p1, p2) => GetAngle(centroid, p1).CompareTo(GetAngle(centroid, p2)));
-    }
-
-    private static bool IsInside(Vector2 p, Vector2 a, Vector2 b)
-    {
-        return (b.X - a.X) * (p.Y - a.Y) - (b.Y - a.Y) * (p.X - a.X) >= 0;
-    }
-
-    private static Vector3 Interpolate3D(Vector3 first3D, Vector3 second3D, Vector2 first2D, Vector2 second2D, Vector2 intersection2D)
-    {
-        // Compute the interpolation factor t based on 2D distances
-        float totalDistance = Vector2.Distance(first2D, second2D);
-        float intersectionDistance = Vector2.Distance(first2D, intersection2D);
-        
-        // Avoid division by zero in case of precision issues
-        float t = (totalDistance > 1e-6f) ? intersectionDistance / totalDistance : 0.5f;
-
-        // Linearly interpolate the 3D position
-        return first3D + t * (second3D - first3D);
-    }
-
-    private static Vector2 ProjectPointTo2D(Vector3 point, Vector3 axis)
-    {
-        if (axis.LengthSquared < 1e-8f)
-        return Vector2.Zero;
-
-        axis = Vector3.Normalize(axis);
-
-        // Pick a safe perpendicular vector
-        Vector3 u;
-        if (MathF.Abs(axis.Y) < 0.99f)
-            u = Vector3.Cross(axis, Vector3.UnitY);
-        else
-            u = Vector3.Cross(axis, Vector3.UnitX);
-
-        if (u.LengthSquared < 1e-8f)
-            return Vector2.Zero;
-
-        u = Vector3.Normalize(u);
-
-        Vector3 v = Vector3.Cross(axis, u);
-
-        float x = Vector3.Dot(point, u);
-        float y = Vector3.Dot(point, v);
-
-        return new Vector2(x, y);
-    }
-
-    private static Vector2 ComputeLineIntersection(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
-    {
-        Vector2 lineDirA = a2 - a1;
-        Vector2 lineDirB = b2 - b1;
-        Vector2 r = a1 - b1;
-        float denom = lineDirA.X * lineDirB.Y - lineDirA.Y * lineDirB.X;
-
-        if (Math.Abs(denom) < 1e-6f)
-            return (a1 + b1) / 2.0f;
-
-        float t = (r.X * lineDirB.Y - r.Y * lineDirB.X) / denom;
-        return a1 + t * lineDirA;
-    }
-
-    private static Vector3 GetPolyhedronMidpoint(List<Vector3> polygon)
-    {
-        if (polygon == null || polygon.Count == 0)
-            return Vector3.Zero;
-
-        Vector3 midpoint = Vector3.Zero;
-        foreach (Vector3 point in polygon)
-            midpoint += point;
-
-        return midpoint / polygon.Count;
-    }
-
-    private static bool OverlapOnAxis(ColliderComponent a, ColliderComponent b, Vector3 axis, out float penetration)
-    {
-        (float minA, float maxA) = ProjectOntoAxis(a, axis);
-        (float minB, float maxB) = ProjectOntoAxis(b, axis);
-
-        if (minA > maxB || minB > maxA)
-        {
-            penetration = 0;
-            return false; // Separating axis found
-        }
-
-        penetration = MathF.Min(maxA, maxB) - MathF.Max(minA, minB);
-        return true;
-    }
-
-    private static (float, float) ProjectOntoAxis(ColliderComponent col, Vector3 axis)
-    {
-        float min = float.MaxValue;
-        float max = float.MinValue;
-
-        foreach (Vector3 vertex in col.WorldPoints)
-        {
-            float projection = Vector3.Dot(vertex, axis);
-            min = MathF.Min(min, projection);
-            max = MathF.Max(max, projection);
-        }
-
-        return (min, max);
-    }
+    
 
     private static void ResolveCollision(ColliderComponent a, ColliderComponent b, Vector3 resolution, Vector3 contactPoint)
     {     
