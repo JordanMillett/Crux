@@ -25,7 +25,7 @@ public class Enemy : Component
                 Transform.Forward * localTorque.Z;
 
             // Apply torque
-            phys.AddAngularImpulse(worldTorque, true);
+            phys.AddTorque(worldTorque, true);
 
             phys.AddLinearImpulse(this.Transform.Forward * 10f);
         };
@@ -141,7 +141,7 @@ public class Enemy : Component
         // Apply torque along rotation axis
         Vector3 desiredTorque = rotationAxis * angle * torqueStrength;
         Vector3 dampingTorque = -phys.AngularVelocity * damping;
-        phys.AddAngularImpulse(desiredTorque + dampingTorque);
+        phys.AddTorque(desiredTorque + dampingTorque);
 
         // Move forward along current facing
         float forceStrength = 0.1f;

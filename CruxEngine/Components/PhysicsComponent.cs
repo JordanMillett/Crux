@@ -65,69 +65,54 @@ public class PhysicsComponent : Component
         float massPercentB = otherHasPhysics ? (other!.InverseMass / totalInverseMass) : 0f;
 
         Vector3 normal = Vector3.Normalize(resolution);
-        float penetration = resolution.Length;
 
-        //ignore intersections under this value
-        const float penetrationThreshold = 0.005f;                //Lower values cause jitter
-        //percentage of penetration position to correct per frame (pos offset)
-         float penetrationCorrectionPercent = 0.15f / PhysicsSystem.SolverIterations;        //Higher values can overshoot and cause bouncing, lower are too smooth
-        //percentage of penetration velocity to correct per frame (velocity push)
-        //const float velocityCorrectionPercent = 0.15f;           //Higher values can overshoot and cause bouncing, lower reduces bouncing but slower settling
-        //clamp on max penetration velocity to correct per frame
-        //const float velocityCorrectionLimit = 1.00f;             //Can overshoot heavily if too high, slower corrections for deep penetrations if low
+        Vector3 rA = contactPoint - GameObject.Transform.WorldPosition;
+        Vector3 contactVelocityA = Velocity + Vector3.Cross(AngularVelocity, rA);
+
+        Vector3 rB = Vector3.Zero;
+        Vector3 contactVelocityB = Vector3.Zero;
+        if (otherHasPhysics)
+        {
+            rB = contactPoint - other!.Transform.WorldPosition;
+            contactVelocityB = other.Velocity + Vector3.Cross(other.AngularVelocity, rB);
+        }
+
+        Vector3 relativeVelocity = contactVelocityA - contactVelocityB;
+        float velocityNormalLength = Vector3.Dot(relativeVelocity, normal);
+        
+        float penetration = resolution.Length;
+        const float penetrationThreshold = 0.005f;
+        float penetrationCorrectionPercent = 0.15f / PhysicsSystem.SolverIterations; 
 
         if (penetration > penetrationThreshold)
         {
-            //Penetration-based position correction
-            
             Vector3 positionalCorrection = penetrationCorrectionPercent * normal * (penetration - penetrationThreshold);
             GameObject.Transform.WorldPosition += positionalCorrection * massPercentA;
             if (otherHasPhysics)
                 other!.Transform.WorldPosition -= positionalCorrection * massPercentB;
-
-            //Penetration-based velocity correction
-            /*
-            Vector3 velocityCorrection = velocityCorrectionPercent * (penetration - penetrationThreshold) * normal / Crux.Engine.fixedDeltaTime;
-
-            if (velocityCorrection.Length > velocityCorrectionLimit)
-                velocityCorrection = Vector3.Normalize(velocityCorrection) * velocityCorrectionLimit;
-
-            Velocity -= velocityCorrection * massPercentA;
-            if (otherHasPhysics)
-                other!.Velocity += velocityCorrection * massPercentB;
-            */
         }
-
-        //Combined object velocity
-        Vector3 relativeVelocity = Velocity - (otherHasPhysics ? other!.Velocity : Vector3.Zero);
-        //Determines if the velocity between objects is moving towards or away from the collision face
-        float velocityNormalLength = Vector3.Dot(relativeVelocity, normal);
 
         if (velocityNormalLength < 0f)
         {
-            //push away on collision face with the relative velocity needed
             Vector3 linearCorrection = normal * velocityNormalLength;
 
-            //apply linear velocity
-            AddLinearImpulse(-linearCorrection * massPercentA);
-            if (otherHasPhysics)
-                other!.AddLinearImpulse(linearCorrection * massPercentB);
+            Vector3 impulseA = -linearCorrection * massPercentA;
+            Vector3 impulseB = linearCorrection * massPercentB;
 
-            Vector3 angularCorrection = normal * velocityNormalLength;
-            //calculate and apply torque
+            AddLinearImpulse(impulseA);
+            if (otherHasPhysics)
+                other!.AddLinearImpulse(impulseB);
+
             if (!DisableRotation)
             {      
-                Vector3 localContactPoint = contactPoint - GameObject.Transform.WorldPosition;
-                Vector3 torque = Vector3.Cross(localContactPoint, -angularCorrection * massPercentA);
-                AddAngularImpulse(torque / Mass);
+                Vector3 torqueA = Vector3.Cross(rA, impulseA);
+                AddTorque(torqueA);
             }
 
-            //calculate and apply torque to other
             if (otherHasPhysics && !other!.DisableRotation)
             {
-                Vector3 otherLocalContactPoint = otherHasPhysics ? contactPoint - other!.Transform.WorldPosition : Vector3.Zero;
-                Vector3 otherTorque = Vector3.Cross(otherLocalContactPoint, angularCorrection * massPercentB);
-                other!.AddAngularImpulse(otherTorque / other.Mass);
+                Vector3 torqueB = Vector3.Cross(rB, impulseB);
+                other!.AddTorque(torqueB);
             }
         }
     }
@@ -137,8 +122,19 @@ public class PhysicsComponent : Component
         Velocity += impulse;
     }
 
-    public void AddAngularImpulse(Vector3 impulse, bool wake = false)
+    public void AddTorque(Vector3 torque, bool wake = false)
     {
-        AngularVelocity += impulse;
+        Vector3 size = col.OBBHalfExtents * 2f;
+        float inertia =
+        (
+            Mass *
+            (size.X * size.X +
+            size.Y * size.Y +
+            size.Z * size.Z)
+        ) / 12f;
+
+        Vector3 angularAcceleration = torque / inertia;
+
+        AngularVelocity += angularAcceleration;
     }
 }

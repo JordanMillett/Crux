@@ -308,13 +308,16 @@ public static class PhysicsSystem
 
         if(clippedAShape.Count == 1) //single contact point is on surface
         {
-            //Logger.LogLine("point A");
+            //Logger.LogWarning("point A");  
+            //Logger.LogLine("");
             contactPoint = clippedAShape[0];
+            //Logger.LogWarning(clippedAShape[0] - a.Transform.WorldPosition);  
             return true;
         }
 
         if(clippedBShape.Count == 1) //single contact point is on surface
         {
+            //Logger.LogWarning("point B");  
             //Logger.LogLine("point B");
             contactPoint = clippedBShape[0];
             return true;
@@ -341,7 +344,6 @@ public static class PhysicsSystem
         {
             //Logger.LogWarning("aShape.Count == 2 && bShape.Count == 2");
             //Logger.LogLine($"edge intersection");
-            contactPoint = ComputeEdgeIntersection(aShape[0], aShape[1], bShape[0], bShape[1]);
             contactPoint = VectorHelper.ComputeEdgeIntersection(aShape[0], aShape[1], bShape[0], bShape[1]);
             return true;
         }
@@ -526,8 +528,6 @@ public static class PhysicsSystem
         
         return clipped3D;
     }
-
-    
 
     private static void ResolveCollision(ColliderComponent a, ColliderComponent b, Vector3 resolution, Vector3 contactPoint)
     {     
