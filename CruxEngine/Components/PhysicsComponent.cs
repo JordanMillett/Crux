@@ -79,7 +79,7 @@ public class PhysicsComponent : Component
 
         Vector3 relativeVelocity = contactVelocityA - contactVelocityB;
         float velocityNormalLength = Vector3.Dot(relativeVelocity, normal);
-        
+
         float penetration = resolution.Length;
         const float penetrationThreshold = 0.005f;
         float penetrationCorrectionPercent = 0.15f / PhysicsSystem.SolverIterations; 
@@ -105,13 +105,13 @@ public class PhysicsComponent : Component
 
             if (!DisableRotation)
             {      
-                Vector3 torqueA = Vector3.Cross(rA, impulseA);
+                Vector3 torqueA = Vector3.Cross(rA, impulseA * 0.25f);
                 AddTorque(torqueA);
             }
 
             if (otherHasPhysics && !other!.DisableRotation)
             {
-                Vector3 torqueB = Vector3.Cross(rB, impulseB);
+                Vector3 torqueB = Vector3.Cross(rB, impulseB * 0.25f);
                 other!.AddTorque(torqueB);
             }
         }

@@ -6,6 +6,7 @@
     "LogCreated": false,
     "LogOctreeRemovals": false,
     "LogFreedMemory": false,
+    "LogCollisions": false,
     "EnableProfiler": false,
     "OutputCUINodes": false
 }

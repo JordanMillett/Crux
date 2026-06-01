@@ -252,5 +252,81 @@ public static class VectorHelper
         Vector3 closestB = b1 + t * lineDirB;
         return (closestA + closestB) / 2.0f;
     }
+    
+    public static Vector3 ComputeEdgeContactPoint(
+        Vector3 a1,
+        Vector3 a2,
+        Vector3 b1,
+        Vector3 b2)
+    {
+        Vector3 dA = a2 - a1;
+        Vector3 dB = b2 - b1;
+        Vector3 r = a1 - b1;
+
+        float a = Vector3.Dot(dA, dA);
+        float e = Vector3.Dot(dB, dB);
+        float f = Vector3.Dot(dB, r);
+
+        float s;
+        float t;
+
+        const float EPSILON = 1e-6f;
+
+        if (a <= EPSILON && e <= EPSILON)
+        {
+            return (a1 + b1) * 0.5f;
+        }
+
+        if (a <= EPSILON)
+        {
+            s = 0f;
+            t = Math.Clamp(f / e, 0f, 1f);
+        }
+        else
+        {
+            float c = Vector3.Dot(dA, r);
+
+            if (e <= EPSILON)
+            {
+                t = 0f;
+                s = Math.Clamp(-c / a, 0f, 1f);
+            }
+            else
+            {
+                float b = Vector3.Dot(dA, dB);
+                float denom = a * e - b * b;
+
+                if (MathF.Abs(denom) > EPSILON)
+                {
+                    s = Math.Clamp(
+                        (b * f - c * e) / denom,
+                        0f,
+                        1f);
+                }
+                else
+                {
+                    s = 0f;
+                }
+
+                t = (b * s + f) / e;
+
+                if (t < 0f)
+                {
+                    t = 0f;
+                    s = Math.Clamp(-c / a, 0f, 1f);
+                }
+                else if (t > 1f)
+                {
+                    t = 1f;
+                    s = Math.Clamp((b - c) / a, 0f, 1f);
+                }
+            }
+        }
+
+        Vector3 closestA = a1 + dA * s;
+        Vector3 closestB = b1 + dB * t;
+
+        return (closestA + closestB) * 0.5f;
+    }
 }
 

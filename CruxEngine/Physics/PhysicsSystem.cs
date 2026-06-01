@@ -308,87 +308,133 @@ public static class PhysicsSystem
 
         if(clippedAShape.Count == 1) //single contact point is on surface
         {
-            //Logger.LogWarning("point A");  
-            //Logger.LogLine("");
-            contactPoint = clippedAShape[0];
-            //Logger.LogWarning(clippedAShape[0] - a.Transform.WorldPosition);  
+            contactPoint = clippedAShape[0]; 
+            if(Debug.FlagEnabled("LogCollisions"))
+            {
+                Logger.Log("clippedAShape.Count == 1");  
+                Logger.Log(clippedAShape[0] - a.Transform.WorldPosition); 
+                Logger.Log("");
+            }
             return true;
         }
 
         if(clippedBShape.Count == 1) //single contact point is on surface
         {
-            //Logger.LogWarning("point B");  
-            //Logger.LogLine("point B");
             contactPoint = clippedBShape[0];
+            if(Debug.FlagEnabled("LogCollisions"))
+            {
+                Logger.Log("clippedBShape.Count == 1");  
+                Logger.Log(clippedBShape[0] - b.Transform.WorldPosition); 
+                Logger.Log("");
+            }
             return true;
         }
 
         //EDGE
         if(aShape.Count == 2 && clippedAShape.Count == 2) //middle of edge will work
         {
-            //Logger.LogWarning("aShape.Count == 2 && clippedAShape.Count == 2");  
-            //Logger.LogLine("edge midpoint A");
             contactPoint = (clippedAShape[0] + clippedAShape[1]) / 2f;
+            if(Debug.FlagEnabled("LogCollisions"))
+            {
+                Logger.Log("aShape.Count == 2 && clippedAShape.Count == 2");  
+                Logger.Log($"{contactPoint - a.Transform.WorldPosition}");
+                Logger.Log("");
+            }
             return true;
         }
 
         if(bShape.Count == 2 && clippedBShape.Count == 2) //middle of edge will work
         {
-            //Logger.LogWarning("bShape.Count == 2 && clippedBShape.Count == 2");   
-            //Logger.LogLine("edge midpoint B");
             contactPoint = (clippedBShape[0] + clippedBShape[1]) / 2f;
+            if(Debug.FlagEnabled("LogCollisions"))
+            {
+                Logger.Log("bShape.Count == 2 && clippedBShape.Count == 2");  
+                Logger.Log($"{contactPoint - b.Transform.WorldPosition}");
+                Logger.Log("");
+            }
             return true;
         }
         
         if(aShape.Count == 2 && bShape.Count == 2) //two edges contacting
         {
-            //Logger.LogWarning("aShape.Count == 2 && bShape.Count == 2");
-            //Logger.LogLine($"edge intersection");
-            contactPoint = VectorHelper.ComputeEdgeIntersection(aShape[0], aShape[1], bShape[0], bShape[1]);
+            contactPoint = VectorHelper.ComputeEdgeContactPoint(aShape[0], aShape[1], bShape[0], bShape[1]);
+            if(Debug.FlagEnabled("LogCollisions"))
+            {
+                Logger.Log("aShape.Count == 2 && bShape.Count == 2");  
+                Logger.Log($"{contactPoint - a.Transform.WorldPosition}");
+                Logger.Log($"{contactPoint - b.Transform.WorldPosition}");
+                Logger.Log("");
+            }
             return true;
         }
 
         if(aShape.Count == 2 && bShape.Count >= 3)
         {
-            //Logger.LogWarning("aShape.Count == 2 && bShape.Count >= 3");
-            //Logger.LogLine($"edge on face A");
             Vector3 midpoint = VectorHelper.GetPolyhedronMidpoint(bShape);
             contactPoint = VectorHelper.ClosestPointOnSegment(midpoint, aShape[0], aShape[1]);
             if(VectorHelper.IsVertexInsideShape(bShape, bestAxis, contactPoint))
+            {
+                if(Debug.FlagEnabled("LogCollisions"))
+                {
+                    Logger.Log("aShape.Count == 2 && bShape.Count >= 3");  
+                    Logger.Log($"{contactPoint - a.Transform.WorldPosition}");
+                    Logger.Log($"{contactPoint - b.Transform.WorldPosition}");
+                    Logger.Log("");
+                }
                 return true;
+            }
         }
 
         if(bShape.Count == 2 && aShape.Count >= 3)
         {
-            //Logger.LogWarning("bShape.Count == 2 && aShape.Count >= 3");
-            //Logger.LogLine($"edge on face B");
             Vector3 midpoint = VectorHelper.GetPolyhedronMidpoint(aShape);
             contactPoint = VectorHelper.ClosestPointOnSegment(midpoint, bShape[0], bShape[1]);
             if(VectorHelper.IsVertexInsideShape(aShape, bestAxis, contactPoint))
+            {
+                if(Debug.FlagEnabled("LogCollisions"))
+                {
+                    Logger.Log("bShape.Count == 2 && aShape.Count >= 3");  
+                    Logger.Log($"{contactPoint - a.Transform.WorldPosition}");
+                    Logger.Log($"{contactPoint - b.Transform.WorldPosition}");
+                    Logger.Log("");
+                }
                 return true;
+            }
         }
 
         //THESE ARE USED THE MOST FOR SOME REASON? CHECK THE LOGIC HERE, GETTING SLOWDOWS QUITE EASILY NOW.
 
         if (bShape.Count >= 3)
         {
-            //Logger.LogWarning("bShape.Count >= 3");
             var clipped = SutherlandHodgmanClip(aShape, bShape, bestAxis);
             if (clipped == null || clipped.Count == 0)
                 return false;
 
             contactPoint = VectorHelper.GetPolyhedronMidpoint(clipped);
+
+            if(Debug.FlagEnabled("LogCollisions"))
+            {    
+                Logger.Log("bShape.Count >= 3");  
+                Logger.Log($"{contactPoint - b.Transform.WorldPosition}");
+                Logger.Log("");
+            }
             return true;
         }
 
         if (aShape.Count >= 3)
         {
-            //Logger.LogWarning("aShape.Count >= 3");
             var clipped = SutherlandHodgmanClip(bShape, aShape, bestAxis);
             if (clipped == null || clipped.Count == 0)
                 return false;
 
             contactPoint = VectorHelper.GetPolyhedronMidpoint(clipped);
+
+            if(Debug.FlagEnabled("LogCollisions"))
+            {
+                Logger.Log("aShape.Count >= 3");  
+                Logger.Log($"{contactPoint - a.Transform.WorldPosition}");
+                Logger.Log("");
+            }
             return true;
         }
 
