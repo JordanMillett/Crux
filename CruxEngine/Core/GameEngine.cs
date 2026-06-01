@@ -235,6 +235,17 @@ public class GameEngine : GameWindow
         if (physicsFrameCalls >= 60)
         {
             PhysicsSystem.FramesPerSecond = PhysicsSystem.PhysicsFrameCount / 1f;
+            //Logger.LogWarning($"FPS: {PhysicsSystem.FramesPerSecond}");
+            /*
+            if(PhysicsSystem.FramesPerSecond < 55)
+            {
+                PhysicsSystem.SolverIterations = Math.Clamp(PhysicsSystem.SolverIterations - 1, 2, 3);
+            }else
+            {
+                PhysicsSystem.SolverIterations = Math.Clamp(PhysicsSystem.SolverIterations + 1, 2, 3);
+            }
+            */
+
             PhysicsSystem.PhysicsFrameCount = 0;
             physicsFrameCalls = 0;
         }

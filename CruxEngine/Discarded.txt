@@ -1,3 +1,26 @@
+/*
+Vector3 linearCorrection = normal * velocityNormalLength;
+
+Vector3 impulseA = -linearCorrection * massPercentA;
+Vector3 impulseB = linearCorrection * massPercentB;
+
+AddLinearImpulse(impulseA);
+if (otherHasPhysics)
+    other!.AddLinearImpulse(impulseB);
+
+if (!DisableRotation)
+{      
+    Vector3 torqueA = Vector3.Cross(rA, impulseA * 0.25f);
+    AddTorque(torqueA);
+}
+
+if (otherHasPhysics && !other!.DisableRotation)
+{
+    Vector3 torqueB = Vector3.Cross(rB, impulseB * 0.25f);
+    other!.AddTorque(torqueB);
+}
+*/
+
 //contactPoint is in world space
 public void RespondToCollision(Vector3 contactPoint, Vector3 resolution, PhysicsComponent other)
 {   

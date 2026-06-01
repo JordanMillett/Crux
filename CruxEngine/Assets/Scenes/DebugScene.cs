@@ -93,12 +93,10 @@ public class DebugScene : Scene
         if(Input.IsActionPressed("Decrease Solver"))
         {
             PhysicsSystem.SolverIterations = Math.Max(PhysicsSystem.SolverIterations - 1, 1);
-            Logger.Log($"Solver Iterations: {PhysicsSystem.SolverIterations}");
         }
         if(Input.IsActionPressed("Increase Solver"))
         {
             PhysicsSystem.SolverIterations++;
-            Logger.Log($"Solver Iterations: {PhysicsSystem.SolverIterations}");
         }
         
 

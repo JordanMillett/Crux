@@ -34,7 +34,21 @@ public static class PhysicsSystem
     public static int AABBChecks = 0;
     public static int OBBChecks = 0;
 
-    public static int SolverIterations = 1;
+    //Logger.Log($"Solver Iterations: {PhysicsSystem.SolverIterations}");
+
+    private static int solverIterations = 2; //2
+    public static int SolverIterations
+    { 
+        get => solverIterations;
+        set 
+        { 
+            if (solverIterations != value)
+            {
+                Logger.Log($"Solver Iterations Changed: {solverIterations} -> {value}");
+                solverIterations = value;
+            }
+        }
+    }
 
     static PhysicsSystem()
     {
@@ -145,7 +159,8 @@ public static class PhysicsSystem
         //Logger.StartTimer("Integrate");
         foreach (PhysicsComponent phy in PhysicsObjects.Values) //maps colliders to physics components
         {
-            phy.Integrate();
+            if(!phy.IsSleeping)
+                phy.Integrate();
         }
         //Logger.EndTimer();
 
@@ -174,6 +189,9 @@ public static class PhysicsSystem
             //Logger.StartTimer("Find Sphere Conflicts");
             foreach (var pair in PhysicsObjects)
             {
+                if(pair.Value.IsSleeping)
+                    continue;
+
                 List<ColliderComponent> nearby = Tree.FindNearbyNodes(pair.Key.AABBMin, pair.Key.AABBMax).OfType<ColliderComponent>().ToList();
                 //nearby.AddRange(DynamicColliders); //make sure to check against dynamic, non octree colliders
                 nearby.AddRange(PhysicsObjects.Keys); //make sure to check against Physicss always
