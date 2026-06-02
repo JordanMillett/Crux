@@ -23,9 +23,9 @@ public class Spectral : GameClient
     {
         //Crux.Engine.SetScene(new DebugScene()); 
         //Crux.Engine.SetScene(new IslandScene()); 
-        Crux.Engine.SetScene(new PhysicsScene());
+        //Crux.Engine.SetScene(new PhysicsScene());
 
-        //Crux.Engine.SetScene(new LandingScene()); 
+        Crux.Engine.SetScene(new LandingScene()); 
     }
             
     protected override void OnUpdate()

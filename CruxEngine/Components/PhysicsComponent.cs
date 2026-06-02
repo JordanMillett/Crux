@@ -248,9 +248,8 @@ public class PhysicsComponent : Component
 
     public void AddLinearImpulse(Vector3 impulse, bool wake = false)
     {
-        /*
+        Wake();
         Velocity += impulse;
-        */
     }
 
     public void AddTorque(Vector3 torque, bool wake = false)

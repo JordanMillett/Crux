@@ -171,6 +171,7 @@ public class MeshBoundsColliderComponent : ColliderComponent
                 for (int z = -1; z <= 1; z += 2)
                 {
                     localPoints[i++] =
+                        LocalOBBCenter +
                         LocalOBBAxes[0] * LocalOBBHalfExtents.X * x +
                         LocalOBBAxes[1] * LocalOBBHalfExtents.Y * y +
                         LocalOBBAxes[2] * LocalOBBHalfExtents.Z * z;
