@@ -232,6 +232,12 @@ public static class PhysicsSystem
             AABBConflicts.Clear();
         }
 
+        foreach (PhysicsComponent phy in PhysicsObjects.Values)
+        {
+            //if(!phy.IsSleeping)
+            phy.SleepCheck();
+        }
+
         Logger.EndTimer();
         
         IntegratingAndComputing = false;

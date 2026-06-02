@@ -29,9 +29,9 @@ public class PhysicsComponent : Component
     }
 
     private float SleepTimer = 0f;
-    public float SleepVelocityThreshold = 0.5f;
-    public float SleepAngularThreshold = 0.5f;
-    public float SleepTime = 0.5f;
+    public float SleepVelocityThreshold = 0.4f; //0,5f
+    public float SleepAngularThreshold = 0.4f; //0.5f
+    public float SleepTime = 1.0f; //0.5f
 
     private readonly ColliderComponent col;
     
@@ -39,6 +39,7 @@ public class PhysicsComponent : Component
     {
         col = GetComponent<ColliderComponent>();
         PhysicsSystem.RegisterPhysicsObject(col, this);
+        //this.Transform.Changed += Wake;
     }
 
     public override void OnDelete()
@@ -73,7 +74,10 @@ public class PhysicsComponent : Component
             Quaternion deltaRot = Quaternion.FromAxisAngle(Vector3.Normalize(AngularVelocity), AngularVelocity.Length * Crux.Engine.fixedDeltaTime);
             GameObject.Transform.WorldRotation = deltaRot * GameObject.Transform.WorldRotation;
         }
+    }
 
+    public void SleepCheck()
+    {
         //Sleeping
 
         float linearSpeedSq = Velocity.LengthSquared;
@@ -99,6 +103,8 @@ public class PhysicsComponent : Component
         else
         {
             SleepTimer = 0f;
+            if(isSleeping)
+                Wake();
         }
     }
 
