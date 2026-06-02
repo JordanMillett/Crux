@@ -5,6 +5,7 @@
     "AddCollidersWhenLoadingGltfAsMeshRenderers": false,
     "LogCreated": false,
     "LogOctreeRemovals": false,
+    "LogOctreeAdditions": false,
     "LogFreedMemory": false,
     "LogCollisions": false,
     "EnableProfiler": false,

@@ -20,7 +20,6 @@ public abstract class ColliderComponent : Component
     public Vector3[] OBBAxes = [];
     public Vector3 OBBHalfExtents;
 
-
     protected Vector3 LocalAABBMin;
     protected Vector3 LocalAABBMax;
 
@@ -90,7 +89,7 @@ public abstract class ColliderComponent : Component
     {
         if(IsFrozen)
         {
-            CalculateWorldBounds();
+            CalculateWorldData();
             OctreeKeys = PhysicsSystem.Tree.RegisterComponentGetAABB(this, AABBMin, AABBMax);
         }else
         {

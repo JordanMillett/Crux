@@ -182,7 +182,8 @@ public class MeshBoundsColliderComponent : ColliderComponent
     public override void CalculateWorldPoints()
     {
         for (int i = 0; i < 8; i++)
-            worldPoints[i] = GameObject.Transform.WorldRotation * localPoints[i] + OBBCenter;
+            worldPoints[i] = Vector3.TransformPosition(localPoints[i], GameObject.Transform.ModelMatrix);
+            //worldPoints[i] = GameObject.Transform.WorldRotation * localPoints[i] + OBBCenter;
     }
 
     public override void CalculateLocalNormals()

@@ -19,7 +19,6 @@ public class PhysicsScene : Scene
         foreach(string key in Map.Keys)
         {
             Map[key].AddComponent<MeshBoundsColliderComponent>();
-            Map[key].GetComponent<ColliderComponent>()!.CalculateWorldBounds();
             Map[key].GetComponent<MeshRenderComponent>()!.GameObject.Freeze();
         }
 
@@ -30,6 +29,11 @@ public class PhysicsScene : Scene
         Input.CreateAction("Spawn Cubes", Keys.Q);
         Input.CreateAction("Spawn Cube", Keys.E);
         Input.CreateAction("Time Physics", Keys.R);
+
+        Input.CreateAction("Spawn Cube 2x", Keys.D2);
+        Input.CreateAction("Spawn Cube 3x", Keys.D3);
+        Input.CreateAction("Spawn Cube 4x", Keys.D4);
+        Input.CreateAction("Spawn Cube 5x", Keys.D5);
 
         Input.CreateAction("Decrease Solver", Keys.LeftBracket);
         Input.CreateAction("Increase Solver", Keys.RightBracket);
@@ -61,6 +65,15 @@ public class PhysicsScene : Scene
             CreateCube(Crux.Camera!.Transform.WorldPosition + (Crux.Camera.Transform.Forward * 3f));
         }
 
+        if(Input.IsActionPressed("Spawn Cube 2x"))
+            CreateCube(Crux.Camera!.Transform.WorldPosition + (Crux.Camera.Transform.Forward * 3f * 2f), 2f);
+        if(Input.IsActionPressed("Spawn Cube 3x"))
+            CreateCube(Crux.Camera!.Transform.WorldPosition + (Crux.Camera.Transform.Forward * 3f * 3f), 3f);
+        if(Input.IsActionPressed("Spawn Cube 4x"))
+            CreateCube(Crux.Camera!.Transform.WorldPosition + (Crux.Camera.Transform.Forward * 3f * 4f), 4f);
+        if(Input.IsActionPressed("Spawn Cube 5x"))
+            CreateCube(Crux.Camera!.Transform.WorldPosition + (Crux.Camera.Transform.Forward * 3f * 5f), 5f);
+
         if(Input.IsActionPressed("Spawn Stress Test"))
         {
             Vector3 Offset = new Vector3(-2f, 1f, 8f);
@@ -78,11 +91,12 @@ public class PhysicsScene : Scene
         }
     }
 
-    void CreateCube(Vector3 Position)
+    void CreateCube(Vector3 Position, float size = 1f)
     {
         string debugTexture = "CruxEngine/Assets/Textures/Required/Debug.jpg";
         GameObject selected = Presets.MakePhysicsPrimitive(Primitives.Cube, debugTexture);
         selected.Transform.WorldPosition = Position;
-        //selected.GetComponent<PhysicsComponent>().Mass = 1.0f;
+        selected.Transform.Scale = new Vector3(size, size, size);
+        selected.GetComponent<PhysicsComponent>()!.Mass = size * size;
     }
 }

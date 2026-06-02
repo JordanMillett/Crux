@@ -193,7 +193,7 @@ public static class PhysicsSystem
                     continue;
 
                 List<ColliderComponent> nearby = Tree.FindNearbyNodes(pair.Key.AABBMin, pair.Key.AABBMax).OfType<ColliderComponent>().ToList();
-                //nearby.AddRange(DynamicColliders); //make sure to check against dynamic, non octree colliders
+                nearby.AddRange(DynamicColliders); //make sure to check against dynamic, non octree colliders
                 nearby.AddRange(PhysicsObjects.Keys); //make sure to check against Physicss always
 
                 foreach (ColliderComponent collider in nearby)
@@ -277,8 +277,11 @@ public static class PhysicsSystem
         float minPenetration = float.MaxValue;
         Vector3 bestAxis = Vector3.Zero;
 
+        //int i = 1;
         foreach (Vector3 axis in axes.Keys)
         {
+            //Logger.LogWarning($"Axis #{i}/{axes.Keys.Count}: {axis}");
+            //i++;
             if (!VectorHelper.OverlapOnAxis(a, b, axis, out float penetration))
             {
                 return false; // Found a separating axis → No collision
@@ -289,7 +292,7 @@ public static class PhysicsSystem
                 bestAxis = axis;
             }
         }
-        
+
         float scale = MathF.Min(a.SphereRadius, b.SphereRadius);
         float penetrationEpsilon = scale * 0.01f; // 1% of object size
 
