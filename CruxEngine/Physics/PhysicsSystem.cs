@@ -193,7 +193,7 @@ public static class PhysicsSystem
                     continue;
 
                 List<ColliderComponent> nearby = Tree.FindNearbyNodes(pair.Key.AABBMin, pair.Key.AABBMax).OfType<ColliderComponent>().ToList();
-                nearby.AddRange(DynamicColliders); //make sure to check against dynamic, non octree colliders
+                //nearby.AddRange(DynamicColliders); //make sure to check against dynamic, non octree colliders (NOTE, THIS CAUSES DOUBLE COLLISIONS AND JITTERS)
                 nearby.AddRange(PhysicsObjects.Keys); //make sure to check against Physicss always
 
                 foreach (ColliderComponent collider in nearby)

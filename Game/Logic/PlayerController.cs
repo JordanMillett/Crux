@@ -24,6 +24,8 @@ public class PlayerController : Component
         Input.CreateAction("Move Right", Keys.D);
 
         Input.CreateAction("Sprint", Keys.LeftShift);
+
+        Input.CreateAction("Jump", Keys.Space);
     }
     
     public override string ToString()
@@ -75,7 +77,7 @@ public class PlayerController : Component
     
     void Move()
     {
-        float force = 10f;
+        float force = 25f;
         float mult = 1f;
         if (Input.IsActionHeld("Sprint"))
         {
@@ -97,28 +99,40 @@ public class PlayerController : Component
         if (Input.IsActionHeld("Move Right"))
             pos += right * force;
     
-        if(physics.Velocity.Length < 3f * mult)
+        if(physics.Velocity.Length < 2.5f * mult)
             physics.AddLinearImpulse(pos * Crux.Engine.deltaTime, true); 
-
-        /*
-        if (Input.Action("Jump") && CanJump())
+        
+        if (Input.IsActionPressed("Jump") && CanJump())
         {
             lastJumped = Crux.Engine.totalTime;
-            physics.AddForce(Vector3.UnitY * Crux.Engine.deltaTime * 200f, true); 
+            physics.AddLinearImpulse(Vector3.UnitY * Crux.Engine.deltaTime * 200f, true); 
         }
-        */
+
+        if (isGrounded())
+        {
+            if(!Input.IsActionHeld("Move Forward") && !Input.IsActionHeld("Move Back") && !Input.IsActionHeld("Move Left") && !Input.IsActionHeld("Move Right"))
+            {
+                physics.LinearDrag = 5f;
+            }
+        }else
+        {
+            physics.LinearDrag = 0.5f;
+        }
     }
 
-    /*
-    readonly float lastJumped = 0f;
+    float lastJumped = 0f;
 
     bool CanJump()
     {
         if(Crux.Engine.totalTime < lastJumped + 0.25f)
             return false;
 
+        return isGrounded();
+    }
+
+    bool isGrounded()
+    {
         Ray ray = new Ray(this.Transform.WorldPosition, -this.Transform.Up, 0.95f);
         return PhysicsSystem.Raycast(ray, out _);
     }
-    */
 }
