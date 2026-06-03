@@ -1,6 +1,14 @@
 using CruxEngine.Physics;
+using CruxEngine.Utilities.Helpers;
+using CruxEngine.Utilities.IO;
 
 namespace CruxEngine.Components;
+
+public class PhysicsMaterialJsonPreset : JsonPreset
+{
+    public float Friction { get; init; } = 0.35f;
+    public float Bounciness { get; init; } = 0.00f;
+}
 
 public class PhysicsComponent : Component
 {     
@@ -11,6 +19,9 @@ public class PhysicsComponent : Component
     public float Mass = 1f;
     public float InverseMass => 1f/ Mass;
 
+    public float Friction = 0.35f;
+    public float Bouncines = 0.00f;
+    
     public bool DisableRotation = false;
 
     public event Action<bool>? OnSleepStateChanged;
@@ -148,7 +159,7 @@ public class PhysicsComponent : Component
 
             if (effectiveMass > 0f)
             {
-                float restitution = 0.0f; // start with zero bounce
+                float restitution = Bouncines; // start with zero bounce
                 float j = -(1f + restitution) * velocityNormalLength / effectiveMass;
 
                 float WakeImpulseThreshold = 0.2f;
@@ -188,7 +199,7 @@ public class PhysicsComponent : Component
                         -Vector3.Dot(relativeVelocity, tangent) /
                         effectiveMass;
 
-                    float frictionCoefficient = 0.35f; //0.25
+                    float frictionCoefficient = Friction; //0.25
 
                     float maxFrictionImpulse =
                         frictionCoefficient * j;

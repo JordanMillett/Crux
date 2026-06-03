@@ -28,6 +28,7 @@ public class PhysicsScene : Scene
 
         Input.CreateAction("Spawn Cubes", Keys.Q);
         Input.CreateAction("Spawn Cube", Keys.E);
+        Input.CreateAction("Spawn Sphere", Keys.Z);
         Input.CreateAction("Time Physics", Keys.R);
 
         Input.CreateAction("Spawn Cube 2x", Keys.D2);
@@ -88,6 +89,14 @@ public class PhysicsScene : Scene
                     }
                 }
             }
+        }
+
+        if(Input.IsActionPressed("Spawn Sphere"))
+        {
+            string debugTexture = "CruxEngine/Assets/Textures/Required/Debug.jpg";
+            GameObject selected = Presets.MakePhysicsPrimitive(Primitives.Sphere, debugTexture);
+            selected.Transform.WorldPosition = Crux.Camera!.Transform.WorldPosition + (Crux.Camera.Transform.Forward * 3f);
+            //JsonPresetLoader.ApplyPhysicsMaterial("CruxEngine/Assets/Presets/PhysicsMaterial/Bouncy.json", selected.GetComponent<PhysicsComponent>()!);
         }
     }
 

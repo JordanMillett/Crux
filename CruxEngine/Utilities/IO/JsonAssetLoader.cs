@@ -5,6 +5,7 @@ using StbImageSharp;
 using OpenTK.Windowing.Common.Input;
 using CruxEngine.Graphics.Shaders;
 using System.Text.Json.Serialization;
+using CruxEngine.Components;
 
 namespace CruxEngine.Utilities.IO;
 
@@ -23,6 +24,7 @@ public static class JsonPresetLoader
 {
     public const string TemplateSkyboxJsonPresetPath = "CruxEngine/Assets/Templates/Skybox.json";
     public const string TemplateSceneLightingJsonPresetPath = "CruxEngine/Assets/Templates/SceneLighting.json";
+    public const string TemplatePhysicsMaterialJsonPresetPath = "CruxEngine/Assets/Templates/PhysicsMaterial.json";
 
     static JsonPresetLoader()
     {
@@ -32,6 +34,7 @@ public static class JsonPresetLoader
             {
                 File.WriteAllText(TemplateSkyboxJsonPresetPath, JsonSerializer.Serialize(new SkyboxJsonPreset(), DataProvider.JsonOptions));
                 File.WriteAllText(TemplateSceneLightingJsonPresetPath, JsonSerializer.Serialize(new SceneLightingJsonPreset(), DataProvider.JsonOptions));
+                File.WriteAllText(TemplatePhysicsMaterialJsonPresetPath, JsonSerializer.Serialize(new PhysicsMaterialJsonPreset(), DataProvider.JsonOptions));
             }catch
             {
                 Logger.LogWarning("Failed to write template files.");
@@ -85,4 +88,20 @@ public static class JsonPresetLoader
 
         return created;
     }
+
+    public static void ApplyPhysicsMaterial(string embeddedPath, PhysicsComponent phy)
+    {
+        PhysicsMaterialJsonPreset loaded = null!;
+        if(DataProvider.EmbeddedFileExists(embeddedPath))
+        {
+            string data = DataProvider.ReadEmbeddedFileInFull(embeddedPath);
+            loaded = JsonSerializer.Deserialize<PhysicsMaterialJsonPreset>(data, DataProvider.JsonOptions)!;
+        }
+
+        if(loaded != null)
+        {
+            phy.Friction = loaded.Friction;
+            phy.Bouncines = loaded.Bounciness;   
+        }
+    }    
 }

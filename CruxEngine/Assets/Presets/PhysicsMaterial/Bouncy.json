@@ -1,0 +1,5 @@
+{
+  "JsonPresetType": "PhysicsMaterialJsonPreset",
+  "Friction": 0.35,
+  "Bounciness": 1
+}
