@@ -105,7 +105,7 @@ public class PlayerController : Component
         if (Input.IsActionPressed("Jump") && CanJump())
         {
             lastJumped = Crux.Engine.totalTime;
-            physics.AddLinearImpulse(Vector3.UnitY * Crux.Engine.deltaTime * 200f, true); 
+            physics.AddLinearImpulse(Vector3.UnitY * Crux.Engine.deltaTime * 2000f, true); 
         }
 
         if (isGrounded())

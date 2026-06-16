@@ -30,7 +30,7 @@ class GameLauncher
             
             engine.EngineReadyEvent += () =>
             {
-                Spectral client = new Spectral();
+                Showtime client = new Showtime();
                 client.Start();
             };
             

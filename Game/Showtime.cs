@@ -6,15 +6,13 @@ namespace Game;
 
 public static class Game
 {
-    public static Spectral Current { get; internal set; } = null!;
+    public static Showtime Current { get; internal set; } = null!;
     public static Scene ActiveScene => Current.ActiveScene!;
 }
 
-public class Spectral : GameClient
+public class Showtime : GameClient
 {  
-    public int Score = 0;
-
-    public Spectral()
+    public Showtime()
     {
         Game.Current = this;
     }
@@ -23,9 +21,8 @@ public class Spectral : GameClient
     {
         //Crux.Engine.SetScene(new DebugScene()); 
         //Crux.Engine.SetScene(new IslandScene()); 
-        Crux.Engine.SetScene(new PhysicsScene());
-
-        //Crux.Engine.SetScene(new SpawnScene()); 
+        //Crux.Engine.SetScene(new PhysicsScene());
+        Crux.Engine.SetScene(new ShowtimeScene()); 
     }
             
     protected override void OnUpdate()
